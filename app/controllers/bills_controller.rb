@@ -79,7 +79,7 @@ class BillsController < ApplicationController
       end
       @bill.save!
       flash[:notice] ="Bill successfully saved."
-      redirect_to({ :action => 'index', :id => @bill })
+      redirect_to({ :action => 'index'})
     end
   end
 

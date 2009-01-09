@@ -13,10 +13,10 @@ ActiveRecord::Schema.define(:version => 11) do
 
   create_table "bills", :force => true do |t|
     t.string   "name"
-    t.integer  "project_id", :limit => 11
+    t.integer  "project_id"
     t.date     "start"
     t.date     "end"
-    t.integer  "user_id",    :limit => 11
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -24,11 +24,11 @@ ActiveRecord::Schema.define(:version => 11) do
   create_table "entries", :force => true do |t|
     t.float   "duration"
     t.date    "date"
-    t.integer "project_id",  :limit => 11
-    t.integer "user_id",     :limit => 11
+    t.integer "project_id"
+    t.integer "user_id"
     t.string  "description"
-    t.integer "task_id",     :limit => 11
-    t.integer "bill_id",     :limit => 11
+    t.integer "task_id"
+    t.integer "bill_id"
   end
 
   create_table "projects", :force => true do |t|
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 11) do
   create_table "tasks", :force => true do |t|
     t.string  "name"
     t.float   "estimation"
-    t.integer "project_id", :limit => 11
-    t.integer "position",   :limit => 11
+    t.integer "project_id"
+    t.integer "position"
   end
 
   create_table "users", :force => true do |t|
