@@ -63,7 +63,7 @@ class BillsController < ApplicationController
   # PUT /bills/1.xml
   def update
     # rebuild & update the form
-    @bill = Bill.find(params[:bill][:id])
+    @bill = Bill.find(params[:id] || params[:bill][:id])
     @bill.update_attributes(params[:bill])
     # if it's an xhr we only update the partial holding the candidate entries
     if request.xhr?
