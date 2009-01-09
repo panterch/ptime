@@ -1,0 +1,28 @@
+  <html>
+    <head>
+    <title><%= controller.action_name %></title>
+    <%= stylesheet_link_tag 'time' %>
+    <%= stylesheet_link_tag 'calendar' %>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'jscalendar-1.0/calendar.js' %>
+    <%= javascript_include_tag 'jscalendar-1.0/lang/calendar-en.js' %>
+    <%= javascript_include_tag 'jscalendar-1.0/calendar-setup.js' %>
+</head>
+<body>
+  <div class='page'>
+    <%= render :partial => 'entries/menu' if session[:user_id] %>
+
+    <div class='container'>
+      <% if flash[:notice] %>
+      <div class='notice'>
+        <%= flash[:notice] %>
+      </div>
+      <% end %>
+      <%= yield  %>
+      <p>&nbsp;</p>
+    </div>
+  </div>
+  <div class='fortune'><%= `fortune -s` %></div>
+
+</body>
+</html>

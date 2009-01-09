@@ -1,0 +1,38 @@
+<% if entries && entries.length > 0 %>
+
+<div class='table' style='width: 100%'>
+  <div class='row'>
+    <div class='headercell'>Date</div>
+    <div class='headercell'>User</div>
+    <div class='headercell'>Task</div>
+    <div class='headercell'>Description</div>
+    <div class='headercell'>Duration</div>
+    <div class='headercell'>Include?</div>
+  </div>
+<% entries.each do |e| %>
+  <div class='row'>
+    <div class='textcell'>
+      <%= e.date.strftime("%d. %B %Y") %>
+    </div>
+    <div class="textcell">
+      <%= h(e.user.name) %>
+    </div>
+    <div class="textcell">
+      <%= h(e.task.name) if e.task %>
+    </div>
+    <div class='textcell'>
+      <%= h(e.description) %>
+    </div>
+    <div class="textcell">
+      <%= h(e.duration) %>
+    </div>
+    <div class="inputcell">
+      <%= check_box_tag('selected[]', e.id, e.bill_id) %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<% else %>
+  <div>No entries yet.</div>
+<% end %>

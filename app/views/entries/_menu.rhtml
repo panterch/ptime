@@ -1,0 +1,18 @@
+<ul class='menu'>
+  <li class='<%= activeWhenController('entries')%>'>
+  <%= link_to('Entries', { :controller => 'entries' } ) %>
+  </li><li class='<%= activeWhenController('projects')%>'>
+  <%= link_to('Projects', { :controller => 'projects' } ) %>
+  </li><li class='<%= activeWhenController('login')%>'>
+  <%= link_to('Users', { :controller => 'login', } ) %>
+  </li><li class='<%= activeWhenController('controlling')%>'>
+  <%= link_to('Controlling', { :controller => 'controlling' } ) %>
+  </li><li class='<%= activeWhenController('report')%>'>
+  <%= link_to('Reports', { :controller => 'report' } ) %>
+  </li><li class='<%= activeWhenController('billing')%>'>
+  <%= link_to('Billing', { :controller => 'bills' } ) %>
+  </li><li>
+  <%= link_to('Logout', { :controller => 'login', :action => 'logout' },
+      { :class => 'logout' } ) %>
+  </li>
+</ul>

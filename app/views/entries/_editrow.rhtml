@@ -1,0 +1,28 @@
+<% form_for :entry, @entry, :url => { :action => "persist" },
+:html => { :class => "row" } do |f| %>
+  <div class="inputcell">
+    <%= hidden_field 'entry', 'id' %>
+    <%= hidden_field 'entry', 'date' %>
+    <%= select 'entry', 'project_id',
+      @projects.collect { |p| [ p.description, p.id ] },
+      {:prompt => 'Select Project...'}, { :style => 'width: 150px' } %>
+  </div>
+  <div class="inputcell" id='taskCell'>
+    <%= render :partial => 'tasks' %>
+  </div>
+  <div class="inputcell">
+    <%= text_field 'entry', 'description'  %>
+  </div>
+  <div class="inputcell" style='text-align: right'>
+    <%= text_field 'entry', 'duration',
+    { :style => 'width: 50px' } %>
+  </div>
+  <div class="controlcell">
+    <%= submit_tag "Save" , :class => 'persist' %>
+  </div>
+<% end %>
+
+<%= observe_field :entry_project_id, 
+  :url => { :action => :update_tasks },
+  :update => :taskCell, :with => "'project_id=' + value"
+  %>

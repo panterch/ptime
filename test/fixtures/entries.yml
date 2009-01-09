@@ -1,0 +1,38 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  description: A complete entry
+  date: 2007-05-28
+  duration: 1.5
+  task_id: 1
+  project_id: 1
+  user_id: 1
+another:
+  id: 2
+  description: Another entry
+  date: 2008-01-01
+  duration: 2.1
+  user_id: 1
+third:
+  id: 3
+  description: A complete entry, the second
+  date: 2007-05-28
+  duration: 2.5
+  task_id: 1
+  project_id: 1
+  user_id: 1
+otherUser:
+  id: 4
+  description: An entry by another user
+  date: 2007-05-28
+  duration: 2.5
+  task_id: 1
+  project_id: 1
+  user_id: 2
+notOnTask:
+  id: 5
+  description: Entry that was not booked on a task
+  date: 2008-01-01
+  duration: 3.5
+  project_id: 1
+  user_id: 2

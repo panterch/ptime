@@ -1,0 +1,83 @@
+<%= error_messages_for 'entry' %>
+
+<div id="calendar-container"></div>
+<script type="text/javascript">
+  function dateChanged(calendar) {
+    // Beware that this function is called even if the end-user only
+    // changed the month/year.  In order to determine if a date was
+    // clicked you can use the dateClicked property of the calendar:
+    if (calendar.dateClicked) {
+      // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
+      var y = calendar.date.getFullYear();
+      var m = calendar.date.getMonth();     // integer, 0..11
+      var d = calendar.date.getDate();      // integer, 1..31
+      // redirect...
+      window.location = "<%= url_for(:controller=>'entries', :action=>'index')%>?y=" + y + "&m=" + m + "&d=" + d;
+    }
+  };
+
+var myDate=new Date();
+myDate.setFullYear(<%= @date.year %>);
+myDate.setMonth(<%= @date.month - 1 %>);
+myDate.setDate(<%= @date.day %>);
+
+Calendar.setup(
+    {
+flat         : "calendar-container", // ID of the parent element
+flatCallback : dateChanged,          // our callback function
+date         : myDate
+}
+);
+</script>
+
+
+
+<h2>Entries for <%= @date.strftime("%A %d. %B %Y") %> </h2> 
+
+<div class="table">
+  <div class="row">
+    <div class="headercell">Project
+      &nbsp;
+      <%= link_to('[...]',
+      { :controller => 'projects'},
+      { :confirm => 'All unsaved changes will be lost. Proceed?'} ) %>
+    </div>
+    <div class="headercell">Task</div>
+    <div class="headercell">Description</div>
+    <div class="headercell" style='text-align: right;'>Duration</div>
+    <div class="headercell">Control</div>
+  </div>
+
+  <% if !@entry.id %>
+  <%= render :partial => 'editrow' %>
+  <% end %>
+
+  <% for e in @entries %>
+    <% if @entry.id == e.id %>
+      <%= render :partial => 'editrow' %>
+    <% else %>
+      <%= render(:partial => 'displayrow', :locals => { :e => e } ) %>
+    <% end %>
+  <% end %>
+  
+  <div class="row">
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div class="textcell" style='text-align: right;'><%= @total %></div>
+    <div>&nbsp;</div>
+  </div>
+
+</div>
+
+
+
+
+<div style='margin-top: 20px'>
+  <% form_tag :action => 'index' do %>
+  <%= select_date @date  %>
+  <%= submit_tag "Switch" %>
+  <% end %>
+</div>
+
+

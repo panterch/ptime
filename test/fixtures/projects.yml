@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+myProject:
+  id: 1
+  description: Test
+  inactive: false
+oldProject:
+  id: 2
+  description: An old, inactive project
+  inactive: true

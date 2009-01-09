@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <title>Layout demo</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/time.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/calendar.css"/>
+    <script type="text/javascript" src="javascripts/jscalendar-1.0/calendar.js"></script>
+    <script type="text/javascript" src="javascripts/jscalendar-1.0/lang/calendar-en.js"></script>
+    <script type="text/javascript" src="javascripts/jscalendar-1.0/calendar-setup.js"></script>
+  </head>
+</html>
+<body>
+  <div class='page'>
+    <ul class='menu'>
+      <li><a href='#'>Menu #1</a></li>
+      <li><a href='#'>Menu #2</a></li>
+      <li><a href='#'>Menu #3</a></li>
+      <li class='active'><a href='#'>Menu #4</a></li>
+      <li><a href='#'>Menu #4</a></li>
+    </ul>
+  <div class='container'>
+    <div class='notice'>
+      A message.
+    </div>
+    <p>&nbsp;</p>
+    <div class='notice'>
+      A somewhat longer message. Rails is a web-application and persistence framework that includes everything needed to create database-backed web-applications.
+    </div>
+    <h1>h1 Title</h1>
+    <p>A paragraph. Rails is a web-application and persistence framework that
+    includes everything needed to create database-backed web-applications
+    according to the Model-View-Control pattern of separation. This pattern
+    splits the view (also called the presentation) into "dumb" templates that
+    are primarily responsible for inserting pre-built data in between HTML
+    tags.</p>
+    <p>Here comes a link: <a href="">The link to...</a></p>
+    <h2>A Form</h2>
+    <p>Below a form with fieldsets:</p>
+    <form action="">
+      <fieldset>
+        <legend>Legend for fieldset</legend>
+          <p>
+          <label for='field1'>Field 1:</label>
+          <input name='field1' type='text' />
+          <label for='field2'>Field 2:</label>
+          <input name='field2' type='text' />
+          <label for='field3'>Field 3:</label>
+          <input name='field3' type='text' />
+          </p>
+      </fieldset>
+    </form>
+    <h2>Buttons</h2>
+    <p>Some buttons:
+    <form method="post" action="/images/delete/1" class="button-to">
+      <div>
+        <input type="hidden" name="_method" value="delete" />
+        <input onclick="return confirm('Are you sure?');"
+        value="Delete" type="submit" />
+      </div>
+    </form>
+    Some text after the button.
+    </p>
+    <h2>A Table</h2>
+    <table>
+      <tr>
+        <th>Desc</th>
+        <th>Duration</th>
+        <th>Date</th>
+      </tr>
+
+      <tr>
+        <td>bla</td>
+        <td>0.0</td>
+        <td>2008-05-07</td>
+        <td class='control'><form method="post" action="/scaf/show/2" class="button-to"><div><input class="show" type="submit" value="Show" /></div></form>
+          <form method="post" action="/scaf/edit/2" class="button-to"><div><input class="edit" type="submit" value="Edit" /></div></form>
+          <form method="post" action="/scaf/destroy/2" class="button-to"><div><input class="destroy" onclick="return confirm('Are you sure?');" type="submit" value="Destroy" /></div></form></td>
+      </tr>
+
+      <tr>
+        <td>bal</td>
+        <td>1.2</td>
+        <td>2008-05-07</td>
+        <td class='control'><form method="post" action="/scaf/show/3" class="button-to"><div><input class="show" type="submit" value="Show" /></div></form>
+          <form method="post" action="/scaf/edit/3" class="button-to"><div><input class="edit" type="submit" value="Edit" /></div></form>
+          <form method="post" action="/scaf/destroy/3" class="button-to"><div><input class="destroy" onclick="return confirm('Are you sure?');" type="submit" value="Destroy" /></div></form></td>
+      </tr>
+
+
+    </table>
+
+    <h1>The calendar widget jscalendar</h1>
+    <div id="calendar-container"></div>
+
+    <script type="text/javascript">
+
+      function dateChanged(calendar) {
+        // Beware that this function is called even if the end-user only
+        // changed the month/year.  In order to determine if a date was
+        // clicked you can use the dateClicked property of the calendar:
+        if (calendar.dateClicked) {
+          // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
+          var y = calendar.date.getFullYear();
+          var m = calendar.date.getMonth();     // integer, 0..11
+          var d = calendar.date.getDate();      // integer, 1..31
+          // redirect...
+          window.location = "/" + y + "/" + m + "/" + d + "/index.php";
+        }
+      };
+
+var myDate=new Date();
+myDate.setFullYear(1988);
+myDate.setMonth(3);
+myDate.setDate(3);
+
+Calendar.setup(
+    {
+flat         : "calendar-container", // ID of the parent element
+flatCallback : dateChanged,          // our callback function
+date         : myDate
+}
+);
+</script>
+
+<h1>The spinner</h1>
+<div id="spinner">Please wait, gathering data...</div>
+
+
+<h1>Some error messages</h1>
+<div class="errorExplanation" id="errorExplanation"><h2>4 errors
+    prohibited this entry from being saved</h2><p>There were problems with
+  the following fields:</p><ul><li>Project can't be blank</li><li>Desc
+    can't be blank</li><li>Duration is not a number</li><li>Duration can't
+    be blank</li></ul></div>
+
+
+
+
+<h1>The CSS div table</h1>
+<div class='table'>
+  <div class="row">
+    <div  class="cell">one cell of content in a table</div>
+    <div  class="cell">one cell of content in a  table</div>
+  </div>
+  <form class="row">
+    <div  class="cell">the formtag builds the row</div>
+    <div  class="cell">one cell of content in a  table</div>
+  </form>
+  <form class="row">
+    <div  class="cell">the formtag builds the row</div>
+    <div  class="cell"><input type='text' name='test'/></div>
+  </form>
+  <div class="row">
+    <div  class="cell">one cell of content in a table: This one
+    is huge it has a lot of text inside.</div>
+    <div  class="cell">one cell of content in a  table</div>
+  </div>
+</div>
+
+
+
+
+
+</div> <!-- end of div container -->
+</div> <!-- end of div page -->
+
+
+
+
+</body>

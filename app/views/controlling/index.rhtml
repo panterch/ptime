@@ -1,0 +1,19 @@
+
+
+<div style='overflow: auto'>
+  <p style='white-space: nowrap; margin: 20px 0px'>
+  <% @projects.each do |p| %>
+  <%= link_to_remote(p.description, 
+      { :url => { :action => 'generate', :id => p },
+      :update => 'report' },
+      { :class => 'project' }) %>
+  <% end %>
+    </p>
+</div>
+
+
+<div id='report'>
+</div>
+
+
+

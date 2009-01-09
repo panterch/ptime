@@ -1,0 +1,24 @@
+<%= error_messages_for 'project' %>
+
+<h2>Projects</h2> 
+
+<table class="list">
+  <tr>
+    <th>&nbsp;</th>
+    <th>Description</th>
+    <th>Inactive</th>
+    <th>Control</th>
+  </tr>
+
+  <% for p in @projects %>
+    <% if @project.id == p.id %>
+      <%= render :partial => 'editrow' %>
+    <% else %>
+      <%= render(:partial => 'displayrow', :locals => { :p => p } ) %>
+    <% end %>
+  <% end %>
+
+
+
+  
+</table>

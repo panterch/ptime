@@ -1,0 +1,71 @@
+<h1 style='margin-top: 40px'>
+  Report for Project <%= @project.description %>
+</h1>
+<div style='border-bottom: 3px double #FF80C0; padding: 20px;'>
+  <h2>Overall time spent</h2>
+  <p style='margin-bottom: 0px; font-size: 14px'>
+  Time estimated: <%= @project.total_time_estimated %> h
+  <br/>
+  Time used: <%= @project.total_time_used %> h (<%= "%.2f" % @project.percent_time_used %> %)
+  </p>
+  <%= meter_graph %>
+</div>
+
+
+<div style='border-bottom: 3px double #FF80C0; padding: 20px; clear: both;'>
+  <h2>Time spent per task</h2>
+  <div style='float: left; width: 50%'>
+    <%= task_graph %>
+  </div>
+  <div class='table' style='font-size: 14px; margin: 40px; float: left'>
+    <div class='row'>
+      <div class='headercell'>Taks</div>
+      <div class='headercell'>est.</div>
+      <div class='headercell'>real</div>
+    </div>
+    <% @project.tasks.each do |t| %>
+      <% next if !t.estimation %>
+      <div class='row'>
+        <div class='textcell'>
+          <%= t.name %>
+        </div><div class='textcell' style='text-align: right'>
+          <%= t.estimation %> h
+        </div><div class='textcell' style='text-align: right'>
+          <%= @project.time_used_per_task[t.id] || 0 %> h
+        </div>
+      </div>
+    <% end %>
+    <div class='row'>
+      <div class='textcell'>Not on tasks</div>
+      <div class='textcell'>&nbsp;</div>
+      <div class='textcell' style='text-align: right'>
+        <%= @project.time_used_per_task[nil] || 0 %> h
+      </div>
+    </div>
+  </div>
+  <br style='clear: both'/>
+</div>
+
+
+<div style='border-bottom: 3px double #FF80C0; padding: 20px; clear: both;'>
+  <h2>Time billed</h2>
+  <div style='float: left; width: 50%'>
+    <%= billed_graph %>
+  </div>
+  <div class='table' style='font-size: 14px; margin: 40px; float: left'>
+    <div class='row'>
+      <div class='headercell'>Billed</div>
+      <div class='headercell'>Not billed</div>
+    </div>
+    <div class='row'>
+      <div class='textcell' style='text-align: right'>
+        <%= @project.total_time_billed %> h
+      </div>
+      <div class='textcell' style='text-align: right'>
+        <%= @project.total_time_used - @project.total_time_billed %> h
+      </div>
+    </div>
+  </div>
+  <br style='clear: both'/>
+</div>
+

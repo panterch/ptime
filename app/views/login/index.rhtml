@@ -1,0 +1,27 @@
+<%= error_messages_for 'user' %>
+
+<h2>Users</h2> 
+
+<div class='table'>
+  <div class='row'>
+    <div class='headercell'>Name</div>
+    <div class='headercell'>Inactive</div>
+    <div class='headercell'>Password</div>
+    <div class='headercell'>Confirmation</div>
+    <div class='headercell'>Control</div>
+  </div>
+
+  <% if !@user.id %>
+  <%= render :partial => 'editrow' %>
+  <% end %>
+
+  <% for u in @users %>
+    <% if @user.id == u.id %>
+      <%= render :partial => 'editrow' %>
+    <% else %>
+      <%= render(:partial => 'displayrow', :locals => { :u => u } ) %>
+    <% end %>
+  <% end %>
+  
+</table>
+

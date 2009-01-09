@@ -1,0 +1,15 @@
+<% form_tag( { :action => :index, :id => u }, 
+{ :class => 'row', :name => 'edit'+u.id.to_s, :title => 'Click to edit'} ) do %>
+  <% onclick='onclick="document.edit'+u.id.to_s+'.submit()"' %>
+  <div <%=onclick%> class='textcell'><%= h(u.name) %></div>
+  <div <%=onclick%> class='inputcell'>
+    <%= check_box_tag('inactive', '1', u.inactive, :disabled => true) %>
+  </div>
+  <div <%=onclick%> class='textcell'>*********</div>
+  <div <%=onclick%> class='textcell'>*********</div>
+  <div class='controlcell'>
+  <%= link_to 'Edit', 
+    { :action => 'index', :id => u },
+    { :class => 'edit' } %>
+  </div>
+<% end %>

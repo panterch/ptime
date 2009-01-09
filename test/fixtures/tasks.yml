@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  name: task 1
+  estimation: 10
+  project_id: 1
+another:
+  id: 2
+  name: task 2
+  estimation: 30
+  project_id: 1
+taskWoEstimation:
+  id: 3
+  name: task 3
+  project_id: 1

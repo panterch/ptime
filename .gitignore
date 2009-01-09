@@ -1,0 +1,5 @@
+*.swp
+tmp/
+log/*.log
+config/database.yml
+coverage/
