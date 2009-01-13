@@ -2,7 +2,6 @@
   <% form_tag( { :action => :index, :id => p }, 
                 { :name => 'edit'+p.id.to_s } ) do %>
   <% onclick='onclick="document.edit'+p.id.to_s+'.submit()"' %>
-  <td>&nbsp;</td>
   <td <%=onclick%>>
     <%= h(p.description || '<Click here to add a new project>') %>
   </td>
