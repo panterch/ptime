@@ -30,7 +30,7 @@ div.calendar td {
 }
 
 .calendar .nav {
-  background: #FFD0F0 url(menuarrow.gif) no-repeat 100% 100%;
+  background: #FFD0F0;
 }
 
 .calendar thead .title { /* This holds the current "month, year" */
