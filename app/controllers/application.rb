@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   
   def authorize
     # check for valid user_id in session
-    if session[:user_id] && 
-       User.find(:first, 
-       :conditions => ['id = ? AND inactive = ?', session[:user_id], false])
+    if session[:user_id] && (
+       @current_user = User.find(:first, 
+       :conditions => ['id = ? AND inactive = ?', session[:user_id], false]))
       return true
     end
     # check if there are any users in the database. if there

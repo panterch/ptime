@@ -1,4 +1,6 @@
 <%= error_messages_for 'entry' %>
+<% javascript 'dynamic_tasks' %>
+
 
 <div id="calendar-container"></div>
 <script type="text/javascript">
@@ -12,7 +14,7 @@
       var m = calendar.date.getMonth();     // integer, 0..11
       var d = calendar.date.getDate();      // integer, 1..31
       // redirect...
-      window.location = "<%= url_for(:controller=>'entries', :action=>'index')%>?y=" + y + "&m=" + m + "&d=" + d;
+      window.location = "<%= url_for(:controller=>'entries')%>?y=" + y + "&m=" + m + "&d=" + d;
     }
   };
 
@@ -36,6 +38,7 @@ date         : myDate
 
 <div class="table">
   <div class="row">
+    <div style="margin: 0pt; padding: 0pt; width: 0pt;"> </div>
     <div class="headercell">Project
       &nbsp;
       <%= link_to('[...]',
@@ -61,11 +64,12 @@ date         : myDate
   <% end %>
   
   <div class="row">
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
+    <div style="margin: 0pt; padding: 0pt; width: 0pt;"> </div>
+    <div class='textcell'>&nbsp;</div>
+    <div class='textcell'>&nbsp;</div>
+    <div class='textcell'>&nbsp;</div>
     <div class="textcell" style='text-align: right;'><%= @total %></div>
-    <div>&nbsp;</div>
+    <div class='textcell'>&nbsp;</div>
   </div>
 
 </div>

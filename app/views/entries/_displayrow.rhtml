@@ -1,17 +1,15 @@
-<% form_tag( { :action => :index, :id => e }, 
-  { :name => 'edit'+e.id.to_s, :class => 'row', :title => 'Click to edit' }) do %>
-  <% onclick='onclick="document.edit'+e.id.to_s+'.submit()"' %>
-  <div class="textcell" <%=onclick%>><%= h(e.project.description) %></div>
-  <div class="textcell" <%=onclick%>><%= h(e.task.name) if e.task %></div>
-  <div class="textcell" <%=onclick%>><%= h(e.description) %></div>
-  <div class="textcell" <%=onclick%> style='text-align: right;'>
+<div class='row'>
+  <%# blind row bec. rails renders form hidden _method fields in its own div %>
+  <div style="margin: 0pt; padding: 0pt; width: 0pt;"> </div>
+  <div class="textcell"><%= h(e.project.description) %></div>
+  <div class="textcell"><%= h(e.task.name) if e.task %></div>
+  <div class="textcell"><%= h(e.description) %></div>
+  <div class="textcell" style='text-align: right;'>
     <%= h(e.duration) %></div>
   <div class="controlcell">
-    <%= link_to 'Edit', 
-      { :action => 'index', :id => e },
-      { :class => 'edit' } %>
-    <%= link_to 'Destroy', 
-      { :action => 'destroy', :id => e }, 
-      { :class => 'destroy', :confirm => 'Are you sure?' } %></div>
-<% end %>
+    <%= link_to 'Edit', edit_entry_url(e), :class => 'edit' %>
+    <%= link_to 'Destroy', e, :confirm => 'Sure?', :method => :delete %>
+  </div>
+</div>
+
 

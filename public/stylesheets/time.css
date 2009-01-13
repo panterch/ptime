@@ -312,7 +312,7 @@ div.table .rowhighlight {
   background-color: #FF80C0; 
 }
 
-div.table .row > div, div.table .rowhighlight > div {
+div.headercell, div.textcell, div.inputcell, div.controlcell {
   text-align: left;
   display: table-cell;
   border: 1px #FFD0F0 solid;

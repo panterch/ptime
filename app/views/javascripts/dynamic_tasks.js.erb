@@ -1,0 +1,27 @@
+<%=
+  update_page do |page|
+    page.assign 'tasks_by_project', @tasks_by_project
+    end
+%>
+
+function projectSelected() {
+  project_id = $F('entry_project_id');
+  options = $('entry_task_id').options;
+  options.length = 1;
+  if (tasks_by_project[project_id] != null) {
+    tasks_by_project[project_id].each(function(task) {
+      options[options.length] = new Option(task.name, task.id);
+      });
+  }
+  $('entry_task_id').disabled = (options.length <= 1);
+}
+
+document.observe("dom:loaded", function() {
+  $('entry_project_id').observe('change', projectSelected);
+  $('entry_task_id').disabled = ($('entry_task_id').options.length <= 1);
+  });
+
+
+
+
+

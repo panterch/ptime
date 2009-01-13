@@ -1,14 +1,21 @@
-<% form_for :entry, @entry, :url => { :action => "persist" },
-:html => { :class => "row" } do |f| %>
+<% form_for @entry, :html => { :class => "row" } do |f| %>
+  <%= f.hidden_field 'id' %>
+  <%= f.hidden_field 'date' %>
+  <%# blind row bec. rails renders form hidden _method fields in its own div %>
+  <% unless @entry.id %>
+    <div style="margin: 0pt; padding: 0pt; width: 0pt;"> </div>
+  <% end %>
   <div class="inputcell">
-    <%= hidden_field 'entry', 'id' %>
-    <%= hidden_field 'entry', 'date' %>
     <%= select 'entry', 'project_id',
       @projects.collect { |p| [ p.description, p.id ] },
       {:prompt => 'Select Project...'}, { :style => 'width: 150px' } %>
   </div>
   <div class="inputcell" id='taskCell'>
-    <%= render :partial => 'tasks' %>
+    <%=
+      tasks = @entry.project ? @entry.project.tasks : []
+      f.select 'task_id',
+      tasks.collect { |t| [ t.name, t.id ] },
+      {:prompt => 'Select Project...'}, { :style => 'width: 150px' } %>
   </div>
   <div class="inputcell">
     <%= text_field 'entry', 'description'  %>
@@ -21,8 +28,3 @@
     <%= submit_tag "Save" , :class => 'persist' %>
   </div>
 <% end %>
-
-<%= observe_field :entry_project_id, 
-  :url => { :action => :update_tasks },
-  :update => :taskCell, :with => "'project_id=' + value"
-  %>
