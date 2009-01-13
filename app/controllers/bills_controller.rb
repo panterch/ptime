@@ -1,5 +1,6 @@
 class BillsController < ApplicationController
 
+  permit 'admin'
   layout 'time'
 
   # GET /bills

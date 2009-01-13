@@ -1,5 +1,6 @@
 class ReportController < ApplicationController
 
+  permit 'admin'
   layout 'time'
 
   def index

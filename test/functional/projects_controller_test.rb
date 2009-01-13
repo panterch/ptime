@@ -20,7 +20,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
   end
 
   def test_list
-    get :index, {}, { :user_id => 1 } 
+    get :index, {}, { :user_id => users(:seb).id } 
 
     assert_response :success
     assert_template 'index'
@@ -32,7 +32,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    get :index, { :id => 1 }, { :user_id => 1 } 
+    get :index, { :id => 1 }, { :user_id => users(:seb).id } 
 
     assert_response :success
     assert_template 'index'
@@ -56,7 +56,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
                       1 => { :id => 1, :name => 'new task 2' } }
 
     # test the create case
-    get :persist, params, { :user_id => 1 } 
+    get :persist, params, { :user_id => users(:seb).id } 
     p = Project.find_by_description('from functional test')
     assert_not_nil p
     assert_equal 2, p.tasks.length
@@ -69,7 +69,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
     taskId = p.tasks[0].id
     # simulate update of a task too
     params[:task] = { taskId => { :id => taskId, :name => 'updated task' } }
-    get :persist, params, { :user_id => 1 }
+    get :persist, params, { :user_id => users(:seb).id }
     p = Project.find(p.id)
     assert_equal 'updated!', p.description
     assert_equal 'updated task', p.tasks[0].name
@@ -85,8 +85,5 @@ class ProjectsControllerTest < Test::Unit::TestCase
       assert t == p.tasks[t.id]
     end
   end
-
-
-
 
 end

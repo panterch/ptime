@@ -4,8 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '', :controller => "entries"
 
-  # RESTful routes for billings
   map.resources :bills
+  map.resources :users
   map.resources :entries
 
   map.connect ':controller/:action.:format'

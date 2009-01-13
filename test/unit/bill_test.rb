@@ -8,7 +8,7 @@ class BillTest < Test::Unit::TestCase
     bill = Bill.new
     bill.project = Project.find(1)
     bill.name = 'testbill'
-    entry = Entry.find(1)
+    entry = entries(:first)
     bill.entries << entry
     expected = <<EOF
 Test,testbill

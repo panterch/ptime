@@ -21,23 +21,23 @@
     end
 
     def test_render
-      get(:index, nil, { :user_id => 1 })
+      get(:index, nil, { :user_id => users(:seb) })
       assert_response 200
     end
       
 
     def test_preview()
-    get(:preview,@params_with_values, { :user_id => 1 })
+    get(:preview,@params_with_values, { :user_id => users(:seb) })
     assert_equal 3, assigns('count')
     assert_response 200
   end
 
   def test_download()
-    post(:download,@params_with_values, { :user_id => 1 })
+    post(:download,@params_with_values, { :user_id => users(:seb) })
     expected = <<EOF
-2007-05-28,1.5,Test,task 1,seb,A complete entry
-2007-05-28,2.5,Test,task 1,seb,"A complete entry, the second"
 2007-05-28,2.5,Test,task 1,dilbert,An entry by another user
+2007-05-28,2.5,Test,task 1,seb,"A complete entry, the second"
+2007-05-28,1.5,Test,task 1,seb,A complete entry
 EOF
     assert_equal expected, @response.body
   end

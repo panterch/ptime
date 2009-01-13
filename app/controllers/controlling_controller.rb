@@ -1,4 +1,7 @@
 class ControllingController < ApplicationController
+
+  permit 'admin'
+
   layout 'time'
 
 

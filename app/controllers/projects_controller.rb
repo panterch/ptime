@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
 
+  permit 'admin'
+
   layout 'time'
 
   def index

@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  # Authorization plugin
+  acts_as_authorized_user
+  acts_as_authorizable
+
   has_many :entries
 
   attr_accessor :password_confirmation
@@ -12,6 +16,27 @@ class User < ActiveRecord::Base
 
   def validate
     errors.add_to_base("Missing password") if hashed_password.blank?
+    if admin? and inactive
+      errors.add(:inactive, "Cannot inactivate admin users")
+    end
+  end
+
+  # check if we removed the last admin
+  def after_save
+    if 1 > Role.count(:conditions => 'name = "admin"')
+      self.admin = true
+    end
+  end
+
+  def admin
+    self.has_role? 'admin'
+  end
+  alias admin? admin
+
+  def admin=(flag)
+    flag = flag.to_i if flag.is_a? String # rails checkbox wrapper
+    flag = (flag > 0) if flag.is_a? Fixnum
+    flag ? self.has_role('admin') : self.has_no_role('admin')
   end
 
   def self.authenticate(name, password)

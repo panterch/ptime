@@ -30,8 +30,7 @@ class EntriesController < ApplicationController
 
   # Access model to create and save new entry
   def create
-    @entry = Entry.new(params[:entry])
-    @entry.user_id = session[:user_id]
+    @entry = @current_user.entries.build(params[:entry])
     if @entry.save
       flash.now[:notice] = 'Entry was successfully created.'
       respond_to do |format|
