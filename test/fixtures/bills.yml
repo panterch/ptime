@@ -1,7 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  name: The test bill
-  project_id: 1
-  user: seb
-  start: 2008-01-01
-  end:   2008-12-31

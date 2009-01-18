@@ -4,7 +4,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '', :controller => "entries"
 
-  map.resources :bills
   map.resources :users
   map.resources :entries
 
