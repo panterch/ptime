@@ -5,8 +5,6 @@ class UsersController < ApplicationController
   before_filter :load_users
   before_filter :load_user, :only => [:show, :edit, :update]
 
-  layout 'time'
-
   def index
     new
   end

@@ -2,36 +2,6 @@
 <% javascript 'dynamic_tasks' %>
 
 
-<div id="calendar-container"></div>
-<script type="text/javascript">
-  function dateChanged(calendar) {
-    // Beware that this function is called even if the end-user only
-    // changed the month/year.  In order to determine if a date was
-    // clicked you can use the dateClicked property of the calendar:
-    if (calendar.dateClicked) {
-      // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
-      var y = calendar.date.getFullYear();
-      var m = calendar.date.getMonth();     // integer, 0..11
-      var d = calendar.date.getDate();      // integer, 1..31
-      // redirect...
-      window.location = "<%= url_for(:controller=>'entries')%>?y=" + y + "&m=" + m + "&d=" + d;
-    }
-  };
-
-var myDate=new Date();
-myDate.setFullYear(<%= @date.year %>);
-myDate.setMonth(<%= @date.month - 1 %>);
-myDate.setDate(<%= @date.day %>);
-
-Calendar.setup(
-    {
-flat         : "calendar-container", // ID of the parent element
-flatCallback : dateChanged,          // our callback function
-date         : myDate
-}
-);
-</script>
-
 
 
 <h2>Entries for <%= @date.strftime("%A %d. %B %Y") %> </h2> 

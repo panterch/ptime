@@ -1,0 +1,55 @@
+!main_color = #fff8FF
+!highlight_color = #ff80c0
+!sidebar_width = 230px
+
+body 
+  font-size: 12pt 
+  font-family: "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif
+  color: #555753 
+
+#container
+  width: 90%
+  margin: 10px auto
+  :background-color = !main_color
+  :border = 2px solid !highlight_color
+  :margin-right = !sidebar_width
+  -moz-border-radius: 20px
+  -webkit-border-radius: 20px
+
+#header
+  :border
+    :color = !highlight_color
+    :style = solid
+    :width = 0 0 2px 0
+
+#content
+  :margin-right = !sidebar_width
+
+#sidebar
+  float: right
+  :width = !sidebar_width
+
+ul.menu 
+  list-style-type: none
+  padding: 0
+  margin-left: 30px
+
+  li
+    float: left
+    margin-left: 10px
+
+    a 
+      display: block
+      width: 5em
+      text-decoration: none
+      &:hover
+        :background-color = !highlight_color
+        
+
+#calendar-container
+  width: 220px
+  margin-left: auto
+  margin-right: auto
+  margin-top: 20px
+  margin-bottom: 20px
+

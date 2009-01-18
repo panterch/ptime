@@ -79,3 +79,6 @@ end
 # end
 
 # Include your application configuration below
+
+Haml::Template.options[:format] = :xhtml
+Haml::Template.options[:escape_html] = true

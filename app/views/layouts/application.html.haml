@@ -1,0 +1,24 @@
+!!! XML
+%head
+  %title
+    = controller.action_name
+  != stylesheet_link_tag 'application' 
+  != stylesheet_link_tag 'calendar' 
+  != javascript_include_tag :defaults 
+  != javascript_include_tag 'jscalendar-1.0/calendar.js' 
+  != javascript_include_tag 'jscalendar-1.0/lang/calendar-en.js' 
+  != javascript_include_tag 'jscalendar-1.0/calendar-setup.js' 
+  != yield(:head)
+.body
+  #container
+    #header
+      != render :partial => 'entries/menu' 
+
+    #sidebar
+      != render :partial => 'layouts/sidebar'
+
+    #content
+      != yield
+
+
+
