@@ -13,17 +13,17 @@
       window.location = "<%= url_for(:controller=>'entries')%>?y=" + y + "&m=" + m + "&d=" + d;
     }
   };
+Event.observe(window, 'load', function() {
 
-var myDate=new Date();
-myDate.setFullYear(<%= @date.year %>);
-myDate.setMonth(<%= @date.month - 1 %>);
-myDate.setDate(<%= @date.day %>);
+  var myDate=new Date();
+  myDate.setFullYear(<%= @date.year %>);
+  myDate.setMonth(<%= @date.month - 1 %>);
+  myDate.setDate(<%= @date.day %>);
 
-Calendar.setup(
-    {
-flat         : "calendar-container", // ID of the parent element
-flatCallback : dateChanged,          // our callback function
-date         : myDate
-}
-);
+  Calendar.setup({
+    flat         : "calendar-container", // ID of the parent element
+    flatCallback : dateChanged,          // our callback function
+    date         : myDate
+    });
+});
 </script>
