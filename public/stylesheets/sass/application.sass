@@ -1,14 +1,24 @@
 !main_color = #fff8FF
 !highlight_color = #ff80c0
-!sidebar_width = 230px
-!sidebar_padding_sides = 10px
+!sidebar_width = 200px
+!content_width = 800px
+!sidebar_padding_left = 10px
+!sidebar_border_width = 2px
+!content_border_width = 2px
+!container_width = !sidebar_width + !content_width
+!container_width = !container_width + !sidebar_padding_left
+!container_width = !container_width + 2*!sidebar_border_width +  2*!content_border_width
+!container_margin_sides = 10px
 !text_color = #555
 
-body 
+html, body 
+  margin: 0
+  padding: 0
   font-size: 10pt 
   font-family: "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif
   :color = !text_color
   :background-color = !main_color
+  :min-width = !container_width + !container_margin_sides
 
 a
   &:link  
@@ -41,25 +51,27 @@ input, textarea, div.inputcell a
   padding: 2px
 
 #container
-  margin: 10px
-  width = 98%
+  :margin = !container_margin_sides auto
+  :width = !container_width
+  padding: 0
 
 #header
 
 #content
-  :margin-left = !sidebar_width + 2*!sidebar_padding_sides + 20px
+  :float = left
   :background-color = white
-  :border = 2px solid !highlight_color
+  :border = !content_border_width solid !highlight_color
   overflow = auto
+  :width = !content_width
   min-height: 600px
 
 #main
   padding: 10px
 
 #sidebar
-  float: left
+  float: right
   :width = !sidebar_width
-  :padding = 0px !sidebar_padding_sides
+  :padding = 0 0 0 !sidebar_padding_left
   overflow: auto
   min-height: 600px
 
@@ -85,9 +97,12 @@ input, textarea, div.inputcell a
         :background-color = !main_color
 
 #calendar-container
-  width: 100%
+  :width = !sidebar_width
+  padding: 0
+  margin: 0
 
 div.table
+  font-size: 8pt
   display: table
   border-collapse: collapse
   

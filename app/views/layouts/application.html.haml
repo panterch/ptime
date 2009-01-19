@@ -13,11 +13,12 @@
   #container
     #header
 
+    #content
+      != yield
+
     #sidebar
       != render :partial => 'layouts/sidebar'
 
-    #content
-      != yield
 
 
 

@@ -1,8 +1,11 @@
-body {
+html, body {
+  margin: 0;
+  padding: 0;
   font-size: 10pt;
   font-family: "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif;
   color: #555555;
-  background-color: #fff8ff; }
+  background-color: #fff8ff;
+  min-width: 1028px; }
 
 a:link {
   text-decoration: underline;
@@ -32,24 +35,26 @@ input, textarea, div.inputcell a {
   padding: 2px; }
 
 #container {
-  margin: 10px;
-  width: 98%; }
+  margin: 10px auto;
+  width: 1018px;
+  padding: 0; }
 
 
 #content {
-  margin-left: 270px;
+  float: left;
   background-color: #ffffff;
   border: 2px solid #ff80c0;
   overflow: auto;
+  width: 800px;
   min-height: 600px; }
 
 #main {
   padding: 10px; }
 
 #sidebar {
-  float: left;
-  width: 230px;
-  padding: 0px 10px;
+  float: right;
+  width: 200px;
+  padding: 0 0 0 10px;
   overflow: auto;
   min-height: 600px; }
 
@@ -72,9 +77,12 @@ input, textarea, div.inputcell a {
         background-color: #fff8ff; }
 
 #calendar-container {
-  width: 100%; }
+  width: 200px;
+  padding: 0;
+  margin: 0; }
 
 div.table {
+  font-size: 8pt;
   display: table;
   border-collapse: collapse; }
   div.table .row {
