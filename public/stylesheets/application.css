@@ -14,37 +14,49 @@ a:hover, a:active {
   text-decoration: underline;
   color: #555555; }
 
+h1, h2 {
+  background-color: #fff8ff;
+  margin: 0;
+  padding: 10px; }
+
+h1 {
+  font-size: 14pt; }
+
+h2 {
+  font-size: 12pt; }
+
+input, textarea, div.inputcell a {
+  border-width: 2px;
+  border-color: white;
+  border-style: groove;
+  padding: 2px; }
+
 #container {
-  width: 100%;
-  margin: 10px auto;
-  margin-right: 230px; }
+  margin: 10px;
+  width: 98%; }
 
 
 #content {
-  margin-left: 260px;
+  margin-left: 270px;
   background-color: #ffffff;
   border: 2px solid #ff80c0;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  height: 100%; }
+  overflow: auto;
+  min-height: 600px; }
+
+#main {
+  padding: 10px; }
 
 #sidebar {
   float: left;
   width: 230px;
-  padding-left: 10pt; }
+  padding: 0px 10px;
+  overflow: auto;
+  min-height: 600px; }
 
 #menu {
-  margin-top: 10pt;
+  margin-top: 10px;
   border: 2px solid #ff80c0;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   background-color: white; }
-  #menu h2 {
-    background-color: #fff8ff;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    margin: 0;
-    padding-left: 10px; }
   #menu ul {
     list-style-type: none;
     padding: 0;
@@ -57,9 +69,7 @@ a:hover, a:active {
         width: 100%;
         text-decoration: none; }
       #menu ul li:hover {
-        background-color: #fff8ff;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px; }
+        background-color: #fff8ff; }
 
 #calendar-container {
   width: 100%; }
@@ -67,26 +77,72 @@ a:hover, a:active {
 div.table {
   display: table;
   border-collapse: collapse; }
+  div.table .row {
+    display: table-row; }
+  div.table .rowhighlight {
+    display: table-row;
+    background-color: #FF80C0; }
+  div.table div.headercell, div.table div.textcell, div.table div.inputcell, div.table div.controlcell {
+    text-align: left;
+    display: table-cell;
+    border: 1px #FFD0F0 solid; }
+  div.table div.headercell {
+    padding: 4px;
+    font-weight: bold; }
+  div.table div.textcell {
+    padding: 0px 2px;
+    vertical-align: middle; }
+  div.table div.inputcell, div.table div.controlcell {
+    padding: 0px 2px; }
 
-div.table .row {
-  display: table-row; }
+form.button-to {
+  display: inline;
+  margin-right: 2px;
+  margin-left: 2px; }
 
-div.table .rowhighlight {
-  display: table-row;
-  background-color: #FF80C0; }
+form.button-to div {
+  display: inline; }
 
-div.headercell, div.textcell, div.inputcell, div.controlcell {
-  text-align: left;
-  display: table-cell;
-  border: 1px #FFD0F0 solid; }
+form.button-to input, div.controlcell input {
+  background-image: url('../images/tango/16x16/actions/go-next.png');
+  background-repeat: no-repeat;
+  background-position: 1px 1px;
+  background-color: #F0F0F0;
+  padding-left: 18px;
+  font-size: 10px;
+  color: #555753;
+  width: 80px;
+  height: 24px;
+  text-align: left; }
 
-div.headercell {
-  padding: 4px;
-  font-weight: bold; }
+div.controlcell a {
+  border: 2px groove white;
+  background-image: url('../images/tango/16x16/actions/go-next.png');
+  background-repeat: no-repeat;
+  background-position: 1px 1px;
+  background-color: #F0F0F0;
+  font-size: 10px;
+  padding-top: 4px;
+  padding-left: 20px;
+  height: 16px;
+  width: 56px;
+  text-decoration: none;
+  display: inline-block; }
 
-div.textcell { {
-  padding: 0px 2px;
-  vertical-align: middle; }
+form.button-to input.show {
+  background-image: url('../images/tango/16x16/actions/edit-find.png'); }
 
-div.inputcell, div.controlcell {
-  padding: 0px 2px; }
+form.button-to input.edit, div.controlcell a.edit {
+  background-image: url('../images/tango/16x16/apps/accessories-text-editor.png'); }
+
+form.button-to input.destroy, div.controlcell a.destroy {
+  background-image: url('../images/tango/16x16/actions/edit-delete.png'); }
+
+div.controlcell .new {
+  background-image: url('../images/tango/16x16/actions/document-new.png'); }
+
+div.controlcell input.persist {
+  background-image: url('../images/tango/16x16/actions/document-save.png'); }
+
+div.controlcell a.csv {
+  background-image: url('../images/tango/16x16/mimetypes/x-office-spreadsheet.png'); }

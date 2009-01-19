@@ -1,29 +1,31 @@
 <%= error_messages_for 'user' %>
 
-<h2>Users</h2> 
+<h1>Users</h1> 
 
-<div class='table'>
-  <div class='row'>
-    <div style="margin: 0pt; padding: 0pt; width: 0pt;"> </div>
-    <div class='headercell'>Name</div>
-    <div class='headercell'>Roles</div>
-    <div class='headercell'>Inactive</div>
-    <div class='headercell'>Password</div>
-    <div class='headercell'>Confirmation</div>
-    <div class='headercell'>Control</div>
-  </div>
-
-  <% if !@user.id %>
-  <%= render :partial => 'editrow' %>
-  <% end %>
-
-  <% for u in @users %>
-    <% if @user.id == u.id %>
-      <%= render :partial => 'editrow' %>
-    <% else %>
-      <%= render(:partial => 'displayrow', :locals => { :u => u } ) %>
-    <% end %>
-  <% end %>
+<div id='main'>
+  <div class='table'>
+    <div class='row'>
+      <div style="margin: 0pt; padding: 0pt; width: 0pt;"> </div>
+      <div class='headercell'>Name</div>
+      <div class='headercell'>Roles</div>
+      <div class='headercell'>Inactive</div>
+      <div class='headercell'>Password</div>
+      <div class='headercell'>Confirmation</div>
+      <div class='headercell'>Control</div>
+    </div>
   
-</table>
+    <% if !@user.id %>
+    <%= render :partial => 'editrow' %>
+    <% end %>
+  
+    <% for u in @users %>
+      <% if @user.id == u.id %>
+        <%= render :partial => 'editrow' %>
+      <% else %>
+        <%= render(:partial => 'displayrow', :locals => { :u => u } ) %>
+      <% end %>
+    <% end %>
+  </div>
+  
+</div>
 
