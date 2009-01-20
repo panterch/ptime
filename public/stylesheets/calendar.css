@@ -12,15 +12,23 @@ div.calendar td {
  
 }
 
-.calendar, .calendar table {
+.calendar {
   border: 1px solid #655;
-  font-size: 11px;
+  padding: 0;
+  margin: 0;
+  font-size: 8pt;
   color: #555753;
   cursor: default;
   background: #FFF0FF;
   font-family: tahoma,verdana,sans-serif;
+  width: auto;
+}
+
+.calendar table {
   width: 100%;
 }
+
+
 
 /* Header part -- contains navigation buttons and day names. */
 
@@ -62,7 +70,6 @@ div.calendar td {
   background-color: #faa;
   color: #000;
   border-bottom: 1px solid #f40;
-  padding: 1px;
 }
 
 .calendar thead .active { /* Active (pressed) buttons in header */
