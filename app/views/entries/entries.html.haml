@@ -13,12 +13,12 @@
       != f.error_messages
       != f.hidden_field :date
       %ul
-        %li 
+        %li
           != f.label :project_id
-          != f.select :project_id, projects_collection, {:prompt => 'Select Project...'}
+          != f.select :project_id, projects_collection, {:prompt => 'Select Project...'}, {:style => 'width: 130px;'}
         %li
           != f.label :task_id
-          != f.select :task_id, tasks_collection, {:prompt => 'Select Task...'}
+          != f.select :task_id, tasks_collection, {:prompt => 'Select Task...'}, {:style => 'width: 130px;'}
         %li
           != f.label :description
           != f.text_field :description
@@ -32,32 +32,38 @@
 
 
 
-  %h2 Current entries
-  %table
-    %thead
-      %tr
-        %th Project
-        %th Task
-        %th Description
-        %th Duration
-        %th
-    %tbody
-      - @entries.each do |e|
-        %tr{:id => "entry_row_#{e.id}"}
-          %td=e.project.description
-          %td=e.task.name if e.task
-          %td=e.description
-          %td=e.duration
+  -unless @entries.empty?
+    %h2 Current entries
+    %table
+      %thead
+        %tr
+          %th Project
+          %th Task
+          %th Description
+          %th Duration
+          %th
+      %tbody
+        - @entries.each do |e|
+          %tr{:id => "entry_row_#{e.id}"}
+            %td=e.project.description
+            %td=e.task.name if e.task
+            %td=e.description
+            %td=e.duration
+            %td
+              -if @entry.id != e.id
+                != link_to icon(:edit), edit_entry_url(e)
+                != link_to icon(:destroy), e, :confirm => "Are you sure?", :method => :delete
+              -else
+                %em.tiny see above
+
+      %tfoot
+        %tr
           %td
-            -if @entry.id != e.id
-              != link_to 'edit', edit_entry_url(e)
-    %tfoot
-      %tr
-        %td
-        %td
-        %td
-        %td=@total
-        %td
+          %td
+          %td
+          %td=@total
+          %td
+
 
 -if flash[:updated]
   != javascript_tag "highlight('entry_row_#{flash[:updated].to_i}')"

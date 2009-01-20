@@ -5,7 +5,7 @@ html, body {
   font-family: "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif;
   color: #555555;
   background-color: #fff8ff;
-  min-width: 928px; }
+  min-width: 918px; }
 
 a:link {
   text-decoration: underline;
@@ -16,6 +16,9 @@ a:visited {
 a:hover, a:active {
   text-decoration: underline;
   color: #555555; }
+
+img {
+  border: 0; }
 
 h1 {
   background-color: #fff8ff;
@@ -64,8 +67,11 @@ th, td {
 .float {
   float: left; }
 
+.tiny {
+  font-size: 75%; }
+
 #container {
-  margin: 10px auto;
+  margin: 30px auto;
   width: 918px;
   padding: 0;
   overflow: auto; }

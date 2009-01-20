@@ -8,7 +8,6 @@
 !container_width = !sidebar_width + !content_width
 !container_width = !container_width + !sidebar_padding_left
 !container_width = !container_width + 2*!sidebar_border_width +  2*!content_border_width
-!container_margin_sides = 10px
 !text_color = #555
 
 html, body 
@@ -18,7 +17,7 @@ html, body
   font-family: "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif
   :color = !text_color
   :background-color = !main_color
-  :min-width = !container_width + !container_margin_sides
+  :min-width = !container_width
 
 a
   &:link  
@@ -32,6 +31,9 @@ a
   &:hover, &:active 
     text-decoration: underline
     :color = !text_color
+
+img
+  border: 0
  
 h1
   :background-color = !main_color
@@ -85,9 +87,12 @@ th, td
 .float
   float: left
 
+.tiny
+  font-size: 75%
+
 
 #container
-  :margin = !container_margin_sides auto
+  :margin = 30px auto
   :width = !container_width
   padding: 0
   overflow = auto
