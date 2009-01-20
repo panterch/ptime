@@ -1,4 +1,5 @@
 !!! XML
+!!! Strict
 %head
   %title
     = controller.action_name
@@ -8,12 +9,16 @@
   != javascript_include_tag 'jscalendar-1.0/calendar.js' 
   != javascript_include_tag 'jscalendar-1.0/lang/calendar-en.js' 
   != javascript_include_tag 'jscalendar-1.0/calendar-setup.js' 
-  != yield(:head)
+  != yield :head
+
 .body
   #container
     #header
 
     #content
+      -if flash[:notice]
+        #notice
+          = flash[:notice] 
       != yield
 
     #sidebar

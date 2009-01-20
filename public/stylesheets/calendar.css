@@ -14,17 +14,13 @@ div.calendar td {
 
 .calendar, .calendar table {
   border: 1px solid #655;
-  padding: 0;
-  margin: 0;
   font-size: 11px;
   color: #555753;
   cursor: default;
   background: #FFF0FF;
   font-family: tahoma,verdana,sans-serif;
-  width: auto;
+  width: 100%;
 }
-
-.calendar table { width: 100% }
 
 /* Header part -- contains navigation buttons and day names. */
 
@@ -34,7 +30,7 @@ div.calendar td {
 }
 
 .calendar .nav {
-  background: #FFD0F0 url(menuarrow.gif) no-repeat 100% 100%;
+  background: #FFD0F0;
 }
 
 .calendar thead .title { /* This holds the current "month, year" */

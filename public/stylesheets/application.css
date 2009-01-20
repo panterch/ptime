@@ -5,7 +5,7 @@ html, body {
   font-family: "Bitstream Vera Sans", Verdana, Arial, Helvetica, sans-serif;
   color: #555555;
   background-color: #fff8ff;
-  min-width: 1028px; }
+  min-width: 928px; }
 
 a:link {
   text-decoration: underline;
@@ -17,39 +17,69 @@ a:hover, a:active {
   text-decoration: underline;
   color: #555555; }
 
-h1, h2 {
+h1 {
   background-color: #fff8ff;
   margin: 0;
-  padding: 10px; }
-
-h1 {
+  padding: 10px;
   font-size: 14pt; }
 
 h2 {
+  padding: 20px 0 0 0;
   font-size: 12pt; }
 
-input, textarea, div.inputcell a {
-  border-width: 2px;
-  border-color: white;
-  border-style: groove;
+br {
+  clear: both; }
+
+form {
+  margin: 20px 0 50px 0; }
+  form ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none; }
+  form li {
+    padding: 0;
+    padding-right: 10px;
+    margin: 0;
+    float: left; }
+  form label {
+    font-size: 8pt;
+    font-weight: normal;
+    display: block; }
+  form input, form select {
+    font-size: 10pt; }
+
+table {
+  width: 100%;
+  border-collapse: collapse; }
+
+th {
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #ff80c0; }
+
+th, td {
+  text-align: left;
   padding: 2px; }
+
+.float {
+  float: left; }
 
 #container {
   margin: 10px auto;
-  width: 1018px;
-  padding: 0; }
+  width: 918px;
+  padding: 0;
+  overflow: auto; }
 
 
 #content {
   float: left;
-  background-color: #ffffff;
+  background-color: white;
   border: 2px solid #ff80c0;
-  overflow: auto;
-  width: 800px;
+  width: 700px;
   min-height: 600px; }
 
 #main {
-  padding: 10px; }
+  padding: 0 10px; }
 
 #sidebar {
   float: right;
@@ -57,6 +87,12 @@ input, textarea, div.inputcell a {
   padding: 0 0 0 10px;
   overflow: auto;
   min-height: 600px; }
+  #sidebar h2 {
+    background-color: #fff8ff;
+    margin: 0;
+    padding: 10px;
+    font-size: 10pt;
+    border: 0; }
 
 #menu {
   margin-top: 10px;
@@ -80,28 +116,6 @@ input, textarea, div.inputcell a {
   width: 200px;
   padding: 0;
   margin: 0; }
-
-div.table {
-  font-size: 8pt;
-  display: table;
-  border-collapse: collapse; }
-  div.table .row {
-    display: table-row; }
-  div.table .rowhighlight {
-    display: table-row;
-    background-color: #FF80C0; }
-  div.table div.headercell, div.table div.textcell, div.table div.inputcell, div.table div.controlcell {
-    text-align: left;
-    display: table-cell;
-    border: 1px #FFD0F0 solid; }
-  div.table div.headercell {
-    padding: 4px;
-    font-weight: bold; }
-  div.table div.textcell {
-    padding: 0px 2px;
-    vertical-align: middle; }
-  div.table div.inputcell, div.table div.controlcell {
-    padding: 0px 2px; }
 
 form.button-to {
   display: inline;
@@ -154,3 +168,37 @@ div.controlcell input.persist {
 
 div.controlcell a.csv {
   background-image: url('../images/tango/16x16/mimetypes/x-office-spreadsheet.png'); }
+
+#errorExplanation {
+  background-image: url('../images/tango/32x32/status/dialog-error.png');
+  background-repeat: no-repeat;
+  background-position: 1px 4px;
+  padding-left: 40px;
+  padding-top: 4px;
+  padding-right: 4px;
+  padding-bottom: 10px; }
+  #errorExplanation h2, #errorExplanation p, #errorExplanation li, #errorExplanation ul {
+    float: none;
+    font-size: 10pt;
+    font-weight: normal;
+    margin: 0;
+    padding: 0; }
+  #errorExplanation h2 {
+    font-weight: bold; }
+  #errorExplanation ul {
+    list-style: square; }
+
+.fieldWithErrors {
+  background-color: #ff80c0; }
+  .fieldWithErrors input {
+    border-color: #ff80c0; }
+  .fieldWithErrors label {
+    color: white; }
+
+#notice {
+  background-image: url('../images/tango/16x16/status/dialog-information.png');
+  background-repeat: no-repeat;
+  background-position: 10px 5px;
+  padding-top: 5px;
+  padding-left: 30px;
+  min-height: 20px; }

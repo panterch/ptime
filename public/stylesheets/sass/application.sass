@@ -1,7 +1,7 @@
 !main_color = #fff8FF
 !highlight_color = #ff80c0
 !sidebar_width = 200px
-!content_width = 800px
+!content_width = 700px
 !sidebar_padding_left = 10px
 !sidebar_border_width = 2px
 !content_border_width = 2px
@@ -33,27 +33,64 @@ a
     text-decoration: underline
     :color = !text_color
  
-h1, h2
+h1
   :background-color = !main_color
   margin: 0
   padding: 10px
-
-h1
   font-size: 14pt
 
 h2
+  padding: 20px 0 0 0
   font-size: 12pt
 
-input, textarea, div.inputcell a 
-  border-width: 2px
-  border-color: white
-  border-style: groove
-  padding: 2px
+br
+  clear: both
+
+form
+  margin: 20px 0 50px 0
+
+  ul
+    padding: 0
+    margin: 0
+    list-style-type: none
+  
+  li
+    padding: 0
+    padding-right: 10px
+    margin: 0
+    float: left
+
+  label
+    font-size: 8pt
+    font-weight: normal
+    display: block
+
+  input, select
+    font-size: 10pt
+
+table
+  width: 100%
+  border-collapse: collapse
+
+th
+  :border
+    :width = 0 0 1px 0
+    :style = solid
+    :color = !highlight_color
+
+th, td
+  :text-align = left
+  :padding = 2px
+
+.float
+  float: left
+
 
 #container
   :margin = !container_margin_sides auto
   :width = !container_width
   padding: 0
+  overflow = auto
 
 #header
 
@@ -61,12 +98,11 @@ input, textarea, div.inputcell a
   :float = left
   :background-color = white
   :border = !content_border_width solid !highlight_color
-  overflow = auto
   :width = !content_width
   min-height: 600px
 
 #main
-  padding: 10px
+  padding: 0 10px
 
 #sidebar
   float: right
@@ -74,6 +110,13 @@ input, textarea, div.inputcell a
   :padding = 0 0 0 !sidebar_padding_left
   overflow: auto
   min-height: 600px
+
+  h2
+    :background-color = !main_color
+    margin: 0
+    padding: 10px
+    font-size: 10pt
+    border: 0
 
 #menu
   margin-top: 10px
@@ -100,40 +143,6 @@ input, textarea, div.inputcell a
   :width = !sidebar_width
   padding: 0
   margin: 0
-
-div.table
-  font-size: 8pt
-  display: table
-  border-collapse: collapse
-  
-  .row 
-    display: table-row
-  
-  .rowhighlight 
-    display: table-row
-    background-color: #FF80C0
-  
-  
-  div.headercell, div.textcell, div.inputcell, div.controlcell 
-    text-align: left
-    display: table-cell
-    border: 1px #FFD0F0 solid
-  
-  
-  div.headercell 
-    padding: 4px
-    font-weight: bold
-  
-  
-  div.textcell 
-    padding: 0px 2px
-    vertical-align: middle
-  
-  
-  div.inputcell, div.controlcell 
-    padding: 0px 2px
-
-
 
 form.button-to 
   display: inline
@@ -187,3 +196,44 @@ div.controlcell input.persist
 
 div.controlcell a.csv 
   background-image: url('../images/tango/16x16/mimetypes/x-office-spreadsheet.png')
+
+
+#errorExplanation
+  background-image: url('../images/tango/32x32/status/dialog-error.png')
+  background-repeat: no-repeat
+  background-position: 1px 4px
+  padding-left: 40px
+  padding-top: 4px
+  padding-right: 4px
+  padding-bottom: 10px
+
+  h2, p, li, ul
+    float: none
+    :font
+      :size = 10pt
+      :weight = normal
+    margin: 0
+    padding: 0
+
+  h2
+    font-weight: bold
+
+  ul 
+    list-style: square
+
+.fieldWithErrors 
+  :background-color = !highlight_color
+
+  input
+    :border-color = !highlight_color
+
+  label
+    color: white
+
+#notice
+  background-image: url('../images/tango/16x16/status/dialog-information.png')
+  background-repeat: no-repeat
+  background-position: 10px 5px
+  padding-top: 5px
+  padding-left: 30px
+  min-height: 20px

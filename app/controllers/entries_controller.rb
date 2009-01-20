@@ -12,7 +12,7 @@ class EntriesController < ApplicationController
     @entry = Entry.new
     @entry.date = @date
     respond_to do |format|
-      format.html { render :template => 'entries/new' }
+      format.html { render :template => 'entries/entries' }
     end
   end
 
@@ -22,7 +22,7 @@ class EntriesController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.html { render :template => 'entries/new' }
+      format.html { render :template => 'entries/entries' }
     end
   end
 
@@ -30,13 +30,14 @@ class EntriesController < ApplicationController
   def create
     @entry = @current_user.entries.build(params[:entry])
     if @entry.save
-      flash.now[:notice] = 'Entry was successfully created.'
+      flash[:updated] = @entry.id
+      flash[:notice] = 'Entry was successfully created.'
       respond_to do |format|
         format.html { redirect_to entries_url }
       end
     else
       respond_to do |format|
-        format.html { render :template => 'entries/new' }
+        format.html { render :template => 'entries/entries' }
       end
     end
   end
@@ -44,20 +45,21 @@ class EntriesController < ApplicationController
   # delete a record
   def destroy
     @entry.destroy
-    flash.now[:notice] = 'Entry destroyed.'
+    flash[:notice] = 'Entry destroyed.'
     redirect_to entries_url
   end
 
   # Access model to update an existing record
   def update
     if @entry.update_attributes(params[:entry])
-      flash.now[:notice] = 'Entry was successfully updated.'
+      flash[:updated] = @entry.id
+      flash[:notice] = 'Entry was successfully updated.'
       respond_to do |format|
         format.html { redirect_to entries_url }
       end
     else
       respond_to do |format|
-        format.html { render :template => 'entries/new' }
+        format.html { render :template => 'entries/entries' }
       end
     end
   end
