@@ -5,6 +5,11 @@ class Project < ActiveRecord::Base
   has_many :tasks, :order => :position
   has_many :entries
 
+  has_many :engagements
+  has_many :users, :through => :engagements
+  has_many :admins, :source => :user, :through => :engagements,
+           :conditions => 'engagements.role = 1'
+
   # adds count emptu new tasks to the entry
   def add_empty_tasks(count = 10)
     (1..count).each { self.tasks << Task.new }
@@ -58,6 +63,11 @@ class Project < ActiveRecord::Base
   def total_time_billed
     self.total_time_used * 0.4
   end
+
+  def is_admin(user)
+    admins.include? user
+  end
+
 
   
 

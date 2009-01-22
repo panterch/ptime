@@ -1,9 +1,5 @@
 class ProjectsController < ApplicationController
 
-  permit 'admin'
-
-  layout 'time'
-
   def index
     # access date's entries
     @projects = Project.find(:all, :order => 'inactive, description')

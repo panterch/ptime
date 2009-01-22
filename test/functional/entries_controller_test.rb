@@ -1,17 +1,16 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'entries_controller'
 
-# Re-raise errors caught by the controller.
 class EntriesController; def rescue_action(e) raise e end; end
 
 class EntriesControllerTest < Test::Unit::TestCase
-  fixtures :entries, :users, :projects
 
   def setup
     @controller = EntriesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
+
 
   def test_access_denied
     get :index
@@ -23,25 +22,9 @@ class EntriesControllerTest < Test::Unit::TestCase
   def test_access_index
     get :index, {}, { :user_id => users(:seb) } 
     assert_response :success
-    assert_template 'entries/new.html.erb'
+    assert_template 'entries/entries.html.haml'
   end
 
-  # when no projects are given, we should redirect to the projects view
-  def test_list_no_projects
-    Project.destroy_all
-    get :index, {}, { :user_id => users(:seb) } 
-    assert_redirected_to :controller => "projects"
-    assert_equal "Please enter at least one project before adding entries.",
-      flash[:notice] 
-  end
-
-  # test some fixtures used by these tests
-  def test_fixtures
-    assert_equal 1, Project.count(:all, :conditions => ['inactive = ?', false]) 
-    assert_equal 3, users(:seb).entries.count
-    assert_equal 2, Entry.count(:all,
-      :conditions => ["date = '2007-05-28' AND user_id = #{users(:seb).id}"])
-  end
 
   # simulate get from jscalendar with a date having entries for the current
   # user
@@ -53,7 +36,7 @@ class EntriesControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    get :edit, {:id => entries(:first)}, {:user_id => users(:seb).id}
+    get :edit, {:id => entries(:first).id}, {:user_id => users(:seb).id}
     assert_response :success
     assert assigns(:entry)
   end

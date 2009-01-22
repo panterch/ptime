@@ -5,18 +5,11 @@ require 'projects_controller'
 class ProjectsController; def rescue_action(e) raise e end; end
 
 class ProjectsControllerTest < Test::Unit::TestCase
-  fixtures :projects, :users
 
   def setup
     @controller = ProjectsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-  end
-
-  def test_access_denied
-    get :index
-    assert_redirected_to :controller => "login", :action => "login"
-    assert_equal "Please log in", flash[:notice] 
   end
 
   def test_list
@@ -32,15 +25,14 @@ class ProjectsControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    get :index, { :id => 1 }, { :user_id => users(:seb).id } 
+    get :index, { :id => projects(:sebsProject).id },
+                { :user_id => users(:seb).id } 
 
     assert_response :success
     assert_template 'index'
 
     assert_not_nil assigns(:projects)
     assert_not_nil assigns(:project)
-    assert_equal   1, assigns(:project).id
-    assert_equal   'Test', assigns(:project).description
   end
 
   # tests the creation and upgrade of a record via the persist method

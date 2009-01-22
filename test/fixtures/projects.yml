@@ -1,9 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-myProject:
-  id: 1
-  description: Test
+sebsProject:
+  description: A project owned by me
+  inactive: false
+dilbertsProject:
+  description: Foreign Project
   inactive: false
 oldProject:
-  id: 2
   description: An old, inactive project
   inactive: true

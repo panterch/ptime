@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  has_many :engagements
+  has_many :projects, :through => :engagements
+  has_many :admin_projects, :source => :project, :through => :engagements,
+           :conditions => 'engagements.role = 1'
+
   # Authorization plugin
   acts_as_authorized_user
   acts_as_authorizable

@@ -5,7 +5,6 @@ class TaskTest < Test::Unit::TestCase
 
   def test_fixture
     assert_equal 3, Task.count()
-    assert_equal 0, Project.find(2).tasks.length
   end
 
   def test_default_tasks

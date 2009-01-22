@@ -1,0 +1,24 @@
+one:
+  user: seb
+  project: sebsProject
+  role: 1
+
+two:
+  user: seb
+  project: dilbertsProject
+  role: 0
+
+three:
+  user: dilbert
+  project: dilbertsProject
+  role: 1
+
+four:
+  user: seb
+  project: oldProject
+  role: 1
+
+five:
+  user: dilbert
+  project: sebsProject
+  role: 1

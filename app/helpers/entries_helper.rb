@@ -1,7 +1,7 @@
 module EntriesHelper
 
   def projects_collection
-    @projects.collect { |p| [ p.description, p.id ] }
+    @current_user.projects.collect { |p| [ p.description, p.id ] }
   end
 
   def tasks_collection

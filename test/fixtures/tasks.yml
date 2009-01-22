@@ -1,15 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
+cleaning:
   id: 1
   name: task 1
   estimation: 10
-  project_id: 1
-another:
+  project: sebsProject
+
+meeting:
   id: 2
   name: task 2
   estimation: 30
-  project_id: 1
+  project: sebsProject
+
 taskWoEstimation:
   id: 3
   name: task 3
-  project_id: 1
+  project: sebsProject

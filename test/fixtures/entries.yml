@@ -4,7 +4,7 @@ first:
   date: 2007-05-28
   duration: 1.5
   task_id: 1
-  project_id: 1
+  project: sebsProject
   user: seb
 another:
   description: Another entry
@@ -16,18 +16,18 @@ third:
   date: 2007-05-28
   duration: 2.5
   task_id: 1
-  project_id: 1
+  project: sebsProject
   user: seb
 otherUser:
   description: An entry by another user
   date: 2007-05-28
   duration: 2.5
   task_id: 1
-  project_id: 1
+  project: sebsProject
   user: dilbert
 notOnTask:
   description: Entry that was not booked on a task
   date: 2008-01-01
+  project: sebsProject
   duration: 3.5
-  project_id: 1
   user: dilbert

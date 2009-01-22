@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
 
-  before_filter :prepare_projects, :prepare_entries
+  before_filter :prepare_entries
   before_filter :prepare_entry, :only => [:show, :edit, :destroy, :update]
 
   def index
@@ -65,20 +65,6 @@ class EntriesController < ApplicationController
   end
 
   protected
-
-    def prepare_projects
-
-      # cache applicable projects
-      @projects = Project.find(:all, :conditions => ['inactive = ?', false])
-
-      # assert that there is at least 1 project record
-      if 1 > @projects.length
-        flash[:notice] ="Please enter at least one project before adding entries."
-        redirect_to :controller => 'projects'
-        return
-      end
-
-    end
 
     def prepare_entries
       # access date's entries
