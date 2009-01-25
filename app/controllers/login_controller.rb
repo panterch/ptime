@@ -2,8 +2,6 @@ class LoginController < ApplicationController
 
   before_filter :authorize, :except => :login
 
-  layout 'time'
-
   # this method shows the login page and tries to authenticate post params
   def login
     session[:user_id] = nil

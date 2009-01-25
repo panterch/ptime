@@ -1,0 +1,9 @@
+-fields_for_task task do |task_form|
+  %ul
+    %li
+      != task_form.label :name
+      != task_form.text_field :name
+    %li
+      != task_form.label :estimation
+      != task_form.text_field :estimation, :size => 4
+  %br

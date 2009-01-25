@@ -3,7 +3,8 @@ module ApplicationHelper
 
   ICONS = {
     :edit => ['/images/tango/16x16/apps/accessories-text-editor.png', '16x16'],
-    :destroy => ['/images/tango/16x16/actions/edit-delete.png', '16x16']
+    :destroy => ['/images/tango/16x16/actions/edit-delete.png', '16x16'],
+    :share => ['/images/tango/16x16/actions/contact-new.png', '16x16']
   }
 
   def activeWhenController(name)
@@ -18,6 +19,10 @@ module ApplicationHelper
     image_tag ICONS[type][0],
               :size => ICONS[type][1], :alt => type.to_s.titleize,
               :title => type.to_s.titleize
+  end
+
+  def title(text)
+    content_for(:title) { text }
   end
 
   def javascript(*files)

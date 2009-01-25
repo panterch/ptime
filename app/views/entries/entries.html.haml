@@ -1,68 +1,63 @@
 -javascript 'dynamic_tasks'
+-title 'Entries for '+@date.strftime("%A %d. %B %Y")
 
-%h1
-  Entries for 
-  = @date.strftime("%A %d. %B %Y")
-
-#main
-
-  %h2
-    = @entry.new_record? ? 'Add' : 'Edit'
-    Entry
-    -form_for @entry do |f|
-      != f.error_messages
-      != f.hidden_field :date
-      %ul
-        %li
-          != f.label :project_id
-          != f.select :project_id, projects_collection, {:prompt => 'Select Project...'}, {:style => 'width: 130px;'}
-        %li
-          != f.label :task_id
-          != f.select :task_id, tasks_collection, {:prompt => 'Select Task...'}, {:style => 'width: 130px;'}
-        %li
-          != f.label :description
-          != f.text_field :description
-        %li 
-          != f.label :duration
-          != f.text_field :duration, { :size => 4, :style => 'text-align: right' }
-        %li
-          %label &nbsp;
-          != f.submit 'save'
-    %br
+%h2
+  = @entry.new_record? ? 'Add' : 'Edit'
+  Entry
+  -form_for @entry do |f|
+    != f.error_messages
+    != f.hidden_field :date
+    %ul
+      %li
+        != f.label :project_id
+        != f.select :project_id, projects_collection, {:prompt => 'Select Project...'}, {:style => 'width: 130px;'}
+      %li
+        != f.label :task_id
+        != f.select :task_id, tasks_collection, {:prompt => 'Select Task...'}, {:style => 'width: 130px;'}
+      %li
+        != f.label :description
+        != f.text_field :description
+      %li 
+        != f.label :duration
+        != f.text_field :duration, { :size => 4, :style => 'text-align: right' }
+      %li
+        %label &nbsp;
+        != f.submit 'save'
+  %br
 
 
 
-  -unless @entries.empty?
-    %h2 Current entries
-    %table
-      %thead
-        %tr
-          %th Project
-          %th Task
-          %th Description
-          %th Duration
-          %th
-      %tbody
-        - @entries.each do |e|
-          %tr{:id => "entry_row_#{e.id}"}
-            %td=e.project.description
-            %td=e.task.name if e.task
-            %td=e.description
-            %td=e.duration
-            %td
-              -if @entry.id != e.id
-                != link_to icon(:edit), edit_entry_url(e)
-                != link_to icon(:destroy), e, :confirm => "Are you sure?", :method => :delete
-              -else
-                %em.tiny see above
-
-      %tfoot
-        %tr
+-unless @entries.empty?
+  %h2 Current entries
+  %table{:style => 'width: 100%'}
+    %thead
+      %tr
+        %th Project
+        %th Task
+        %th Description
+        %th Duration
+        %th
+    %tbody
+      - @entries.each do |e|
+        %tr{:id => "entry_row_#{e.id}"}
+          %td=e.project.description
+          %td=e.task.name if e.task
+          %td=e.description
+          %td=e.duration
           %td
-          %td
-          %td
-          %td=@total
-          %td
+            -if @entry.id != e.id
+              != link_to icon(:edit), edit_entry_url(e)
+              != link_to icon(:destroy), e, :confirm => "Are you sure?", :method => :delete
+            -else
+              %em.tiny see above
+
+    %tfoot
+      %tr
+        %td
+        %td
+        %td
+        %td=@total
+        %td
 
 
 -if flash[:updated]

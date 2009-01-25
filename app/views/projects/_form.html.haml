@@ -1,0 +1,18 @@
+-form_for @project do |f|
+  %h3 Project information
+  != f.error_messages
+  %ul
+    %li
+      != f.label :description
+      != f.text_field :description
+  %br
+
+  %h3 Tasks
+  != render :partial => 'task', :collection => @project.tasks 
+  %p#add_task
+    != add_task_link "Add a task"
+
+  %ul
+    %li
+      %label &nbsp;
+      != f.submit 'save'

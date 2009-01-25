@@ -1,0 +1,11 @@
+-title 'Invite someone to participate'
+
+-form_for :engagement, :url => project_engagements_path(@project) do |f|
+  != f.error_messages
+  %ul
+    %li
+      != f.label :email
+      != text_field_tag :email
+  %li
+    %label &nbsp;
+    != f.submit 'save'

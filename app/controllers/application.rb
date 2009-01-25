@@ -4,9 +4,11 @@ class ApplicationController < ActionController::Base
 
   before_filter :authorize, :prepare_date
 
-  def current_user
-    @current_user
-  end
+  protected
+
+    def current_user
+      @current_user
+    end
 
   private
   

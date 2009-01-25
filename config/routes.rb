@@ -4,8 +4,10 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '', :controller => "entries"
 
-  map.resources :users
-  map.resources :projects
+  map.resource :user
+  map.resources :projects do |projects|
+    projects.resources :engagements
+  end
   map.resources :entries
 
   map.connect ':controller/:action.:format'

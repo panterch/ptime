@@ -1,17 +1,10 @@
 class UsersController < ApplicationController
 
-  permit 'admin'
-
-  before_filter :load_users
-  before_filter :load_user, :only => [:show, :edit, :update]
-
-  def index
-    new
-  end
+  before_filter :authorize, :except => [ :new, :create ]
 
   def new
-    @user = User.new
-    render :template => 'users/user'
+    @user ||= User.new
+    render :template => 'users/new'
   end
 
   def show
@@ -19,36 +12,31 @@ class UsersController < ApplicationController
   end
 
   def edit
-    render :template => 'users/user'
+    @user = @current_user
+    render :template => 'users/edit'
   end
 
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash.now[:notice] = 'User was successfully created.'
-      redirect_to users_url
+      session[:user_id] = @user.id
+      flash[:notice] = 'User was successfully created, welcome.'
+      redirect_to entries_url
     else
-      edit
+      new
     end
   end
 
   def update
+    @user = @current_user
     if @user.update_attributes(params[:user])
-      flash.now[:notice] = 'User updated.'
-      redirect_to users_url
+      flash[:notice] = 'User updated.'
+      redirect_to user_url
     else
       edit
     end
   end
 
   protected
-
-    def load_users
-      @users = User.find(:all, :order => 'inactive, name')
-    end
-
-    def load_user
-      @user = User.find(params[:id])
-    end
 
 end

@@ -52,7 +52,6 @@ form {
     font-size: 10pt; }
 
 table {
-  width: 100%;
   border-collapse: collapse; }
 
 th {
@@ -65,7 +64,12 @@ th, td {
   padding: 2px; }
 
 .float {
-  float: left; }
+  float: left;
+  margin: 0;
+  padding: 0; }
+
+.right {
+  text-align: right; }
 
 .tiny {
   font-size: 75%; }
@@ -99,24 +103,23 @@ th, td {
     padding: 10px;
     font-size: 10pt;
     border: 0; }
-
-#menu {
-  margin-top: 10px;
-  border: 2px solid #ff80c0;
-  background-color: white; }
-  #menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    min-width: 100%; }
-    #menu ul li {
-      padding: 3px 0 3px 10px; }
-      #menu ul li a {
-        display: block;
-        width: 100%;
-        text-decoration: none; }
-      #menu ul li:hover {
-        background-color: #fff8ff; }
+  #sidebar .box {
+    margin-top: 10px;
+    border: 2px solid #ff80c0;
+    background-color: white; }
+    #sidebar .box ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      min-width: 100%; }
+      #sidebar .box ul li {
+        padding: 3px 0 3px 10px; }
+        #sidebar .box ul li a {
+          display: block;
+          width: 100%;
+          text-decoration: none; }
+        #sidebar .box ul li:hover {
+          background-color: #fff8ff; }
 
 #calendar-container {
   width: 200px;

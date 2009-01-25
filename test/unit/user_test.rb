@@ -33,12 +33,8 @@ class UserTest < Test::Unit::TestCase
     user = User.new
     assert !user.valid?
     assert user.errors.invalid?(:name)
-    assert_equal 2, user.errors.length
-  end
-
-  def test_validate_old_user_wo_pw
-    user = users(:seb)
-    assert user.valid?
+    assert user.errors.invalid?(:email)
+    assert user.errors.invalid?(:password)
   end
 
   def test_validate_pw_confirm
@@ -48,19 +44,6 @@ class UserTest < Test::Unit::TestCase
     assert user.valid?
     user.password_confirmation = 'xxx'
     assert !user.valid?
-  end
-
-  def test_admin_wrappers
-    user = users(:dilbert)
-    assert !user.admin
-    user.admin = true
-    assert user.reload.admin
-    user.admin = false
-    assert !user.reload.admin
-    user.admin = 1
-    assert user.reload.admin
-    user.admin = 0
-    assert !user.reload.admin
   end
 
 end

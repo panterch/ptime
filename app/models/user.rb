@@ -4,49 +4,27 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name
+  validates_uniqueness_of :email
+  validates_format_of :email,
+       :with       => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
+       :message    => 'email must be valid'
 
   has_many :engagements
-  has_many :projects, :through => :engagements
-  has_many :admin_projects, :source => :project, :through => :engagements,
-           :conditions => 'engagements.role = 1'
-
-  # Authorization plugin
-  acts_as_authorized_user
-  acts_as_authorizable
-
   has_many :entries
+  has_many :projects, :through => :engagements, :uniq => true
+  # has_many :admin_projects, :source => :project, :through => :engagements,
+  #          :conditions => { :role => 1 }
 
   attr_accessor :password_confirmation
   validates_confirmation_of :password
 
   def validate
-    errors.add_to_base("Missing password") if hashed_password.blank?
-    if admin? and inactive
-      errors.add(:inactive, "Cannot inactivate admin users")
-    end
-  end
-
-  # check if we removed the last admin
-  def after_save
-    if 1 > Role.count(:conditions => 'name = "admin"')
-      self.admin = true
-    end
-  end
-
-  def admin
-    self.has_role? 'admin'
-  end
-  alias admin? admin
-
-  def admin=(flag)
-    flag = flag.to_i if flag.is_a? String # rails checkbox wrapper
-    flag = (flag > 0) if flag.is_a? Fixnum
-    flag ? self.has_role('admin') : self.has_no_role('admin')
+    errors.add('password', "missing") if hashed_password.blank?
   end
 
   def self.authenticate(name, password)
     user = self.find(:first, :conditions =>
-           ['name = ? AND inactive = ?', name, false])
+           ['name = ? OR email = ?', name, name])
     if user
       password = encrypted_password(password)
       if password != user.hashed_password

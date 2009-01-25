@@ -1,2 +1,32 @@
 != render :partial => 'layouts/calendar'
-!= render :partial => 'layouts/menu'
+
+#menu.box
+  %h2 Places
+  %ul
+    %li
+      != link_to('Entries', { :controller => 'entries' } )
+    %li
+      != link_to 'Projects', projects_path
+    %li
+      != link_to 'Settings', user_path
+
+#reports.box
+  %h2 Reports
+  %ul
+    %li Time spent
+  %ul
+    %li Project goals
+  %ul
+    %li Project Billing
+
+#info.box
+  %ul
+    %li 0 messages
+  %ul
+    %li
+      Logged in as
+      = @current_user.name
+    %li
+      != link_to 'Logout', { :controller => 'login', :action => 'logout' }
+
+

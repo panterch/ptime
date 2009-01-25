@@ -1,0 +1,30 @@
+-title 'Welcome to ptime'
+
+.float{:style => 'width: 35%'}
+
+  %h2 Login
+
+  -form_tag ({ :action => 'login' }) do 
+    %ul
+      %li
+        %label{:for => 'name'}
+          Username
+        != text_field_tag :name, params[:name]
+      %li
+        %label{:for => 'password'}
+          Password
+        != password_field_tag :password, params[:password]
+      %li
+        %label &nbsp;
+        != submit_tag 'Login'
+  %br
+
+.float{:style => 'width: 20%; text-align: center;'}
+  %h2{:style => 'font-style: italic'} or
+  %div{:style => 'margin: auto; width: 0px; border-left: 1px solid; height: 100px'}
+
+.float{:style => 'width: 35%'}
+  %h2 Sign up
+  Click
+  != link_to 'here', new_user_path
+  to create a new account.

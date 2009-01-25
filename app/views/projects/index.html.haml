@@ -1,0 +1,45 @@
+-title 'Projects overview'
+
+%p
+  != link_to 'Click here to create a new project', new_project_path
+
+%h2 Projects you are currently working on
+
+-@projects.each do |p|
+
+  %h3
+    =p.description
+    != link_to icon(:edit), edit_project_path(p)
+    != link_to icon(:share), new_project_engagement_path(p)
+
+  %table.float{:style => 'width: 60%'}
+    %thead
+      %tr
+        %th{:style => 'width: 80%'} Task
+        %th.right Estimation
+
+    %tbody
+      -p.tasks.each do |t|
+        %tr
+          %td=t.name
+          %td.right=t.estimation
+  
+  .float{:style => 'width: 5%;'} &nbsp;
+
+  %table{:style => 'width: 35%;'}
+    %thead
+      %tr
+        %th Username
+        %th Email
+
+    %tbody
+      -p.users.each do |u|
+        %tr
+          %td=u.name
+          %td=u.email
+
+  %br
+
+%h2 Archived projects
+%p
+  %em None

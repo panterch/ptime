@@ -1,14 +1,17 @@
 class Project < ActiveRecord::Base
   validates_presence_of :description
   validates_uniqueness_of :description
+  validates_associated :tasks
 
   has_many :tasks, :order => :position
   has_many :entries
 
   has_many :engagements
-  has_many :users, :through => :engagements
+  has_many :users, :through => :engagements, :uniq => true
   has_many :admins, :source => :user, :through => :engagements,
            :conditions => 'engagements.role = 1'
+
+  after_update :save_tasks
 
   # adds count emptu new tasks to the entry
   def add_empty_tasks(count = 10)
@@ -67,6 +70,32 @@ class Project < ActiveRecord::Base
   def is_admin(user)
     admins.include? user
   end
+
+  def new_task_attributes=(task_attributes)
+    task_attributes.each do |attributes|
+      next if attributes[:name].blank?
+      tasks.build(attributes)
+    end
+  end
+
+  def existing_task_attributes=(task_attributes)
+    tasks.reject(&:new_record?).each do |task|
+      attributes = task_attributes[task.id.to_s]
+      if attributes
+        task.attributes = attributes
+      #else
+      #  tasks.delete(task)
+      end
+    end
+  end
+
+  protected
+
+    def save_tasks
+      tasks.each do |task|
+        task.save(false)
+      end
+    end
 
 
   

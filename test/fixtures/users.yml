@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 seb:
   name: seb
+  email: seb@example.com
   # this is 'test' hashed
   hashed_password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
   inactive: false
 dilbert:
   name: dilbert
+  email: dilbert@example.com
   # this is 'test' hashed
   hashed_password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
   inactive: false

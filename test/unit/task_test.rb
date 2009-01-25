@@ -14,25 +14,4 @@ class TaskTest < Test::Unit::TestCase
     assert_equal 'Project Lead', tasks[0].name
   end
 
-  def test_before_save
-    # empty task
-    task = Task.new
-    task.name = ''
-    task.save!
-    assert_not_nil task.id
-    assert_equal '',task.name
-    assert_nil task.estimation
-
-    # task w/ no estimation
-    task.name = 'test'
-    task.save!
-    assert_equal 0, task.estimation
-
-    # task with no name but duration
-    task.name = ''
-    task.estimation = 10
-    task.save!
-    assert_nil task.estimation
-  end
-
 end
