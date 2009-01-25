@@ -7,11 +7,4 @@ class TaskTest < Test::Unit::TestCase
     assert_equal 3, Task.count()
   end
 
-  def test_default_tasks
-    tasks = Task.default_tasks
-    assert_not_nil tasks
-    assert tasks.length > 0
-    assert_equal 'Project Lead', tasks[0].name
-  end
-
 end
