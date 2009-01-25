@@ -61,7 +61,9 @@ th {
 
 th, td {
   text-align: left;
-  padding: 2px; }
+  padding: 2px;
+  vertical-align: bottom;
+  overflow: hidden; }
 
 .float {
   float: left;
