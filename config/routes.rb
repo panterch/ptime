@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '', :controller => "entries"
 
   map.resource :user
+  map.resource :reports
   map.resources :projects do |projects|
     projects.resources :engagements
   end

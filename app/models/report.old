@@ -1,0 +1,42 @@
+class Report
+
+  attr_reader :conditions
+
+  def initialize(user, params)
+    condition = 'date >= ? AND date <= ?'
+    args = Array.new
+    args << paramsToDate(params[:start])
+    args << paramsToDate(params[:end])
+
+    condition << ' AND project_id = ?'
+    args << params[:project_id].to_i
+
+    if params[:user_id] &&  !params[:user_id].empty?
+      condition << ' AND user_id = ?'
+      args << params[:user_id].to_i
+    end
+
+    @conditions = args.insert(0,condition)
+    @user = user
+    @params = params
+  end
+
+  def entries()
+    check_permission
+    Entry.find(:all, :conditions => @conditions)
+  end
+
+  private
+
+    def check_permission
+      unless Project.find(@params[:project_id]).users.include? @user
+        raise SecurityError
+      end
+    end
+
+    def paramsToDate(params)
+      Date.civil(Integer(params[:year]), Integer(params[:month]),
+                 Integer(params[:day]))
+    end
+
+end

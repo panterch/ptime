@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
 
   has_many :engagements
   has_many :entries
+  has_many :reports
   has_many :projects, :through => :engagements, :uniq => true
+
   # has_many :admin_projects, :source => :project, :through => :engagements,
   #          :conditions => { :role => 1 }
 

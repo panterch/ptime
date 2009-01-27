@@ -1,0 +1,31 @@
+%h2 Current entries
+%table{:style => 'width: 100%'}
+  %thead
+    %tr
+      %th Project
+      %th Task
+      %th Description
+      %th Duration
+      %th
+  %tbody
+    - entries.each do |e|
+      %tr{:id => "entry_row_#{e.id}"}
+        %td=e.project.description
+        %td=e.task.name if e.task
+        %td=e.description
+        %td=e.duration
+        %td
+          -if @current_user.id == e.user_id
+            != link_to icon(:edit), edit_entry_url(e)
+            != link_to icon(:destroy), e, :confirm => "Are you sure?", :method => :delete
+          -else
+            by
+            =e.user.name
+
+  %tfoot
+    %tr
+      %td
+      %td
+      %td
+      %td=@total
+      %td

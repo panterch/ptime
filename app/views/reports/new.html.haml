@@ -1,0 +1,23 @@
+-title 'Reporting'
+
+-form_for @report do |f|
+  != f.error_messages
+  %ul
+    %li
+      != f.label :start_date
+      != f.date_select :start_date
+  %ul
+    %li
+      != f.label :end_date
+      != f.date_select :end_date
+  %ul
+    %li
+      != f.label :project_id
+      != f.select :project_id, projects_collection, {:prompt => 'Select Project...'}, {:style => 'width: 130px;'}
+  %li
+    %label &nbsp;
+    != f.submit 'save'
+
+%br
+
+!= render :partial => 'entries/entries', :object => @report.entries
