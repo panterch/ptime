@@ -14,9 +14,10 @@
     %li
       != f.label :project_id
       != f.select :project_id, projects_collection, {:prompt => 'Select Project...'}, {:style => 'width: 130px;'}
-  %li
-    %label &nbsp;
-    != f.submit 'save'
+  %ul
+    %li
+      %label &nbsp;
+      != f.submit 'save'
 
 %br
 
