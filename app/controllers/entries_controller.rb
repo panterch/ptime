@@ -69,7 +69,8 @@ class EntriesController < ApplicationController
     def prepare_projects
 
       # cache applicable projects
-      @projects = Project.find(:all, :conditions => ['inactive = ?', false])
+      @projects = Project.find(:all, :conditions => ['inactive = ?', false],
+                               :order => 'description')
 
       # assert that there is at least 1 project record
       if 1 > @projects.length
