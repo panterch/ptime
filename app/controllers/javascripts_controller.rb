@@ -5,7 +5,8 @@ class JavascriptsController < ApplicationController
     Task.all.each do |t|
       next if t.name.blank?
       @tasks_by_project[t.project_id] ||= []
-      @tasks_by_project[t.project_id] << { :id => t.id, :name => t.name }
+      @tasks_by_project[t.project_id] << { :id => t.id, :name => t.name,
+                                            :billable => t.billable? }
     end
   end
 end

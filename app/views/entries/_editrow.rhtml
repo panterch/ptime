@@ -24,6 +24,9 @@
     <%= text_field 'entry', 'duration',
     { :style => 'width: 50px' } %>
   </div>
+  <div class="inputcell">
+    <%= check_box 'entry', 'billable'  %>
+  </div>
   <div class="controlcell">
     <%= submit_tag "Save" , :class => 'persist' %>
   </div>

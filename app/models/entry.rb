@@ -23,7 +23,8 @@ class Entry < ActiveRecord::Base
   def to_csv
     row = [ self.date, self.duration, self.project.description, 
             self.task ? self.task.name : '',
-            self.user.name, self.description ]
+            self.user.name, self.description,
+            self.billable ]
     CSV.generate_line row
   end
   

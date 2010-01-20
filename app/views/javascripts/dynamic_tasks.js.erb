@@ -16,8 +16,17 @@ function projectSelected() {
   $('entry_task_id').disabled = (options.length <= 1);
 }
 
+function taskSelected() {
+  tasks = tasks_by_project[$F('entry_project_id')];
+  task = tasks.detect(function(t) {
+      return t.id == $F('entry_task_id');
+      });
+  $('entry_billable').checked = task.billable;
+}
+
 document.observe("dom:loaded", function() {
   $('entry_project_id').observe('change', projectSelected);
+  $('entry_task_id').observe('change', taskSelected);
   $('entry_task_id').disabled = ($('entry_task_id').options.length <= 1);
   });
 

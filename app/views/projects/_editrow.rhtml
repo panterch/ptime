@@ -32,12 +32,14 @@ function submitTasksDisplay()
 
   <tr>
     <th>Task Name</th>
-    <th colspan='2'>Estimated Duration</th>
+    <th>Billable</th>
+    <th>Est. Duration</th>
   </tr>
   <% for @task in @project.tasks %>
   <tr>
-    <td><%= text_field('task[]', 'name') %>
-    <td colspan='2' style='text-align: right'>
+    <td><%= text_field('task[]', 'name') %></td>
+    <td><%= check_box('task[]', 'billable') %></td>
+    <td>
       <%= text_field('task[]', 'estimation', :size => 4) %>
     </td>
   </tr>

@@ -6,6 +6,7 @@
   <div class="textcell"><%= h(e.description) %></div>
   <div class="textcell" style='text-align: right;'>
     <%= h(e.duration) %></div>
+  <div class="textcell"><%= e.billable? ? '$$$' : '' %></div>
   <div class="controlcell">
     <%= link_to 'Edit', edit_entry_url(e), :class => 'edit' %>
     <%= link_to 'Destroy', e, :confirm => 'Sure?', :method => :delete %>

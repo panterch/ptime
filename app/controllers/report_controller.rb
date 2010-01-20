@@ -18,7 +18,7 @@ class ReportController < ApplicationController
     # it's the default
     conditions = paramsToConditions(params)
     csv = ''
-    Entry.find(:all, :conditions => conditions).each do |entry|
+    Entry.find(:all, :conditions => conditions, :order => :date).each do |entry|
       csv << entry.to_csv
       csv << "\n"
     end
