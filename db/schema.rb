@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090127114728) do
+ActiveRecord::Schema.define(:version => 20100120105345) do
 
   create_table "bills", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20090127114728) do
     t.string  "description"
     t.integer "task_id"
     t.integer "bill_id"
+    t.boolean "billable",    :default => false
   end
 
   create_table "projects", :force => true do |t|
@@ -74,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20090127114728) do
     t.float   "estimation"
     t.integer "project_id"
     t.integer "position"
+    t.boolean "billable",   :default => false
   end
 
   create_table "users", :force => true do |t|
