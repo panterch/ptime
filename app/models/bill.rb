@@ -4,7 +4,7 @@ class Bill < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :user
-  has_many   :entries
+  has_many   :entries, :order => :date
 
   # assert values in date rows
   def before_save
