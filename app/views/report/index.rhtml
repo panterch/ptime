@@ -28,7 +28,8 @@
       <div style='float: left; margin-right: 5px;'>
         <label for="post_project_id">Project:</label><br/>
         <%= select 'post', 'project_id',
-        Project.find(:all).collect { |p| [ p.description, p.id ] },
+        Project.find(:all,
+        :order => 'inactive, description').collect { |p| [ p.description, p.id ] },
         { :include_blank => true }
         %>
       </div>
