@@ -11,6 +11,13 @@
 
   %body
     #container
+      #user_nav
+        - if user_signed_in?
+          Welcome, 
+          = current_user.username
+          = link_to "Log out", destroy_user_session_path
+        - else
+          = link_to "Log in", new_user_session_path
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
       = yield
