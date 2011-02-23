@@ -1,6 +1,6 @@
 %h2 Log in
 
-= semantic_form_for (resource, :as => resource_name, :url => session_path(resource_name)) do |form|
+= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |form|
   = form.inputs do
     = form.input :username 
     = form.input :password
