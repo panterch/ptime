@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require 'views/inherited_resource_helpers'
 
 ENV["RAILS_ENV"] ||= 'test'
 
