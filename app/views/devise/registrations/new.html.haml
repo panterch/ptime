@@ -1,0 +1,15 @@
+%h2 Sign up
+
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |form|
+  = devise_error_messages!
+
+  = form.inputs do
+    = form.input :username 
+    = form.input :email 
+    = form.input :password
+    = form.input :password_confirmation
+  = form.buttons do
+    = form.commit_button :label => 'Sign up'
+  - if devise_mapping.rememberable?
+    = form.check_box :remember_me
+    = form.label :remember_me

@@ -18,6 +18,7 @@ group :development, :test do
   gem 'yard'
   gem 'rspec-rails'
   gem 'steak'
+  gem 'capistrano'
   gem 'capybara'
   gem 'spork', "0.9.0.rc3"
   gem 'guard-rspec'

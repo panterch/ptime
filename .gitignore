@@ -23,3 +23,5 @@ public/stylesheets/all.css
 .yardoc
 
 db/development_structure.sql
+Capfile
+config/deploy.rb
