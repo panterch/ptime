@@ -17,6 +17,7 @@ group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'yard'
   gem 'rspec-rails'
+  gem 'webrat'
   gem 'steak'
   gem 'capistrano'
   gem 'capybara'
