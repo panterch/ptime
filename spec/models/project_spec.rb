@@ -34,4 +34,12 @@ describe Project do
     assert_equal 1, project.tasks.count
   end
 
+  it "should create a task via mass assignement" do
+    @project = Project.new(:name => "First project",
+               :description => "First description", 
+               :tasks_attributes => [{ :name => "First task" }])
+    @project.tasks.should_not be_empty
+  end
+
+
 end

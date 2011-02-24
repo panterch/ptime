@@ -3,5 +3,6 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :tasks
 
   validates_presence_of :name, :description
-  attr_accessible :name, :description, :start, :end, :inactive, :task_ids
+  attr_accessible :name, :description, :start, :end, :inactive, :task_ids,
+                  :tasks_attributes
 end
