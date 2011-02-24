@@ -1,0 +1,30 @@
+= semantic_form_for(@project) do |form|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error") 
+        prohibited this project from being saved:
+
+      %ul
+      = @project.errors.full_messages.each do |msg|
+        %li
+        = msg
+
+  %h3 Project
+  = form.inputs do 
+    = form.input :name
+    = form.input :description
+    = form.input :start
+    = form.input :end
+    = form.input :inactive unless action_name == 'new'
+
+  %h3 Tasks
+  #tasks
+    -# Populate the form with a new task unless this has been done before
+    -@project.tasks << Task.new if @project.tasks.empty? or @project.tasks.last.name
+    =form.inputs :for => :tasks do |task|
+      =task.input :name
+
+  = form.buttons do
+    = form.commit_button 
+  = link_to 'Cancel', collection_path

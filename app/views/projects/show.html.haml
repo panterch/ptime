@@ -1,0 +1,30 @@
+%h2 Project
+%p
+  %b Name:
+  = @project.name
+
+%p
+  %b Description:
+  = @project.description
+
+%p
+  %b Start:
+  = @project.start
+
+%p
+  %b End:
+  = @project.end
+
+%p
+  %b Inactive:
+  = @project.inactive
+
+
+%h2 Tasks
+= @project.tasks.each do |task|
+  %p
+    = task.name
+
+<br />
+= link_to 'Edit', edit_project_path(@project)
+= link_to 'Back', projects_path 

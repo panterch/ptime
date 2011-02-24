@@ -1,0 +1,13 @@
+%dl
+  %dt Name
+  %dd= project.name
+  %dt Description
+  %dd= project.description
+  %dt Tasks
+  = project.tasks.each do |task|
+    %dd= task.name
+  %dt Actions
+  %dd
+    =link_to 'show', resource_path(project)
+    =link_to 'edit', edit_resource_path(project)
+    =link_to 'destroy', resource_path(project), :method => :delete

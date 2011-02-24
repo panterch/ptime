@@ -1,0 +1,10 @@
+%h1 List of projects
+
+= link_to 'Create new project', new_resource_path
+- collection.each do |project|
+  %dt Name
+  %dd=project.name
+  %dd=link_to 'edit', edit_resource_path(project)
+  %dd=link_to 'delete', resource_path(project), :method => 'DELETE', :confirm => "Are you sure?"
+  /= render :partial => 'project', :object => project
+  %hr
