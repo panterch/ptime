@@ -25,4 +25,5 @@ group :development, :test do
   gem 'guard-spork'
   gem 'factory_girl_rails'
   gem 'ruby-debug'
+  gem 'timecop'
 end
