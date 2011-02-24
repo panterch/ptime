@@ -9,6 +9,7 @@ Factory.define :user do |f|
   f.password 'good_password'
 end
 
+
 Factory.define :project do |f|
   Timecop.freeze(2011, 02, 01)
   f.name 'First project'
@@ -21,4 +22,8 @@ end
 Factory.define :task do |f|
   f.name 'First task'
   f.estimate 5
+end
+
+Factory.define :project_with_task, :parent => :project do |project|
+    project.after_create { |a| Factory(:task, :project => a) }
 end
