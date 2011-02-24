@@ -17,3 +17,8 @@ Factory.define :project do |f|
   f.start Time.now
   f.end Time.now + 2.days
 end
+
+Factory.define :task do |f|
+  f.name 'First task'
+  f.estimate 5
+end
