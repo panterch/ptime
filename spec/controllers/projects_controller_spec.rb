@@ -26,8 +26,9 @@ describe ProjectsController do
   context 'POST on create with project with associated task' do
     before(:each) { 
       @project = { :name => "First project", :description => "First description", 
-        :task_attributes => { :name => "First task" }}
-      post :create, :project => @project }
+        :tasks_attributes => [{ :name => "First task" }]}
+      post :create, :project => @project 
+    }
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new project') { assigns(:project).should_not be_a_new_record }
     

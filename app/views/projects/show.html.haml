@@ -1,29 +1,14 @@
 %h2 Project
-%p
-  %b Name:
-  = @project.name
-
-%p
-  %b Description:
-  = @project.description
-
-%p
-  %b Start:
-  = @project.start
-
-%p
-  %b End:
-  = @project.end
-
-%p
-  %b Inactive:
-  = @project.inactive
+=semantic_form_for @project do |form|
+  = form.inputs
 
 
-%h2 Tasks
-= @project.tasks.each do |task|
-  %p
-    = task.name
+%h2 Task
+= semantic_form_for @project do |form|
+  = form.inputs :name, :description
+  - form.semantic_fields_for :tasks do |task|
+    = task.inputs :name
+
 
 <br />
 = link_to 'Edit', edit_project_path(@project)
