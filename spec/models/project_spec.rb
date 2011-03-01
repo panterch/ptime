@@ -27,19 +27,13 @@ describe Project do
     assert_equal 1, Project.count
   end
 
-  it "should have many tasks" do
-    project = Factory(:project)
-    task = Factory(:task)
-    project.tasks << task
-    assert_equal 1, project.tasks.count
-  end
-
   it "should create a task via mass assignement" do
     @project = Project.new(:name => "First project",
                :description => "First description", 
+               :start => Time.now,
+               :end => Time.now+2.days,
                :tasks_attributes => [{ :name => "First task" }])
     @project.tasks.should_not be_empty
   end
-
 
 end
