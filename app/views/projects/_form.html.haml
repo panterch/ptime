@@ -22,8 +22,10 @@
   #tasks
     -# Populate the form with a new task unless this has been done before
     -@project.tasks << Task.new if @project.tasks.empty? or @project.tasks.last.name
-    =form.inputs :for => :tasks do |task|
-      =task.input :name
+    = form.inputs :for => :tasks do |task|
+      = task.hidden_field :_destroy
+      = link_to_function "Delete task", "remove_inputs(this)"
+      = task.input :name
 
   = form.buttons do
     = form.commit_button 
