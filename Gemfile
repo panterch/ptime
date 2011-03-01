@@ -14,7 +14,7 @@ gem 'mysql2'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  #gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'yard'
   gem 'rspec-rails'
   gem 'steak'
