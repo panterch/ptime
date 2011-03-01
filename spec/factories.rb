@@ -10,12 +10,11 @@ Factory.define :user do |f|
 end
 
 Factory.define :project do |f|
-  Timecop.freeze(2011, 02, 01)
   f.name 'First project'
   f.description 'An awesome project'
   f.inactive false
-  f.start Time.now
-  f.end Time.now + 2.days
+  f.start Date.parse('2011-01-01')
+  f.end Date.parse('2011-01-03')
 end
 
 Factory.define :task do |f|
