@@ -1,15 +1,2 @@
-%h2 Project
-=semantic_form_for @project do |form|
-  = form.inputs
-
-
-%h2 Task
-= semantic_form_for @project do |form|
-  = form.inputs :name, :description
-  - form.semantic_fields_for :tasks do |task|
-    = task.inputs :name
-
-
-<br />
-= link_to 'Edit', edit_project_path(@project)
-= link_to 'Back', projects_path 
+= link_to 'Overview', collection_path
+= render :partial => 'project', :object => resource

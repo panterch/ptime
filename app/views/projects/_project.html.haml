@@ -1,13 +1,17 @@
 %dl
+  %h2 Project
   %dt Name
   %dd= project.name
   %dt Description
   %dd= project.description
-  %dt Tasks
-  = project.tasks.each do |task|
-    %dd= task.name
+  %h3 Tasks
+  %ol
+  = for task in @project.tasks do
+    %dd
+      %li= task.name
+    <br />
+
   %dt Actions
   %dd
-    =link_to 'show', resource_path(project)
     =link_to 'edit', edit_resource_path(project)
     =link_to 'destroy', resource_path(project), :method => :delete
