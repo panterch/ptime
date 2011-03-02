@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/demersus/formtastic_datepicker_inputs.git
+  revision: 34a042ba4fcae1d9e8781bae360f53ae1f3b6928
+  specs:
+    formtastic_datepicker_inputs (1.0.0)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      formtastic
+      i18n (>= 0.4.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -178,6 +188,7 @@ DEPENDENCIES
   exception_notification_rails3 (= 1.2.0)
   factory_girl_rails
   formtastic (= 1.2.3)
+  formtastic_datepicker_inputs!
   guard-rspec
   guard-spork
   haml (= 3.0.25)
