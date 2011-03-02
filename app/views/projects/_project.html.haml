@@ -1,17 +1,18 @@
-%dl
-  %h2 Project
-  %dt Name
-  %dd= project.name
-  %dt Description
-  %dd= project.description
-  %h3 Tasks
-  %ol
-  = for task in @project.tasks do
-    %dd
-      %li= task.name
+%h2 Project
+%b Name:
+= resource.name
+<br />
+<br />
+%b Description:
+= resource.description
+
+%h3 Tasks
+%ol
+  = for task in resource.tasks
+    %li
+      = task.name
     <br />
 
-  %dt Actions
-  %dd
-    =link_to 'edit', edit_resource_path(project)
-    =link_to 'destroy', resource_path(project), :method => :delete
+Actions
+=link_to 'edit', edit_resource_path(resource)
+=link_to 'destroy', resource_path(resource), :method => :delete
