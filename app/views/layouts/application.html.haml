@@ -20,4 +20,6 @@
           = link_to "Log in", new_user_session_path
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
+      #navigation
+        = link_to 'Home', '/'
       = yield

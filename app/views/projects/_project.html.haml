@@ -9,9 +9,10 @@
 %h3 Tasks
 %ol
   = for task in resource.tasks
-    %li
-      = task.name
-    <br />
+    - unless task.inactive
+      %li
+        = task.name
+      <br />
 
 Actions
 =link_to 'edit', edit_resource_path(resource)
