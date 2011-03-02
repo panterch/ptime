@@ -27,8 +27,8 @@ describe ProjectsController do
     before(:each) { 
       @project = { :name => "First project",
                :description => "First description", 
-               :start => Time.now,
-               :end => Time.now+2.days,
+               :start => Date.parse('2011-01-01'),
+               :end => Date.parse('2011-01-03'),
                :tasks_attributes => [{ :name => "First task",
                                        :inactive => false}] }
       post :create, :project => @project 
