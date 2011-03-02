@@ -19,5 +19,6 @@ end
 
 Factory.define :task do |f|
   f.name 'First task'
+  f.inactive false
   f.estimate 5
 end

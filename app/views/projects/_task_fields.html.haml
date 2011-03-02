@@ -2,5 +2,7 @@
 .Task
   = f.label :name, "New task"
   = f.text_field :name
--#= link_to_remove_fields "Remove task", f
+  <br />
+  = f.label :inactive
+  = f.check_box :inactive
 <br />

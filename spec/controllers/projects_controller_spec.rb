@@ -29,7 +29,8 @@ describe ProjectsController do
                :description => "First description", 
                :start => Time.now,
                :end => Time.now+2.days,
-               :tasks_attributes => [{ :name => "First task" }] }
+               :tasks_attributes => [{ :name => "First task",
+                                       :inactive => false}] }
       post :create, :project => @project 
     }
     it('responds with a redirect') { response.code.should eq('302') }
