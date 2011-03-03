@@ -1,18 +1,29 @@
 %h2 Project
 %b Name:
-= resource.name
+= project.name
 <br />
 <br />
 %b Description:
-= resource.description
+= project.description
+<br />
+<br />
+%b Start:
+= project.start
+<br />
+%b End:
+= project.end
+<br />
+<br />
+%b Inactive:
+= { true => "Yes", false => "No"}[project.inactive]
 
 %h3 Tasks
 %ol
-  = for task in resource.tasks
+  = for task in project.tasks
     - unless task.inactive
       %li
         = task.name
       <br />
 
 Actions
-=link_to 'edit', edit_resource_path(resource)
+=link_to 'edit', edit_resource_path(project)
