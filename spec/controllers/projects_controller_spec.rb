@@ -29,6 +29,7 @@ describe ProjectsController do
                :description => "First description", 
                :start => Date.parse('2011-01-01'),
                :end => Date.parse('2011-01-03'),
+               :project_state_attributes => { :name => "offered" },
                :tasks_attributes => [{ :name => "First task",
                                        :inactive => false}] }
       post :create, :project => @project 

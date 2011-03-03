@@ -9,10 +9,15 @@ Factory.define :user do |f|
   f.password 'good_password'
 end
 
+Factory.define :project_state do |f|
+  f.name "offered"
+end
+
 Factory.define :project do |f|
   f.name 'First project'
   f.description 'An awesome project'
   f.inactive false
+  f.project_state ProjectState.new(:name => "offered")
   f.start Date.parse('2011-01-01')
   f.end Date.parse('2011-01-03')
 end

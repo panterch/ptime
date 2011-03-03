@@ -16,6 +16,7 @@
     = form.input :description
     = form.input :start, :as => :datepicker
     = form.input :end, :as => :datepicker
+    = form.input :project_state_id, :as => :select, :collection => ProjectState.all
     = form.input :inactive unless action_name == 'new'
 
   %h3 Tasks

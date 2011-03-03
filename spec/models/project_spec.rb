@@ -34,7 +34,8 @@ describe Project do
                  :start => Date.parse('2011-01-01'),
                  :end => Date.parse('2011-01-03'),
                  :tasks_attributes => [{ :name => "First task",
-                                         :inactive => false}])
+                                         :inactive => false}],
+                 :project_states_attributes => { :name => "offered" })
     end
 
     it "should create a task via mass assignement" do
@@ -46,7 +47,7 @@ describe Project do
       task_id = @project.tasks[0].id
       @project.destroy
       begin
-        Task.find(task_id)
+        assert_equal nil, Task.find(task_id)
       rescue ActiveRecord::RecordNotFound => e
         e.message.should match /Couldn't find Task with ID.*/
       end

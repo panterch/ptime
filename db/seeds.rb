@@ -20,3 +20,14 @@ users = { 'aml' => 'aml@panter.ch',
 users.each do |username, email|
   User.create!(:username => username, :password => 'welcome', :email => email)
 end
+
+
+# Import project states
+project_states = ["offered", "won", "running", "closed", "lost", "closing",
+  "permanent"]
+
+project_states.each do |project_state|
+  p = ProjectState.new
+  p.name = project_state
+  p.save!
+end

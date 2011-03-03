@@ -10,11 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302101029) do
+ActiveRecord::Schema.define(:version => 20110303132428) do
 
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_states", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -27,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20110302101029) do
     t.boolean  "inactive"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_state_id"
   end
 
   create_table "tasks", :force => true do |t|
