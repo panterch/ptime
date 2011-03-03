@@ -1,0 +1,8 @@
+%h1 List of users
+
+= link_to 'Add new user', new_resource_path
+- collection.each do |user|
+  %dt Name
+  %dd=user.email
+  %dd=link_to 'edit', edit_user_path(user)
+  %hr

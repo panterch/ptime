@@ -1,0 +1,10 @@
+= semantic_form_for(@user) do |form|
+  = #devise_error_messages!
+  = form.inputs do
+    = form.input :username
+    = form.input :email
+    = form.input :password
+    =# form.input :password_confirmation
+    =# form.input :current_password
+  = form.buttons do
+    = form.commit_button

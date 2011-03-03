@@ -1,0 +1,8 @@
+%h2
+  Edit
+  = @user.username.to_s.humanize
+= render 'form'
+%h3 Delete this account
+%p
+  = link_to "Delete this account", user_path(@user), :confirm => "Are you sure?", :method => :delete
+= link_to "Back", :back
