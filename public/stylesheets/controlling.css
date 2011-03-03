@@ -1,0 +1,12 @@
+div.task input[type="text"] {
+  float: right;
+  width: 72%;
+  line-height: 18px;
+}
+
+div.task label {
+  line-height: 18px;
+  font-size: 13px;
+  width: 25%;
+  float: left;
+}

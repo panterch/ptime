@@ -8,3 +8,7 @@ function add_fields(link, association, content) {
     var regexp = new RegExp("new_" + association, "g");  
     $(link).before(content.replace(regexp, new_id));  
 }  
+
+$(document).ready(function(){
+    $('input.ui-datepicker').datepicker();
+});

@@ -14,8 +14,8 @@
   = form.inputs do 
     = form.input :name
     = form.input :description
-    = form.input :start
-    = form.input :end
+    = form.input :start, :as => :datepicker
+    = form.input :end, :as => :datepicker
     = form.input :inactive unless action_name == 'new'
 
   %h3 Tasks
