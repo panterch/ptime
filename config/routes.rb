@@ -1,5 +1,7 @@
 PanterControlling::Application.routes.draw do
 
+  resources :entries
+
   resources :projects
 
   devise_for :users
