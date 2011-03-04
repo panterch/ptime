@@ -5,7 +5,9 @@ PanterControlling::Application.routes.draw do
   resources :projects
 
   devise_for :users
-
+  
+  resources :users
+  
   root :to => 'projects#index'
   resources :posts
 
