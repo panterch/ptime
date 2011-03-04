@@ -17,7 +17,7 @@ Factory.define :project do |f|
   f.name 'First project'
   f.description 'An awesome project'
   f.inactive false
-  f.project_state ProjectState.new(:name => "offered")
+  f.project_state_id 1
   f.start Date.parse('2011-01-01')
   f.end Date.parse('2011-01-03')
 end
