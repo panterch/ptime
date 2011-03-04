@@ -1,0 +1,31 @@
+%p#notice
+  = notice
+
+%p
+  %b User:
+  = @entry.user.username
+
+%p
+  %b Project:
+  = @entry.project.name
+
+%p
+  %b Task:
+  -# TODO: Task should never be nil. A task has to be selected for an entry.
+  = @entry.task.name unless @entry.task.nil?
+
+%p
+  %b Description:
+  = @entry.description
+
+%p
+  %b Start:
+  = @entry.start
+
+%p
+  %b End:
+  = @entry.end
+
+
+= link_to 'Edit', edit_entry_path(@entry) |
+= link_to 'Back', entries_path 

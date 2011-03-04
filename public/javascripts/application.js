@@ -9,6 +9,19 @@ function add_fields(link, association, content) {
     $(link).before(content.replace(regexp, new_id));  
 }  
 
+/* jQuery Datepicker helper */
 $(document).ready(function(){
     $('input.ui-datepicker').datepicker();
 });
+
+/* Prepopulate new entries with today's date */
+$(document).ready(function(){
+  var field = $("#entry_day")
+  if (field && !field.val()) {
+    var today = new Date();
+    var prettyDate =(today.getMonth()+1) + '/' + today.getDate() + '/' +
+            today.getFullYear();
+    field.val(prettyDate);
+  }
+});
+
