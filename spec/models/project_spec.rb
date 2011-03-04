@@ -29,17 +29,15 @@ describe Project do
 
   context "Mass assignment" do
     before(:each) do
-      @project = Project.new(:name => "First project",
-                 :description => "First description", 
-                 :start => Date.parse('2011-01-01'),
-                 :end => Date.parse('2011-01-03'),
-                 :tasks_attributes => [{ :name => "First task",
-                                         :inactive => false}],
-                 :project_states_attributes => { :name => "offered" })
+      @project = Factory(:project)
     end
 
     it "should create a task via mass assignement" do
       @project.tasks.should_not be_empty
+    end
+
+    it "should have a referenced project state" do
+      @project.project_state.should_not be_nil
     end
 
     it "should delete associated tasks when a parent project is deleted" do
