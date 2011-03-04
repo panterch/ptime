@@ -10,3 +10,7 @@ div.task label {
   width: 25%;
   float: left;
 }
+
+#ui-datepicker-div.ui-datepicker {
+  display: none;
+}
