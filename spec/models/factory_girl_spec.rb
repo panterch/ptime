@@ -18,6 +18,11 @@ describe "FactoryGirl" do
       Post.count.should eq(1)
     end
   end
+  
+  it "user factory is valid" do
+    user=Factory.build(:user)
+    user.should be_valid
+  end
 
 
 end

@@ -26,4 +26,9 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'ruby-debug'
   gem 'timecop'
+  # Generating haml-Files for devise
+  gem 'hpricot'
+  gem 'ruby_parser'
+  # speedup guard on linux
+  gem 'libnotify'
 end
