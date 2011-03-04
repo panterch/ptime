@@ -22,11 +22,11 @@ describe UsersController do
       let(:user) { Factory(:user, :email=>"nobody@panter.ch") }
       context 'GET on edit' do
         before(:each) { get :edit, :id => user }
-        it('respons with success'){ response.code.should eq('200') }
+        it('responds with success'){ response.code.should eq('200') }
       end
       context 'GET on index' do
         before(:each) { get :index }
-        it('respons with success'){ response.code.should eq('200') }
+        it('responds with success'){ response.code.should eq('200') }
       end
 
     end
@@ -34,11 +34,11 @@ describe UsersController do
   context "unauthenticated test" do
     context 'GET on index' do
       before(:each) { get :index }
-      it('respons redirect target'){ response.should redirect_to(:controller=>"devise/sessions", :action=>"new") }
+      it('responds redirect target'){ response.should redirect_to(:controller=>"devise/sessions", :action=>"new") }
     end
     context 'GET on new' do
       before(:each) { get :new }
-      it('respons redirect target'){ response.should redirect_to(:controller=>"devise/sessions", :action=>"new") }
+      it('responds redirect target'){ response.should redirect_to(:controller=>"devise/sessions", :action=>"new") }
     end
   end
 end

@@ -89,8 +89,6 @@ GEM
     launchy (0.3.7)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
-    libnotify (0.3.0)
-      ffi (>= 0.6.2)
     linecache (0.43)
     mail (2.2.15)
       activesupport (>= 2.3.6)
@@ -189,7 +187,6 @@ DEPENDENCIES
   haml (= 3.0.25)
   hpricot
   inherited_resources (= 1.2.1)
-  libnotify
   mysql2
   rails (= 3.0.5)
   rspec-rails
