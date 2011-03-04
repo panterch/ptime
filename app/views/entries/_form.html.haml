@@ -15,8 +15,8 @@
     = f.input :project_id, :as => :select, :collection => Project.all
     = f.input :task_id
     = f.input :description
-    = f.input :start
-    = f.input :end
+    = f.input :start, :as => :timepicker
+    = f.input :end, :as => :timepicker
     = f.buttons do
       = f.commit_button
     = link_to 'Cancel', collection_path

@@ -14,6 +14,12 @@ $(document).ready(function(){
     $('input.ui-datepicker').datepicker();
 });
 
+/* jQuery Timepicker helper */
+$(document).ready(function(){
+    $('input.ui-timepicker').timepicker({
+      showPeriod: true});
+});
+
 /* Prepopulate new entries with today's date */
 $(document).ready(function(){
   var field = $("#entry_day")

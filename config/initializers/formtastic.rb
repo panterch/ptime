@@ -21,8 +21,46 @@ module Formtastic
         :input_html => {:class => 'ui-datepicker'}}
     end
   end
+
+  # Custom module to include a jQuery TimePicker into formtastic
+  # As seen on: http://fgelinas.com/code/timepicker/
+  # Syntax in formtastic:
+  #   form.input :resource, :as => :timepicker
+  # This will generate a text input field with the class 'ui-timepicker'.
+  # This input field needs to be populated from jQuery via: 
+  #   $('input.ui-timepicker').timepicker();
+  # Possible flags for timepicker() are:
+  #     timeSeparator: ':'
+  #     showLeadingZero: true
+  #     showMinutesLeadingZero: true
+  #     showPeriod: false
+  #     onSelect: onSelectCallback
+  #     onClose: onCloseCallback
+  #     hourText: 'Hour'
+  #     minuteText: 'Minute'
+  #     amPmText: ['AM', 'PM']
+  #     altField: '#alternate_input'
+  #     defaultTime: '12:34'
+  #     onHourShow: onHourShow
+  #     onMinuteShow: onMinuteShow
+  module TimePicker
+    protected
+ 
+    def timepicker_input(method, options = {})
+      format = options[:format] || Date::DATE_FORMATS[:default] || '%d %b %Y'
+      string_input(method, timepicker_options(format, 
+                                              object.send(method)).merge(options))
+    end
+ 
+    # Generate html input options for the timepicker_input
+    def timepicker_options(format, value = nil)
+      timepicker_options = {:value => value.try(:strftime, format), 
+        :input_html => {:class => 'ui-timepicker'}}
+    end
+  end
 end
 Formtastic::SemanticFormBuilder.send(:include, Formtastic::DatePicker)
+Formtastic::SemanticFormBuilder.send(:include, Formtastic::TimePicker)
 
 # --------------------------------------------------------------------------------------------------
 # Please note: If you're subclassing Formtastic::SemanticFormBuilder in a Rails 3 project, 
