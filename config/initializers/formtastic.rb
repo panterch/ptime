@@ -1,11 +1,5 @@
 # encoding: utf-8
 module Formtastic
-  # Custom module to include jQuery's DatePicker into formtastic
-  # Syntax in formtastic:
-  #   form.input :resource, :as => :datepicker
-  # This will generate a text input field with the class 'ui-datepicker'.
-  # This input field needs to be populated from jQuery via: 
-  #   $('input.ui-datepicker').datepicker();
   module DatePicker
     protected
  
