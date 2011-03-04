@@ -19,7 +19,7 @@
 
 %h3 Tasks
 %ol
-  - for task in project.tasks
+  = for task in project.tasks
     - unless task.inactive
       %li
         = task.name

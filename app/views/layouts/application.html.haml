@@ -15,8 +15,6 @@
         - if user_signed_in?
           Welcome, 
           = current_user.username
-          = #link_to('Edit registration', edit_user_path(current_user))
-          = link_to('Edit users', users_path)
           = link_to "Log out", destroy_user_session_path
         - else
           = link_to "Log in", new_user_session_path
@@ -25,4 +23,5 @@
       #navigation
         = link_to 'Home', '/'
         = link_to 'Entries', entries_path
+        = link_to('Administration', users_path)
       = yield
