@@ -20,15 +20,9 @@ describe Entry do
     assert_equal 1, Entry.count
   end
 
-  context "Mass assignment" do
+  context "associations" do
     before(:each) do
-      @entry = Entry.new(:description => "Description",
-                 :start => Date.parse('2011-01-01'),
-                 :end => Date.parse('2011-01-03'),
-                 :task_id => 1,
-                 :user_id => 1,
-                 :project_id => 1)
-
+      @entry = Factory.build(:entry)
     end
 
     it "should have one associated task" do
@@ -43,6 +37,15 @@ describe Entry do
     it "should have a description" do
       @entry.description.should_not be_empty
     end
+  end
 
+  it "should need a day" do
+    entry = Entry.new(:description => "Description",
+      :start => Date.parse('2011-01-01'),
+      :end => Date.parse('2011-01-03'),
+      :task_id => 1,
+      :user_id => 1,
+      :project_id => 1)
+    entry.should_not be_valid
   end
 end

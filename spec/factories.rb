@@ -30,8 +30,11 @@ Factory.define :project do |f|
 end
 
 Factory.define :entry do |f|
+  f.day Date.parse('2011-01-01')
+  f.start Date.parse('2011-01-01')
+  f.end Date.parse('2011-01-01')
   f.association :user, :factory => :user
   f.association :project, :factory => :project
   f.association :task, :factory => :task
-  f.description "Description"
+  f.description "It's an entry, you know?"
 end
