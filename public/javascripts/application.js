@@ -31,3 +31,13 @@ $(document).ready(function(){
   }
 });
 
+$(function($) {
+    $('#entry_project_id').change(function() {
+      var tasks = $('select#entry_project_id :selected').val();
+      if(tasks == '') tasks = '0';
+      $.get('/entries/update_tasks_select/' + tasks, function(data) {
+        $("#tasks_dropdown").html(data);
+        })
+      return false;
+    });
+})

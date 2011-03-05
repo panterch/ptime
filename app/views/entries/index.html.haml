@@ -1,28 +1,12 @@
 %h1 Listing entries
 
-%table
-  %tr
-    %th User
-    %th Project
-    %th Task
-    %th Description
-    %th Start
-    %th End
-    %th 
-    %th 
-    %th 
-
 - @entries.each do |entry|
-  %tr
-    %td= entry.user.username
-    %td= entry.project.name
-    %td= "" || entry.task.name 
-    %td= entry.description
-    %td= entry.start
-    %td= entry.end
-    %td= link_to 'Show', entry
-    %td= link_to 'Edit', edit_entry_path(entry)
-    %td= link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete
+  = entry.day
+  %b= entry.user.username
+  = entry.project.name
+  = link_to 'Show', entry
+  = link_to 'Edit', edit_entry_path(entry)
+  = link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete
 
 %br/
 %br/

@@ -31,3 +31,7 @@ project_states.each do |project_state|
   p.name = project_state
   p.save!
 end
+
+
+# Import demo projects
+Factory(:project)

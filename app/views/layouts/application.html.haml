@@ -21,7 +21,7 @@
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
       #navigation
-        = link_to 'Home', '/'
+        = link_to 'Projects', projects_path
         = link_to 'Entries', entries_path
         = link_to('Administration', users_path)
       = yield

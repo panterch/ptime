@@ -1,4 +1,4 @@
-= semantic_form_for(@entry) do |f|
+= semantic_form_for @entry do |f|
   - if @entry.errors.any?
     #error_explanation
       %h2 
@@ -6,14 +6,15 @@
         prohibited this entry from being saved
 
       %ul
-      = @entry.errors.full_messages.each do |msg|
+      - @entry.errors.full_messages.each do |msg|
         %li
-        = msg
+          = msg
 
   = f.inputs do
     = f.input :day, :as => :datepicker
     = f.input :project_id, :as => :select, :collection => Project.all
-    = f.input :task_id
+    #tasks_dropdown
+      = render :partial => 'tasks_select'
     = f.input :description
     = f.input :start, :as => :timepicker
     = f.input :end, :as => :timepicker

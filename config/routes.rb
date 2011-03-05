@@ -1,5 +1,8 @@
 PanterControlling::Application.routes.draw do
 
+  match 'entries/update_tasks_select/:id', :controller => 'entries', 
+                                           :action => 'update_tasks_select'
+
   resources :entries
 
   resources :projects
