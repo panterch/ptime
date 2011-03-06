@@ -1,0 +1,17 @@
+= form_for(@project_state) do |f|
+  - if @project_state.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project_state.errors.count, "error") 
+        prohibited this project_state from being saved:
+
+      %ul
+      - @project_state.errors.full_messages.each do |msg|
+        %li
+          =msg
+
+= semantic_form_for @project_state do |f|
+  = f.inputs do
+    = f.input :name
+  = f.buttons do
+    = f.commit_button
