@@ -29,6 +29,10 @@ Factory.define :project do |f|
   f.end Date.parse('2011-01-03')
 end
 
+Factory.define :project_inactive, :parent => :project do |f|
+  f.inactive true
+end
+
 Factory.define :entry do |f|
   f.day Date.parse('2011-01-01')
   f.start Date.parse('2011-01-01')

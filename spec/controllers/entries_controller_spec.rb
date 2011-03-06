@@ -25,7 +25,9 @@ describe EntriesController do
       project = Factory(:project)
       task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
-      post :create, :entry => @entry.merge( {:user_id => user.id, :task_id => task.id, :project_id => project.id} )
+      post :create, :entry => @entry.merge( {:user_id => user.id, 
+                                           :task_id => task.id, 
+                                           :project_id => project.id} )
     }
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new entry') { assigns(:entry).should_not be_a_new_record }

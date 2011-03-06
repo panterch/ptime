@@ -12,7 +12,8 @@
 
   = f.inputs do
     = f.input :day, :as => :datepicker
-    = f.input :project_id, :as => :select, :collection => Project.all
+    = f.input :project_id, :as => :select, 
+              :collection => Project.where(:inactive => false)
     #tasks_dropdown
       = render :partial => 'tasks_select'
     = f.input :description

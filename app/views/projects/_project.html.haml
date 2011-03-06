@@ -19,11 +19,14 @@
 
 %h3 Tasks
 %ol
-  = for task in project.tasks
+  - for task in project.tasks
     - unless task.inactive
       %li
         = task.name
       <br />
+  %li
+    Inactive tasks:
+    = project.tasks.where(:inactive => true).size
 
 Actions
 =link_to 'edit', edit_resource_path(project)
