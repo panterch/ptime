@@ -10,8 +10,12 @@
         %li
           = msg
 
+  -# Show input field for :day(%input#entry_day_input) as hidden text field.
+  -# This field is populated via jQuery and a datepicker.
+  #entry-ui-datepicker
   = f.inputs do
-    = f.input :day, :as => :datepicker
+    %input#entry_day_input{ :name => "entry[day]", 
+                            :value => Date.today.strftime("%m/%d/%Y") }
     = f.input :project_id, :as => :select, 
               :collection => Project.where(:inactive => false)
     #tasks_dropdown

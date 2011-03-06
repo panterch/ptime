@@ -14,23 +14,22 @@ $(document).ready(function(){
     $('input.ui-datepicker').datepicker();
 });
 
+/* Populate hidden day field when picking a date in entry form */
+$(document).ready(function(){
+    $('#entry-ui-datepicker').datepicker({
+           onSelect: function(dateText, inst) { 
+                       $("input#entry_day_input").val(dateText);
+                       console.log(dateText);
+                     }})
+});
+
 /* jQuery Timepicker helper */
 $(document).ready(function(){
     $('input.ui-timepicker').timepicker({
       showPeriod: true});
 });
 
-/* Prepopulate new entries with today's date */
-$(document).ready(function(){
-  var field = $("#entry_day")
-  if (field && !field.val()) {
-    var today = new Date();
-    var prettyDate =(today.getMonth()+1) + '/' + today.getDate() + '/' +
-            today.getFullYear();
-    field.val(prettyDate);
-  }
-});
-
+/* Fetch associated tasks for a given project in entry form */
 $(function($) {
     $('#entry_project_id').change(function() {
       var tasks = $('select#entry_project_id :selected').val();
