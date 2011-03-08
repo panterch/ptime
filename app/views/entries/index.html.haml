@@ -3,7 +3,7 @@
 - @entries.each do |entry|
   = entry.day
   %b= entry.user.username
-  = entry.project.name
+  = entry.project.shortname
   = link_to 'Show', entry
   = link_to 'Edit', edit_entry_path(entry)
   = link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete

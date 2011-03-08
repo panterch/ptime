@@ -4,8 +4,8 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :tasks, :project_state, :reject_if => lambda { |task| task[:name].blank? }
 
-  validates_presence_of :name, :description, :start, :end#, :project_state
+  validates_presence_of :shortname, :description, :start, :end#, :project_state
 
-  attr_accessible :name, :description, :start, :end, :inactive, :state,
+  attr_accessible :shortname, :description, :start, :end, :inactive, :state,
     :task_ids, :tasks_attributes, :project_state_id, :project_state_attributes
 end

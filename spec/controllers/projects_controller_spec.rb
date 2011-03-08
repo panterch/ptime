@@ -32,7 +32,7 @@ describe ProjectsController do
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new project') { assigns(:project).should_not be_a_new_record }
     it('creates a new project with associated task') {
-      Project.find_by_name(@project[:name]).tasks.should_not be_empty
+      Project.find_by_shortname(@project[:shortname]).tasks.should_not be_empty
     }
   end
 

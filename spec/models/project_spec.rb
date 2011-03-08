@@ -12,8 +12,8 @@ describe Project do
   end
 
   it "should allow mass assignement for title and body" do
-    project = Project.new(:name => 'title', :description => 'body')
-    project.name.should be_present
+    project = Project.new(:shortname => 'title', :description => 'body')
+    project.shortname.should be_present
     project.description.should be_present
   end
 

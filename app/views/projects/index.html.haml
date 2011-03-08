@@ -3,6 +3,6 @@
 = link_to 'Create new project', new_resource_path
 - collection.each do |project|
   %dt Name
-  %dd=project.name
+  %dd=project.shortname
   %dd=link_to 'edit', edit_resource_path(project)
   %hr

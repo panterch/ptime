@@ -10,7 +10,7 @@ describe "projects/edit.html.haml" do
   end
 
   it "displays the text attribute of the project" do
-    rendered.should =~ /#{@project.name}/
+    rendered.should =~ /#{@project.shortname}/
   end
 
   it "should not be the form to new" do

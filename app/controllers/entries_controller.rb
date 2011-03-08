@@ -15,12 +15,12 @@ class EntriesController < InheritedResources::Base
 
   def new
     @entry = Entry.new
-    @active_projects = Project.where(:inactive => false)
+    @active_projects = Project.where(:inactive => false).collect { |p| [p.shortname, p.id] }
   end
 
   def edit
     @entry = Entry.find(params[:id])
-    @active_projects = Project.where(:inactive => false)
+    @active_projects = Project.where(:inactive => false).collect { |p| [p.shortname, p.id] }
   end
 
 end

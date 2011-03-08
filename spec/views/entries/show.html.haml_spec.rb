@@ -10,7 +10,7 @@ describe "entries/show.html.haml" do
   it "renders attributes" do
     render
     rendered.should match(/#{@entry.user.username}/)
-    rendered.should match(/#{@entry.project.name}/)
+    rendered.should match(/#{@entry.project.shortname}/)
     rendered.should match(/#{@entry.task.name}/)
     rendered.should match(/#{@entry.description}/)
     rendered.should match(/#{@entry.billable}/)
