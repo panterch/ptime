@@ -1,5 +1,6 @@
 = semantic_form_for "entry", :remote => true do |form|
   = form.inputs do
+    Task
     - unless @entry
       - tasks ||= []
       = form.input :task_id, 

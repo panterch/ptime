@@ -14,15 +14,28 @@
   -# This field is populated via jQuery and a datepicker.
   #entry-ui-datepicker
   = f.inputs do
-    %input#entry_day_input{ :name => "entry[day]", 
-                            :value => Date.today.strftime("%m/%d/%Y") }
-    = f.input :project_id, :as => :select, 
-              :collection => Project.where(:inactive => false)
-    #tasks_dropdown
-      = render :partial => 'tasks_select'
-    = f.input :description
-    = f.input :start, :as => :timepicker
-    = f.input :end, :as => :timepicker
-    = f.buttons do
-      = f.commit_button
+    #project
+      %input#entry_day_input{ :name => "entry[day]", 
+                              :value => Date.today.strftime("%m/%d/%Y") }
+      #project_dropdown
+        Projects
+        = f.input :project_id, :as => :select, 
+          :collection => Project.where(:inactive => false)
+      #tasks_dropdown
+        = render :partial => 'tasks_select'
+      #project_details
+        #project_description
+          Description
+          %br/
+          = f.input :description
+        #project_start
+          Start
+          %br/
+          = f.input :start, :as => :timepicker
+        #project_end
+          End
+          %br/
+          = f.input :end, :as => :timepicker
+  = f.buttons do
+    = f.commit_button
     = link_to 'Cancel', collection_path

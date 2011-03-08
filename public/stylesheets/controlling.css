@@ -35,3 +35,64 @@ input#entry_day_input {
   visibility: hidden;
 }
 
+/* Show entry inputs in one line */
+/* I Don't display labels */
+#project_dropdown li label,
+#tasks_dropdown li label,
+#project_description li label,
+#project_start li label,
+#project_end li label,
+#new_entry li label {
+  display: none;
+}
+
+/* II Set list layout to 'none' */
+#new_entry fieldset.inputs ol li,
+#new_entry fieldset.inputs ol {
+  list-style: none;
+}
+
+/* III No blocking inputs */
+#project_details fieldset.inputs,
+#project_details fieldset.inputs,
+#tasks_dropdown fieldset.inputs {
+  display: inline;
+}
+
+/* IV Float projects and tasks to the left, project details to the right */
+#project {
+  margin-top: 3em;
+  margin-bottom: 1em;
+}
+
+#project_dropdown,
+#tasks_dropdown {
+  float: left;
+}
+
+#project_details {
+  float: right;
+}
+
+#tasks_dropdown,
+#project_dropdown {
+  width: 15%;
+  display: inline;
+}
+
+#project_description,
+#project_start,
+#project_end {
+  float: left;
+  display: inline;
+}
+
+/* V Style project details elements */
+input#entry_end.ui-timepicker,
+input#entry_start.ui-timepicker  {
+  width: 12em;
+}
+
+input#entry_description {
+  width: 16em;
+}
