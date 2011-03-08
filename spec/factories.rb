@@ -41,4 +41,5 @@ Factory.define :entry do |f|
   f.association :project, :factory => :project
   f.association :task, :factory => :task
   f.description "It's an entry, you know?"
+  f.billable true
 end

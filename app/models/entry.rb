@@ -7,5 +7,6 @@ class Entry < ActiveRecord::Base
   validates_presence_of :day, :project, :start, :end
 
   accepts_nested_attributes_for :task, :project, :user
-  attr_accessible :day, :description, :start, :end, :task_id, :project_id, :user_id
+  attr_accessible :day, :description, :start, :end, :task_id, :project_id,
+    :user_id, :billable
 end

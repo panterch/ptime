@@ -36,6 +36,10 @@
           End
           %br/
           = f.input :end, :as => :timepicker
+        #project_billable
+          Billable
+          %br/
+          = f.check_box :billable
   = f.buttons do
     = f.commit_button
     = link_to 'Cancel', collection_path

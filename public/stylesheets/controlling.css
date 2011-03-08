@@ -76,10 +76,10 @@ input#entry_day_input {
 
 #tasks_dropdown,
 #project_dropdown {
-  width: 15%;
   display: inline;
 }
 
+#project_billable,
 #project_description,
 #project_start,
 #project_end {

@@ -13,5 +13,6 @@ describe "entries/show.html.haml" do
     rendered.should match(/#{@entry.project.name}/)
     rendered.should match(/#{@entry.task.name}/)
     rendered.should match(/#{@entry.description}/)
+    rendered.should match(/#{@entry.billable}/)
   end
 end
