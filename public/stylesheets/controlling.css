@@ -1,26 +1,37 @@
+/* Style 'add task' form in projects to match formtastic inputs */
 div.task input[type="text"] {
   float: right;
-  width: 72%;
+  width: 53.5%;
   line-height: 18px;
 }
 
 div.task label {
   line-height: 18px;
   font-size: 13px;
-  width: 25%;
+  width: 22%;
   float: left;
 }
 
+div.task input {
+  position: absolute;
+  left: 31.5%;
+}
+
+/* Fix display bug in jQuery datepicker. Don't show artifacts when not called 
+   upon */
 #ui-datepicker-div.ui-datepicker {
   display: none;
 }
 
+/* Center datepicker in entry form */
 #entry-ui-datepicker {
   width: 250px;
   margin-left: auto;
   margin-right: auto;
 }
 
+/* Don't show entry day field (it get's populated by datepicker) */
 input#entry_day_input {
   visibility: hidden;
 }
+
