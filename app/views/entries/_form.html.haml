@@ -20,7 +20,7 @@
       #project_dropdown
         Projects
         = f.input :project_id, :as => :select, 
-          :collection => Project.where(:inactive => false)
+          :collection => @active_projects
       #tasks_dropdown
         = render :partial => 'tasks_select'
       #project_details

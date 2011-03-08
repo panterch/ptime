@@ -13,4 +13,14 @@ class EntriesController < InheritedResources::Base
     render :partial => "tasks_select", :locals => { :tasks => tasks }
   end
 
+  def new
+    @entry = Entry.new
+    @active_projects = Project.where(:inactive => false)
+  end
+
+  def edit
+    @entry = Entry.find(params[:id])
+    @active_projects = Project.where(:inactive => false)
+  end
+
 end
