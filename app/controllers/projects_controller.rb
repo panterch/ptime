@@ -1,7 +1,8 @@
 class ProjectsController < InheritedResources::Base
+  before_filter :fetch_project_states, :only => [:new, :edit]
+
   def new
     @project = Project.new
-    @project_states = ProjectState.all
   end
 
   def show
@@ -11,6 +12,9 @@ class ProjectsController < InheritedResources::Base
 
   def edit
     @project = Project.find(params[:id])
+  end
+
+  def fetch_project_states
     @project_states = ProjectState.all
   end
 end

@@ -1,4 +1,6 @@
 class EntriesController < InheritedResources::Base
+  before_filter :fetch_active_projects, :only => [:new, :edit]
+
   def create
     @entry = Entry.new(params[:entry])
     @entry.user = current_user
@@ -15,12 +17,15 @@ class EntriesController < InheritedResources::Base
 
   def new
     @entry = Entry.new
-    @active_projects = Project.where(:inactive => false).collect { |p| [p.shortname, p.id] }
   end
 
   def edit
     @entry = Entry.find(params[:id])
-    @active_projects = Project.where(:inactive => false).collect { |p| [p.shortname, p.id] }
+  end
+
+  def fetch_active_projects
+    @active_projects = Project.where(:inactive => false).collect \
+      { |p| [p.shortname, p.id] }
   end
 
 end
