@@ -1,20 +1,19 @@
 /* Style 'add task' form in projects to match formtastic inputs */
 div.task input[type="text"] {
-  float: right;
   width: 53.5%;
-  line-height: 18px;
-}
-
-div.task label {
-  line-height: 18px;
-  font-size: 13px;
-  width: 22%;
-  float: left;
-}
-
-div.task input {
-  position: absolute;
   left: 31.5%;
+  position: absolute;
+  line-height: 18px;
+}
+
+.task_inactive {
+  padding-left: 25%;
+  padding-top: 1em;
+}
+
+.task {
+  display: block;
+  padding-bottom: 2em;
 }
 
 /* Fix display bug in jQuery datepicker. Don't show artifacts when not called 
