@@ -1,6 +1,6 @@
 %h2 Project
 %b Name:
-= project.name
+= project.shortname
 <br />
 <br />
 %b Description:
@@ -26,7 +26,7 @@
       <br />
   %li
     Inactive tasks:
-    = project.tasks.where(:inactive => true).size
+    = @number_of_inactive_tasks
 
 Actions
 =link_to 'edit', edit_resource_path(project)
