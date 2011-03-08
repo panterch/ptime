@@ -1,6 +1,11 @@
 class EntriesController < InheritedResources::Base
   before_filter :fetch_active_projects, :only => [:new, :edit]
 
+  def index
+    @entries = Entry.search(params[:project_name], params[:user]).all.paginate(:per_page => 2, 
+                  :page => params[:page])
+  end
+
   def create
     @entry = Entry.new(params[:entry])
     @entry.user = current_user

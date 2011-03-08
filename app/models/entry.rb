@@ -9,4 +9,13 @@ class Entry < ActiveRecord::Base
   accepts_nested_attributes_for :task, :project, :user
   attr_accessible :day, :description, :start, :end, :task_id, :project_id,
     :user_id, :billable
+
+  def self.search(project_name, user)
+    if project_name
+      where(:user_id => user).joins(:project).\
+        where(:project => {:shortname.matches => "%#{project_name}%" })
+    else
+      scoped  
+    end
+  end
 end

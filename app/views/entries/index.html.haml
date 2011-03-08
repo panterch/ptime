@@ -1,5 +1,11 @@
 %h1 Listing entries
 
+= form_tag entries_path, :method => 'get' do
+  %p 
+    = text_field_tag :project_name, params[:project_name]
+    = select_tag :user, options_from_collection_for_select(User.all, "id", "username", params[:user])
+    = submit_tag "Filter", :name => nil
+
 - @entries.each do |entry|
   = entry.day
   %b= entry.user.username
@@ -8,6 +14,8 @@
   = link_to 'Edit', edit_entry_path(entry)
   = link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete
   %br/
+
+= will_paginate @entries
 
 %br/
 %br/
