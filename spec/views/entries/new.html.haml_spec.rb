@@ -5,6 +5,7 @@ describe "entries/new.html.haml" do
   before(:each) do
     @entry = Factory(:entry)
     @project = Factory(:project)
+    @active_projects = [@project]
     @project_inactive = Factory(:project_inactive)
     mock_inherited_resource(@entry)
   end
