@@ -26,19 +26,15 @@
       #project_details
         #project_description
           Description
-          %br/
           = f.input :description
         #project_start
           Start
-          %br/
           = f.input :start, :as => :timepicker
         #project_end
           End
-          %br/
           = f.input :end, :as => :timepicker
         #project_billable
           Billable
-          %br/
           = f.check_box :billable
   = f.buttons do
     = f.commit_button

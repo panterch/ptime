@@ -1,8 +1,6 @@
-%h1 List of projects
+%h1 Projects
 
 = link_to 'Create new project', new_resource_path
 - collection.each do |project|
-  %dt Name
-  %dd=project.shortname
-  %dd=link_to 'edit', edit_resource_path(project)
-  %hr
+  %p
+    %b=link_to project.shortname, edit_resource_path(project)

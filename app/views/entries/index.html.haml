@@ -3,44 +3,35 @@
 = form_for @search do |f|
   #entries_search_start
     = f.label :start_gte, "Begin"
-    %br/
     = f.date_select :start_gte
   #entries_search_start
     = f.label :end_lte, "End"
-    %br/
     = f.date_select :end_lte
   #entries_search_projects
     = f.label :project_id_equals, "Project"
-    %br/
     = f.select :project_id_equals, @active_projects
   #entries_search_user
     = f.label :user_id_equals, "User"
-    %br/
     = f.select :user_id_equals, @users
   #entries_search_button
     = f.submit "Search"
     | 
-    = link_to "Download XML", '/entries.xml'
-    |
-    = link_to "Download CSV", '/entries.csv'
+    = link_to "Download CSV", 'entries.csv'
 
-%p
-  Sort by:
-  = sort_link @search, :start
-  |
-  = sort_link @search, :end
-  |
-  = sort_link @search, :project
-  |
-  = sort_link @search, :user
-
-- @entries.each do |entry|
-  = entry.day
-  %b= entry.user.username
-  = entry.project.shortname
-  = link_to 'Show', entry
-  = link_to 'Edit', edit_entry_path(entry)
-  %br/
+%table
+  %tr
+    %th= sort_link @search, :day
+    %th= sort_link @search, :user_id
+    %th= sort_link @search, :project_id
+    %th
+  - @entries.each do |entry|
+    %tr
+      %td= entry.day
+      %td= entry.user.username
+      %td= entry.project.shortname
+      %td
+        = link_to 'Show', entry
+        = link_to 'Edit', edit_entry_path(entry)
 
 %p
   = will_paginate @entries

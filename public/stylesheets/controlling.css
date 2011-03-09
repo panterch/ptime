@@ -86,6 +86,10 @@ input#entry_day_input {
   display: inline;
 }
 
+#project_billable input {
+  display: block;
+}
+
 /* V Style project details elements */
 input#entry_end.ui-timepicker,
 input#entry_start.ui-timepicker  {
@@ -104,6 +108,14 @@ input#entry_description {
   display: inline;
   float: left;
   padding-right: 1em;
+}
+
+/* Have descriptions above dropdown menus */
+#entries_search_user label,
+#entries_search_projects label,
+#entries_search_start label,
+#entries_search_end label {
+  display: block;
 }
 
 #entries_search_button {
