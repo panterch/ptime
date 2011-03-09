@@ -1,10 +1,38 @@
-%h1 Listing entries
+%h1 Report
 
-= form_tag entries_path, :method => 'get' do
-  %p 
-    = text_field_tag :project_name, params[:project_name]
-    = select_tag :user, options_from_collection_for_select(User.all, "id", "username", params[:user])
-    = submit_tag "Filter", :name => nil
+= form_for @search do |f|
+  #entries_search_start
+    = f.label :start_gte, "Begin"
+    %br/
+    = f.date_select :start_gte
+  #entries_search_start
+    = f.label :end_lte, "End"
+    %br/
+    = f.date_select :end_lte
+  #entries_search_projects
+    = f.label :project_id_equals, "Project"
+    %br/
+    = f.select :project_id_equals, @active_projects
+  #entries_search_user
+    = f.label :user_id_equals, "User"
+    %br/
+    = f.select :user_id_equals, @users
+  #entries_search_button
+    = f.submit "Search"
+    | 
+    = link_to "Download XML", '/entries.xml'
+    |
+    = link_to "Download CSV", '/entries.csv'
+
+%p
+  Sort by:
+  = sort_link @search, :start
+  |
+  = sort_link @search, :end
+  |
+  = sort_link @search, :project
+  |
+  = sort_link @search, :user
 
 - @entries.each do |entry|
   = entry.day
@@ -12,12 +40,7 @@
   = entry.project.shortname
   = link_to 'Show', entry
   = link_to 'Edit', edit_entry_path(entry)
-  = link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete
   %br/
 
-= will_paginate @entries
-
-%br/
-%br/
-
-= link_to 'New Entry', new_entry_path
+%p
+  = will_paginate @entries

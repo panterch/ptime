@@ -95,3 +95,23 @@ input#entry_start.ui-timepicker  {
 input#entry_description {
   width: 16em;
 }
+
+/* Style filter entries */
+#entries_search_user,
+#entries_search_projects,
+#entries_search_start,
+#entries_search_end {
+  display: inline;
+  float: left;
+  padding-right: 1em;
+}
+
+#entries_search_button {
+  padding-top: 2em;
+  clear: left;
+}
+
+#entry_search {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
