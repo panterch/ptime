@@ -54,10 +54,11 @@ class EntriesController < InheritedResources::Base
     @entries = @search.all
     report = StringIO.new
     CSV::Writer.generate(report, ',') do |csv|
-        csv << ["Day", "Project", "User"]
+        csv << ["Day", "Hours", "Project", "User"]
         @entries.each do |e|
-          csv << [e.day, Project.find(e.project_id).shortname,
-                  User.find(e.user_id).username]
+          csv << [e.day, e.duration_hours,
+            Project.find(e.project_id).shortname,
+            User.find(e.user_id).username]
         end
       end
       send_data report.string, :type => "text/csv", 

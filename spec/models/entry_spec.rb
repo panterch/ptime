@@ -37,6 +37,9 @@ describe Entry do
     it "should have a description" do
       @entry.description.should_not be_empty
     end
+    it "should have a duration" do
+      @entry.duration_hours.should_not be_empty
+    end
   end
 
   it "should need a day" do

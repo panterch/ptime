@@ -39,6 +39,7 @@ input#entry_day_input {
 #project_dropdown li label,
 #tasks_dropdown li label,
 #project_description li label,
+#project_duration li label,
 #project_start li label,
 #project_end li label,
 #new_entry li label {
@@ -80,6 +81,7 @@ input#entry_day_input {
 
 #project_billable,
 #project_description,
+#project_duration,
 #project_start,
 #project_end {
   float: left;
@@ -93,7 +95,11 @@ input#entry_day_input {
 /* V Style project details elements */
 input#entry_end.ui-timepicker,
 input#entry_start.ui-timepicker  {
-  width: 12em;
+  width: 8em;
+}
+
+input#entry_duration_hours {
+  width: 5em;
 }
 
 input#entry_description {

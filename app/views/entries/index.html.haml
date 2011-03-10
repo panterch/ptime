@@ -21,12 +21,14 @@
 %table
   %tr
     %th= sort_link @search, :day
+    %th= sort_link @search, :duration, "Hours"
     %th= sort_link @search, :user_id
     %th= sort_link @search, :project_id
     %th
   - @entries.each do |entry|
     %tr
       %td= entry.day
+      %td= entry.duration_hours
       %td= entry.user.username
       %td= entry.project.shortname
       %td

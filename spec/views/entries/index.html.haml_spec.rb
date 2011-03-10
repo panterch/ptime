@@ -22,4 +22,9 @@ describe "entries/index.html.haml" do
     render
     rendered.should match(/entries.csv/)
   end
+
+  it "renders the entries' duration" do
+    render
+    rendered.should match(/#{@entries[0].duration_hours}/)
+  end
 end

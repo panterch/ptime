@@ -19,7 +19,6 @@ $(document).ready(function(){
     $('#entry-ui-datepicker').datepicker({
            onSelect: function(dateText, inst) { 
                        $("input#entry_day_input").val(dateText);
-                       console.log(dateText);
                      }})
 });
 
@@ -39,4 +38,32 @@ $(function($) {
         })
       return false;
     });
+})
+
+/* Calculate entry duration from start:end */
+$(function($) {
+  $('#entry_end').change(function() {
+    var start_time = $('#entry_start').val()
+    var end_time = $('#entry_end').val()
+    if (start_time) {
+      var start_date = new Date("1/1/70 " + start_time);
+    }
+    var end_date = new Date("1/1/70 " + end_time);
+    if (end_date > start_date) {
+      var diff = new Date();
+      diff.setTime(end_date - start_date);
+      $("#entry_duration_hours").val(diff.getHours()-1 +":"+ diff.getMinutes());
+    }
+    else {
+      $("#entry_duration_hours").val("");
+    }
+  });
+})
+
+/* Discard entry start:end if duration is edited manually */
+$(function($) {
+  $('#entry_duration_hours').change(function() {
+    $('#entry_start').val('');
+    $('#entry_end').val('');
+  });
 })
