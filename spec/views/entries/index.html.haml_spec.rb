@@ -8,6 +8,7 @@ describe "entries/index.html.haml" do
     @users = [Factory(:user, :email => "entries_index@example.com")]
     @user = Factory(:user, :email => "entries_index_user@example.com")
     @search = Entry.search()
+    @search_params = {}
     mock_inherited_resource(@entries)
     # Needed for will_paginate
     @entries.stub!(:total_pages).and_return(1)

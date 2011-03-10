@@ -16,13 +16,13 @@
   = f.inputs do
     #project
       %input#entry_day_input{ :name => "entry[day]", 
-                              :value => Date.today.strftime("%m/%d/%Y") }
+        :value => Date.today.strftime("%m/%d/%Y") }
       #project_dropdown
         Projects
         = f.input :project_id, :as => :select, 
           :collection => @active_projects
       #tasks_dropdown
-        = render :partial => 'tasks_select'
+        = render 'tasks_select'
       #project_details
         #project_description
           Description
