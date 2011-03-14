@@ -132,6 +132,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
+    rcov (0.9.9)
     responders (0.6.2)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
@@ -196,6 +197,7 @@ DEPENDENCIES
   meta_search
   mysql2
   rails (= 3.0.5)
+  rcov
   rspec-rails
   ruby-debug
   ruby_parser

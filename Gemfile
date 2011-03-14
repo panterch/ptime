@@ -28,6 +28,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'factory_girl_rails'
   gem 'ruby-debug'
+  gem 'rcov'
   gem 'timecop'
   # Generating haml-Files for devise
   gem 'hpricot'
