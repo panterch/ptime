@@ -2,5 +2,5 @@
 
 = link_to 'Create new project', new_resource_path
 - collection.each do |project|
-  %p
+  .line_attribute
     %b=link_to project.shortname, edit_resource_path(project)

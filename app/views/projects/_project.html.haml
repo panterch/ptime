@@ -1,21 +1,20 @@
 %h2 Project
-%b Name:
-= project.shortname
-<br />
-<br />
-%b Description:
-= project.description
-<br />
-<br />
-%b Start:
-= project.start
-<br />
-%b End:
-= project.end
-<br />
-<br />
-%b Inactive:
-= project.inactive ? "Yes" : "No"
+
+.line_attribute
+  %b Name:
+  = project.shortname
+.line_attribute
+  %b Description:
+  = project.description
+.line_attribute
+  %b Start:
+  = project.start
+.line_attribute
+  %b End:
+  = project.end
+.line_attribute
+  %b Inactive:
+  = project.inactive ? "Yes" : "No"
 
 %h3 Tasks
 %ol
@@ -23,7 +22,6 @@
     - unless task.inactive
       %li
         = task.name
-      <br />
   %li
     Inactive tasks:
     = @number_of_inactive_tasks

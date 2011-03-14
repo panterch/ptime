@@ -1,40 +1,40 @@
-%p#notice
+#notice
   = notice
 
-%p
+.line_attribute
   %b Day:
   = @entry.day
 
-%p
+.line_attribute
   %b User:
   = @entry.user.username
 
-%p
+.line_attribute
   %b Project:
   = @entry.project.shortname
 
-%p
+.line_attribute
   %b Task:
   -# TODO: Task should never be nil. A task has to be selected for an entry.
   = @entry.task.name unless @entry.task.nil?
 
-%p
+.line_attribute
   %b Description:
   = @entry.description
 
-%p
+.line_attribute
   %b Start:
   = @entry.start
 
-%p
+.line_attribute
   %b End:
   = @entry.end
 
-%p
+.line_attribute
   %b Duration:
   = @entry.duration_hours
 
-%p
+.line_attribute
   %b Billable:
   = @entry.billable
 
