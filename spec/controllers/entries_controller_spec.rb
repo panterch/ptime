@@ -18,10 +18,12 @@ describe EntriesController do
   end
   
   context 'POST on create with entry with associations' do
+    after(:each) {
+      Entry.delete_all
+    }
+
     before(:each) { 
-      # TODO: Why does the factory fail without a custom email address?
-      # Validation failed: Email has already been taken
-      user = Factory(:user, :email => "add_entry@example.com")
+      user = Factory(:user)
       project = Factory(:project)
       task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
@@ -39,6 +41,14 @@ describe EntriesController do
     }
     it('creates a new entry with associated user') {
       Entry.first.user.should_not be_nil
+    }
+  end
+
+  context 'Export entries to CSV' do
+    it('Creates a csv list of entries') {
+      Factory(:entry)
+      get :index, :format => "csv"
+      response.should render_template('index.csv.haml')
     }
   end
 

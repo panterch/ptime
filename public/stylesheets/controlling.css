@@ -135,6 +135,12 @@ input#entry_description {
 }
 
 /* Set space for paragraph-like look */
-.line_attribute {
+.line_item {
   padding-top: 0.5em;
+}
+
+/* Style 'show' actions */
+dl.show_item dt {
+  padding-top: 0.5em;
+  font-weight: bold;
 }

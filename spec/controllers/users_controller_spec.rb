@@ -19,7 +19,7 @@ describe UsersController do
     end
 
     context "persisted user" do
-      let(:user) { Factory(:user, :email=>"nobody@panter.ch") }
+      let(:user) { Factory(:user) }
       context 'GET on edit' do
         before(:each) { get :edit, :id => user }
         it('responds with success'){ response.code.should eq('200') }

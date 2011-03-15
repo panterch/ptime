@@ -16,7 +16,8 @@
   #entries_search_button
     = f.submit "Search"
     | 
-    = link_to "Download CSV", entries_path(@search_params.merge(:format => "csv"))
+    = link_to "Download CSV", 
+      entries_path( { :search => params[:search] }.merge(:format => "csv"))
 
 %table
   %tr

@@ -5,8 +5,8 @@ describe "entries/index.html.haml" do
   before(:each) do
     @entries = [Factory(:entry)]
     @active_projects = @entries
-    @users = [Factory(:user, :email => "entries_index@example.com")]
-    @user = Factory(:user, :email => "entries_index_user@example.com")
+    @users = [Factory(:user)]
+    @user = Factory(:user)
     @search = Entry.search()
     @search_params = {}
     mock_inherited_resource(@entries)

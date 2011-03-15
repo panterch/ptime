@@ -1,6 +1,6 @@
 %h1 Projects
-
 = link_to 'Create new project', new_resource_path
+%ul
 - collection.each do |project|
-  .line_attribute
-    %b=link_to project.shortname, edit_resource_path(project)
+  %li
+    =link_to project.shortname, resource_path(project)
