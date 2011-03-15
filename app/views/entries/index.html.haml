@@ -1,16 +1,16 @@
 %h1 Report
 
 = form_for @search do |f|
-  #entries_search_start
+  .entries_report_item
     = f.label :start_gte, "Begin"
     = f.date_select :start_gte
-  #entries_search_start
+  .entries_report_item
     = f.label :end_lte, "End"
     = f.date_select :end_lte
-  #entries_search_projects
+  .entries_report_item
     = f.label :project_id_equals, "Project"
     = f.select :project_id_equals, @active_projects, {:include_blank => ''}
-  #entries_search_user
+  .entries_report_item
     = f.label :user_id_equals, "User"
     = f.select :user_id_equals, @users, {:include_blank => ''}
   #entries_search_button

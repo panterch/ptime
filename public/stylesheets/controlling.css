@@ -36,12 +36,6 @@ input#entry_day_input {
 
 /* Show entry inputs in one line */
 /* I Don't display labels */
-#project_dropdown li label,
-#tasks_dropdown li label,
-#project_description li label,
-#project_duration li label,
-#project_start li label,
-#project_end li label,
 #new_entry li label {
   display: none;
 }
@@ -53,9 +47,7 @@ input#entry_day_input {
 }
 
 /* III No blocking inputs */
-#project_details fieldset.inputs,
-#project_details fieldset.inputs,
-#tasks_dropdown fieldset.inputs {
+.project_item fieldset.inputs {
   display: inline;
 }
 
@@ -65,30 +57,16 @@ input#entry_day_input {
   margin-bottom: 1em;
 }
 
-#project_dropdown,
-#tasks_dropdown {
-  float: left;
-}
-
 #project_details {
   float: right;
 }
 
-#tasks_dropdown,
-#project_dropdown {
-  display: inline;
-}
-
-#project_billable,
-#project_description,
-#project_duration,
-#project_start,
-#project_end {
+.project_item {
   float: left;
   display: inline;
 }
 
-#project_billable input {
+.project_item input[type="checkbox"] {
   display: block;
 }
 
@@ -107,20 +85,14 @@ input#entry_description {
 }
 
 /* Style filter entries */
-#entries_search_user,
-#entries_search_projects,
-#entries_search_start,
-#entries_search_end {
+.entries_report_item {
   display: inline;
   float: left;
   padding-right: 1em;
 }
 
 /* Have descriptions above dropdown menus */
-#entries_search_user label,
-#entries_search_projects label,
-#entries_search_start label,
-#entries_search_end label {
+.entries_report_item label {
   display: block;
 }
 
