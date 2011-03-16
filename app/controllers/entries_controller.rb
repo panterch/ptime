@@ -6,11 +6,11 @@ class EntriesController < InheritedResources::Base
   respond_to :csv, :only => :index
 
   def create
-    create! {
+    create! do
         @entry.user = current_user
         @entry.save
         new_entry_path
-      }
+    end
   end
 
   def index
@@ -29,7 +29,7 @@ class EntriesController < InheritedResources::Base
 
   # Show active tasks associated to project
   def update_tasks_select
-    tasks = Task.where(:project_id => params[:id], :inactive => false).\
+    tasks = Task.active.with_project_id(params[:id]).\
       order(:name) unless params[:id].blank?
     render :partial => "tasks_select", :locals => { :tasks => tasks }
   end
@@ -39,7 +39,7 @@ class EntriesController < InheritedResources::Base
 
   # Display only active projects
   def get_active_projects
-    @active_projects = Project.where(:inactive => false).collect do |p|
+    @active_projects = Project.active.collect do |p|
       [p.shortname, p.id] 
     end
   end

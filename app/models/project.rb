@@ -8,4 +8,6 @@ class Project < ActiveRecord::Base
 
   attr_accessible :shortname, :description, :start, :end, :inactive, :state,
     :task_ids, :tasks_attributes, :project_state_id, :project_state_attributes
+
+  scope :active, where(:inactive => false)
 end
