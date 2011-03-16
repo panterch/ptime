@@ -1,15 +1,15 @@
 class ProjectsController < InheritedResources::Base
-  before_filter :fetch_project_states, :only => [:new, :edit]
+  before_filter :get_project_states, :only => [:new, :edit]
+  before_filter :get_number_of_inactive_tasks, :only => :show
 
-  def show
-    show! do
-      @number_of_inactive_tasks = @project.tasks.active(false).count 
-    end
-  end
 
   protected
 
   def fetch_project_states
     @project_states = ProjectState.all
+  end
+
+  def get_number_of_inactive_tasks
+    @number_of_inactive_tasks = resource.tasks.active(false).count 
   end
 end
