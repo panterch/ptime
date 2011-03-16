@@ -17,19 +17,19 @@ gem 'meta_search'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'sqlite3-ruby', :require => 'sqlite3'
-  gem 'yard'
-  gem 'rspec-rails'
-  gem 'steak'
   gem 'capistrano'
-  gem 'capybara'
-  gem 'spork', "0.9.0.rc3"
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'factory_girl_rails'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'factory_girl_rails'
-  gem 'ruby-debug'
+  gem 'launchy'
   gem 'rcov'
+  gem 'rspec-rails'
+  gem 'ruby-debug'
+  gem 'spork', "0.9.0.rc3"
+  gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'timecop'
+  gem 'yard'
   # Generating haml-Files for devise
   gem 'hpricot'
   gem 'ruby_parser'

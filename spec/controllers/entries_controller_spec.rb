@@ -44,12 +44,4 @@ describe EntriesController do
     }
   end
 
-  context 'Export entries to CSV' do
-    it('Creates a csv list of entries') {
-      Factory(:entry)
-      get :index, :format => "csv"
-      response.should render_template('index.csv.haml')
-    }
-  end
-
 end
