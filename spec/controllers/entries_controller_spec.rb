@@ -18,10 +18,6 @@ describe EntriesController do
   end
   
   context 'POST on create with entry with associations' do
-    after(:each) {
-      Entry.delete_all
-    }
-
     before(:each) { 
       user = Factory(:user)
       project = Factory(:project)

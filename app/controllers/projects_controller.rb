@@ -5,7 +5,7 @@ class ProjectsController < InheritedResources::Base
 
   protected
 
-  def fetch_project_states
+  def get_project_states
     @project_states = ProjectState.all
   end
 

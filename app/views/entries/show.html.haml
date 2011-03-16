@@ -13,7 +13,7 @@
 
   %dt Task:
   -# TODO: Task should never be nil. A task has to be selected for an entry.
-  %dd= @entry.task.name unless @entry.task.nil?
+  %dd= @entry.task.try(:name)
 
   %dt Description:
   %dd= @entry.description
