@@ -12,7 +12,7 @@
     = f.select :project_id_equals, @active_projects, {:include_blank => ''}
   .entries_report_item
     = f.label :user_id_equals, "User"
-    = users_id_equals_select(f)
+    = f.select :user_id_equals, @users, {:include_blank => ''}
   #entries_search_button
     = f.submit "Search"
     | 
