@@ -54,7 +54,7 @@ class EntriesController < InheritedResources::Base
   end
 
   def get_users
-    @users = User.all.collect { |user| [user.username, user.id] }
+    @users = User.all
   end
 
 end
