@@ -14,15 +14,10 @@ class EntriesController < InheritedResources::Base
   end
 
   def index
-    # Prepare entries for csv export
     index! do |format|
-      format.csv do
-        @entries_csv = @search.all.collect do |entry|
-          [ entry.day, 
-            entry.duration_hours, 
-            entry.project.shortname,
-            entry.user.username].join(',')
-        end
+      format.csv do 
+        send_data @search.all.to_comma, :type => 'text/csv',
+          :filename=>"report_#{Date.today}.csv"
       end
     end
   end

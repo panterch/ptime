@@ -3,14 +3,16 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.5'
 
 # gems in alphabetic order
+gem 'comma', :git => 'git://github.com/crafterm/comma.git'
 gem 'devise'
 gem 'exception_notification_rails3', '1.2.0', :require => 'exception_notifier'
+gem 'fastercsv'
 gem 'formtastic', '1.2.3'
 gem 'haml', '3.0.25'
 gem 'inherited_resources', '1.2.1'
+gem 'meta_search'
 gem 'mysql2'
 gem 'will_paginate', '3.0.pre2'
-gem 'meta_search'
 
 
 # Bundle gems for the local environment. Make sure to

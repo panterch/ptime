@@ -21,4 +21,11 @@ class Entry < ActiveRecord::Base
     (duration / 60).to_s + ":" + (duration % 60).to_s if duration
   end
 
+  comma do
+    project :shortname
+    user :username
+    day
+    duration_hours
+  end
+
 end
