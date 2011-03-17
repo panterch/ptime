@@ -2,8 +2,7 @@ class EntriesController < InheritedResources::Base
   before_filter :get_active_projects, :only => [:new, :edit, :index]
   before_filter :populate_search, :only => :index
   before_filter :get_users, :only => :index
-
-  respond_to :csv, :only => :index
+  before_filter :get_tasks_by_project, :only => [:new, :edit, :index]
 
   def create
     create! do
@@ -16,27 +15,18 @@ class EntriesController < InheritedResources::Base
   def index
     index! do |format|
       format.csv do 
-        send_data @search.all.to_comma, :type => 'text/csv',
+        send_data @search.all.to_comma, 
+          :type => 'text/csv',
           :filename=>"report_#{Date.today}.csv"
       end
     end
   end
 
-  # Show active tasks associated to project
-  def update_tasks_select
-    tasks = Task.active.with_project_id(params[:id]).\
-      order(:name) unless params[:id].blank?
-    render :partial => "tasks_select", :locals => { :tasks => tasks }
-  end
-
 
   private
 
-  # Display only active projects
   def get_active_projects
-    @active_projects = Project.active.collect do |p|
-      [p.shortname, p.id] 
-    end
+    @active_projects = Project.active
   end
 
   def collection
@@ -50,6 +40,16 @@ class EntriesController < InheritedResources::Base
 
   def get_users
     @users = User.all
+  end
+
+  # Prefetch all tasks and group them by projects
+  def get_tasks_by_project
+    @tasks_by_project = Hash.new
+    Project.active.each do |p|
+      @tasks_by_project[p.id] = p.tasks.map do |t| 
+        { :id => t.id, :name => t.name }
+      end
+    end
   end
 
 end

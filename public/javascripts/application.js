@@ -28,18 +28,6 @@ $(document).ready(function(){
       showPeriod: true});
 });
 
-/* Fetch associated tasks for a given project in entry form */
-$(function($) {
-    $('#entry_project_id').change(function() {
-      var tasks = $('select#entry_project_id :selected').val();
-      if(tasks == '') tasks = '0';
-      $.get('/entries/update_tasks_select/' + tasks, function(data) {
-        $("#tasks_dropdown").html(data);
-        })
-      return false;
-    });
-})
-
 /* Calculate entry duration from start:end */
 $(function($) {
   $('#entry_end').change(function() {
@@ -67,3 +55,18 @@ $(function($) {
     $('#entry_end').val('');
   });
 })
+
+/* Fetch associated tasks for a given project in entry form */
+$(function($) {
+    $('#entry_project_id').change(function() {
+      $("#entry_task_id").find('option').remove();
+
+      var project_id = $('select#entry_project_id :selected').val();
+      var tasks_from_projects = $.parseJSON($('#tasks_collection_storage').val())
+
+      $.each(tasks_from_projects[project_id], function(i, item) {
+        $("#entry_task_id").append(
+          $("<option></option>").val(item.id).html(item.name)); 
+      });
+    });
+});

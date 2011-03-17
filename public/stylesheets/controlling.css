@@ -29,13 +29,19 @@ div.task input[type="text"] {
   margin-right: auto;
 }
 
-/* Don't show entry day field (it get's populated by datepicker) */
+/* Don't show:
+ *   entry day field (it get's populated by datepicker),
+ *   tasks_collection_storage (it's a container holding all tasks grouped by
+ *     project)
+*/
+input#tasks_collection_storage,
 input#entry_day_input {
   visibility: hidden;
 }
 
 /* Show entry inputs in one line */
-/* I Don't display labels */
+/* I Don't display labels on 'new' and 'edit' actions */
+form[id*="edit_entry_"] li label,
 #new_entry li label {
   display: none;
 }

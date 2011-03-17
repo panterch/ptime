@@ -9,7 +9,7 @@
     = f.date_select :end_lte
   .entries_report_item
     = f.label :project_id_equals, "Project"
-    = f.select :project_id_equals, @active_projects, {:include_blank => ''}
+    = projects_select_id_equals(f,  @active_projects)
   .entries_report_item
     = f.label :user_id_equals, "User"
     = users_id_equals_select(f)

@@ -15,14 +15,21 @@
   #entry-ui-datepicker
   = f.inputs do
     #project
+
+      -# Prefetch all tasks for projects. Store them in this hidden input field
+      -# as JSON. When the user selects a project, the related tasks can be
+      -# shown very quickly, then.
+      %input#tasks_collection_storage{ :value => get_tasks_by_projects }
+
       %input#entry_day_input{ :name => "entry[day]", 
         :value => Date.today.strftime("%m/%d/%Y") }
       .project_item
         Projects
-        = f.input :project_id, :as => :select, 
-          :collection => @active_projects
-      #tasks_dropdown.project_item
-        = render 'tasks_select'
+        = projects_select(f, @active_projects)
+      .project_item
+        Tasks
+        = f.input :task_id, :as => :select, 
+          :collection => tasks_collection
       #project_details
         .project_item
           Description
