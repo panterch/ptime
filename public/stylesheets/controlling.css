@@ -37,6 +37,7 @@ div.task input[type="text"] {
 input#tasks_collection_storage,
 input#entry_day_input {
   visibility: hidden;
+  width: 1px;
 }
 
 /* Show entry inputs in one line */

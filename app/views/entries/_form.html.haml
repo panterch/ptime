@@ -13,16 +13,18 @@
   -# Show input field for :day(%input#entry_day_input) as hidden text field.
   -# This field is populated via jQuery and a datepicker.
   #entry-ui-datepicker
+
+  -# Prefetch all tasks for projects. Store them in this hidden input field
+  -# as JSON. When the user selects a project, the related tasks can be
+  -# shown very quickly, then.
+  %input#tasks_collection_storage{ :value => get_tasks_by_projects }
+
   = f.inputs do
     #project
 
-      -# Prefetch all tasks for projects. Store them in this hidden input field
-      -# as JSON. When the user selects a project, the related tasks can be
-      -# shown very quickly, then.
-      %input#tasks_collection_storage{ :value => get_tasks_by_projects }
-
       %input#entry_day_input{ :name => "entry[day]", 
         :value => Date.today.strftime("%m/%d/%Y") }
+
       .project_item
         Projects
         = projects_select(f, @active_projects)
