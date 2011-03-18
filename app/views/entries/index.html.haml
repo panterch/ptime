@@ -34,7 +34,7 @@
       %td= entry.project.shortname
       %td
         = link_to 'Show', entry
-        = link_to 'Edit', edit_entry_path(entry)
+        = display_edit_link(entry)
 
 #pagination
   = will_paginate @entries

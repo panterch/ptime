@@ -36,4 +36,9 @@ module EntriesHelper
     end
   end
 
+  # Display an edit link if the entry belongs to the logged in user
+  def display_edit_link(entry)
+    link_to 'Edit', edit_entry_path(entry) if entry.user == current_user
+  end
+
 end
