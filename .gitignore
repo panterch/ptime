@@ -24,3 +24,5 @@ public/stylesheets/all.css
 .yardoc
 
 db/development_structure.sql
+.idea
+.project
