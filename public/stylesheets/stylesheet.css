@@ -1,5 +1,5 @@
 body {
-  background-color: #4B7399;
+  background-color: #FFF;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
@@ -8,8 +8,9 @@ a img {
   border: none;
 }
 
-a {
-  color: #0000FF;
+a,
+a:visited {
+  color: inherit;
 }
 
 .clear {
@@ -21,9 +22,11 @@ a {
 #container {
   width: 75%;
   margin: 0 auto;
-  background-color: #FFF;
   padding: 20px 40px;
-  border: solid 1px black;
+  background-color: #FFF8FF;
+  border: 2px solid #FF80C0;
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-radius: 20px 20px 20px 20px;
   margin-top: 20px;
 }
 
