@@ -1,6 +1,8 @@
 %h1 Report
 
-= form_for @search do |f|
+= form_for(@search, :as => :report,  :url => { :action => "index" }, 
+  :html => { :method => :get, :id => "entry_search", 
+  :class => "entry_search" })  do |f|
   .entries_report_item
     = f.label :start_gte, "Begin"
     = f.date_select :start_gte
@@ -17,7 +19,7 @@
     = f.submit "Search"
     | 
     = link_to "Download CSV", 
-      entries_path( { :search => params[:search] }.merge(:format => "csv"))
+      report_path( { :report => params[:report] }.merge(:format => "csv"))
 
 %table
   %tr
