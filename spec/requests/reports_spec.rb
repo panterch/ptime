@@ -9,7 +9,7 @@ feature "Authentication via devise", %q{
   scenario "access csv export" do
     entry = Factory(:entry)
     log_in
-    visit "/entries.csv"
+    visit "/report.csv"
     page.should have_content(entry.day.to_s)
   end
 end

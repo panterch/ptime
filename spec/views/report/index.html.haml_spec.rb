@@ -2,7 +2,7 @@ require 'spec_helper'
 include InheritedResourceHelpers
 include Devise::TestHelpers
 
-describe "entries/index.html.haml" do
+describe "report/index.html.haml" do
   before(:each) do
     @entries = [Factory(:entry)]
     @active_projects = [Factory(:project)]
@@ -23,7 +23,7 @@ describe "entries/index.html.haml" do
 
   it "renders a download link for entries" do
     render
-    rendered.should match(/entries.csv/)
+    rendered.should match(/report.csv/)
   end
 
   it "renders the entries' duration" do

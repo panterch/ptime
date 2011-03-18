@@ -2,6 +2,8 @@ PanterControlling::Application.routes.draw do
 
   match '/admin' => "admin#index"
 
+  match '/report' => "report#index"
+
   resources :project_states, :only => [:new, :create, :index]
 
   resources :entries
