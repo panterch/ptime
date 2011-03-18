@@ -1,5 +1,6 @@
 require 'spec_helper'
 include InheritedResourceHelpers
+include Devise::TestHelpers
 
 describe "entries/index.html.haml" do
   before(:each) do
@@ -7,6 +8,7 @@ describe "entries/index.html.haml" do
     @active_projects = [Factory(:project)]
     @users = [Factory(:user)]
     @user = Factory(:user)
+    sign_in @user
     @search = Entry.search()
     @tasks_by_project = {"1"=>[{"name"=>"First task","id"=>1}]}
     mock_inherited_resource(@entries)
