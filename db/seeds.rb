@@ -1,21 +1,31 @@
 # Import active users from ptime with initial pwd 'welcome'
-users = { 'aml' => 'aml@panter.ch', 
-    'dan' => 'dan@panter.ch',
-    'dil' => 'dil@panter.ch', 
-    'geo' => 'geo@panter.ch', 
-    'koa' => 'koa@panter.ch',
-    'maa' => 'maa@panter.ch', 
-    'mir' => 'mizunzu@gmail.com',
-    'pho' => 'pho@panter.ch', 
-    'rob' => 'rob@panter.ch', 
-    'seb' => 'seb@panter.ch',
-    'sev' => 'sev@panter.ch', 
-    'sym' => 'sym@panter.ch', 
-    'tam' => 'tam@panter.ch', 
-    'tpo' => 'tpo@panter.ch', 
-    'tro' => 'tro@panter.ch',
-    'uee' => 'unknown1@unknown.com'
+admins = {'aml' => 'aml@panter.ch',
+          'dan' => 'dan@panter.ch',
+          'dil' => 'dil@panter.ch',
+          'geo' => 'geo@panter.ch',
+          'koa' => 'koa@panter.ch',
+          'maa' => 'maa@panter.ch',
+          'mir' => 'mizunzu@gmail.com',
+          'pho' => 'pho@panter.ch',
+          'rob' => 'rob@panter.ch',
+          'seb' => 'seb@panter.ch',
+          'sev' => 'sev@panter.ch',
+          'sym' => 'sym@panter.ch',
+          'tam' => 'tam@panter.ch',
+          'tpo' => 'tpo@panter.ch',
+          'tro' => 'tro@panter.ch'
 }
+users = {
+    'uee' => 'unknown1@example.com'
+}
+
+admins.each do |username, email|
+  #FIXME: Why ":admin=>true" do not work?
+  User.create!(:username => username, :password => 'welcome',
+               :email => email) do |user|
+    user.admin=true
+  end
+end
 
 users.each do |username, email|
   User.create!(:username => username, :password => 'welcome', :email => email)
@@ -24,7 +34,7 @@ end
 
 # Import project states
 project_states = ["offered", "won", "running", "closed", "lost", "closing",
-  "permanent"]
+                  "permanent"]
 
 project_states.each do |project_state|
   p = ProjectState.new
