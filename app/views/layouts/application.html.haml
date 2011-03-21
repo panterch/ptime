@@ -14,8 +14,7 @@
       #user_nav
         - if user_signed_in?
           Welcome,
-          = link_to current_user.username, user_path(current_user),
-          :id=>'edit_current_user'
+          = current_user.username
           = link_to "Log out", destroy_user_session_path
         - else
           = link_to "Log in", new_user_session_path
@@ -24,7 +23,7 @@
       #navigation
         = link_to 'Projects', projects_path
         = link_to 'Entry', new_entry_path
-        = link_to 'Report', '/report'
+        = link_to 'Report', report_path
         - if current_user.try(:admin?)
-          = link_to('Administration', '/admin')
+          = link_to('Administration', admin_path)
       = yield
