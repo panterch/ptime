@@ -1,0 +1,14 @@
+- unless @entries.nil?
+  %table
+    %tr
+      %th Project
+      %th Task
+      %th Description
+      %th Duration
+    - @entries.each do |entry|
+      %tr
+        %td= entry.project.shortname
+        %td= entry.task.name if entry.task
+        %td= entry.description
+        %td= entry.duration_hours
+        %td= link_to 'Edit', edit_entry_path(entry)

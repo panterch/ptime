@@ -23,7 +23,7 @@
     #project
 
       %input#entry_day_input{ :name => "entry[day]", 
-        :value => Date.today.strftime("%m/%d/%Y") }
+        :value => @entry.day.strftime("%m/%d/%Y") }
 
       .project_item
         Projects
@@ -52,21 +52,4 @@
     = f.commit_button
     = link_to 'Cancel', collection_path
 
--# TODO: Move this logic in the controller. If moved to the create action,
--#  however, the instance variable won't be recognized in the view
--# TODO: Don't just list entries of today - list them for the day the last
--# entry hast been created for
-- entries_of_today = Entry.find_all_by_user_id_and_day(current_user.id, Date.today)
-- unless entries_of_today.nil?
-  %table
-    %tr
-      %th Project
-      %th Task
-      %th Description
-      %th Duration
-    - entries_of_today.each do |entry|
-      %tr
-        %td= entry.project.shortname
-        %td= entry.task.name if entry.task
-        %td= entry.description
-        %td= entry.duration_hours
+= render 'entries'
