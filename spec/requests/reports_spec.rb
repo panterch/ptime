@@ -11,5 +11,6 @@ feature "Authentication via devise", %q{
     log_in
     visit "/report.csv"
     page.should have_content(entry.day.to_s)
+    page.should have_content(entry.task.name)
   end
 end

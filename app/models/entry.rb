@@ -25,6 +25,7 @@ class Entry < ActiveRecord::Base
     user :username
     day
     duration_hours
+    task :name=>'Task'
   end
 
 end
