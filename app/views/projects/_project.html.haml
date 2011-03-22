@@ -1,21 +1,16 @@
 %h2 Project
-%b Name:
-= project.shortname
-<br />
-<br />
-%b Description:
-= project.description
-<br />
-<br />
-%b Start:
-= project.start
-<br />
-%b End:
-= project.end
-<br />
-<br />
-%b Inactive:
-= project.inactive ? "Yes" : "No"
+
+%dl.show_item
+  %dt Name:
+  %dd= project.shortname
+  %dt Description:
+  %dd= project.description
+  %dt Start:
+  %dd= project.start
+  %dt End:
+  %dd= project.end
+  %dt Inactive:
+  %dd= project.inactive ? "Yes" : "No"
 
 %h3 Tasks
 %ol
@@ -23,10 +18,8 @@
     - unless task.inactive
       %li
         = task.name
-      <br />
   %li
     Inactive tasks:
     = @number_of_inactive_tasks
 
-Actions
-=link_to 'edit', edit_resource_path(project)
+=link_to 'Edit project', edit_resource_path(project)

@@ -1,6 +1,0 @@
-- @search = Entry.search(params[:search])
-Day, Hours, Project, User
-- @search.all.each do |entry|
-  = [entry.day, entry.duration_hours, 
-    Project.find(entry.project_id).shortname, 
-    User.find(entry.user_id).username].join(',')

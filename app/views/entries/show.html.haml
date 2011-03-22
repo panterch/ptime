@@ -1,42 +1,34 @@
-%p#notice
+#notice
   = notice
 
-%p
-  %b Day:
-  = @entry.day
+%dl.show_item
+  %dt Day:
+  %dd= @entry.day
 
-%p
-  %b User:
-  = @entry.user.username
+  %dt User:
+  %dd= @entry.user.username
 
-%p
-  %b Project:
-  = @entry.project.shortname
+  %dt Project:
+  %dd= @entry.project.shortname
 
-%p
-  %b Task:
+  %dt Task:
   -# TODO: Task should never be nil. A task has to be selected for an entry.
-  = @entry.task.name unless @entry.task.nil?
+  %dd= @entry.task.try(:name)
 
-%p
-  %b Description:
-  = @entry.description
+  %dt Description:
+  %dd= @entry.description
 
-%p
-  %b Start:
-  = @entry.start
+  %dt Start:
+  %dd= @entry.start
 
-%p
-  %b End:
-  = @entry.end
+  %dt End:
+  %dd= @entry.end
 
-%p
-  %b Duration:
-  = @entry.duration_hours
+  %dt Duration:
+  %dd= @entry.duration_hours
 
-%p
-  %b Billable:
-  = @entry.billable
+  %dt Billable:
+  %dd= @entry.billable
 
 
 = link_to 'Edit', edit_entry_path(@entry) |

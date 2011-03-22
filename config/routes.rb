@@ -2,10 +2,9 @@ PanterControlling::Application.routes.draw do
 
   match '/admin' => "admin#index"
 
-  resources :project_states, :only => [:new, :create, :index]
+  match '/report' => "report#index"
 
-  match 'entries/update_tasks_select/:id', :controller => 'entries', 
-                                           :action => 'update_tasks_select'
+  resources :project_states, :only => [:new, :create, :index]
 
   resources :entries
 

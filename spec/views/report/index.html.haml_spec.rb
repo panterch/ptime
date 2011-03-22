@@ -1,14 +1,16 @@
 require 'spec_helper'
 include InheritedResourceHelpers
+include Devise::TestHelpers
 
-describe "entries/index.html.haml" do
+describe "report/index.html.haml" do
   before(:each) do
     @entries = [Factory(:entry)]
-    @active_projects = @entries
-    @users = [Factory(:user, :email => "entries_index@example.com")]
-    @user = Factory(:user, :email => "entries_index_user@example.com")
+    @active_projects = [Factory(:project)]
+    @users = [Factory(:user)]
+    @user = Factory(:user)
+    sign_in @user
     @search = Entry.search()
-    @search_params = {}
+    @tasks_by_project = {"1"=>[{"name"=>"First task","id"=>1}]}
     mock_inherited_resource(@entries)
     # Needed for will_paginate
     @entries.stub!(:total_pages).and_return(1)
@@ -21,7 +23,7 @@ describe "entries/index.html.haml" do
 
   it "renders a download link for entries" do
     render
-    rendered.should match(/entries.csv/)
+    rendered.should match(/report.csv/)
   end
 
   it "renders the entries' duration" do

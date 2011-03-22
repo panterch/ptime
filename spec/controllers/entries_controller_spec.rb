@@ -19,9 +19,7 @@ describe EntriesController do
   
   context 'POST on create with entry with associations' do
     before(:each) { 
-      # TODO: Why does the factory fail without a custom email address?
-      # Validation failed: Email has already been taken
-      user = Factory(:user, :email => "add_entry@example.com")
+      user = Factory(:user)
       project = Factory(:project)
       task = Factory(:task)
       @entry = Factory.attributes_for(:entry)

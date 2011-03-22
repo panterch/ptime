@@ -1,41 +1,30 @@
 class EntriesController < InheritedResources::Base
   before_filter :get_active_projects, :only => [:new, :edit, :index]
-  before_filter :populate_search_params, :only => :new
-  respond_to :html
-  respond_to :csv, :only => :index
+  before_filter :get_tasks_by_project, :only => [:new, :edit, :index]
 
   def create
-    @entry = Entry.new(params[:entry])
-    @entry.user = current_user
-    @entry.save
-    redirect_to new_entry_path
-  end
-
-  # Show active tasks associated to project
-  def update_tasks_select
-    tasks = Task.where(:project_id => params[:id], :inactive => false).\
-      order(:name) unless params[:id].blank?
-    render :partial => "tasks_select", :locals => { :tasks => tasks }
+    create! do
+        @entry.user = current_user
+        @entry.save
+        new_entry_path
+    end
   end
 
 
-  private
+  protected
 
-  # Display only active projects
   def get_active_projects
-    @active_projects = Project.where(:inactive => false).collect \
-      { |p| [p.shortname, p.id] }
+    @active_projects = Project.active
   end
 
-  def populate_search_params
-    @search_params = {}
-  end
-
-  def collection
-    @users = User.all.collect { |user| [user.username, user.id]}
-    @search = Entry.search(params[:search])
-    @search_params = { :search => params[:search] }
-    @entries = @search.all.paginate(:per_page => 3, :page => params[:page])
+  # Prefetch all tasks and group them by projects
+  def get_tasks_by_project
+    @tasks_by_project = Hash.new
+    Project.active.each do |p|
+      @tasks_by_project[p.id] = p.tasks.map do |t| 
+        { :id => t.id, :name => t.name }
+      end
+    end
   end
 
 end

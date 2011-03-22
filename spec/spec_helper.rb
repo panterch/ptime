@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'capybara/rspec'
 require 'spork'
 require 'views/inherited_resource_helpers'
 
@@ -14,6 +15,14 @@ Spork.prefork do
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+  # Spork.trap_method Jujutsu
+  # Devise preloads the User model. Avoid this by delaying route loading.
+  require "rails/application"
+  Spork.trap_method(Rails::Application, :reload_routes!)
+  
+  require File.dirname(__FILE__) + "/../config/environment.rb"
+
 end
 
 Spork.each_run do

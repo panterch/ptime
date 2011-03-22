@@ -1,22 +1,25 @@
 %h1 Report
 
-= form_for @search do |f|
-  #entries_search_start
+= form_for(@search, :as => :report,  :url => { :action => "index" }, 
+  :html => { :method => :get, :id => "entry_search", 
+  :class => "entry_search" })  do |f|
+  .entries_report_item
     = f.label :start_gte, "Begin"
     = f.date_select :start_gte
-  #entries_search_start
+  .entries_report_item
     = f.label :end_lte, "End"
     = f.date_select :end_lte
-  #entries_search_projects
+  .entries_report_item
     = f.label :project_id_equals, "Project"
-    = f.select :project_id_equals, @active_projects, {:include_blank => ''}
-  #entries_search_user
+    = projects_select_id_equals(f,  @active_projects)
+  .entries_report_item
     = f.label :user_id_equals, "User"
-    = f.select :user_id_equals, @users, {:include_blank => ''}
+    = users_id_equals_select(f)
   #entries_search_button
     = f.submit "Search"
     | 
-    = link_to "Download CSV", entries_path(@search_params.merge(:format => "csv"))
+    = link_to "Download CSV", 
+      report_path( { :report => params[:report] }.merge(:format => "csv"))
 
 %table
   %tr
@@ -33,7 +36,7 @@
       %td= entry.project.shortname
       %td
         = link_to 'Show', entry
-        = link_to 'Edit', edit_entry_path(entry)
+        = display_edit_link(entry)
 
-%p
+#pagination
   = will_paginate @entries

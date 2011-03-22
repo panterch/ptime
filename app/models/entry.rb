@@ -1,12 +1,9 @@
-require 'csv'
-
 class Entry < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
   belongs_to :project
 
-  # TODO: Check presence of :task
-  validates_presence_of :day, :project, :duration_hours
+  validates_presence_of :day, :project, :duration_hours, :task
 
   accepts_nested_attributes_for :task, :project, :user
   attr_accessible :day, :description, :start, :end, :task_id, :project_id,
@@ -21,6 +18,13 @@ class Entry < ActiveRecord::Base
   # Saved format minutes -> Return HH:MM
   def duration_hours
     (duration / 60).to_s + ":" + (duration % 60).to_s if duration
+  end
+
+  comma do
+    project :shortname
+    user :username
+    day
+    duration_hours
   end
 
 end
