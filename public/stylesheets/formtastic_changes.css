@@ -1,6 +1,5 @@
-/* Override padding of 25% */
-/* TODO: How can I match the buttons in edit form? They have this format:
- * edit_entry_[0-9]+ */
-#new_entry.formtastic fieldset.buttons {
+/* Override padding of 25% for create and update entry */
+#new_entry.formtastic fieldset.buttons,
+form[id*=edit_entry] fieldset.buttons {
   padding-left: 0;
 }

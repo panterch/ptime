@@ -23,7 +23,7 @@
     #project
 
       %input#entry_day_input{ :name => "entry[day]", 
-        :value => Date.today.strftime("%m/%d/%Y") }
+        :value => @entry.day.strftime("%m/%d/%Y") }
 
       .project_item
         Projects
@@ -51,3 +51,5 @@
   = f.buttons do
     = f.commit_button
     = link_to 'Cancel', collection_path
+
+= render 'entries'

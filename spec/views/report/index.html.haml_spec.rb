@@ -30,4 +30,9 @@ describe "report/index.html.haml" do
     render
     rendered.should match(/#{@entries[0].duration_hours}/)
   end
+
+  it "renders the entries' Task" do
+    render
+    rendered.should match(/#{@entries[0].task.name}/)
+  end
 end

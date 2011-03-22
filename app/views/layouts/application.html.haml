@@ -10,7 +10,7 @@
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
 
   %body
-    %nav 
+    %nav
       %ul
         %li
           = section_link('Projects', :controller => 'projects', :action => 'index')
@@ -18,13 +18,16 @@
           = section_link('Entry', :controller => 'entries', :action => 'new')
         %li
           = section_link('Report', :controller => 'report', :action => 'index')
-        %li
-          = section_link('Administration', :controller => 'admin', :action => 'index')
+        - if current_user.try(:admin?)
+          %li 
+            = section_link('Admin', :controller => 'admin', :action => 'index')
+      
     #container
       #user_nav
         - if user_signed_in?
           Welcome, 
-          = current_user.username
+          = link_to current_user.username, user_path(current_user),
+            :id=>'edit_current_user'
           = link_to "Log out", destroy_user_session_path
         - else
           = link_to "Log in", new_user_session_path

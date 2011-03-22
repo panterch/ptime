@@ -14,12 +14,20 @@ $(document).ready(function(){
     $('input.ui-datepicker').datepicker();
 });
 
-/* Populate hidden day field when picking a date in entry form */
+/* Reload entry form for chosen date */
 $(document).ready(function(){
     $('#entry-ui-datepicker').datepicker({
            onSelect: function(dateText, inst) { 
-                       $("input#entry_day_input").val(dateText);
-                     }})
+                       var date = new Date(dateText);
+                       var day = $.datepicker.formatDate("dd-mm-yy", date);
+                       window.location.href = '/entries/new/' + '?day=' + day;
+                     }});
+});
+
+/* Change date on entry datepicker. It will be set by new and edit actions */
+$(document).ready(function(){
+  var day = $("input#entry_day_input").val();
+  $('#entry-ui-datepicker').datepicker('setDate', new Date(day));
 });
 
 /* jQuery Timepicker helper */
@@ -70,3 +78,4 @@ $(function($) {
       });
     });
 });
+

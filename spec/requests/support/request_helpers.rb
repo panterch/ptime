@@ -1,5 +1,5 @@
-def log_in
-  user = Factory.create(:user)
+def log_in(options={})
+  user = Factory.create(:user, options)
   visit "/"
   fill_in "user_username", :with => user.username
   fill_in "user_password", :with => user.password
