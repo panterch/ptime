@@ -1,2 +1,2 @@
-class ProjectStatesController < AdminController
+class ProjectStatesController < InheritedResources::Base
 end

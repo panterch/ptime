@@ -13,7 +13,8 @@ class UsersController < InheritedResources::Base
     user_params = params[:user]
     if (user_params!=nil)
       user_params.delete(:password) if user_params[:password].blank?
-      user_params.delete(:password_confirmation) if user_params[:password].blank? and user_params[:password_confirmation].blank?
+      user_params.delete(:password_confirmation) if user_params[:password].
+          blank? and user_params[:password_confirmation].blank?
     end
     return unless check_admin_or_self
     if current_user.id.to_s == params[:id] && user_params[:password]
