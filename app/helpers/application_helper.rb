@@ -13,4 +13,17 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", 
                      \"#{escape_javascript(fields)}\")")
   end  
+
+
+  # Highlight link for current action
+  def section_link(name, options)
+    if options[:action] == controller.action_name and \
+       options[:controller] == controller.controller_name
+       link_to(name, options, :class => 'active')
+    elsif current_user
+      link_to(name,options)
+    end
+
+  end
+
 end

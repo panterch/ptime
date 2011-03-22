@@ -10,6 +10,16 @@
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
 
   %body
+    %nav 
+      %ul
+        %li
+          = section_link('Projects', :controller => 'projects', :action => 'index')
+        %li
+          = section_link('Entry', :controller => 'entries', :action => 'new')
+        %li
+          = section_link('Report', :controller => 'report', :action => 'index')
+        %li
+          = section_link('Administration', :controller => 'admin', :action => 'index')
     #container
       #user_nav
         - if user_signed_in?
@@ -20,9 +30,4 @@
           = link_to "Log in", new_user_session_path
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
-      #navigation
-        = link_to 'Projects', projects_path
-        = link_to 'Entry', new_entry_path
-        = link_to 'Report', '/report'
-        = link_to('Administration', '/admin')
       = yield

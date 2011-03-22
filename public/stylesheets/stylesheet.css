@@ -20,7 +20,6 @@ a:visited {
 }
 
 #container {
-  width: 75%;
   margin: 0 auto;
   padding: 20px 40px;
   background-color: #FFF8FF;
@@ -28,6 +27,9 @@ a:visited {
   -moz-border-radius: 20px 20px 20px 20px;
   -webkit-border-radius: 20px 20px 20px 20px;
   margin-top: 20px;
+  clear: both;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 #flash_notice, #flash_error, #flash_alert {
