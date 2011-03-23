@@ -31,6 +31,17 @@
           = link_to "Log out", destroy_user_session_path
         - else
           = link_to "Log in", new_user_session_path
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
+
+      -# FIXME: Formtastic builds an ordered hash into alert. Can alert be
+      -# handled in a more generic way?
+      - begin
+        - if flash.alert.full_messages
+          %ul#flash_alert
+            - flash.alert.full_messages.each do |msg|
+              %li
+                = msg
+      - rescue
+        - flash.each do |name, msg|
+          = content_tag :div, msg, :id => "flash_#{name}"
+
       = yield

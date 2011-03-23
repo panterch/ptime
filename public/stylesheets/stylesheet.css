@@ -33,7 +33,7 @@ a:visited {
 }
 
 #flash_notice, #flash_error, #flash_alert {
-  padding: 5px 8px;
+  padding: 5px 26px;
   margin: 10px 0;
   width: 60%;
 }
