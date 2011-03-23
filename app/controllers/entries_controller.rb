@@ -1,13 +1,11 @@
 class EntriesController < ApplicationController
   before_filter :get_active_projects, :only => [:new, :edit, :index]
   before_filter :get_tasks_by_project, :only => [:new, :edit, :index]
-  before_filter :get_entries, :only => [:new, :edit]
-  before_filter :set_day, :only => [:create, :update]
-
 
   def create
     @entry = Entry.new(params[:entry])
     @entry.user = current_user
+    set_day(@entry, params)
     if @entry.save
       redirect_to new_entry_path, :notice => 'Entry was created.'
     else
@@ -25,11 +23,12 @@ class EntriesController < ApplicationController
     # TODO: Is setting the flash good practice? See set_day()
     day = params[:day] ? Date.parse(params[:day]) : flash[:day] || Date.today
     @entry.day = day
-    @entries = Entry.find_all_by_user_id_and_day(current_user.id, @entry.day)
+    get_entries(@entry, current_user)
   end
 
   def update
     @entry = Entry.find(params[:id])
+    set_day(@entry, params)
     if @entry.update_attributes(params[:entry])
        redirect_to new_entry_path 
     else
@@ -44,9 +43,10 @@ class EntriesController < ApplicationController
 
   def edit
     @entry = Entry.find(params[:id])
+    get_entries(@entry, current_user)
   end
 
-  def delete
+  def destroy
     Entry.find(params[:id]).destroy
     flash[:notice] = "Successfully destroyed entry."
     redirect_to new_entry_path
@@ -73,22 +73,16 @@ class EntriesController < ApplicationController
     end
   end
 
-  # Get entries of the entry's day to display them
-  def get_entries
-    if params[:action] == 'edit'
-      day = resource.day
-    else
-      day = Date.today
-    end
-    @entries = Entry.find_all_by_user_id_and_day(current_user.id, day)
-  end
-
   # Preset :day when loading the new entry form. Coming from update,
-  # resource.day is set, coming from create, params[:entry][:day] is set.
+  # entry.day is set, coming from create, params[:entry][:day] is set.
   # TODO: Is setting the flash a good method? Plus: For sake of consistency the
   # flash should also be set by the calendar widget. This code will look more
   # DRY.
-  def set_day
-    flash[:day] = params[:entry][:day] ? params[:entry][:day] : resource.day
+  def set_day(entry, params)
+    flash[:day] = params[:entry][:day] ? params[:entry][:day] : entry.day
+  end
+
+  def get_entries(entry, user)
+    @entries = Entry.find_all_by_user_id_and_day(user.id, entry.day)
   end
 end

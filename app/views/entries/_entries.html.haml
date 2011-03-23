@@ -12,3 +12,4 @@
         %td= entry.description
         %td= entry.duration_hours
         %td= link_to 'Edit', edit_entry_path(entry)
+        %td= link_to 'Delete', entry_path(entry), :method => :delete
