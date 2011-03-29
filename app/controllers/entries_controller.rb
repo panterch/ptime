@@ -1,6 +1,7 @@
 class EntriesController < ApplicationController
   before_filter :get_active_projects, :only => [:new, :edit, :index]
   before_filter :get_tasks_by_project, :only => [:new, :edit, :index]
+  before_filter :get_entry, :only => [:edit, :update, :destroy]
 
   def create
     @entry = Entry.new(params[:entry])
