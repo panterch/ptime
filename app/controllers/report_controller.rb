@@ -5,8 +5,8 @@ class ReportController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html do 
-        @entries = @search.all.paginate(:per_page => 3, 
+      format.html do
+        @entries = @report.all.paginate(:per_page => 15,
                                         :page => params[:page])
 
         duration = @entries.sum(&:duration)
@@ -14,10 +14,10 @@ class ReportController < ApplicationController
         render :template => 'report/index.html.haml'
       end
 
-      format.csv do 
-        send_data @search.all.to_comma, 
-          :type => 'text/csv',
-          :filename=>"report_#{Date.today}.csv"
+      format.csv do
+        send_data @report.all.to_comma,
+                  :type => 'text/csv',
+                  :filename=>"report_#{Date.today}.csv"
       end
     end
   end
@@ -26,7 +26,7 @@ class ReportController < ApplicationController
 
   # Initialize meta_search's collection
   def populate_search
-    @search = Entry.search(params[:report])
+    @report = Entry.search(params[:report])
   end
 
   def get_users

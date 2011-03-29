@@ -5,11 +5,13 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(params[:entry])
     @entry.user = current_user
-    set_day(@entry, params)
+    day = get_day(@entry, params)
     if @entry.save
-      redirect_to new_entry_path, :notice => 'Entry was created.'
+      flash[:notice] = 'Entry was created.'
+      redirect_to new_entry_path(:day => day)
     else
-      redirect_to new_entry_path, :alert => @entry.errors
+      flash[:alert] = @entry.errors
+      redirect_to new_entry_path(:day => day)
     end
   end
 
@@ -17,32 +19,30 @@ class EntriesController < ApplicationController
   # date from the current user.
   def new
     @entry = Entry.new
-    # When having created or updaten an entry, flash[:day] will be set.
-    # When having clicked the calender widget params[:day] will be set.
+    # When having created or updated an entry, params[:day] will be set.
+    # Clicking on the calendar widget will also set params[:day].
     # Otherwise the user just wants to enter an entry for today.
-    # TODO: Is setting the flash good practice? See set_day()
-    day = params[:day] ? Date.parse(params[:day]) : flash[:day] || Date.today
+    day = params[:day] ? Date.parse(params[:day]) : Date.today
     @entry.day = day
     get_entries(@entry, current_user)
   end
 
   def update
-    @entry = Entry.find(params[:id])
-    set_day(@entry, params)
+    day = get_day(@entry, params)
     @entry.update_attributes(params[:entry])
     flash[:notice] = "Successfully updated entry."
-    redirect_to new_entry_path
+    redirect_to new_entry_path(:day => day)
   end
 
   def edit
-    @entry = Entry.find(params[:id])
     get_entries(@entry, current_user)
   end
 
   def destroy
-    Entry.find(params[:id]).destroy
+    day = @entry.day
+    @entry.destroy
     flash[:notice] = "Successfully destroyed entry."
-    redirect_to new_entry_path
+    redirect_to new_entry_path(:day => day)
   end
 
   def index
@@ -68,14 +68,15 @@ class EntriesController < ApplicationController
 
   # Preset :day when loading the new entry form. Coming from update,
   # entry.day is set, coming from create, params[:entry][:day] is set.
-  # TODO: Is setting the flash a good method? Plus: For sake of consistency the
-  # flash should also be set by the calendar widget. This code will look more
-  # DRY.
-  def set_day(entry, params)
-    flash[:day] = params[:entry][:day] ? params[:entry][:day] : entry.day
+  def get_day(entry, params)
+    params[:entry][:day] ? params[:entry][:day] : entry.day
   end
 
   def get_entries(entry, user)
     @entries = Entry.find_all_by_user_id_and_day(user.id, entry.day)
+  end
+
+  def get_entry
+    @entry = Entry.find(params[:id])
   end
 end
