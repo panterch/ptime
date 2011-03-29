@@ -23,21 +23,55 @@ describe EntriesController do
       project = Factory(:project)
       task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
-      post :create, :entry => @entry.merge( {:user_id => user.id, 
-                                           :task_id => task.id, 
-                                           :project_id => project.id} )
+      post :create, :entry => @entry.merge( { :task_id => task.id, 
+                                           :project_id => project.id } )
     }
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new entry') { assigns(:entry).should_not be_a_new_record }
-    it('creates a new entry with associated project') {
+    it('creates a new entry with associated project') do
       Entry.first.project.should_not be_nil
-    }
-    it('creates a new entry with associated task') {
+    end
+    it('creates a new entry with associated task') do
       Entry.first.task.should_not be_nil
-    }
-    it('creates a new entry with associated user') {
+    end
+    it('creates a new entry with associated user') do
       Entry.first.user.should_not be_nil
+    end
+  end
+
+  context 'POST on create with entry without associations' do
+    before(:each) { 
+      user = Factory(:user)
+      @project = Factory(:project)
+      @task = Factory(:task)
+      @entry = Factory.attributes_for(:entry)
     }
+    it('does not create a new entry without an associated project') do
+      post :create, :entry => @entry.merge( { :task_id => @task.id } )
+      Entry.first.should be_nil
+    end
+    it('does not create a new entry without an associated task') do
+      post :create, :entry => @entry.merge( { :project_id => @project.id } )
+      Entry.first.should be_nil
+    end
+    it('does not create a new entry without associated duration') do
+      @entry.delete(:duration_hours)
+      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+                                           :project_id => @project.id } )
+      Entry.first.should be_nil
+    end
+    it('does not create a new entry without associated day') do
+      @entry.delete(:day)
+      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+                                           :project_id => @project.id } )
+      Entry.first.should be_nil
+    end
+    it('does not create a new entry with invalid day format') do
+      @entry[:day] = "a:2"
+      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+                                           :project_id => @project.id } )
+      Entry.first.should be_nil
+    end
   end
 
 end
