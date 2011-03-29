@@ -10,7 +10,7 @@ class EntriesController < ApplicationController
       redirect_to new_entry_path, :notice => 'Entry was created.'
     else
       redirect_to new_entry_path, :alert => @entry.errors
-     end
+    end
   end
 
   # Call from jQuery with the selected date. Get all entries related to that
@@ -29,16 +29,9 @@ class EntriesController < ApplicationController
   def update
     @entry = Entry.find(params[:id])
     set_day(@entry, params)
-    if @entry.update_attributes(params[:entry])
-       redirect_to new_entry_path 
-    else
-       @subjects = Subject.find(:all)
-       render :action => 'edit'
-    end
-  end
-
-  def show
-    @entry = Entry.find(params[:id])
+    @entry.update_attributes(params[:entry])
+    flash[:notice] = "Successfully updated entry."
+    redirect_to new_entry_path
   end
 
   def edit

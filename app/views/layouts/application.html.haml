@@ -41,7 +41,8 @@
               %li
                 = msg
       - rescue
-        - flash.each do |name, msg|
-          = content_tag :div, msg, :id => "flash_#{name}"
+        - if flash.try(:notice)
+          #flash_notice
+            = flash.notice
 
       = yield
