@@ -4,7 +4,7 @@ include Devise::TestHelpers
 
 describe "report/index.html.haml" do
   before(:each) do
-    @entries = [Factory(:entry)]
+    @entries = [Factory(:entry), Factory(:entry)]
     @active_projects = [Factory(:project)]
     @users = [Factory(:user)]
     @user = Factory(:user)
@@ -34,5 +34,10 @@ describe "report/index.html.haml" do
   it "renders the entries' Task" do
     render
     rendered.should match(/#{@entries[0].task.name}/)
+  end
+
+  it "renders the entries' summed up hours" do
+    render
+    rendered.should match(/Total time:.*\d{1,2}:\d{1,2}/)
   end
 end

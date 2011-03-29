@@ -26,4 +26,9 @@ module ApplicationHelper
 
   end
 
+  # Prevent rendering of newlines in the view
+  def one_line(&block)
+    haml_concat capture_haml(&block).gsub("\n", '').gsub('\\n', "\n")
+  end
+
 end

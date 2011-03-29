@@ -40,5 +40,10 @@
         = link_to 'Show', entry
         = display_edit_link(entry)
 
+%p
+  - one_line do
+    Total time:
+    %strong= sum_hours(@entries)
+
 #pagination
   = will_paginate @entries
