@@ -43,7 +43,7 @@
 %p
   - one_line do
     Total time
-    %strong= sum_hours(@entries)
+    %strong= @total_time
 
 #pagination
   = will_paginate @entries

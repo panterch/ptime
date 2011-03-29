@@ -8,6 +8,9 @@ class ReportController < ApplicationController
       format.html do 
         @entries = @search.all.paginate(:per_page => 3, 
                                         :page => params[:page])
+
+        duration = @entries.sum(&:duration)
+        @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
         render :template => 'report/index.html.haml'
       end
 

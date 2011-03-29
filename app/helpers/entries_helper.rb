@@ -41,9 +41,4 @@ module EntriesHelper
     link_to 'Edit', edit_entry_path(entry) if entry.user == current_user
   end
 
-  def sum_hours(entries)
-    duration = entries.sum(&:duration)
-    (duration / 60).to_s + ":" + (duration % 60).to_s
-  end
-
 end

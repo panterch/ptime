@@ -8,6 +8,7 @@ describe "report/index.html.haml" do
     @active_projects = [Factory(:project)]
     @users = [Factory(:user)]
     @user = Factory(:user)
+    @total_time = "2:0"
     sign_in @user
     @search = Entry.search()
     @tasks_by_project = {"1"=>[{"name"=>"First task","id"=>1}]}
