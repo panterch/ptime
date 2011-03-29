@@ -40,23 +40,6 @@ feature "New entry form", %q{
     page.find('#entry_task_id option').has_select?("First task")
   end
   
-  # TODO: This should be doable in entries_controller_spec
-  it "shows a friendly notice when an entry has been updated", :js => true do
-    create_new_entry
-    # Click edit link
-    find(:xpath, "/html/body/div/table/tbody/tr[2]/td[5]/a").click()
-    click_button "Update Entry"
-    page.should have_css("#flash_notice")
-  end
-  
-  # TODO: This should be doable in entries_controller_spec
-  it "confirms when an entry is deleted", :js => true do
-    create_new_entry
-    # Click delete button
-    find(:xpath, "/html/body/div/table/tbody/tr[2]/td[6]/a").click()
-    page.should have_css("#flash_notice")
-  end
-  
   it "displays entries from the associated day of the previously created entry",
     :js => true do
     choose_9th_of_the_month

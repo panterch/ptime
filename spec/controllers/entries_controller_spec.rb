@@ -7,6 +7,39 @@ describe EntriesController do
     sign_in @user
   end
 
+  context 'PUT update with valid attributes' do
+    before(:each) do
+      @entry_attributes = Factory.attributes_for(:entry)
+      @entry = Factory(:entry)
+    end
+
+    it "redirects to the new entry form with the entry's :day parameter" do
+      put :update, :id => @entry.id, :entry => @entry_attributes
+      response.should redirect_to(new_entry_path + "?day=" + \
+                                  @entry.day.strftime("%Y-%m-%d"))
+    end
+    it "updates the entry's attributes" do
+      put :update, :id => @entry.id, :entry => @entry_attributes
+      request.flash.try(:notice).should eq "Successfully updated entry."
+    end
+  end
+
+  context 'DELETE destroy' do
+    before(:each) do
+      @entry_attributes = Factory.attributes_for(:entry)
+      @entry = Factory(:entry)
+    end
+    it "destroys the entry" do
+      delete :destroy, :id => @entry.id
+      request.flash.try(:notice).should eq "Successfully destroyed entry."
+    end
+    it "redirects to the new entry form with the entry's :day parameter" do
+      delete :destroy, :id => @entry.id
+      response.should redirect_to(new_entry_path + "?day=" + \
+                                  @entry.day.strftime("%Y-%m-%d"))
+    end
+  end
+
   context 'GET on new' do
     before(:each) { get :new }
     it 'assigns a new entry record' do
