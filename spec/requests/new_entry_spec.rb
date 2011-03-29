@@ -19,7 +19,7 @@ feature "New entry form", %q{
 
   # FIXME: Why does this test fail? It works in the browser, but not with
   # selenium.
-  it "it calculates the duration when given start and end time", :js => true do
+  it "calculates the duration when given start and end time", :js => true do
     fill_in "entry_start", :with => "06:05 AM" 
     fill_in "entry_end", :with => "10:15 PM" 
     # FIXME: This line is an attempt to force the event onchange. It doesn't
