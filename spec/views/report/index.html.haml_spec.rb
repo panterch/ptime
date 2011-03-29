@@ -10,7 +10,7 @@ describe "report/index.html.haml" do
     @user = Factory(:user)
     @total_time = "2:0"
     sign_in @user
-    @search = Entry.search()
+    @report = Entry.search()
     @tasks_by_project = {"1"=>[{"name"=>"First task","id"=>1}]}
     mock_inherited_resource(@entries)
     # Needed for will_paginate

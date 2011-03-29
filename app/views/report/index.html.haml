@@ -1,6 +1,6 @@
 %h1 Report
 
-= form_for(@search, :as => :report,  :url => { :action => "index" },
+= form_for(@report, :as => :report,  :url => { :action => "index" },
   :html => { :method => :get, :id => "entry_search",
   :class => "entry_search" })  do |f|
   .entries_report_item
@@ -23,11 +23,11 @@
 
 %table
   %tr
-    %th= sort_link @search, :day
-    %th= sort_link @search, :duration, "Hours"
-    %th= sort_link @search, :user_id
-    %th= sort_link @search, :project_id
-    %th= sort_link @search, :task_id
+    %th= sort_link @report, :day
+    %th= sort_link @report, :duration, "Hours"
+    %th= sort_link @report, :user_id
+    %th= sort_link @report, :project_id
+    %th= sort_link @report, :task_id
     %th
   - @entries.each do |entry|
     %tr
