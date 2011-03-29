@@ -4,11 +4,11 @@
   :html => { :method => :get, :id => "entry_search",
   :class => "entry_search" })  do |f|
   .entries_report_item
-    = f.label :start_gte, "Begin"
-    = f.date_select :start_gte
+    = f.label :day_gte, "Begin"
+    = f.date_select :day_gte
   .entries_report_item
-    = f.label :end_lte, "End"
-    = f.date_select :end_lte
+    = f.label :day_lte, "End"
+    = f.date_select :day_lte
   .entries_report_item
     = f.label :project_id_equals, "Project"
     = projects_select_id_equals(f,  @active_projects)
