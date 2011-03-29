@@ -18,14 +18,14 @@ describe EntriesController do
   end
   
   context 'POST on create with entry with associations' do
-    before(:each) { 
+    before(:each) do 
       user = Factory(:user)
       project = Factory(:project)
       task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
       post :create, :entry => @entry.merge( { :task_id => task.id, 
                                            :project_id => project.id } )
-    }
+    end
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new entry') { assigns(:entry).should_not be_a_new_record }
     it('creates a new entry with associated project') do
@@ -37,15 +37,18 @@ describe EntriesController do
     it('creates a new entry with associated user') do
       Entry.first.user.should_not be_nil
     end
+    it('displays a positive flash message with a valid request') do
+      request.flash.try(:notice).should_not be_nil
+    end
   end
 
   context 'POST on create with entry without associations' do
-    before(:each) { 
+    before(:each) do
       user = Factory(:user)
       @project = Factory(:project)
       @task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
-    }
+    end
     it('does not create a new entry without an associated project') do
       post :create, :entry => @entry.merge( { :task_id => @task.id } )
       Entry.first.should be_nil
@@ -71,6 +74,10 @@ describe EntriesController do
       post :create, :entry => @entry.merge( { :task_id => @task.id, 
                                            :project_id => @project.id } )
       Entry.first.should be_nil
+    end
+    it('displays a negative flash message with missing associations') do
+      post :create, :entry => @entry.merge( { :task_id => @task.id } )
+      request.flash.try(:alert).should_not be_nil
     end
   end
 
