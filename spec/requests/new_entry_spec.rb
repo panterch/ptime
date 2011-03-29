@@ -67,13 +67,21 @@ feature "New entry form", %q{
   
   it "displays entries from the associated day of the previously created entry",
     :js => true do
-    # Chose the 9th of the current month
-    find(:xpath, 
-         "/html/body/div/form/div[2]/div/table/tbody/tr[2]/td[4]/a").click()
+    choose_9th_of_the_month
     select @project.shortname, :from => 'entry_project_id' 
     entry_duration = "3:0"
     create_new_entry(duration = entry_duration)
     page.should have_content entry_duration
   end
 
+  it "displays entries from the associated day of the previously updated entry",
+    :js => true do
+    choose_9th_of_the_month
+    select @project.shortname, :from => 'entry_project_id' 
+    entry_duration = "3:0"
+    create_new_entry(duration = entry_duration)
+    # Click edit link
+    find(:xpath, "/html/body/div/table/tbody/tr[2]/td[5]/a").click()
+    page.should have_content entry_duration
+  end
 end
