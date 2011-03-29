@@ -40,16 +40,7 @@ feature "New entry form", %q{
     page.find('#entry_task_id option').has_select?("First task")
   end
   
-  it "shows an alert if mandatory fields are left out", :js => true do
-    click_button "Create Entry"
-    page.should have_css("#flash_alert")
-  end
-
-  it "shows a friendly notice when an entry has been created", :js => true do
-    create_new_entry
-    page.should have_css("#flash_notice")
-  end
-
+  # TODO: This should be doable in entries_controller_spec
   it "shows a friendly notice when an entry has been updated", :js => true do
     create_new_entry
     # Click edit link
@@ -58,6 +49,7 @@ feature "New entry form", %q{
     page.should have_css("#flash_notice")
   end
   
+  # TODO: This should be doable in entries_controller_spec
   it "confirms when an entry is deleted", :js => true do
     create_new_entry
     # Click delete button
