@@ -10,3 +10,8 @@ def log_out
   visit "/"
   click_link "Log out"
 end
+
+def create_new_entry(duration = "1:0")
+  fill_in "entry_duration_hours", :with => duration
+  click_button "Create Entry"
+end

@@ -21,6 +21,7 @@ gem 'will_paginate', '3.0.pre2'
 group :development, :test do
   gem 'capistrano'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
   gem 'guard-spork'

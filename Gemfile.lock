@@ -60,6 +60,7 @@ GEM
       ffi (~> 0.6.3)
     columnize (0.3.2)
     configuration (1.2.0)
+    database_cleaner (0.6.6)
     devise (1.1.7)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 1.0.2)
@@ -193,6 +194,7 @@ DEPENDENCIES
   capistrano
   capybara!
   comma!
+  database_cleaner
   devise
   exception_notification_rails3 (= 1.2.0)
   factory_girl_rails

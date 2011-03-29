@@ -3,6 +3,7 @@ require 'capybara/rspec'
 require 'spork'
 require 'views/inherited_resource_helpers'
 
+
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
@@ -42,6 +43,21 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
-  config.use_transactional_examples = true
+  config.use_transactional_fixtures = false
+  config.use_transactional_examples = false
+
+
+  # DatabaseCleaner is needed, because use_transactional_fixtures is off. It is
+  # off to be able to use Selenium as capybara driver.
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
