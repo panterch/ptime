@@ -10,7 +10,7 @@ describe EntriesController do
   context 'PUT update with valid attributes' do
     before(:each) do
       @entry_attributes = Factory.attributes_for(:entry)
-      @entry = Factory(:entry)
+      @entry = Factory(:entry, :user => @user)
     end
 
     it "redirects to the new entry form with the entry's :day parameter" do
@@ -24,10 +24,10 @@ describe EntriesController do
     end
   end
 
-  context 'DELETE destroy' do
+  context 'DELETE destroy with correct user' do
     before(:each) do
       @entry_attributes = Factory.attributes_for(:entry)
-      @entry = Factory(:entry)
+      @entry = Factory(:entry, :user => @user)
     end
     it "destroys the entry" do
       delete :destroy, :id => @entry.id
@@ -37,6 +37,22 @@ describe EntriesController do
       delete :destroy, :id => @entry.id
       response.should redirect_to(new_entry_path + "?day=" + \
                                   @entry.day.strftime("%Y-%m-%d"))
+    end
+  end
+
+  context 'DELETE destroy with incorrect user' do
+    before(:each) do
+      @entry_attributes = Factory.attributes_for(:entry)
+      user = Factory(:user, :username => "bad_guy")
+      @entry = Factory(:entry, :user => user)
+    end
+    it "doesn't destroy entries from other users" do
+      delete :destroy, :id => @entry.id
+      @entry.should == Entry.find(@entry.id)
+    end
+    it "redirects when sb. tries to delete other users' entries" do
+      delete :destroy, :id => @entry.id
+      response.should redirect_to(new_entry_path)
     end
   end
 

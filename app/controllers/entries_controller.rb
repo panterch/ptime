@@ -4,9 +4,8 @@ class EntriesController < ApplicationController
   before_filter :get_entry, :only => [:edit, :update, :destroy]
 
   def create
-    @entry = Entry.new(params[:entry])
-    @entry.user = current_user
-    day = get_day(@entry, params)
+    @entry = current_user.entries.new(params[:entry])
+    day = get_day
     if @entry.save
       flash[:notice] = 'Entry was created.'
       redirect_to new_entry_path(:day => day)
@@ -16,8 +15,6 @@ class EntriesController < ApplicationController
     end
   end
 
-  # Call from jQuery with the selected date. Get all entries related to that
-  # date from the current user.
   def new
     @entry = Entry.new
     # When having created or updated an entry, params[:day] will be set.
@@ -25,23 +22,23 @@ class EntriesController < ApplicationController
     # Otherwise the user just wants to enter an entry for today.
     day = params[:day] ? Date.parse(params[:day]) : Date.today
     @entry.day = day
-    get_entries(@entry, current_user)
+    @entries = get_entries_for_user
   end
 
   def update
-    day = get_day(@entry, params)
+    day = get_day
     @entry.update_attributes(params[:entry])
     flash[:notice] = "Successfully updated entry."
     redirect_to new_entry_path(:day => day)
   end
 
   def edit
-    get_entries(@entry, current_user)
+    @entries = get_entries_for_user
   end
 
   def destroy
     day = @entry.day
-    @entry.destroy
+    @entry.delete
     flash[:notice] = "Successfully destroyed entry."
     redirect_to new_entry_path(:day => day)
   end
@@ -69,15 +66,22 @@ class EntriesController < ApplicationController
 
   # Preset :day when loading the new entry form. Coming from update,
   # entry.day is set, coming from create, params[:entry][:day] is set.
-  def get_day(entry, params)
-    params[:entry][:day] ? params[:entry][:day] : entry.day
+  def get_day
+    params[:entry][:day] ? params[:entry][:day] : @entry.day
   end
 
-  def get_entries(entry, user)
-    @entries = Entry.find_all_by_user_id_and_day(user.id, entry.day)
+  # When clicking the calendar widget in the new entry form, jQuery redirects
+  # to the new action. In the form, all entries for the selected day and logged
+  # in user are to be displayed.
+  def get_entries_for_user
+    current_user.entries.find_all_by_day(@entry.day)
   end
 
   def get_entry
-    @entry = Entry.find(params[:id])
+    begin
+      @entry = current_user.entries.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to new_entry_path
+    end
   end
 end
