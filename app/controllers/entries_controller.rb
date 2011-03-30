@@ -95,7 +95,7 @@ class EntriesController < ApplicationController
     begin
       @entry = current_user.entries.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to new_entry_path
+      render :file => "#{Rails.root}/public/404.html", :status => :not_found
     end
   end
 end

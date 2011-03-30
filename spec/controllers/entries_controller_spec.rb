@@ -66,7 +66,7 @@ describe EntriesController do
     end
     it "redirects when sb. tries to delete other users' entries" do
       delete :destroy, :id => @entry.id
-      response.should redirect_to(new_entry_path)
+      response.code.should eq('404')
     end
   end
 
