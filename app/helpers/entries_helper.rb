@@ -1,5 +1,3 @@
-require 'json'
-
 module EntriesHelper
 
   # Build user select for entries report form
