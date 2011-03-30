@@ -5,16 +5,15 @@ class EntriesController < ApplicationController
 
   def create
     @entry = current_user.entries.new(params[:entry])
-    day = get_day
     respond_to do |format|
       if @entry.save
         format.html do
-          redirect_to new_entry_path(:day => day), :notice => 'Entry was created.'
+          redirect_to new_entry_path(:day => get_day), :notice => 'Entry was created.'
         end
       else
         format.html do
           flash[:alert] = @entry.errors
-          render :action => "new", :locals => { :day => day }
+          render :action => "new", :locals => { :day => get_day }
         end
       end
     end
@@ -25,17 +24,15 @@ class EntriesController < ApplicationController
     # When having created or updated an entry, params[:day] will be set.
     # Clicking on the calendar widget will also set params[:day].
     # Otherwise the user just wants to enter an entry for today.
-    day = params[:day] ? Date.parse(params[:day]) : Date.today
-    @entry.day = day
+    @entry.day = params[:day] ? Date.parse(params[:day]) : Date.today
     @entries = get_entries_for_user
   end
 
   def update
-    day = get_day
     respond_to do |format|
       if @entry.update_attributes(params[:entry])
         format.html do
-          redirect_to new_entry_path(:day => day), 
+          redirect_to new_entry_path(:day => get_day), 
             :notice => "Successfully updated entry."
         end
       else
