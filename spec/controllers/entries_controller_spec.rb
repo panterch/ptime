@@ -24,6 +24,20 @@ describe EntriesController do
     end
   end
 
+  # FIXME: Why is an update possible? In the model there is a check for the
+  # presence of duration_hours. In the app, it is taken from @entry. Is this
+  # wanted behavious?
+  context 'PUT update with invalid attributes' do
+    it "doesn't update the entry's attributes" do
+      pending("it doesn't update the entry's attributes")
+      @entry_attributes = Factory.attributes_for(:entry)
+      @entry_attributes.delete(:duration_hours)
+      @entry = Factory(:entry, :user => @user)
+      put :update, :id => @entry.id, :entry => @entry_attributes
+      request.flash.try(:notice).should_not eq "Successfully updated entry."
+    end
+  end
+
   context 'DELETE destroy with correct user' do
     before(:each) do
       @entry_attributes = Factory.attributes_for(:entry)
@@ -68,26 +82,30 @@ describe EntriesController do
   
   context 'POST on create with entry with associations' do
     before(:each) do 
-      user = Factory(:user)
-      project = Factory(:project)
-      task = Factory(:task)
+      @user = Factory(:user)
+      @project = Factory(:project)
+      @task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
-      post :create, :entry => @entry.merge( { :task_id => task.id, 
-                                           :project_id => project.id } )
+      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+                                           :project_id => @project.id } )
     end
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new entry') { assigns(:entry).should_not be_a_new_record }
     it 'creates a new entry with associated project' do
-      Entry.first.project.should_not be_nil
+      Entry.first.project.shortname.should eq(@project.shortname)
     end
     it 'creates a new entry with associated task' do
-      Entry.first.task.should_not be_nil
+      Entry.first.task.name.should eq(@task.name)
     end
     it 'creates a new entry with associated user' do
-      Entry.first.user.should_not be_nil
+      Entry.first.user.username.should eq(@user.username)
     end
     it 'displays a positive flash message with a valid request' do
       request.flash.try(:notice).should_not be_nil
+    end
+    it 'redirects to new_entry_path' do
+      response.should redirect_to(new_entry_path + "?day=" + \
+                                  @entry[:day].strftime("%Y-%m-%d"))
     end
   end
 

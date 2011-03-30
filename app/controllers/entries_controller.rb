@@ -6,12 +6,17 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.new(params[:entry])
     day = get_day
-    if @entry.save
-      flash[:notice] = 'Entry was created.'
-      redirect_to new_entry_path(:day => day)
-    else
-      flash[:alert] = @entry.errors
-      redirect_to new_entry_path(:day => day)
+    respond_to do |format|
+      if @entry.save
+        format.html do
+          redirect_to new_entry_path(:day => day), :notice => 'Entry was created.'
+        end
+      else
+        format.html do
+          flash[:alert] = @entry.errors
+          render :action => "new", :locals => { :day => day }
+        end
+      end
     end
   end
 
@@ -27,9 +32,18 @@ class EntriesController < ApplicationController
 
   def update
     day = get_day
-    @entry.update_attributes(params[:entry])
-    flash[:notice] = "Successfully updated entry."
-    redirect_to new_entry_path(:day => day)
+    respond_to do |format|
+      if @entry.update_attributes(params[:entry])
+        format.html do
+          redirect_to new_entry_path(:day => day), 
+            :notice => "Successfully updated entry."
+        end
+      else
+        format.html {
+          render :action => "new", :locals => { :day => day }
+        }
+      end
+    end
   end
 
   def edit
