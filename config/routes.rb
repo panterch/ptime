@@ -15,7 +15,6 @@ PanterControlling::Application.routes.draw do
   resources :users
   
   root :to => 'entries#new'
-  resources :posts
 
   match '/exception_test' => 'exception_test#error'
 end
