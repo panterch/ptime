@@ -1,6 +1,6 @@
 %h1 Report
 
-= form_for(@report, :as => :report,  :url => { :action => "index" },
+= form_for(@report, :as => :report,  :url => { :action => "new" },
   :html => { :method => :get, :id => "entry_search",
   :class => "entry_search" })  do |f|
   .entries_report_item
@@ -19,10 +19,11 @@
     = f.submit "Search"
     |
     = link_to "Download CSV",
-      report_path( { :report => params[:report] }.merge(:format => "csv"))
+      new_report_path( { :report => params[:report] }.merge(:format => "csv"))
 
 %table
   %tr
+    -# FIXME: Sorting does not work anymore, y?
     %th= sort_link @report, :day
     %th= sort_link @report, :duration, "Hours"
     %th= sort_link @report, :user_id
@@ -37,7 +38,6 @@
       %td= entry.project.shortname
       %td= entry.task.name
       %td
-        = link_to 'Show', entry
         = display_edit_link(entry)
 
 %p
