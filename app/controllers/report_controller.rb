@@ -1,9 +1,10 @@
 class ReportController < ApplicationController
-  before_filter :get_active_projects, :only => :index
-  before_filter :populate_search, :only => :index
-  before_filter :get_users, :only => :index
 
   def index
+    # Initialize meta_search's collection
+    @report = Entry.search(params[:report])
+    @users = User.all
+    @active_projects = Project.active
     respond_to do |format|
       format.html do
         @entries = @report.all.paginate(:per_page => 15,
@@ -22,18 +23,4 @@ class ReportController < ApplicationController
     end
   end
 
-  protected
-
-  # Initialize meta_search's collection
-  def populate_search
-    @report = Entry.search(params[:report])
-  end
-
-  def get_users
-    @users = User.all
-  end
-
-  def get_active_projects
-    @active_projects = Project.active
-  end
 end
