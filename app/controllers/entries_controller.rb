@@ -54,10 +54,6 @@ class EntriesController < ApplicationController
     redirect_to new_entry_path(:day => day)
   end
 
-  def index
-    redirect_to :controller => 'report', :action => 'index'
-  end
-
 
   protected
 
