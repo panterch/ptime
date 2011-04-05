@@ -7,11 +7,11 @@ class ReportController < ApplicationController
     @active_projects = Project.active
     respond_to do |format|
       format.html do
+        duration = @report.all.sum(&:duration)
+        @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
         @entries = @report.all.paginate(:per_page => 15,
                                         :page => params[:page])
 
-        duration = @entries.sum(&:duration)
-        @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
         render :template => 'report/index.html.haml'
       end
 
