@@ -4,6 +4,7 @@ include InheritedResourceHelpers
 describe "entries/new.html.haml" do
   before(:each) do
     @entry = Factory(:entry)
+    @entries = [@entry]
     @project = Factory(:project)
     @active_projects = [@project]
     @project_inactive = Factory(:project_inactive)

@@ -21,7 +21,7 @@
     = link_to "Download CSV",
       report_path( { :report => params[:report] }.merge(:format => "csv"))
 
-%table
+%table#gradient-table
   %tr
     %th= sort_link @report, :day
     %th= sort_link @report, :duration, "Hours"
