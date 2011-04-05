@@ -18,9 +18,16 @@ describe ProjectsController do
   end
   
   context 'POST on create' do
-    before(:each) { post :create, :project => Factory.attributes_for(:project) }
+    before(:each) do
+       @project_attributes = Factory.attributes_for(:project)
+       post :create, :project => @project_attributes
+    end
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new project') { assigns(:project).should_not be_a_new_record }
+    it('creates a new project with default tasks') do
+      Project.find_by_shortname(@project_attributes[:shortname]).\
+        tasks.should_not be_empty
+    end
   end
 
   context 'POST on create with project with associated task' do

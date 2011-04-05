@@ -40,6 +40,10 @@ describe Project do
       @project.project_state.should_not be_nil
     end
 
+    it "should have default tasks" do
+      @project.tasks.should_not be_nil
+    end
+
     it "should delete associated tasks when a parent project is deleted" do
       @project.save
       task_id = @project.tasks[0].id

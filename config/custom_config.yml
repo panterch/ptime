@@ -1,0 +1,12 @@
+defaults: &defaults
+  default_tasks: ["Project Management", "Internal Meeting", "Customer Meeting", 
+                  "Design", "Development", "Documentation"]
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
