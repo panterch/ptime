@@ -21,7 +21,7 @@
     = link_to "Download CSV",
       report_path( { :report => params[:report] }.merge(:format => "csv"))
 
-%table#gradient-table
+%table#gradient-table.center
   %tr
     %th= sort_link @report, :day
     %th= sort_link @report, :duration, "Hours"
@@ -40,10 +40,11 @@
         = link_to 'Show', entry
         = display_edit_link(entry)
 
-%p
+%p.center
   - one_line do
     Total time
     %strong= @total_time
 
-#pagination
+#pagination.center
   = will_paginate @entries
+  %br/

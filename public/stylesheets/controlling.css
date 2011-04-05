@@ -22,11 +22,15 @@ div.task input[type="text"] {
   display: none;
 }
 
-/* Center datepicker in entry form */
+/* Style datepicker in entry form */
 #entry-ui-datepicker {
   width: 250px;
+}
+
+.center {
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 /* Don't show:
@@ -163,8 +167,6 @@ nav ul li .active {
   border-collapse: collapse; 
   border: 1px solid #333; 
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
   /* background gradient */
   background: #F5F5F5; /* old browsers */
   background: -moz-linear-gradient(top, #F5F5F5 1%, #ffffff 99%); /* firefox */
@@ -182,4 +184,38 @@ nav ul li .active {
   border-bottom: 2px solid #333;
   border-right: 2px solid #666;
   color: #000; background-color: #C9C9C9;
+}
+
+
+/* Style will_paginate pagination bar */
+.pagination {
+    font-size: 11px;
+    margin: 0;
+    padding: 3px 0 4px;
+}
+
+.pagination a,
+.pagination a:visited {
+    color: #00BCFF;
+    padding:  3px 3px 2px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #00BCFF;
+    color: #FFFFFF;
+}
+
+.pagination em {
+    border-bottom: 2px solid #00BCFF;
+    border-color: #00BCFF;
+    color: #00BCFF;
+    font-weight: bold;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.pagination .current a:hover {
+    background-color: #00BCFF;
+    color: #FFFFFF;
 }
