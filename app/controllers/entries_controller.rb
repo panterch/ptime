@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
-  before_filter :get_active_projects, :only => [:new, :edit, :index]
-  before_filter :get_tasks_by_project, :only => [:new, :edit, :index]
-  before_filter :get_entry, :only => [:edit, :update, :destroy]
+  before_filter :set_active_projects, :only => [:new, :edit, :index]
+  before_filter :set_tasks_by_project, :only => [:new, :edit, :index]
+  before_filter :set_entry, :only => [:edit, :update, :destroy]
 
   def create
     @entry = current_user.entries.new(params[:entry])
@@ -37,7 +37,7 @@ class EntriesController < ApplicationController
         end
       else
         format.html {
-          render :action => "new", :locals => { :day => day }
+          render :action => "new", :locals => { :day => get_day }
         }
       end
     end
@@ -57,12 +57,12 @@ class EntriesController < ApplicationController
 
   protected
 
-  def get_active_projects
+  def set_active_projects
     @active_projects = Project.active
   end
 
   # Prefetch all tasks and group them by projects
-  def get_tasks_by_project
+  def set_tasks_by_project
     @tasks_by_project = Hash.new
     Project.active.each do |p|
       @tasks_by_project[p.id] = p.tasks.map do |t| 
@@ -84,7 +84,7 @@ class EntriesController < ApplicationController
     current_user.entries.find_all_by_day(@entry.day)
   end
 
-  def get_entry
+  def set_entry
     begin
       @entry = current_user.entries.find(params[:id])
     rescue ActiveRecord::RecordNotFound
