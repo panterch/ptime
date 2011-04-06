@@ -9,7 +9,8 @@ class ReportsController < ApplicationController
       format.html do
         @entries = @report.all.paginate(:per_page => 15,
                                         :page => params[:page])
-
+        duration = @entries.sum(&:duration)
+        @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
       end
 
       format.csv do
