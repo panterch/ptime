@@ -24,7 +24,7 @@ describe "reports/show.html.haml" do
 
   it "renders a download link for entries" do
     render
-    rendered.should match(/report\/new.csv/)
+    rendered.should match(/report.csv/)
   end
 
   it "renders the entries' duration" do

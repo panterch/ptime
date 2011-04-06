@@ -1,8 +1,9 @@
 %h1 Report
 
-= form_for(@report, :url => report_path,
+- debugger
+= form_for(@report, :as => :report, :url => report_path,
   :html => { :method => :get, :id => "entry_search",
-  :class => "entry_search" })  do |f|
+  :class => "entry_search" }) do |f|
   .entries_report_item
     = f.label :day_gte, "Begin"
     = f.date_select :day_gte
@@ -19,7 +20,7 @@
     = f.submit "Search"
     |
     = link_to "Download CSV",
-      new_report_path( { :report => params[:report] }.merge(:format => "csv"))
+      report_path( { :report => params[:report] }.merge(:format => "csv"))
 
 %table#gradient-table.center
   %tr
