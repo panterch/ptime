@@ -2,6 +2,9 @@ class ProjectsController < InheritedResources::Base
   before_filter :set_project_states, :only => [:new, :edit]
   before_filter :set_number_of_inactive_tasks, :only => :show
 
+  def new
+    new! { resource.set_default_tasks }
+  end
 
   protected
 

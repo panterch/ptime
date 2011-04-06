@@ -15,6 +15,9 @@ describe ProjectsController do
     it 'responds with success' do
       response.code.should eq('200')
     end
+    it('creates a new project with default tasks') do
+      assigns(:project).tasks.should_not be_empty
+    end
   end
   
   context 'POST on create' do
@@ -24,10 +27,6 @@ describe ProjectsController do
     end
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new project') { assigns(:project).should_not be_a_new_record }
-    it('creates a new project with default tasks') do
-      Project.find_by_shortname(@project_attributes[:shortname]).\
-        tasks.should_not be_empty
-    end
   end
 
   context 'POST on create with project with associated task' do
