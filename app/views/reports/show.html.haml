@@ -1,6 +1,6 @@
 %h1 Report
 
-= form_for(@report, :as => :report,  :url => { :action => "new" },
+= form_for(@report, :url => report_path,
   :html => { :method => :get, :id => "entry_search",
   :class => "entry_search" })  do |f|
   .entries_report_item

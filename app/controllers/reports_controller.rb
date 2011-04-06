@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 
-  def new
+  def show
     # Initialize meta_search's collection
     @report = Entry.search(params[:report])
     @users = User.all
@@ -12,7 +12,6 @@ class ReportsController < ApplicationController
 
         duration = @entries.sum(&:duration)
         @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
-        render :template => 'reports/new.html.haml'
       end
 
       format.csv do
