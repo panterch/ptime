@@ -1,10 +1,9 @@
 require 'spec_helper'
 include InheritedResourceHelpers
 
-describe "projects/show.html.haml" do
+describe "projects/index.html.haml" do
   before(:each) do
     @project = Factory(:project)
-    @project.tasks << Factory(:task)
     mock_inherited_resource(@project)
     render
   end
@@ -13,8 +12,8 @@ describe "projects/show.html.haml" do
     rendered.should =~ /#{@project.shortname}/
   end
 
-  it "should display the associated task(s)" do
-    rendered.should =~ /#{@project.tasks.first.name}/
+  it "should display the project's description" do
+    rendered.should =~ /#{@project.description}/
   end
 
 end

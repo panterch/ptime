@@ -49,6 +49,6 @@
           Billable
           = f.check_box :billable
   = f.buttons do
-    = f.commit_button
+    = f.commit_button :button_html => { :class => 'main_link' }
 
 = render 'entries'

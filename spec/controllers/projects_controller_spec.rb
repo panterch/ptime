@@ -56,12 +56,6 @@ describe ProjectsController do
       it('responds with success') { response.code.should eq('200') }
       it('assigns projects') { assigns(:projects).should eq([@project]) }
     end
-    context 'GET on show' do
-      it('responds with success') do
-        get :show, :id => @project.id
-        response.code.should eq('200')
-      end
-    end
   end
 
 end

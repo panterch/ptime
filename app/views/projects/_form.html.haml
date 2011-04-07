@@ -15,5 +15,5 @@
     = link_to_add_fields "Add task", form, :tasks
 
   = form.buttons do
-    = form.commit_button 
-  = link_to 'Cancel', collection_path
+    = form.commit_button :button_html => { :class => 'main_link' }
+  = link_to 'Back', collection_path

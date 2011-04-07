@@ -167,6 +167,7 @@ nav ul li .active {
   border-collapse: collapse; 
   border: 1px solid #333; 
   text-align: center;
+  margin-top: 1em;
   /* background gradient */
   background: #F5F5F5; /* old browsers */
   background: -moz-linear-gradient(top, #F5F5F5 1%, #ffffff 99%); /* firefox */
@@ -218,4 +219,19 @@ nav ul li .active {
 .pagination .current a:hover {
     background-color: #00BCFF;
     color: #FFFFFF;
+}
+
+/* Style main links */
+.main_link {
+  background-color: #F5F5F5;
+  border: 1px solid #666666;
+  padding: 0.5em !important;
+  font-size: 18px !important;
+  margin-top: 1em;
+  text-align: center;
+  font-weight: 500;
+}
+
+h1 {
+  margin-bottom: 1.5em;
 }

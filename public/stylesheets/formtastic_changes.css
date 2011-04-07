@@ -1,5 +1,6 @@
 /* Override padding of 25% for create and update entry */
 #new_entry.formtastic fieldset.buttons,
-form[id*=edit_entry] fieldset.buttons {
+form[id*=edit_entry] fieldset.buttons,
+form[id*=edit_project] fieldset.buttons {
   padding-left: 0;
 }

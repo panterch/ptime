@@ -1,6 +1,25 @@
 %h1 Projects
-= link_to 'Create new project', new_resource_path
-%ul
-- collection.each do |project|
-  %li
-    =link_to project.shortname, resource_path(project)
+%p
+  = link_to 'Create new project', new_resource_path, :class => 'main_link'
+%table#gradient-table
+  %tr
+    %th Shortname
+    %th Description
+    %th Start
+    %th End
+    %th State
+    %th Active
+  - collection.each do |project|
+    %tr
+      %td
+        = link_to project.shortname, edit_resource_path(project)
+      %td 
+        = project.description
+      %td 
+        = project.start
+      %td 
+        = project.end
+      %td 
+        = get_project_state(project)
+      %td 
+        = bool_to_img(!project.inactive)

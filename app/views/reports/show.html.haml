@@ -16,12 +16,12 @@
     = f.label :user_id_equals, "User"
     = users_id_equals_select(f)
   #entries_search_button
-    = f.submit "Search"
-    |
-    = link_to "Download CSV",
-      report_path( { :report => params[:report] }.merge(:format => "csv"))
+    = f.submit "Search", :class => 'main_link'
+    = link_to "Download CSV", 
+      report_path( { :report => params[:report] }.merge(:format => "csv")),
+      :class => 'main_link'
 
-%table#gradient-table.center
+%table#gradient-table
   %tr
     -# FIXME: Sorting does not work anymore, y?
     %th= sort_link @report, :day
@@ -40,11 +40,11 @@
       %td
         = display_edit_link(entry)
 
-%p.center
+%p
   - one_line do
     Total time
     %strong= @total_time
 
-#pagination.center
+#pagination
   = will_paginate @entries
   %br/
