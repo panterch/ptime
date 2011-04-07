@@ -160,10 +160,9 @@ nav ul li .active {
   text-decoration: none;
 }
 
+
 /* Style reports and entries table */
 #gradient-table { 
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
   border-collapse: collapse; 
   border: 1px solid #333; 
   text-align: center;
@@ -185,6 +184,10 @@ nav ul li .active {
   border-bottom: 2px solid #333;
   border-right: 2px solid #666;
   color: #000; background-color: #C9C9C9;
+}
+
+h1 {
+  margin-bottom: 1em;
 }
 
 
@@ -232,6 +235,27 @@ nav ul li .active {
   font-weight: 500;
 }
 
-h1 {
-  margin-bottom: 1.5em;
+/* Style submenu */
+#user_nav {
+  position: absolute;
+  float: right;
+  right: 10em;
 }
+
+#sub_nav {
+  color: white !important;
+  height: 1.5em;
+  width: 100%;
+  float: right;
+  background-color: #00BCFF;
+  -moz-border-radius: 20px 0 0 0;
+  -webkit-border-radius: 20px 0 0 0;
+  padding-left: 42px;
+  margin-bottom: 1em;
+}
+
+#sub_nav a {
+  border-bottom: 1px dotted white;
+  text-decoration: none;
+}
+

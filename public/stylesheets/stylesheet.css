@@ -21,7 +21,7 @@ a:visited {
 
 #container {
   margin: 0 auto;
-  padding: 20px 40px;
+  padding: 0 40px 20px 40px;
   background-color: #F1FCFF;
   border: 2px solid #00BCFF;
   -moz-border-radius: 20px 20px 20px 20px;

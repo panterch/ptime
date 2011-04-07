@@ -23,6 +23,7 @@
             = section_link('Admin', :controller => 'admin', :action => 'index')
       
     #container
+      = render :partial => 'layouts/submenu'
       #user_nav
         - if user_signed_in?
           Welcome, 
