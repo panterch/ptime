@@ -68,8 +68,8 @@ form[id*="edit_entry_"] li label,
   margin-bottom: 1em;
 }
 
-#project_details {
-  float: right;
+#entry_task_id {
+  width: 10em;
 }
 
 .project_item {
