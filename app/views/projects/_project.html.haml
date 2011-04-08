@@ -16,8 +16,7 @@
 %ol
   - for task in project.tasks
     - unless task.inactive
-      %li
-        = task.name
+      %li= task.name
   %li
     Inactive tasks:
     = @number_of_inactive_tasks

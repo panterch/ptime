@@ -12,15 +12,11 @@
   %body
     %nav
       %ul
-        %li
-          = section_link('Projects', :controller => 'projects', :action => 'index')
-        %li
-          = section_link('Entry', :controller => 'entries', :action => 'new')
-        %li
-          = section_link('Report', :controller => 'reports', :action => 'show')
+        %li= section_link('Projects', :controller => 'projects', :action => 'index')
+        %li= section_link('Entry', :controller => 'entries', :action => 'new')
+        %li= section_link('Report', :controller => 'reports', :action => 'show')
         - if current_user.try(:admin?)
-          %li 
-            = section_link('Admin', :controller => 'admin', :action => 'index')
+          %li= section_link('Admin', :controller => 'admin', :action => 'index')
       
     #container
       = render :partial => 'layouts/submenu'
@@ -39,8 +35,7 @@
         - if flash.alert.full_messages
           %ul#flash_alert
             - flash.alert.full_messages.each do |msg|
-              %li
-                = msg
+              %li= msg
       - rescue
         - if flash.try(:notice)
           #flash_notice
