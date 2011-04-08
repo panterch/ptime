@@ -27,13 +27,14 @@ describe Project do
     assert_equal 1, Project.count
   end
 
+  it "should require project_state" do
+    lambda {Factory(:project, :project_state => nil)}.should \
+      raise_error(ActiveRecord::RecordInvalid)
+  end
+
   context "Mass assignment" do
     before(:each) do
       @project = Factory(:project)
-    end
-
-    it "should create a task via mass assignement" do
-      @project.tasks.should_not be_empty
     end
 
     it "should have a referenced project state" do

@@ -22,8 +22,10 @@ describe ProjectsController do
   
   context 'POST on create' do
     before(:each) do
-       @project_attributes = Factory.attributes_for(:project)
-       post :create, :project => @project_attributes
+       project_attributes = Factory.attributes_for(:project)
+       project_state_attributes = Factory.attributes_for(:project_state)
+       post :create, :project => project_attributes.merge(
+        { :project_state_attributes => project_state_attributes })
     end
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new project') { assigns(:project).should_not be_a_new_record }
@@ -32,7 +34,8 @@ describe ProjectsController do
   context 'POST on create with project with associated task' do
     before(:each) do
       @project = Factory.attributes_for(:project).merge(
-          {:tasks_attributes => [{:name => "First task", :inactive => false}]})
+          { :tasks_attributes => [{:name => "First task", :inactive => false }],
+            :project_state_attributes => { :name => "Test state" }})
       post :create, :project => @project
     end
     it('responds with a redirect') { response.code.should eq('302') }
