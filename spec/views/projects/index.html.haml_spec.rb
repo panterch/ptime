@@ -5,6 +5,8 @@ describe "projects/index.html.haml" do
   before(:each) do
     @project = Factory(:project)
     mock_inherited_resource(@project)
+    view.stub(:sort_column).and_return("shortname")
+    view.stub(:sort_direction).and_return("asc")
     render
   end
 

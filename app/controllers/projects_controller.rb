@@ -19,4 +19,7 @@ class ProjectsController < InheritedResources::Base
     @project_states = ProjectState.all
   end
 
+  def collection
+    @projects ||= end_of_association_chain.order(sort_column + " " + sort_direction)
+  end
 end

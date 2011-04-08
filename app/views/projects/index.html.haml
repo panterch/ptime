@@ -1,23 +1,18 @@
 %h1 Projects
 %table#gradient-table
   %tr
-    %th Shortname
-    %th Description
-    %th Start
-    %th End
-    %th State
-    %th Active
+    %th= sortable "shortname"
+    %th= sortable "description"
+    %th= sortable "start"
+    %th= sortable "end"
+    %th= sortable "project_state_id"
+    %th= sortable "inactive"
+
   - collection.each do |project|
     %tr
-      %td
-        = link_to project.shortname, edit_resource_path(project)
-      %td 
-        = project.description
-      %td 
-        = project.start
-      %td 
-        = project.end
-      %td 
-        = get_project_state(project)
-      %td 
-        = bool_to_img(!project.inactive)
+      %td= link_to project.shortname, edit_resource_path(project)
+      %td= project.description
+      %td= project.start
+      %td= project.end
+      %td= get_project_state(project)
+      %td= bool_to_img(!project.inactive)

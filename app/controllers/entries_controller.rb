@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
-  before_filter :load_active_projects, :only => [:new, :edit, :index]
-  before_filter :load_tasks_by_project, :only => [:new, :edit, :index]
+  before_filter :load_active_projects, :only => [:new, :edit, :create]
+  before_filter :load_tasks_by_project, :only => [:new, :edit, :create]
   before_filter :load_entry, :only => [:edit, :update, :destroy]
 
   def create
@@ -13,6 +13,7 @@ class EntriesController < ApplicationController
       else
         format.html do
           flash[:alert] = @entry.errors
+          load_entries_for_user
           render :action => "new", :locals => { :day => get_day }
         end
       end
@@ -25,7 +26,7 @@ class EntriesController < ApplicationController
     # Clicking on the calendar widget will also set params[:day].
     # Otherwise the user just wants to enter an entry for today.
     @entry.day = params[:day] ? Date.parse(params[:day]) : Date.today
-    @entries = get_entries_for_user
+    load_entries_for_user
   end
 
   def update
@@ -44,7 +45,7 @@ class EntriesController < ApplicationController
   end
 
   def edit
-    @entries = get_entries_for_user
+    load_entries_for_user
   end
 
   def destroy
@@ -80,8 +81,8 @@ class EntriesController < ApplicationController
   # When clicking the calendar widget in the new entry form, jQuery redirects
   # to the new action. In the form, all entries for the selected day and logged
   # in user are to be displayed.
-  def get_entries_for_user
-    current_user.entries.find_all_by_day(@entry.day)
+  def load_entries_for_user
+    @entries = current_user.entries.find_all_by_day(@entry.day)
   end
 
   def load_entry
@@ -91,4 +92,5 @@ class EntriesController < ApplicationController
       render :file => "#{Rails.root}/public/404.html", :status => :not_found
     end
   end
+  
 end
