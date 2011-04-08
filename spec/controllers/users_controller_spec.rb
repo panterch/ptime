@@ -8,6 +8,15 @@ describe UsersController do
       sign_in @user
     end
 
+    context 'PUT update with valid attributes' do
+      it "shows a friendly flash message" do
+        user_attributes = Factory.attributes_for(:user)
+        user_attributes.delete(:password)
+        put :update, :id => @user.id, :user => user_attributes
+        request.flash.try(:notice).should eq "User #{@user.username} updated successfully"
+      end
+    end
+
     context 'GET on new' do
       before(:each) { get :new }
       it 'assigns a new user record' do
@@ -108,4 +117,5 @@ describe UsersController do
       it('responds redirect target') { response.should redirect_to(:controller=>"devise/sessions", :action=>"new") }
     end
   end
+
 end
