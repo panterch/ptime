@@ -1,8 +1,18 @@
-%h1 List of users
+%h1 Users
 
-= link_to 'Add new user', new_resource_path
-- collection.each do |user|
-  %dt Name
-  %dd=user.email
-  %dd=link_to 'edit', edit_user_path(user)
-  %hr
+%table#gradient-table
+  %tr
+    %th Username
+    %th E-Mail
+    %th Last sign in date
+    %th Last entry date
+  - collection.each do |user|
+    %tr
+      %td
+        = link_to user.username, edit_resource_path(user)
+      %td
+        = user.email
+      %td
+        = last_sign_in_date(user)
+      %td
+        = last_entry_date(user)

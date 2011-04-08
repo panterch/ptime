@@ -8,4 +8,4 @@
     = form.input :current_password unless current_user.admin? && @user.id!=current_user.id
     = form.input :admin if current_user.admin?
   = form.buttons do
-    = form.commit_button
+    = form.commit_button :button_html => { :class => 'main_link' }

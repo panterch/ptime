@@ -17,13 +17,20 @@ module ApplicationHelper
 
   # Highlight link for current action
   def section_link(name, options)
-    if options[:action] == controller.action_name and \
-       options[:controller] == controller.controller_name
+    if current_section?(options)
        link_to(name, options, :class => 'active')
     elsif current_user
-      link_to(name,options)
+      link_to(name, options)
     end
+  end
 
+  # Helper for section_link; returns true for subactions of any given tab
+  def current_section?(options)
+    if options[:controller] == controller.controller_name or
+      (options[:controller] == 'admin' and controller.controller_name == 'users') or
+      (options[:controller] == 'admin' and controller.controller_name == 'project_states')
+      true
+    end
   end
 
   # Prevent rendering of newlines in the view
