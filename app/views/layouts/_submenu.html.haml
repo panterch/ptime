@@ -4,3 +4,10 @@
 -if controller.controller_name == 'users'
   #sub_nav
     = link_to 'New user', new_user_path
+    |
+    = link_to 'Users', users_path
+-if controller.controller_name == 'project_states'
+  #sub_nav
+    = link_to 'New project state', new_project_state_path
+    |
+    = link_to 'Project states', project_states_path
