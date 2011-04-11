@@ -1,6 +1,6 @@
 %h1 Report
 
-= form_for(@report, :as => :report, :url => report_path,
+= form_for(@report, :as => :search, :url => report_path,
   :html => { :method => :get, :id => "entry_search",
   :class => "entry_search" }) do |f|
   .entries_report_item
@@ -18,12 +18,11 @@
   #entries_search_button
     = f.submit "Search", :class => 'main_link'
     = link_to "Download CSV", 
-      report_path( { :report => params[:report] }.merge(:format => "csv")),
+      report_path( { :search => params[:search] }.merge(:format => "csv")),
       :class => 'main_link'
 
 %table#gradient-table
   %tr
-    -# FIXME: Sorting does not work anymore, y?
     %th= sort_link @report, :day
     %th= sort_link @report, :duration, "Hours"
     %th= sort_link @report, :user_id

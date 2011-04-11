@@ -29,8 +29,7 @@
         - else
           = link_to "Log in", new_user_session_path
 
-      -# FIXME: Formtastic builds an ordered hash into alert. Can alert be
-      -# handled in a more generic way?
+      -# Formtastic builds an ordered hash into alert.
       - begin
         - if flash.alert.full_messages
           %ul#flash_alert

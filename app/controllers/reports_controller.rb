@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
 
   def show
     # Initialize meta_search's collection
-    @report = Entry.search(params[:report])
+    @report = Entry.search(params[:search])
     @users = User.all
     @active_projects = Project.active
     respond_to do |format|

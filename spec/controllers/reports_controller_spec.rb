@@ -14,10 +14,28 @@ describe ReportsController do
 
   after (:each) { Timecop.return }
 
+  context 'POST on show to sort the reports table' do
+    before(:each) do
+      user_2 = Factory(:user, :username => "test_user2")
+      @entry_2 = Factory(:entry, :user => user_2)
+    end
+
+    it 'renders entries sorted by user asc if asked to' do
+      post :show, :search => { :meta_sort  => 'user_id.asc' }
+      assigns(:report).relation.entries.first.user.username.should \
+        eq(@entry.user.username)
+    end
+    it 'renders entries sorted by user desc if asked to' do
+      post :show, :search => { :meta_sort  => 'user_id.desc' }
+      assigns(:report).relation.entries.first.user.username.should \
+        eq(@entry_2.user.username)
+    end
+  end
+
   context 'POST on new with too constraining searches on time' do
     render_views
     before(:each) do
-      post :show, :report => {
+      post :show, :search => {
         "day_gte(1i)" => (@entry.day + 1.year).to_s,
         "day_lte(1i)" => (@entry.day + 1.year).to_s
       }
@@ -38,14 +56,14 @@ describe ReportsController do
     render_views
 
     it 'renders entries that are in the constraining timeframe' do
-      post :show, :report => { 
+      post :show, :search => { 
         "day_gte(1i)" => (@entry.day - 1.year).to_s,
         "day_lte(1i)" => (@entry.day + 1.year).to_s
       }
       response.body.should =~ /#{@entry.task.name}/m
     end
     it 'does not render entries for unrelated projects' do
-      post :show, :report => { 
+      post :show, :search => { 
         :project_id_equals => (@entry.project.id + 1).to_s 
       }
       response.body.should_not =~ /#{@entry.task.name}/m
@@ -58,7 +76,7 @@ describe ReportsController do
       task = Factory(:task, :name => "test_task")
       project = Factory(:project, :shortname => "test_project")
       @second_entry = Factory(:entry, :project => project, :task => task)
-      post :show, :report => { :user_id_equals => (@entry.user.id).to_s }
+      post :show, :search => { :user_id_equals => (@entry.user.id).to_s }
     end
 
     it 'renders entries for related projects' do
@@ -75,7 +93,7 @@ describe ReportsController do
       user = Factory(:user, :username => "test_user")
       task = Factory(:task, :name => "test_task")
       @second_entry = Factory(:entry, :user => user, :task => task)
-      post :show, :report => { :user_id_equals => (@entry.user.id).to_s }
+      post :show, :search => { :user_id_equals => (@entry.user.id).to_s }
     end
 
     it 'renders entries for related users' do
@@ -91,7 +109,7 @@ describe ReportsController do
     before(:each) { post :show }
 
     it 'renders entries' do
-      response.body.should =~ /#{@entry.task.name}/m
+      response.body.should =~ /#{@entry.task.name}/
     end
     it 'responds with success' do
       response.code.should eq('200')
@@ -109,5 +127,6 @@ describe ReportsController do
       assigns(:total_time).should eq("2:0")
     end
   end
+
 
 end

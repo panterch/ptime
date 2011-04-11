@@ -234,7 +234,7 @@ h1 {
   background:-webkit-gradient(linear,0% 0%,0% 100%,from(rgba(255,255,255,1)),to(rgba(185,185,185,1)));
   background:-moz-linear-gradient(top,rgba(255,255,255,1),rgba(185,185,185,1));
   padding:5px 10px 6px 10px;
-  font-weight:bold;
+  font-size: 14px;
   text-shadow: 18pxpx 1px 1px rgba(255,255,255,0.5);
   border:1px solid rgba(0,0,0,0.4);
   -solidmoz-border-radius: 5px;
