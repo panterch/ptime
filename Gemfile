@@ -11,7 +11,7 @@ gem 'formtastic', '1.2.3'
 gem 'haml', '3.0.25'
 gem 'inherited_resources', '1.2.1'
 gem 'meta_search'
-gem 'mysql2'
+gem 'mysql'
 gem 'will_paginate', '3.0.pre2'
 
 

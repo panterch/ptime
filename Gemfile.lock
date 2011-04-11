@@ -113,7 +113,7 @@ GEM
       activesupport (~> 3.0.2)
       arel (~> 2.0.2)
     mime-types (1.16)
-    mysql2 (0.2.7)
+    mysql (2.8.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -211,7 +211,7 @@ DEPENDENCIES
   inherited_resources (= 1.2.1)
   launchy
   meta_search
-  mysql2
+  mysql
   rails (= 3.0.6)
   rcov
   rspec-rails
