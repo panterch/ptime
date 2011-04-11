@@ -44,4 +44,6 @@ end
 
 
 # Import demo projects
-Factory(:project)
+Project.create!(:shortname => 'First project', :description => 'First project',
+                :inactive => false, :project_state_id => ProjectState.first.id,
+                :start => Date.today, :end => Date.today)
