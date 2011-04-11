@@ -38,7 +38,14 @@ class EntriesController < ApplicationController
         end
       else
         format.html {
-          render :action => "new", :locals => { :day => get_day }
+          # FIXME: On error, render should be called, not a redirect. But the
+          # render will generate a CookieOverflow if load_tasks_by_project and
+          # load_active_projects are called. Y?
+          redirect_to new_entry_path(:day => get_day), 
+            :alert => @entry.errors
+          #flash[:alert] = @entry.errors
+          #load_entries_for_user
+          #render :action => "new", :locals => { :day => get_day }
         }
       end
     end

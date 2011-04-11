@@ -29,7 +29,7 @@
     %th= sort_link @report, :user_id
     %th= sort_link @report, :project_id
     %th= sort_link @report, :task_id
-    %th
+    %th Edit
   - @entries.each do |entry|
     %tr
       %td= entry.day
@@ -37,8 +37,7 @@
       %td= entry.user.username
       %td= entry.project.shortname
       %td= entry.task.name
-      %td
-        = display_edit_link(entry)
+      %td= display_edit_link(entry)
 
 %p
   - one_line do

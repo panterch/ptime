@@ -10,14 +10,12 @@ class Entry < ActiveRecord::Base
     :user_id, :billable, :duration_hours
 
   # Incoming format HH:MM -> Save as minutes
-  # FIXME: @seeb: Normally a validates_format_of could take care of the format
-  # checking. But since this is a virtual attribute, the check will take place
-  # after this setter is run. Is it therefore ok to check in an if statement in
-  # the setter?
   def duration_hours=(duration_hours)
     if duration_hours =~ /(^\d{1,2}:\d{1,2}$)|(^\d{1,2}$)/
       hours, minutes = duration_hours.split(":")
       self.duration = hours.to_i * 60 + minutes.to_i
+    else
+      self.duration = nil
     end
   end
 
