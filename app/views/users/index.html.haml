@@ -2,8 +2,8 @@
 
 %table#gradient-table
   %tr
-    %th Username
-    %th E-Mail
+    %th=sortable "username"
+    %th=sortable "email"
     %th Last sign in date
     %th Last entry date
   - collection.each do |user|

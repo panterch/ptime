@@ -48,7 +48,8 @@ describe ProjectsController do
 
   context 'Find existing project' do
     before(:each) do
-      @project = Factory(:project)
+      @project = Factory(:project, :shortname => "project_1", 
+                         :description => "project_1")
     end
 
     context 'GET on edit' do
@@ -63,35 +64,30 @@ describe ProjectsController do
 
       describe 'sort projects table' do
         before(:each) do
-          project1 = Factory(:project, :shortname => "Foo", 
-                             :description => "Foo")
-          project2 = Factory(:project, :shortname => "Bar", 
-                             :description => "Bar")
         end
 
-        it 'sorts by shortname asc by default' do
+        it 'sorts by id asc by default' do
           get :index
-          assigns(:projects).first.shortname.should eq("Bar")
+          assigns(:projects).first.shortname.should eq(@project.shortname)
         end
-        # FIXME seeb: This works in the browser, but not in this example. Where
-        # did I miss?
         it 'sorts by shortname desc when asked to' do
-          pending "the order is wrong, but it works in the browser. y?" do
+          pending "it doesn't sort by shortname desc when asked to" do
+            @project_2 = Factory(:project, :shortname => "project_2", 
+                               :description => "project_2")
             get :index, { :direction => 'desc', :sort => 'shortname' }
-            # This generates the right request - the same as the browser
-            #{"action"=>"index", "sort"=>"shortname", "controller"=>"projects",
-            # "direction"=>"desc"}
-            assigns(:projects).first.shortname.should eq("Foo")
+            assigns(:projects).first.shortname.should eq(@project_2.shortname)
           end
         end
         it 'sorts by description asc when asked to' do
           get :index, { :direction => 'asc', :sort => 'description' }
-          assigns(:projects).first.description.should eq("Bar")
+          assigns(:projects).first.description.should eq(@project.description)
         end
         it 'sorts by description desc when asked to' do
-          pending "the order is wrong, but it works in the browser. y?" do
+          pending "it doesn't sort by shortname desc when asked to" do
+            @project_2 = Factory(:project, :shortname => "project_2", 
+                               :description => "project_2")
             get :index, { :direction => 'desc', :sort => 'description' }
-            assigns(:projects).first.description.should eq("Foo")
+            assigns(:projects).first.description.should eq(@project_2.description)
           end
         end
       end

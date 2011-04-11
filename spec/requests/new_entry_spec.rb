@@ -23,9 +23,7 @@ feature "New entry form", %q{
     pending("it's working in the app, but not in this test")
     fill_in "entry_start", :with => "06:05 AM" 
     fill_in "entry_end", :with => "10:15 PM" 
-    # FIXME: This line is an attempt to force the event onchange. It doesn't
-    # help. It is left solely for the purpose of auditing in CodeReview.
-    page.execute_script("$('#entry_end').trigger('onchange');")
+    #page.execute_script("$('#entry_end').trigger('onchange');")
     page.find_by_id('entry_duration_hours').value.should match "16:10"
   end
 

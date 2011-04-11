@@ -16,6 +16,8 @@ describe UsersController do
         request.flash.try(:notice).should eq "User #{@user.username} updated successfully"
       end
     end
+    #TODO: There are no examples to spec sorting of the user list. This should
+    #be done as soon as the specs work for the projects_controller
 
     context 'GET on new' do
       before(:each) { get :new }
