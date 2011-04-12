@@ -21,6 +21,9 @@
       report_path( { :search => params[:search] }.merge(:format => "csv")),
       :class => 'main_link'
 
+#pagination.center
+  = will_paginate @entries
+
 %table#gradient-table
   %tr
     %th= sort_link @report, :day
@@ -42,7 +45,3 @@
   - one_line do
     Total time
     %strong= @total_time
-
-#pagination
-  = will_paginate @entries
-  %br/
