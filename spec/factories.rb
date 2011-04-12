@@ -20,7 +20,7 @@ Factory.define :task do |f|
 end
 
 Factory.define :project do |f|
-  f.shortname 'First project'
+  f.shortname 'abc-123'
   f.description 'An awesome project'
   f.inactive false
   f.association :project_state, :factory => :project_state

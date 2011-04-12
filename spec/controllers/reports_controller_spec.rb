@@ -74,7 +74,7 @@ describe ReportsController do
     render_views
     before(:each) do
       task = Factory(:task, :name => "test_task")
-      project = Factory(:project, :shortname => "test_project")
+      project = Factory(:project, :shortname => "def-456")
       @second_entry = Factory(:entry, :project => project, :task => task)
       post :show, :search => { :user_id_equals => (@entry.user.id).to_s }
     end

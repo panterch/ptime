@@ -32,6 +32,20 @@ describe Project do
       raise_error(ActiveRecord::RecordInvalid)
   end
 
+  context "Format validation" do
+    it "should discard non-conforming shortnames" do
+      lambda do
+        Factory(:project, :shortname => "gross_and_wrong_name")
+      end.should raise_error
+    end
+
+    it "should accept conforming shortnames" do
+      lambda do
+        Factory(:project, :shortname => "abc-123")
+      end.should_not raise_error
+    end
+  end
+
   context "Mass assignment" do
     before(:each) do
       @project = Factory(:project)

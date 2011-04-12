@@ -48,7 +48,7 @@ describe ProjectsController do
 
   context 'Find existing project' do
     before(:each) do
-      @project = Factory(:project, :shortname => "project_1", 
+      @project = Factory(:project, :shortname => "xyz-987", 
                          :description => "project_1")
     end
 
@@ -75,7 +75,7 @@ describe ProjectsController do
           # the browser, but the results don't match. When used in the browser,
           # the feature 'sorting' works, here it doesn't.
           pending "it doesn't sort by shortname desc when asked to" do
-            @project_2 = Factory(:project, :shortname => "project_2", 
+            @project_2 = Factory(:project, :shortname => "zyx-555", 
                                :description => "project_2")
             get :index, { :direction => 'desc', :sort => 'shortname' }
             assigns(:projects).first.shortname.should eq(@project_2.shortname)
