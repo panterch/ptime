@@ -3,6 +3,3 @@
   = @user.username.to_s.humanize
 
 = render 'form'
-
-= link_to "Delete this account", user_path(@user), :confirm => "Are you sure?",
-  :method => :delete, :class => "main_link"

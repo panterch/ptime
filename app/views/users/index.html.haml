@@ -4,11 +4,9 @@
   %tr
     %th=sortable "username"
     %th=sortable "email"
-    %th Last sign in date
-    %th Last entry date
+    %th Edit
   - collection.each do |user|
     %tr
       %td= link_to user.username, edit_resource_path(user)
       %td= user.email
-      %td= last_sign_in_date(user)
-      %td= last_entry_date(user)
+      %td= link_to (image_tag 'edit.png'), edit_user_path(user)
