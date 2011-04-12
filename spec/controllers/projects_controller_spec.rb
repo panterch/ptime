@@ -71,6 +71,9 @@ describe ProjectsController do
           assigns(:projects).first.shortname.should eq(@project.shortname)
         end
         it 'sorts by shortname desc when asked to' do
+          # FIXME: These requests generate the same log like the application in
+          # the browser, but the results don't match. When used in the browser,
+          # the feature 'sorting' works, here it doesn't.
           pending "it doesn't sort by shortname desc when asked to" do
             @project_2 = Factory(:project, :shortname => "project_2", 
                                :description => "project_2")
@@ -83,6 +86,9 @@ describe ProjectsController do
           assigns(:projects).first.description.should eq(@project.description)
         end
         it 'sorts by description desc when asked to' do
+          # FIXME: These requests generate the same log like the application in
+          # the browser, but the results don't match. When used in the browser,
+          # the feature 'sorting' works, here it doesn't.
           pending "it doesn't sort by shortname desc when asked to" do
             @project_2 = Factory(:project, :shortname => "project_2", 
                                :description => "project_2")

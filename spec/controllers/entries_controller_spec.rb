@@ -24,18 +24,13 @@ describe EntriesController do
     end
   end
 
-  # FIXME: Why is an update possible? In the model there is a check for the
-  # presence of duration_hours. In the app, it is taken from @entry. Is this
-  # wanted behavious?
   context 'PUT update with invalid attributes' do
     it "doesn't update the entry's attributes" do
-      pending("it doesn't update the entry's attributes") do
-        @entry_attributes = Factory.attributes_for(:entry)
-        @entry_attributes.delete(:duration_hours)
-        @entry = Factory(:entry, :user => @user)
-        put :update, :id => @entry.id, :entry => @entry_attributes
-        request.flash.try(:notice).should_not eq "Successfully updated entry."
-      end
+      @entry_attributes = Factory.attributes_for(:entry)
+      @entry_attributes[:duration_hours] = ""
+      @entry = Factory(:entry, :user => @user)
+      put :update, :id => @entry.id, :entry => @entry_attributes
+      request.flash.try(:alert).should_not be_empty
     end
   end
 
