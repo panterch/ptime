@@ -269,3 +269,8 @@ h1 {
   border-bottom: 1px dotted white;
   text-decoration: none;
 }
+
+/* Hide formtastic alerts on entry */
+#new_entry .inline-errors {
+  display: none;
+}
