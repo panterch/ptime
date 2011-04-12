@@ -1,40 +1,18 @@
-# Import active users from ptime with initial pwd 'welcome'
-admins = {'aml' => 'aml@panter.ch',
-          'dan' => 'dan@panter.ch',
-          'dil' => 'dil@panter.ch',
-          'geo' => 'geo@panter.ch',
-          'koa' => 'koa@panter.ch',
-          'maa' => 'maa@panter.ch',
-          'mir' => 'mizunzu@gmail.com',
-          'pho' => 'pho@panter.ch',
-          'rob' => 'rob@panter.ch',
-          'seb' => 'seb@panter.ch',
-          'sev' => 'sev@panter.ch',
-          'sym' => 'sym@panter.ch',
-          'tam' => 'tam@panter.ch',
-          'tpo' => 'tpo@panter.ch',
-          'tro' => 'tro@panter.ch'
-}
-users = {
-    'uee' => 'unknown1@example.com'
-}
-
-admins.each do |username, email|
-  #FIXME: Why ":admin=>true" do not work?
-  User.create!(:username => username, :password => 'welcome',
-               :email => email) do |user|
+# Import users
+(1..10).each do |num|
+  User.create!(:username => "admin_#{num}", 
+               :password => 'admin_goodness', 
+               :email => "admin_mail_#{num}@example.com") do |user|
     user.admin=true
   end
-end
-
-users.each do |username, email|
-  User.create!(:username => username, :password => 'welcome', :email => email)
+  User.create!(:username => "user#{num}", :password => 'let_me_in', 
+               :email => "mail_#{num}@example.com")
 end
 
 
 # Import project states
-project_states = ["offered", "won", "running", "closed", "lost", "closing",
-                  "permanent"]
+project_states = ["offered", "won", "running", "closed", "lost", 
+  "closing", "permanent"]
 
 project_states.each do |project_state|
   p = ProjectState.new
@@ -44,6 +22,13 @@ end
 
 
 # Import demo projects
-Project.create!(:shortname => 'First project', :description => 'First project',
-                :inactive => false, :project_state_id => ProjectState.first.id,
-                :start => Date.today, :end => Date.today)
+project_states_count = ProjectState.all.count
+(1..10).each do |num|
+  rnd_project_state = ProjectState.all[rand(project_states_count)]
+  Project.create!(:shortname => "project_#{num}",
+                  :description => "description #{num}",
+                  :inactive => [true,false].shuffle.shift,
+                  :project_state_id => rnd_project_state.id,
+                  :start => Date.today, 
+                  :end => Date.today)
+end
