@@ -1,52 +1,21 @@
-## Rails project to kickstart development
+## Rails 3 project to track time in projects
 
-Comes with:
 
- * Rails 3
- * jQuery
- * Haml
- * inherited_resources
- * exception_notifier
- * Rspec, Factory Girl, Steak and Spork
+If you need simple project and time tracking, ptime is for you. With ptime you
+can create projects, assign tasks to them and generate reports off those.
+
+ * Create and manage projects: 
+[Screenshot](https://img.skitch.com/20110412-khngwbj8s4yx3agg2m9c831tmf.png)
+
+
+ * Create new time entries: 
+[Screenshot](https://img.skitch.com/20110412-rh1h87rx6i7dw6fcei421ki24c.png)
+
+
+ * Create reports from time entries:
+[Screenshot](https://img.skitch.com/20110412-bdq4kwp3ij5ux668nt65ed3ywp.png)
+
 
 ## How to hit the ground running
 
-<pre>
-# define a rails application name and a folder name where you want to 
-# checkout your project
-RAILS_NAME=ProjectOne
-FS_NAME=projectone
-
-# checkout project zero into a new folder
-git clone git@github.com:panter/project_zero.git $FS_NAME
-
-# remove git history
-rm -rf $FS_NAME/.git
-
-# setup rvm
-echo "rvm ruby-1.8.7@$FS_NAME" > $FS_NAME/.rvmrc
-cd $FS_NAME
-
-# run some search replace on project name
-perl -p -i -e "s/PanterControlling/$RAILS_NAME/" config/*
-perl -p -i -e "s/PanterControlling/$RAILS_NAME/" config/initializers/*
-perl -p -i -e "s/PanterControlling/$RAILS_NAME/" config/environments/*
-perl -p -i -e "s/PanterControlling/$RAILS_NAME/" *
-perl -p -i -e "s/PanterControlling/$RAILS_NAME/" spec/*
-perl -p -i -e "s/PanterControlling/$RAILS_NAME/" app/views/layouts/*
-perl -p -i -e "s/project_zero/$FS_NAME/" config/initializers/*
-
-
-# push the project into a new location
-git init
-git add .
-git commit -am"adapted from https://github.com/panter/project_zero"
-git remote add origin gitosis@git.yourdomain.com:$FS_NAME.git
-git push origin master:refs/heads/master
-</pre>
-
-
-## See the branches
-
-There are branches of this project with other configurations.
-
+ * Follow installation instructions in doc/INSTALL
