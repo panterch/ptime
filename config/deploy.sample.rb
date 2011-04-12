@@ -1,20 +1,20 @@
 require 'bundler/capistrano'
 
-set :application, "controlling"
+set :application, "TODO"
 
-role :app, "controlling.panter.ch"
-role :web, "controlling.panter.ch"
-role :db,  "controlling.panter.ch", :primary => true
+role :app, "TODO"
+role :web, "TODO"
+role :db,  "TODO", :primary => true
 set :rails_env, 'production'
 
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
 set :scm, :git
 set :default_run_options, { :pty => true }
-set :repository, "gitosis@git.panter.ch:panter_controlling.git"
+set :repository, "TODO"
 set :ssh_options, {:forward_agent => true}
-set :deploy_to, "/home/rails/app"
-set :user, "rails"
+set :deploy_to, "TODO"
+set :user, "TODO"
 set :use_sudo, false
 
 task :update_config_links, :roles => [:app] do

@@ -9,4 +9,3 @@ bundle
 
 cp config/database.sqlite3.yml config/database.yml
 rake db:create db:migrate db:seed
-
