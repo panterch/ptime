@@ -30,5 +30,9 @@ project_states_count = ProjectState.all.count
                   :inactive => [true,false].shuffle.shift,
                   :project_state_id => rnd_project_state.id,
                   :start => Date.today, 
-                  :end => Date.today)
+                  :end => Date.today) do |project|
+    (1..10).each do |project_id|
+      Task.create!(:name => "task_#{num}", :project_id => project_id)
+    end
+  end
 end
