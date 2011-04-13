@@ -1,4 +1,9 @@
 = semantic_form_for @entry do |f|
+  - unless @entry.errors.empty?
+    %ul#flash_alert
+      - @entry.errors.full_messages.each do |msg|
+        %li= msg
+
   -# Show input field for :day(%input#entry_day_input) as hidden text field.
   -# This field is populated via jQuery and a datepicker.
   #entry-ui-datepicker.center

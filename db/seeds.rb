@@ -25,7 +25,7 @@ end
 project_states_count = ProjectState.all.count
 (1..10).each do |num|
   rnd_project_state = ProjectState.all[rand(project_states_count)]
-  Project.create!(:shortname => "project_#{num}",
+  Project.create!(:shortname => "prj-%03d" % num,
                   :description => "description #{num}",
                   :inactive => [true,false].shuffle.shift,
                   :project_state_id => rnd_project_state.id,

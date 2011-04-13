@@ -274,3 +274,7 @@ h1 {
 #new_entry .inline-errors {
   display: none;
 }
+
+#flash_alert {
+  list-style: disc !important;
+}

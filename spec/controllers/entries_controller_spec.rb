@@ -30,7 +30,7 @@ describe EntriesController do
       @entry_attributes[:duration_hours] = ""
       @entry = Factory(:entry, :user => @user)
       put :update, :id => @entry.id, :entry => @entry_attributes
-      request.flash.try(:alert).should_not be_empty
+      assigns(:entry).errors.should_not be_empty
     end
   end
 
@@ -138,9 +138,9 @@ describe EntriesController do
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end
-    it 'displays a negative flash message with missing associations' do
+    it 'has an errors hash with missing associations' do
       post :create, :entry => @entry.merge( { :task_id => @task.id } )
-      request.flash.try(:alert).should_not be_nil
+      assigns(:entry).errors.should_not be_empty
     end
   end
 

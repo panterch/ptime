@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
-  before_filter :load_active_projects, :only => [:new, :edit, :create]
-  before_filter :load_tasks_by_project, :only => [:new, :edit, :create]
+  before_filter :load_active_projects_and_tasks_by_project, :only => [:new, 
+    :edit, :create]
   before_filter :load_entry, :only => [:edit, :update, :destroy]
 
   def create
@@ -12,7 +12,6 @@ class EntriesController < ApplicationController
         end
       else
         format.html do
-          flash[:alert] = @entry.errors
           load_entries_for_user
           render :action => "new", :locals => { :day => get_day }
         end
@@ -38,14 +37,9 @@ class EntriesController < ApplicationController
         end
       else
         format.html do
-          # FIXME: On error, render should be called, not a redirect. But the
-          # render will generate a CookieOverflow if load_tasks_by_project and
-          # load_active_projects are called. Y?
-          redirect_to new_entry_path(:day => get_day), 
-            :alert => @entry.errors
-          #flash[:alert] = @entry.errors
-          #load_entries_for_user
-          #render :action => "new", :locals => { :day => get_day }
+          load_entries_for_user
+          load_active_projects_and_tasks_by_project
+          render :action => "new", :locals => { :day => get_day }
         end
       end
     end
@@ -65,12 +59,10 @@ class EntriesController < ApplicationController
 
   protected
 
-  def load_active_projects
+  def load_active_projects_and_tasks_by_project
     @active_projects = Project.active
-  end
 
-  # Prefetch all tasks and group them by projects
-  def load_tasks_by_project
+    # Prefetch all tasks and group them by projects
     @tasks_by_project = Hash.new
     Project.active.each do |p|
       @tasks_by_project[p.id] = p.tasks.map do |t| 

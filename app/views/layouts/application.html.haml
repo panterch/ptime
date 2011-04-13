@@ -29,15 +29,8 @@
         - else
           = link_to "Log in", new_user_session_path
 
-      -# Formtastic builds an ordered hash into alert.
-      - begin
-        - if flash.alert.full_messages
-          %ul#flash_alert
-            - flash.alert.full_messages.each do |msg|
-              %li= msg
-      - rescue
-        - if flash.try(:notice)
-          #flash_notice
-            = flash.notice
+
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
 
       = yield
