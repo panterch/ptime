@@ -29,15 +29,15 @@
       .project_item
         Description
         = f.input :description
+      #project_duration.project_item
+        Duration
+        = f.input :duration_hours
       #project_start.project_item
         Start
         = f.input :start, :as => :timepicker
       #project_end.project_item
         End
         = f.input :end, :as => :timepicker
-      #project_duration.project_item
-        Duration
-        = f.input :duration_hours
       .project_item
         Billable
         = f.check_box :billable
