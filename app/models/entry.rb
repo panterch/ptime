@@ -11,7 +11,7 @@ class Entry < ActiveRecord::Base
 
   # Incoming format HH:MM -> Save as minutes
   def duration_hours=(duration_hours)
-    if duration_hours =~ /(^\d{1,2}:\d{1,2}$)|(^\d{1,2}$)/
+    if duration_hours =~ /(^\d{1,3}:\d{1,2}$)|(^\d{1,3}$)/
       hours, minutes = duration_hours.split(":")
       self.duration = hours.to_i * 60 + minutes.to_i
     else
