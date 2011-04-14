@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
 
   validates_presence_of :shortname, :description, :start, :end, :project_state
 
-  validates_format_of :shortname, :with => /^[a-zA-Z]{3}-\d{3}$/
+  validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
   attr_accessible :shortname, :description, :start, :end, :inactive, :state,
     :task_ids, :tasks_attributes, :project_state_id, :project_state_attributes
