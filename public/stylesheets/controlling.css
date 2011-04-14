@@ -95,6 +95,11 @@ input#entry_description {
   width: 16em;
 }
 
+/* Show only project shortname, not description */
+#entry_project_id {
+  width: 7em;
+}
+
 /* Style filter entries */
 .entries_report_item {
   display: inline;

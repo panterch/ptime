@@ -30,7 +30,7 @@ module EntriesHelper
   # Extract information a form select method
   def to_form_select(projects)
     projects.collect do |p|
-      [p.shortname, p.id] 
+      [[p.shortname, p.description].join(" - "), p.id] 
     end
   end
 
