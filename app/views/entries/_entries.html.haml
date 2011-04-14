@@ -15,3 +15,7 @@
         %td= entry.duration_hours
         %td= link_to (image_tag 'edit.png'), edit_entry_path(entry)
         %td= link_to (image_tag 'delete.png'), entry_path(entry), :method => :delete
+%p
+  - one_line do
+    Total time(h:m)
+    %strong= @total_time 

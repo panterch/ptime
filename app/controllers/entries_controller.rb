@@ -60,7 +60,7 @@ class EntriesController < ApplicationController
   protected
 
   def load_active_projects_and_tasks_by_project
-    @active_projects = Project.active
+    @active_projects = Project.active.order(:shortname)
 
     # Prefetch all tasks and group them by projects
     @tasks_by_project = Hash.new
@@ -82,6 +82,8 @@ class EntriesController < ApplicationController
   # in user are to be displayed.
   def load_entries_for_user
     @entries = current_user.entries.find_all_by_day(@entry.day)
+    duration = @entries.sum(&:duration)
+    @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
   end
 
   def load_entry

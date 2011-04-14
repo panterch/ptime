@@ -67,12 +67,18 @@ describe EntriesController do
   end
 
   context 'GET on new' do
-    before(:each) { get :new }
     it 'assigns a new entry record' do
+      get :new
       assigns(:entry).should be_a_new(Entry)
     end
     it 'responds with success' do
+      get :new
       response.code.should eq('200')
+    end
+    it 'assigns a total_time for entries of a given day and user' do
+      entry = Factory(:entry, :user => @user)
+      get :new, :day => entry.day.strftime("%Y-%m-%d")
+      assigns(:total_time).should eq(entry.duration_hours)
     end
   end
   
