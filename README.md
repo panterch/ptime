@@ -19,3 +19,7 @@ can create projects, assign tasks to them and generate reports off those.
 ## How to hit the ground running
 
  * Follow installation instructions in doc/INSTALL
+
+
+## Legacy ptime migration
+Migration is automated with this script: User/Project: preek/migrate_ptime
