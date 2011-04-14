@@ -22,4 +22,4 @@ can create projects, assign tasks to them and generate reports off those.
 
 
 ## Legacy ptime migration
-Migration is automated with this script: User/Project: preek/migrate_ptime
+Migration is automated with this [script](https://github.com/preek/migrate_ptime).
