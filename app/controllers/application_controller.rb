@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   # If no sort parameter is given, the table will be sorted by the id.
   def sort_column
     end_of_association_chain.column_names.include?(params[:sort]) ? \
-      params[:sort] : "id"
+      params[:sort] : end_of_association_chain.column_names[1]
   end
 end
