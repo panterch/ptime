@@ -7,10 +7,10 @@ class ReportsController < ApplicationController
     @active_projects = Project.active
     respond_to do |format|
       format.html do
-        @entries = @report.all.paginate(:per_page => 15,
+        @entries = @report.paginate(:per_page => 15,
                                         :page => params[:page])
         duration = @report.all.sum(&:duration)
-        @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
+        @total_time = convert_minutes_to_hh_mm(duration)
       end
 
       format.csv do

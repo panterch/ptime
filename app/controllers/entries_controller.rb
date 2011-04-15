@@ -83,7 +83,7 @@ class EntriesController < ApplicationController
   def load_entries_for_user
     @entries = current_user.entries.find_all_by_day(@entry.day)
     duration = @entries.sum(&:duration)
-    @total_time = (duration / 60).to_s + ":" + (duration % 60).to_s
+    @total_time = convert_minutes_to_hh_mm(duration)
   end
 
   def load_entry

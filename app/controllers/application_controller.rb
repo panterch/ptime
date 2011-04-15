@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
     end_of_association_chain.column_names.include?(params[:sort]) ? \
       params[:sort] : end_of_association_chain.column_names[1]
   end
+
+  # Converts minutes to HH:MM format
+  def convert_minutes_to_hh_mm(minutes)
+    (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
+  end
 end

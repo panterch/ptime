@@ -21,7 +21,7 @@ class Entry < ActiveRecord::Base
 
   # Saved format minutes -> Return HH:MM
   def duration_hours
-    (duration / 60).to_s + ":" + (duration % 60).to_s if duration
+    (duration / 60).to_s + ":" + "%02i" % (duration % 60).to_s if duration
   end
 
   comma do

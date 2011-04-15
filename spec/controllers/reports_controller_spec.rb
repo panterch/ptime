@@ -7,7 +7,7 @@ describe ReportsController do
     task = Factory(:task)
     @user = Factory(:user)
     project = Factory(:project)
-    @entry = Factory(:entry, :duration_hours => "2:0")
+    @entry = Factory(:entry, :duration_hours => "2:00")
     sign_in @user
     Timecop.freeze(@entry.day)
   end
@@ -47,8 +47,8 @@ describe ReportsController do
     it 'assigns an empty meta_search report' do
       assigns(:report).relation.should be_empty
     end
-    it 'assigns a total_time for entries of 0:0 hours' do
-      assigns(:total_time).should eq("0:0")
+    it 'assigns a total_time for entries of 0:00 hours' do
+      assigns(:total_time).should eq("0:00")
     end
   end
 
@@ -123,8 +123,8 @@ describe ReportsController do
     it 'assigns paginated entries' do
       assigns(:entries).class.should eq(WillPaginate::Collection)
     end
-    it 'assigns a total_time for entries of 2:0 hours' do
-      assigns(:total_time).should eq("2:0")
+    it 'assigns a total_time for entries of 2:00 hours' do
+      assigns(:total_time).should eq("2:00")
     end
   end
 

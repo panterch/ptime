@@ -48,7 +48,7 @@ $(function($) {
     if (end_date > start_date) {
       var diff = new Date();
       diff.setTime(end_date - start_date);
-      $("#entry_duration_hours").val(diff.getHours()-1 +":"+ diff.getMinutes());
+      $("#entry_duration_hours").val(diff.getHours()-1 +":"+ $.format("%02d", [diff.getMinutes()]));
     }
     else {
       $("#entry_duration_hours").val("");

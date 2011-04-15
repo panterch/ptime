@@ -88,7 +88,7 @@ input#entry_start.ui-timepicker  {
 }
 
 input#entry_duration_hours {
-  width: 5em;
+  width: 9em;
 }
 
 input#entry_description {
