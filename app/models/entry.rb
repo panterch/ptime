@@ -30,6 +30,8 @@ class Entry < ActiveRecord::Base
     day
     duration_hours
     task :name=>'Task'
+    description
+    billable
   end
 
 end
