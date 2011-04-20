@@ -58,43 +58,36 @@ describe ProjectsController do
     end
 
     context 'GET on index' do
-      before(:each) { get :index }
-      it('responds with success') { response.code.should eq('200') }
-      it('assigns projects') { assigns(:projects).should eq([@project]) }
+      it('responds with success') do
+        get :index
+        response.code.should eq('200')
+      end
+      it('assigns projects') do
+        get :index
+        assigns(:projects).should eq([@project])
+      end
 
       describe 'sort projects table' do
-        before(:each) do
-        end
 
         it 'sorts by id asc by default' do
           get :index
           assigns(:projects).first.shortname.should eq(@project.shortname)
         end
         it 'sorts by shortname desc when asked to' do
-          # FIXME: These requests generate the same log like the application in
-          # the browser, but the results don't match. When used in the browser,
-          # the feature 'sorting' works, here it doesn't.
-          pending "it doesn't sort by shortname desc when asked to" do
-            @project_2 = Factory(:project, :shortname => "zyx-555", 
-                               :description => "project_2")
-            get :index, { :direction => 'desc', :sort => 'shortname' }
-            assigns(:projects).first.shortname.should eq(@project_2.shortname)
-          end
+          project_2 = Factory(:project, :shortname => "zyx-555", 
+                             :description => "project_2")
+          get :index, { :direction => 'desc', :sort => 'shortname' }
+          assigns(:projects).first.shortname.should eq(project_2.shortname)
         end
         it 'sorts by description asc when asked to' do
           get :index, { :direction => 'asc', :sort => 'description' }
           assigns(:projects).first.description.should eq(@project.description)
         end
         it 'sorts by description desc when asked to' do
-          # FIXME: These requests generate the same log like the application in
-          # the browser, but the results don't match. When used in the browser,
-          # the feature 'sorting' works, here it doesn't.
-          pending "it doesn't sort by shortname desc when asked to" do
-            @project_2 = Factory(:project, :shortname => "project_2", 
-                               :description => "project_2")
-            get :index, { :direction => 'desc', :sort => 'description' }
-            assigns(:projects).first.description.should eq(@project_2.description)
-          end
+          project_2 = Factory(:project, :shortname => "dfb-123", 
+                             :description => "project_2")
+          get :index, { :direction => 'desc', :sort => 'description' }
+          assigns(:projects).first.description.should eq(project_2.description)
         end
       end
     end
