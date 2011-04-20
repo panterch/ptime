@@ -96,8 +96,13 @@ input#entry_description {
 }
 
 /* Show only project shortname, not description */
+#search_project_id_equals,
 #entry_project_id {
-  width: 7em;
+  width: 6.7em;
+}
+
+select {
+  font-family: monospace !important;
 }
 
 /* Style filter entries */
@@ -121,6 +126,7 @@ input#entry_description {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+
 
 /* Set space for paragraph-like look */
 .line_item {
