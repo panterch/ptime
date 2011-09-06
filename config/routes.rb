@@ -2,17 +2,19 @@ PanterControlling::Application.routes.draw do
 
   match '/admin' => "admin#index"
 
-  resource :report
+  scope "/controlling" do
+    resource :report
+  end
 
-  resources :project_states, :only => [:new, :create, :index]
+  scope "/admin" do
+    resources :project_states, :only => [:new, :create, :index]
+    resources :projects
+    resources :users
+  end
 
   resources :entries
 
-  resources :projects
-
   devise_for :users
-  
-  resources :users
   
   root :to => 'entries#new'
 
