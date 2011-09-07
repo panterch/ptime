@@ -1,0 +1,13 @@
+= semantic_form_for(@accounting) do |form|
+  = #devise_error_messages!
+  %h3 Position
+  = form.inputs do
+    = form.input :description
+    = form.input :amount
+    = form.input :valuta, :as => :datepicker
+    = form.input :project_id, :as => :select, :collection => @projects, :label_method => :shortname
+    = form.input :sent
+    = form.input :payed
+    = form.input :link
+  = form.buttons do
+    = form.commit_button :button_html => { :class => 'main_link' }

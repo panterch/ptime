@@ -1,0 +1,26 @@
+%h1 Accounting positions
+
+%table#gradient-table
+  %tr
+    %th Description
+    %th Amount
+    %th Valuta
+    %th Project
+    %th Sent
+    %th Payed
+    %th Link
+    %th Edit
+    %th Delete
+
+  - @accountings.each do |accounting|
+    %tr
+      %td= accounting.description
+      %td= accounting.amount
+      %td= accounting.valuta
+      %td= link_to accounting.project.shortname, edit_project_path(accounting.project)
+      %td= accounting.sent
+      %td= accounting.payed
+      %td= accounting.link
+      %td= link_to (image_tag 'edit.png'), edit_accounting_path(accounting)
+      %td= link_to (image_tag 'delete.png'), accounting, :confirm => 'Are you sure?', :method => :delete
+

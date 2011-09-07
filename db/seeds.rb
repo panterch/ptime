@@ -36,3 +36,19 @@ project_states_count = ProjectState.all.count
     end
   end
 end
+
+# Import accountings
+projects = Project.all
+projects_count = projects.count
+(1..10).each do |num|
+  rnd_project = projects[rand(projects_count)]
+  p = Accounting.new
+  p.description = "position description #{num}"
+  p.amount = rand(100000)
+  p.valuta = Date.today - rand(20)
+  p.project_id = rnd_project.id
+  p.sent = [true,false].shuffle.shift
+  p.payed = [true,false].shuffle.shift
+  p.link = "http://link.to.position.#{num}"
+  p.save!
+end

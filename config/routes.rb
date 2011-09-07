@@ -4,6 +4,7 @@ PanterControlling::Application.routes.draw do
 
   scope "/controlling" do
     resource :report
+    resources :accountings
   end
 
   scope "/admin" do
