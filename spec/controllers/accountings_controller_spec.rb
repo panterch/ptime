@@ -72,6 +72,19 @@ describe AccountingsController do
       response.should redirect_to(accountings_path)
     end
   end
+
+  context 'POST on create twice' do
+    it 'stores the same position twice' do
+      project = Factory(:project)
+      accounting = Factory.attributes_for(:accounting)
+      parameters = accounting.merge( { :project_id => project.id } )
+      post :create, :accounting => parameters
+      Accounting.count.should eq(1)
+      expect {
+        post :create, :accounting => parameters
+      }.to change{ Accounting.count }.from(1).to(2)
+    end
+  end
 end
 
 
