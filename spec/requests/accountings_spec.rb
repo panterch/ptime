@@ -24,7 +24,7 @@ feature 'Listing accounting positions as authenticated user', %q{
     click_link 'Accouting'
     page.should have_content 'Accounting positions'
     page.should have_content 'some description'
-    page.should have_css('table#gradient-table > tr + tr > td')
+    page.should have_css('table.gradient-table > tr + tr > td')
 
     log_out
   end

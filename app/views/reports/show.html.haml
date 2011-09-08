@@ -24,7 +24,7 @@
 #pagination.center
   = will_paginate @entries
 
-%table#gradient-table
+%table.gradient-table
   %tr
     %th= sort_link @report, :day
     %th= sort_link @report, :duration, "Hours"
