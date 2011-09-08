@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   belongs_to :project_state
   has_many :tasks, :dependent => :destroy
+  has_many :accountings, :dependent => :destroy
 
   accepts_nested_attributes_for :tasks, :project_state, :reject_if => lambda { |task| task[:name].blank? }
 
