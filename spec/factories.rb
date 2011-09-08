@@ -50,7 +50,4 @@ Factory.define :accounting do |f|
   f.amount '3299'
   f.valuta Date.parse('2011-09-01 02:00')
   f.association :project, :factory => :project
-  f.sent true
-  f.payed true
-  f.link 'link to some document'
 end
