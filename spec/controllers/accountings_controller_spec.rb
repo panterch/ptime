@@ -8,6 +8,12 @@ describe AccountingsController do
   end
 
   context 'POST on create without valid values' do
+    
+    def post_invalid_position(element)
+      @accounting.delete(element)
+      post :create, :accounting => @accounting
+    end
+
     before(:each) do
       project = Factory(:project)
       @accounting = Factory.attributes_for(:accounting)
@@ -15,32 +21,27 @@ describe AccountingsController do
     end
 
     it 'does not create an entry without a description' do
-      @accounting.delete(:description)
-      post :create, :accounting => @accounting
+      post_invalid_position :description
       Accounting.first.should be_nil
     end
 
     it 'does not create an entry without a amount' do
-      @accounting.delete(:amount)
-      post :create, :accounting => @accounting
+      post_invalid_position :amount
       Accounting.first.should be_nil
     end
 
     it 'does not create an entry without a valuta' do
-      @accounting.delete(:valuta)
-      post :create, :accounting => @accounting
+      post_invalid_position :valuta
       Accounting.first.should be_nil
     end
 
     it 'does not create an entry without a project id' do
-      @accounting.delete(:project_id)
-      post :create, :accounting => @accounting
+      post_invalid_position :project_id
       Accounting.first.should be_nil
     end
 
     it 'yields an error with a missing parameter' do
-      @accounting.delete(:description)
-      post :create, :accounting => @accounting
+      post_invalid_position :description
       assigns(:accounting).errors.should_not be_empty
     end
 
