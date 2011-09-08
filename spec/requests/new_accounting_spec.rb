@@ -10,7 +10,7 @@ feature 'New accounting position form', %q{
   before(:each) do
     @project = Factory(:project)
     log_in
-    visit '/controlling/accountings/new'
+    visit '/accountings/new'
     select @project.shortname, :from => 'accounting_project_id' 
   end
 
