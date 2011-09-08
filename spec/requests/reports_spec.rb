@@ -9,7 +9,7 @@ feature "Report for entries", %q{
   scenario "csv line consists of project name, username, day, duration and task" do
     entry = Factory(:entry)
     log_in
-    visit "/controlling/report.csv"
+    visit "/report.csv"
     csv_line = [entry.project.shortname, entry.user.username, entry.day.to_s,
       entry.duration_hours, entry.task.name, entry.description, entry.billable].join(',')
     page.should have_content(csv_line)
