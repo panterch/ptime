@@ -5,11 +5,6 @@ describe Accounting do
     Accounting.new.should_not be_nil
   end
 
-  it 'has a valid factory' do
-    entry = Factory.build(:accounting)
-    entry.should be_valid
-  end
-
   context 'validity' do
     before(:each) do
       @accounting = Factory.build(:accounting)
