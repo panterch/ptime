@@ -10,19 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110906170052) do
+ActiveRecord::Schema.define(:version => 20110908143530) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
     t.integer  "amount"
     t.datetime "valuta"
-    t.integer  "project_id"
+    t.integer  "project_id",  :null => false
     t.boolean  "sent"
     t.boolean  "payed"
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "accountings", ["project_id"], :name => "index_accountings_on_project_id"
 
   create_table "entries", :force => true do |t|
     t.integer  "user_id"
