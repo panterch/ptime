@@ -10,7 +10,6 @@
     %th Payed
     %th Link
     %th Edit
-    %th Delete
 
   - @accountings.each do |accounting|
     %tr
@@ -21,6 +20,5 @@
       %td= accounting.sent
       %td= accounting.payed
       %td= accounting.link
-      %td= link_to (image_tag 'edit.png'), edit_accounting_path(accounting)
-      %td= link_to (image_tag 'delete.png'), accounting, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to (image_tag 'edit.png'), edit_project_accounting_path(accounting.project, accounting)
 

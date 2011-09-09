@@ -4,13 +4,13 @@ PanterControlling::Application.routes.draw do
 
   resource :report
 
-  resources :accountings
-
   resources :project_states, :only => [:new, :create, :index]
 
   resources :entries
 
-  resources :projects
+  resources :projects do
+    resources :accountings
+  end
 
   devise_for :users
   

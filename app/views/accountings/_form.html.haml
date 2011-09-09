@@ -1,10 +1,9 @@
-= semantic_form_for(@accounting) do |form|
-  %h3 Position
+= semantic_form_for [@project, @accounting] do |form|
+  %h3 Position for project #{@project.description}
   = form.inputs do
     = form.input :description
     = form.input :amount
     = form.input :valuta, :as => :datepicker
-    = form.input :project_id, :as => :select, :collection => @projects, :label_method => :shortname
     = form.input :sent
     = form.input :payed
     = form.input :link

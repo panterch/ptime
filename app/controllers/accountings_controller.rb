@@ -6,12 +6,13 @@ class AccountingsController < ApplicationController
   end
 
   def create
-    @accounting = Accounting.new(params[:accounting])
+    @project = Project.find(params[:project_id])
+    @accounting = @project.accountings.build(params[:accounting])
 
     respond_to do |format|
       if @accounting.save
         format.html do
-          redirect_to accountings_path, :notice => 'Accounting position successfully created.'
+          redirect_to project_accountings_path, :notice => 'Accounting position successfully created.'
         end
       else
         format.html do
@@ -22,7 +23,8 @@ class AccountingsController < ApplicationController
   end
 
   def new
-    @accounting = Accounting.new
+    @project = Project.find(params[:project_id])
+    @accounting = @project.accountings.build
 
     respond_to do |format|
       format.html

@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature 'New accounting position form', %q{
-  As a user
+  As a authenticated user
   When creating a new accounting position
   I want to receive feedback regarding wrongly supplied values
   In order to correct my errors
@@ -10,8 +10,7 @@ feature 'New accounting position form', %q{
   before(:each) do
     @project = Factory(:project)
     log_in
-    visit '/accountings/new'
-    select @project.shortname, :from => 'accounting_project_id' 
+    visit "/projects/#{@project.id}/accountings/new"
   end
 
   after(:each) do
