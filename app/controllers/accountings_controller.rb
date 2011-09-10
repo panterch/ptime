@@ -32,6 +32,21 @@ class AccountingsController < ApplicationController
     end
   end
 
+  def edit
+    @project = Project.find(params[:project_id])
+    @accounting = Accounting.find(params[:id])
+  end
+
+  def update
+    @accounting = Accounting.find(params[:id])
+    if @accounting.update_attributes(params[:accounting])
+      flash[:notice] = 'Successfully updated accounting position.'
+      redirect_to project_accountings_url(@project)
+    else
+      render :action => 'edit'
+    end
+  end
+
   protected
 
   def set_projects

@@ -92,6 +92,39 @@ describe AccountingsController do
       }.to change{ Accounting.count }.from(1).to(2)
     end
   end
+
+  context 'PUT on update with required parameters' do
+    before(:each) do
+      @accounting = Factory(:accounting)
+    end
+
+    it 'doesn\'t create another accounting position' do
+      expect {
+        put :update, :accounting => Factory.attributes_for(:accounting), :project_id => @project.id, :id => @accounting.id
+      }.to_not change { Accounting.count }
+    end
+
+    it 'displays a success flash message' do
+      put :update, :accounting => Factory.attributes_for(:accounting), :project_id => @project.id, :id => @accounting.id
+      request.flash.try(:notice).should_not be_nil
+    end
+
+    it 'redirects to accounting index' do
+      put :update, :accounting => Factory.attributes_for(:accounting), :project_id => @project.id, :id => @accounting.id
+      response.should redirect_to(project_accountings_path)
+    end
+  end
+
+  context 'PUT on update without required parameters' do
+    it 'does not update the record' do
+      accounting_attributes = Factory.attributes_for(:accounting)
+      accounting_attributes[:amount] = ''
+      accounting = Factory(:accounting)
+      put :update, :accounting => accounting_attributes, :project_id => @project.id, :id => accounting.id
+      assigns(:accounting).errors.should_not be_empty
+      Accounting.first.amount.should_not eq('')
+    end
+  end
 end
 
 
