@@ -2,7 +2,8 @@ class AccountingsController < ApplicationController
   before_filter :set_projects, :only => [:new, :edit, :create]
   
   def index
-    @accountings = Accounting.all
+    @project = Project.find(params[:project_id])
+    @accountings = @project.accountings
   end
 
   def create
