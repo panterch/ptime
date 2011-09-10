@@ -66,7 +66,7 @@ describe Project do
       begin
         assert_equal nil, Task.find(task_id)
       rescue ActiveRecord::RecordNotFound => e
-        e.message.should match /Couldn't find Task with ID.*/
+        e.message.should match /Couldn't find Task with id.*/
       end
     end
   end

@@ -13,7 +13,7 @@ feature 'Listing accounting positions as authenticated user', %q{
       fill_in 'accounting_description', :with => "accounting position #{num}"
       fill_in 'accounting_amount', :with => "#{num}000"
       fill_in 'accounting_valuta', :with => "0#{num}/21/2011"
-      click_button 'accounting_submit'
+      click_button 'Create Accounting'
       page.should_not have_css 'p.inline-errors'
       page.find_by_id('flash_notice').text.should match 'Accounting position successfully created.'
       page.should have_content 'Accounting positions'
