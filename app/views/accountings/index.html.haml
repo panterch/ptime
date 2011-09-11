@@ -1,13 +1,28 @@
 %h1 Accounting positions
 
+= form_tag(project_accountings_path(@project.id), :method => :get) do
+  = check_box_tag 'filter[sent]', value = '1', @filter['sent']
+  %label show only sent positions
+  %br
+  = check_box_tag 'filter[payed]', value = '1', @filter['payed']
+  %label show only payed positions
+  %br
+  = check_box_tag 'filter[cash_in]', value = '1', @filter['cash_in']
+  %label show only cash in positions
+  %br
+  = check_box_tag 'filter[cash_out]', value = '1', @filter['cash_out']
+  %label show only cash out positions
+  %br
+  = submit_tag 'filter', :class => 'main_link'
+
 %table.gradient-table
   %tr
     %th Description
-    %th Amount
-    %th Valuta
+    %th= sort_link @accountings, :amount
+    %th= sort_link @accountings, :valuta
     %th Project
-    %th Sent
-    %th Payed
+    %th= sort_link @accountings, :sent
+    %th= sort_link @accountings, :payed
     %th Link
     %th Edit
 

@@ -76,9 +76,9 @@ describe AccountingsController do
       accounting = Factory.attributes_for(:accounting)
       post :create, :accounting => accounting.merge(
         { :payed => true, :sent => false } ), :project_id => @project.id
-      Accounting.first.should_not be_nil
-      Accounting.first.payed.should be_true
-      Accounting.first.sent.should be_false
+        Accounting.first.should_not be_nil
+        Accounting.first.payed.should be_true
+        Accounting.first.sent.should be_false
     end
   end
 
@@ -123,6 +123,92 @@ describe AccountingsController do
       put :update, :accounting => accounting_attributes, :project_id => @project.id, :id => accounting.id
       assigns(:accounting).errors.should_not be_empty
       Accounting.first.amount.should_not eq('')
+    end
+  end
+
+  context 'POST on index' do
+    before(:each) do
+      @accounting = Factory(:accounting, :payed => false, :sent => false, :project_id => @project.id)
+    end
+
+    describe 'sorting columns' do
+      it 'sorts by valuta' do
+        second_accounting = Factory(:accounting, :valuta => '2010-07-01 02:00',
+                                    :project_id => @project.id)
+        third_accounting = Factory(:accounting, :valuta => '2011-11-01 02:00', 
+                                   :project_id => @project.id)
+        post :index, :search => { :meta_sort => 'valuta.desc' },
+          :project_id => @project.id
+        assigns(:accountings).first.id.should eq(third_accounting.id)
+      end
+
+      it 'sorts by payed flag' do
+        second_accounting = Factory(:accounting, :payed => true,
+                                    :project_id => @project.id)
+        post :index, :search => { :meta_sort => 'payed.desc' },
+          :project_id => @project.id
+        assigns(:accountings).first.id.should eq(second_accounting.id)
+      end
+
+      it 'sorts by sent flag' do
+        second_accounting = Factory(:accounting, :sent => true,
+                                    :project_id => @project.id)
+        post :index, :search => { :meta_sort => 'sent.desc' },
+          :project_id => @project.id
+        assigns(:accountings).first.id.should eq(second_accounting.id)
+      end
+      
+      it 'sorts by amount' do
+        second_accounting = Factory(:accounting, :amount => '0',
+                                    :project_id => @project.id)
+        third_accounting = Factory(:accounting, :amount => '9999',
+                                   :project_id => @project.id)
+        post :index, :search => { :meta_sort => 'amount.desc' },
+          :project_id => @project.id
+        assigns(:accountings).first.id.should eq(third_accounting.id)
+      end
+    end
+
+    describe 'filtering columns' do
+      it 'filters positive amounts (cash in)' do
+        second_accounting = Factory(:accounting, :amount => -2,
+                                    :project_id => @project.id)
+        third_accounting = Factory(:accounting, :amount => -5,
+                                   :project_id => @project.id)
+        post :index, :filter => 'cash_in', :project_id => @project.id
+        assigns(:accountings).first.id.should eq(@accounting.id)
+        assigns(:accountings).count.should eq(1)
+      end
+
+      it 'filters negative amounts (cash out)' do
+        second_accounting = Factory(:accounting, :amount => 2,
+                                    :project_id => @project.id)
+        third_accounting = Factory(:accounting, :amount => -5,
+                                   :project_id => @project.id)
+        post :index, :filter => 'cash_out', :project_id => @project.id
+        assigns(:accountings).first.id.should eq(third_accounting.id)
+        assigns(:accountings).count.should eq(1)
+      end
+
+      it 'filters payed flag' do
+        second_accounting = Factory(:accounting, :payed => true,
+                                    :project_id => @project.id)
+        third_accounting = Factory(:accounting, :payed => false,
+                                   :project_id => @project.id)
+        post :index, :filter => 'payed', :project_id => @project.id
+        assigns(:accountings).first.id.should eq(second_accounting.id)
+        assigns(:accountings).count.should eq(1)
+      end
+
+      it 'filters sent flag' do
+        second_accounting = Factory(:accounting, :sent => true,
+                                    :project_id => @project.id)
+        third_accounting = Factory(:accounting, :sent => false,
+                                   :project_id => @project.id)
+        post :index, :filter => 'sent', :project_id => @project.id
+        assigns(:accountings).first.id.should eq(second_accounting.id)
+        assigns(:accountings).count.should eq(1)
+      end
     end
   end
 end
