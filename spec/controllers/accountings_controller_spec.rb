@@ -95,7 +95,7 @@ describe AccountingsController do
 
   context 'PUT on update with required parameters' do
     before(:each) do
-      @accounting = Factory(:accounting)
+      @accounting = Factory(:accounting, :project_id => @project.id)
     end
 
     it 'doesn\'t create another accounting position' do
@@ -119,7 +119,7 @@ describe AccountingsController do
     it 'does not update the record' do
       accounting_attributes = Factory.attributes_for(:accounting)
       accounting_attributes[:amount] = ''
-      accounting = Factory(:accounting)
+      accounting = Factory(:accounting, :project_id => @project.id)
       put :update, :accounting => accounting_attributes, :project_id => @project.id, :id => accounting.id
       assigns(:accounting).errors.should_not be_empty
       Accounting.first.amount.should_not eq('')

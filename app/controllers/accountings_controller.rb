@@ -1,8 +1,7 @@
 class AccountingsController < ApplicationController
-  before_filter :set_projects, :only => [:new, :edit, :create]
+  before_filter :prepare_parent
 
   def index
-    @project = Project.find(params[:project_id])
     @accountings = @project.accountings
     @filter = params[:filter] unless params[:filter].blank?
     @filter ||= {}
@@ -14,38 +13,25 @@ class AccountingsController < ApplicationController
   end
 
   def create
-    @project = Project.find(params[:project_id])
     @accounting = @project.accountings.build(params[:accounting])
 
-    respond_to do |format|
-      if @accounting.save
-        format.html do
-          redirect_to project_accountings_path, :notice => 'Accounting position successfully created.'
-        end
-      else
-        format.html do
-          render :action => 'new'
-        end
-      end
+    if @accounting.save
+      redirect_to project_accountings_path, :notice => 'Accounting position successfully created.'
+    else
+      render :action => 'new'
     end
   end
 
   def new
-    @project = Project.find(params[:project_id])
     @accounting = @project.accountings.build
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def edit
-    @project = Project.find(params[:project_id])
-    @accounting = Accounting.find(params[:id])
+    @accounting = @project.accountings.find(params[:id])
   end
 
   def update
-    @accounting = Accounting.find(params[:id])
+    @accounting = @project.accountings.find(params[:id])
     if @accounting.update_attributes(params[:accounting])
       flash[:notice] = 'Successfully updated accounting position.'
       redirect_to project_accountings_url(@project)
@@ -56,7 +42,7 @@ class AccountingsController < ApplicationController
 
   protected
 
-  def set_projects
-    @projects = Project.all
+  def prepare_parent
+    @project = Project.find(params[:project_id])
   end
 end
