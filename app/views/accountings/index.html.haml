@@ -31,9 +31,9 @@
       %td= accounting.description
       %td= accounting.amount
       %td= accounting.valuta
-      %td= link_to accounting.project.shortname, edit_project_path(accounting.project)
+      %td= link_to accounting.project.shortname, edit_project_path(@project)
       %td= accounting.sent
       %td= accounting.payed
       %td= accounting.link
-      %td= link_to (image_tag 'edit.png'), edit_project_accounting_path(accounting.project, accounting)
+      %td= link_to (image_tag 'edit.png'), edit_project_accounting_path(@project, accounting)
 
