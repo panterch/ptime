@@ -16,7 +16,7 @@ class AccountingsController < ApplicationController
     @accounting = @project.accountings.build(params[:accounting])
 
     if @accounting.save
-      redirect_to project_accountings_path, :notice => 'Accounting position successfully created.'
+      redirect_to project_accountings_path(@project), :notice => 'Accounting position successfully created.'
     else
       render :action => 'new'
     end
