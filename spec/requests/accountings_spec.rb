@@ -8,16 +8,9 @@ feature 'Listing accounting positions as authenticated user', %q{
     project = Factory(:project)
     log_in
 
-    (1..3).each do |num|
-      visit "/projects/#{project.id}/accountings/new"
-      fill_in 'accounting_description', :with => "accounting position #{num}"
-      fill_in 'accounting_amount', :with => "#{num}000"
-      fill_in 'accounting_valuta', :with => "0#{num}/21/2011"
-      click_button 'accounting_submit'
-      page.should_not have_css 'p.inline-errors'
-      page.find_by_id('flash_notice').text.should match 'Accounting position successfully created.'
-      page.should have_content 'Accounting positions'
-    end
+    accounting_one = Factory(:accounting, :description => 'accounting position 1', :project_id => project.id)
+    accounting_two = Factory(:accounting, :description => 'accounting position 2', :project_id => project.id)
+    accounting_three = Factory(:accounting, :description => 'accounting position 3', :project_id => project.id)
 
     visit '/admin'
     click_link 'Project Maintenance'
