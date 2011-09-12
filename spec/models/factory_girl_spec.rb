@@ -28,4 +28,34 @@ describe "FactoryGirl" do
     accounting = Factory.build(:accounting)
     accounting.should be_valid
   end
+
+  it "should not influence other project tests #1" do
+    Factory(:project)
+    assert_equal 1, Project.count
+  end
+
+  it "should not influence other project tests #2" do
+    Factory(:project)
+    assert_equal 1, Project.count
+  end
+
+  it "should not influence other post tests #1" do
+    Factory(:post)
+    assert_equal 1, Post.count
+  end
+
+  it "should not influence other post tests #2" do
+    Factory(:post)
+    assert_equal 1, Post.count
+  end
+
+  it "should not influence other entry tests #1" do
+    Factory(:entry)
+    assert_equal 1, Entry.count
+  end
+
+  it "should not influence other entry tests #2" do
+    Factory(:entry)
+    assert_equal 1, Entry.count
+  end
 end

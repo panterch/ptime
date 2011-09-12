@@ -10,16 +10,6 @@ describe Entry do
     entry.should be_valid
   end
 
-  it "should not influence other tests #1" do
-    Factory(:entry)
-    assert_equal 1, Entry.count
-  end
-
-  it "should not influence other tests #2" do
-    Factory(:entry)
-    assert_equal 1, Entry.count
-  end
-
   context "associations" do
     before(:each) do
       @entry = Factory.build(:entry)

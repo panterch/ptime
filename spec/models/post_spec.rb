@@ -17,14 +17,4 @@ describe Post do
     post.body.should be_present
   end
 
-  it "should not influence other tests #1" do
-    Factory(:post)
-    assert_equal 1, Post.count
-  end
-
-  it "should not influence other tests #2" do
-    Factory(:post)
-    assert_equal 1, Post.count
-  end
-
 end

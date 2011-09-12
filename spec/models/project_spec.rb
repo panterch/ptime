@@ -17,19 +17,10 @@ describe Project do
     project.description.should be_present
   end
 
-  it "should not influence other tests #1" do
-    Factory(:project)
-    assert_equal 1, Project.count
-  end
-
-  it "should not influence other tests #2" do
-    Factory(:project)
-    assert_equal 1, Project.count
-  end
-
   it "should require project_state" do
-    lambda {Factory(:project, :project_state => nil)}.should \
-      raise_error(ActiveRecord::RecordInvalid)
+    project = Factory.build(:project, :project_state => nil)
+    project.should_not be_valid
+    project.errors[:project_state].should be_present
   end
 
   context "Format validation" do
