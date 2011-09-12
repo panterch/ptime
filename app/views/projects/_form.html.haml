@@ -14,8 +14,8 @@
       = render 'task_fields', :f => task
     = link_to_add_fields "Add task", form, :tasks
 
-  = link_to 'Add accounting position', new_project_accounting_path(@project), :class => 'main_link'
-  = link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link'
+  = link_to 'Add accounting position', new_project_accounting_path(@project), :class => 'main_link' if @project.persisted?
+  = link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link' if @project.persisted?
   = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }
   = link_to 'Back', collection_path, :class => 'main_link'
