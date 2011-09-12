@@ -24,5 +24,8 @@ describe "FactoryGirl" do
     user.should be_valid
   end
 
-
+  it 'has a valid accounting factory' do
+    accounting = Factory.build(:accounting)
+    accounting.should be_valid
+  end
 end
