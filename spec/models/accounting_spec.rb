@@ -35,21 +35,25 @@ describe Accounting do
     it 'should not be valid without an associated project' do
       accounting = Accounting.new(:description => @attributes.description, :amount => @attributes.amount, :valuta => @attributes.valuta)
       accounting.should_not be_valid
+      accounting.errors[:project].should be_present
     end
 
     it 'should not be valid without a description' do
       accounting = Accounting.new(:project_id => @attributes.project.id, :amount => @attributes.amount, :valuta => @attributes.valuta)
       accounting.should_not be_valid
+      accounting.errors[:description].should be_present
     end
 
     it 'should not be valid without an amount' do
       accounting = Accounting.new(:description => @attributes.description, :project_id => @attributes.project.id, :valuta => @attributes.valuta)
       accounting.should_not be_valid
+      accounting.errors[:amount].should be_present
     end
 
     it 'should not be valid without a valuta date' do
       accounting = Accounting.new(:project_id => @attributes.project.id, :description => @attributes.description, :amount => @attributes.amount)
       accounting.should_not be_valid
+      accounting.errors[:valuta].should be_present
     end
   end
 end
