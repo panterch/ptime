@@ -2,14 +2,8 @@ class AccountingsController < ApplicationController
   before_filter :prepare_parent
 
   def index
-    @accountings = @project.accountings
-    @filter = params[:filter] unless params[:filter].blank?
-    @filter ||= {}
-    @accountings = @accountings.filter_sent if @filter['sent']
-    @accountings = @accountings.filter_payed if @filter['payed']
-    @accountings = @accountings.filter_cash_in if @filter['cash_in']
-    @accountings = @accountings.filter_cash_out if @filter['cash_out']
-    @accountings = @accountings.search(params[:search])
+    @search = @project.accountings.search(params[:search])
+    @accountings = @search.all
   end
 
   def create

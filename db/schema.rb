@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110908143530) do
+ActiveRecord::Schema.define(:version => 20110912164858) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20110908143530) do
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "positive",    :null => false
   end
 
   add_index "accountings", ["project_id"], :name => "index_accountings_on_project_id"
@@ -38,6 +39,12 @@ ActiveRecord::Schema.define(:version => 20110908143530) do
     t.date     "day"
     t.boolean  "billable"
     t.integer  "duration"
+  end
+
+  create_table "milestones", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "posts", :force => true do |t|

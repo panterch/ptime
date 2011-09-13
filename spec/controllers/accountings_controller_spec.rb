@@ -126,7 +126,7 @@ describe AccountingsController do
     end
   end
 
-  context 'POST on index' do
+  context 'GET on index' do
     before(:each) do
       @accounting = Factory(:accounting, :payed => false, :sent => false, :project_id => @project.id)
     end
@@ -137,7 +137,7 @@ describe AccountingsController do
                                     :project_id => @project.id)
         third_accounting = Factory(:accounting, :valuta => '2011-11-01 02:00', 
                                    :project_id => @project.id)
-        post :index, :search => { :meta_sort => 'valuta.desc' },
+        get :index, :search => { :meta_sort => 'valuta.desc' },
           :project_id => @project.id
         assigns(:accountings).first.id.should eq(third_accounting.id)
       end
@@ -145,7 +145,7 @@ describe AccountingsController do
       it 'sorts by payed flag' do
         second_accounting = Factory(:accounting, :payed => true,
                                     :project_id => @project.id)
-        post :index, :search => { :meta_sort => 'payed.desc' },
+        get :index, :search => { :meta_sort => 'payed.desc' },
           :project_id => @project.id
         assigns(:accountings).first.id.should eq(second_accounting.id)
       end
@@ -153,7 +153,7 @@ describe AccountingsController do
       it 'sorts by sent flag' do
         second_accounting = Factory(:accounting, :sent => true,
                                     :project_id => @project.id)
-        post :index, :search => { :meta_sort => 'sent.desc' },
+        get :index, :search => { :meta_sort => 'sent.desc' },
           :project_id => @project.id
         assigns(:accountings).first.id.should eq(second_accounting.id)
       end
@@ -163,7 +163,7 @@ describe AccountingsController do
                                     :project_id => @project.id)
         third_accounting = Factory(:accounting, :amount => '9999',
                                    :project_id => @project.id)
-        post :index, :search => { :meta_sort => 'amount.desc' },
+        get :index, :search => { :meta_sort => 'amount.desc' },
           :project_id => @project.id
         assigns(:accountings).first.id.should eq(third_accounting.id)
       end
@@ -175,7 +175,7 @@ describe AccountingsController do
                                     :project_id => @project.id)
         third_accounting = Factory(:accounting, :amount => -5,
                                    :project_id => @project.id)
-        post :index, :filter => 'cash_in', :project_id => @project.id
+        get :index, :search => { :positive_is_true => '1' }, :project_id => @project.id
         assigns(:accountings).first.id.should eq(@accounting.id)
         assigns(:accountings).count.should eq(1)
       end
@@ -185,7 +185,7 @@ describe AccountingsController do
                                     :project_id => @project.id)
         third_accounting = Factory(:accounting, :amount => -5,
                                    :project_id => @project.id)
-        post :index, :filter => 'cash_out', :project_id => @project.id
+        get :index, :search => { :positive_is_false => '1' }, :project_id => @project.id
         assigns(:accountings).first.id.should eq(third_accounting.id)
         assigns(:accountings).count.should eq(1)
       end
@@ -195,7 +195,7 @@ describe AccountingsController do
                                     :project_id => @project.id)
         third_accounting = Factory(:accounting, :payed => false,
                                    :project_id => @project.id)
-        post :index, :filter => 'payed', :project_id => @project.id
+        get :index, :search => { :payed_is_true => '1' }, :project_id => @project.id
         assigns(:accountings).first.id.should eq(second_accounting.id)
         assigns(:accountings).count.should eq(1)
       end
@@ -205,7 +205,7 @@ describe AccountingsController do
                                     :project_id => @project.id)
         third_accounting = Factory(:accounting, :sent => false,
                                    :project_id => @project.id)
-        post :index, :filter => 'sent', :project_id => @project.id
+        get :index, :search => { :sent_is_true => '1' }, :project_id => @project.id
         assigns(:accountings).first.id.should eq(second_accounting.id)
         assigns(:accountings).count.should eq(1)
       end
