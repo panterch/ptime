@@ -12,10 +12,12 @@ PanterControlling::Application.routes.draw do
     resources :accountings
   end
 
-  devise_for :users
-  
+  devise_for :users do
+    get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
+  end
+
   resources :users
-  
+
   root :to => 'entries#new'
 
   match '/exception_test' => 'exception_test#error'

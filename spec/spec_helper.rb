@@ -21,9 +21,6 @@ Spork.prefork do
   # Devise preloads the User model. Avoid this by delaying route loading.
   require "rails/application"
   Spork.trap_method(Rails::Application, :reload_routes!)
-  
-  require File.dirname(__FILE__) + "/../config/environment.rb"
-
 end
 
 Spork.each_run do
@@ -31,7 +28,7 @@ Spork.each_run do
 end
 
 Spork.each_run do
-  Factory.factories.clear
+  FactoryGirl.factories.clear
   load 'spec/factories.rb'
 end
 
