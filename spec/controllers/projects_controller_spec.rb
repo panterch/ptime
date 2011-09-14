@@ -48,8 +48,10 @@ describe ProjectsController do
 
   context 'Find existing project' do
     before(:each) do
-      @project = Factory(:project, :shortname => "xyz-987", 
-                         :description => "project_1")
+      project_state = Factory(:project_state)
+      @project = Factory(:project, :shortname => "xyz-987",
+                         :description => "project_1", :inactive => false,
+                         :project_state_id => project_state.id)
     end
 
     context 'GET on edit' do
@@ -68,7 +70,6 @@ describe ProjectsController do
       end
 
       describe 'sort projects table' do
-
         it 'sorts by id asc by default' do
           get :index
           assigns(:projects).first.shortname.should eq(@project.shortname)
@@ -76,7 +77,7 @@ describe ProjectsController do
         it 'sorts by shortname desc when asked to' do
           project_2 = Factory(:project, :shortname => "zyx-555", 
                              :description => "project_2")
-          get :index, { :direction => 'desc', :sort => 'shortname' }
+          get :index, { :search => { 'meta_sort' => 'shortname.desc' } }
           assigns(:projects).first.shortname.should eq(project_2.shortname)
         end
         it 'sorts by description asc when asked to' do
@@ -86,8 +87,38 @@ describe ProjectsController do
         it 'sorts by description desc when asked to' do
           project_2 = Factory(:project, :shortname => "dfb-123", 
                              :description => "project_2")
-          get :index, { :direction => 'desc', :sort => 'description' }
+          get :index, { :search => { 'meta_sort' => 'description.desc' } }
           assigns(:projects).first.description.should eq(project_2.description)
+        end
+      end
+
+      describe 'filter projects table' do
+        it 'filters by inactive state when asked to' do
+          second_project = Factory(:project, :inactive => true) 
+          do_get :inactive_is_true
+          assigns(:projects).first.id.should eq(second_project.id)
+          assigns(:projects).count.should eq(1)
+        end
+
+        it 'filters by active state when asked to' do
+          second_project = Factory(:project, :inactive => true) 
+          do_get :inactive_is_false
+          assigns(:projects).first.id.should eq(@project.id)
+          assigns(:projects).count.should eq(1)
+        end
+
+        it 'filters by project state when asked to' do
+          project_state = Factory(:project_state, :name => 'won')
+          project_state.id.should_not eq(@project.project_state_id)
+          second_project = Factory(:project, :inactive => true,
+                                   :project_state_id => project_state.id) 
+          get :index, :search => { :project_state_id_equals => @project.project_state_id }
+          assigns(:projects).first.id.should eq(@project.id)
+          assigns(:projects).count.should eq(1)
+        end
+
+        def do_get(filter)
+          get :index, :search => { filter => '1' }
         end
       end
     end

@@ -16,7 +16,7 @@ class Project < ActiveRecord::Base
 
   def set_default_tasks
     APP_CONFIG['default_tasks'].each do |task_name|
-      self.tasks << Task.new(:name => task_name)
+      self.tasks.build(:name => task_name)
     end
   end
 

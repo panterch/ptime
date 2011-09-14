@@ -1,17 +1,32 @@
 %h1 Projects
+
+= form_for @search, :url => projects_path, :html => {:method => :get} do |f|
+  .filters
+    %div show only
+    = f.check_box :inactive_is_true
+    = f.label :inactive_is_true, 'inactive projects'
+    %br
+    = f.check_box :inactive_is_false
+    = f.label :inactive_is_false, 'active projects'
+    %br
+    = f.label :project_state_id_equals, 'state'
+    = f.select :project_state_id_equals, @project_states.collect {|p| [p.name, p.id]}
+    %br
+  = f.submit 'filter'
+
 %table.gradient-table
   %tr
-    %th= sortable "shortname"
-    %th= sortable "description"
-    %th= sortable "start"
-    %th= sortable "end"
-    %th= sortable "project_state_id"
-    %th= sortable "inactive", "Active"
+    %th= sort_link @search, :shortname
+    %th= sort_link @search, :description
+    %th= sort_link @search, :start
+    %th= sort_link @search, :end
+    %th= sort_link @search, :project_state_id
+    %th= sort_link @search, :inactive
     %th Edit
 
-  - collection.each do |project|
+  - @projects.each do |project|
     %tr
-      %td= link_to project.shortname, edit_resource_path(project)
+      %td= link_to project.shortname, edit_project_path(project)
       %td= project.description
       %td= project.start
       %td= project.end

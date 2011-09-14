@@ -1,4 +1,4 @@
-= semantic_form_for(@project) do |form|
+= semantic_form_for @project do |form|
   %h3 Project
   = form.inputs do 
     = form.input :shortname
@@ -18,4 +18,3 @@
   = link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link' if @project.persisted?
   = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }
-  = link_to 'Back', collection_path, :class => 'main_link'
