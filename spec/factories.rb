@@ -51,3 +51,12 @@ Factory.define :accounting do |f|
   f.valuta Date.parse('2011-09-01 02:00')
   f.association :project, :factory => :project
 end
+
+Factory.define :milestone do |f|
+  f.association :milestone_type, :factory => :milestone_type
+  f.association :project, :factory => :project
+end
+
+Factory.define :milestone_type do |f|
+  f.name 'project kick-off'
+end

@@ -1,3 +1,9 @@
+= link_to 'Add accounting position', new_project_accounting_path(@project), :class => 'main_link' if @project.persisted?
+= link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link' if @project.persisted?
+%br
+= link_to 'Add milestone', new_project_milestone_path(@project), :class => 'main_link' if @project.persisted?
+= link_to 'View milestones', project_milestones_path(@project), :class => 'main_link' if @project.persisted?
+
 = semantic_form_for @project do |form|
   %h3 Project
   = form.inputs do 
@@ -13,8 +19,5 @@
     = form.inputs :for => :tasks do |task|
       = render 'task_fields', :f => task
     = link_to_add_fields "Add task", form, :tasks
-
-  = link_to 'Add accounting position', new_project_accounting_path(@project), :class => 'main_link' if @project.persisted?
-  = link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link' if @project.persisted?
   = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }

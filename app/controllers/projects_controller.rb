@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :set_project_states, :only => [:new, :edit, :index]
+  before_filter :prepare_project_states, :only => [:new, :edit, :index]
 
   def index
     @search = Project.search(params[:search])
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
 
   protected
 
-  def set_project_states
+  def prepare_project_states
     @project_states = ProjectState.all
   end
 

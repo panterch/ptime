@@ -1,0 +1,13 @@
+%h1 Milestones
+
+%table.gradient-table
+  %tr
+    %th Date
+    %th Name
+    %th Reached
+
+  - @milestones.each do |milestone|
+    %tr
+      %td= milestone.created_at
+      %td= milestone.milestone_type.name
+      %td= milestone.reached

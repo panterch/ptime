@@ -32,7 +32,6 @@ Spork.each_run do
   load 'spec/factories.rb'
 end
 
-
 RSpec.configure do |config|
   # == Mock Framework
   config.mock_with :rspec

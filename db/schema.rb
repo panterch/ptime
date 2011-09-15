@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912164858) do
+ActiveRecord::Schema.define(:version => 20110914115545) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -41,8 +41,16 @@ ActiveRecord::Schema.define(:version => 20110912164858) do
     t.integer  "duration"
   end
 
+  create_table "milestone_types", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "milestones", :force => true do |t|
-    t.string   "name"
+    t.integer  "project_id",                           :null => false
+    t.integer  "milestone_type_id",                    :null => false
+    t.boolean  "reached",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,12 +91,12 @@ ActiveRecord::Schema.define(:version => 20110912164858) do
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "",    :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
+    t.string   "email",                               :default => "",    :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",                       :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -96,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20110912164858) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.boolean  "admin",                                 :default => false
+    t.boolean  "admin",                               :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

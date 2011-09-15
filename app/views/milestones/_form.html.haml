@@ -1,0 +1,7 @@
+= semantic_form_for [@project, @milestone] do |form|
+  %h3 Milestone for project #{@project.description}
+  = form.inputs do
+    = form.input :milestone_type
+    = form.input :reached, :label => 'reached last milestone?'
+  = form.buttons do
+    = form.commit_button :button_html => { :class => 'main_link' }

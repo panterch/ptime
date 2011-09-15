@@ -10,6 +10,7 @@ PanterControlling::Application.routes.draw do
 
   resources :projects do
     resources :accountings
+    resources :milestones
   end
 
   devise_for :users do
@@ -17,6 +18,8 @@ PanterControlling::Application.routes.draw do
   end
 
   resources :users
+
+  resources :milestone_types
 
   root :to => 'entries#new'
 

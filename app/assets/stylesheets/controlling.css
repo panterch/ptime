@@ -143,8 +143,7 @@ dl.show_item dt {
 nav ul {
   list-style-type: none;
   margin-left: 40px;
-  padding: 0;
-  padding-top: 20px;
+  padding: 0px 20px;
 }
 
 nav ul li {
