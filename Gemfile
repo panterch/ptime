@@ -29,7 +29,7 @@ gem 'jquery-rails', '1.0.13'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'capistrano', '2.8.0'
-  gem 'capybara', '1.0.0'
+  gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
@@ -38,7 +38,7 @@ group :development, :test do
   gem 'rcov'
   gem 'rspec-rails'
   gem 'ruby-debug'
-  gem 'spork'
+  gem 'spork', '0.9.0.rc9'
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'timecop'
   gem 'yard'
