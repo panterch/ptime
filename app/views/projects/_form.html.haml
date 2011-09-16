@@ -12,6 +12,7 @@
     = form.input :start, :as => :datepicker
     = form.input :end, :as => :datepicker
     = form.input :project_state_id, :as => :select, :collection => @project_states 
+    = form.input :probability, :as => :select, :collection => @project_probabilities, :include_blank => false
     = form.input :inactive
 
   %h3 Tasks

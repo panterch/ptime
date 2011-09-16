@@ -25,15 +25,21 @@ describe Project do
 
   context "Format validation" do
     it "should discard non-conforming shortnames" do
-      lambda do
-        Factory(:project, :shortname => "gross_and_wrong_name")
-      end.should raise_error
+      project = Factory.build(:project, :shortname => "gross_and_wrong_name")
+      project.should_not be_valid
+      project.errors[:shortname].should be_present
     end
 
     it "should accept conforming shortnames" do
-      lambda do
-        Factory(:project, :shortname => "abc-123")
-      end.should_not raise_error
+      project =  Factory.build(:project, :shortname => "abc-123")
+      project.should be_valid
+      project.errors[:shortname].should be_empty
+    end
+
+    it 'should discard non-conforming probability values' do
+      project = Factory.build(:project, :probability => '-15')
+      project.should_not be_valid
+      project.errors[:probability].should be_present
     end
   end
 

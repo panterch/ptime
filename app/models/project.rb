@@ -10,8 +10,11 @@ class Project < ActiveRecord::Base
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
-  attr_accessible :shortname, :description, :start, :end, :inactive, :state,
-    :task_ids, :tasks_attributes, :project_state_id, :project_state_attributes
+  validates_inclusion_of :probability, :in => (0..10).map { |n| n*10}, :message => "%{value}% is not a valid probability"
+
+  attr_accessible :shortname, :description, :start, :end, :inactive,
+    :state, :task_ids, :tasks_attributes, :project_state_id,
+    :project_state_attributes, :probability
 
   scope :active, where(:inactive => false)
 
