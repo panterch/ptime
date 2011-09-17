@@ -25,6 +25,15 @@ class EntriesController < ApplicationController
     # Clicking on the calendar widget will also set params[:day].
     # Otherwise the user just wants to enter an entry for today.
     @entry.day = params[:day] ? Date.parse(params[:day]) : Date.today
+
+    # Determine the most recent entry for pre-selection
+    last_entry = current_user.entries.order('updated_at DESC').first
+    if last_entry
+      @entry.project = last_entry.project
+      @last_project = last_entry.project_id
+      @last_task = last_entry.task_id
+    end
+
     load_entries_for_user
   end
 
@@ -93,5 +102,4 @@ class EntriesController < ApplicationController
       render :file => "#{Rails.root}/public/404.html", :status => :not_found
     end
   end
-  
 end

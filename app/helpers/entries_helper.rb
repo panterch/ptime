@@ -24,7 +24,7 @@ module EntriesHelper
   # Helper method for new/edit
   def projects_select(form, projects)
     form.input :project_id, :as => :select, 
-      :collection => to_form_select(projects)
+      :collection => to_form_select(projects), :selected => @last_project
   end
 
   # Extract information a form select method

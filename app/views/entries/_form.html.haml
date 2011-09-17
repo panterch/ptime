@@ -25,7 +25,7 @@
       .project_item
         Tasks
         = f.input :task_id, :as => :select, 
-          :collection => tasks_collection
+          :collection => tasks_collection, :selected => @last_task
       .project_item
         Description
         = f.input :description
