@@ -15,6 +15,7 @@ gem 'mysql'
 gem 'will_paginate', '3.0.pre2'
 gem 'therubyracer', '0.9.4'
 gem 'rake', '0.8.7'
+gem 'rack', '1.3.2'
 
 group :assets do
   gem 'sass-rails', '3.1.0'
