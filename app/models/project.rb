@@ -10,7 +10,11 @@ class Project < ActiveRecord::Base
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
-  validates_inclusion_of :probability, :in => (0..10).map { |n| n*10}, :message => "%{value}% is not a valid probability"
+  validates_each :probability do |record, attr, value|
+    if (value < 0.0 or value > 1.0)
+      record.errors.add attr, "#{value} is not a valid probability."
+    end
+  end
 
   attr_accessible :shortname, :description, :start, :end, :inactive,
     :state, :task_ids, :tasks_attributes, :project_state_id,
@@ -23,5 +27,4 @@ class Project < ActiveRecord::Base
       self.tasks.build(:name => task_name)
     end
   end
-
 end
