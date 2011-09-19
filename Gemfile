@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 
 # gems in alphabetic order
-gem 'comma', :git => 'git://github.com/crafterm/comma.git'
 gem 'devise'
 gem 'exception_notification_rails3', '1.2.0', :require => 'exception_notifier'
 gem 'fastercsv'

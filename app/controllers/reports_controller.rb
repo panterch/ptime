@@ -14,9 +14,7 @@ class ReportsController < ApplicationController
       end
 
       format.csv do
-        send_data @report.all.to_comma,
-                  :type => 'text/csv',
-                  :filename=>"report_#{Date.today}.csv"
+        export_to_csv(@report.all)
       end
     end
   end

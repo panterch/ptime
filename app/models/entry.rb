@@ -23,15 +23,4 @@ class Entry < ActiveRecord::Base
   def duration_hours
     (duration / 60).to_s + ":" + "%02i" % (duration % 60).to_s if duration
   end
-
-  comma do
-    project :shortname
-    user :username
-    day
-    duration_hours
-    self.task :name => 'Task'
-    description
-    billable
-  end
-
 end

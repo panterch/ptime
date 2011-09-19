@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
+  require 'csv'
   protect_from_forgery
   before_filter :authenticate_user!
-  helper_method :sort_direction, :sort_column
+  helper_method :sort_direction, :sort_column, :export_to_csv
 
   # Helper methods for sorting tables
   def sort_direction
@@ -20,5 +21,22 @@ class ApplicationController < ActionController::Base
   # Converts minutes to HH:MM format
   def convert_minutes_to_hh_mm(minutes)
     (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
+  end
+
+  # Generates CSV
+  def export_to_csv(records)
+    result = StringIO.new
+    CSV::Writer.generate(result, ',') do |csv|
+      csv << ["User name", "Day", "Duration (hours)", "Task name",
+        "Description", "Billable"]
+      records.each do |r|
+        csv << [r.project.shortname, r.user.username, r.day,
+          r.duration_hours, r.task.name, r.description, r.billable]
+      end
+    end
+    result.rewind
+    send_data(result.read,
+              :type => 'text/csv; charset=iso-8859-1; header=present',
+              :filename => "report_#{Date.today}.csv")
   end
 end
