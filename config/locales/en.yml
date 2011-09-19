@@ -3,3 +3,7 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      milestone:
+        reached: 'Reached last milestone?'
