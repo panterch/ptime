@@ -39,16 +39,17 @@ $(document).ready(function(){
 /* Calculate entry duration from start:end */
 $(function($) {
   $('#entry_end').change(function() {
-    var start_time = $('#entry_start').val()
-    var end_time = $('#entry_end').val()
+    var start_time = $('#entry_start').val();
+    var end_time = $('#entry_end').val();
+	 var day = $("input#entry_day_input").val();
     if (start_time) {
-      var start_date = new Date("1/1/70 " + start_time);
+      var start_date = new Date(day + " " + start_time);
     }
-    var end_date = new Date("1/1/70 " + end_time);
+    var end_date = new Date(day + " " + end_time);
     if (end_date > start_date) {
       var diff = new Date();
       diff.setTime(end_date - start_date);
-      $("#entry_duration_hours").val(diff.getHours()-1 +":"+ $.format("%02d", [diff.getMinutes()]));
+      $("#entry_duration_hours").val(diff.getHours()+":"+ $.format("%02d", [diff.getMinutes()]));
     }
     else {
       $("#entry_duration_hours").val("");
