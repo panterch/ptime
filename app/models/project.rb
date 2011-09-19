@@ -4,17 +4,16 @@ class Project < ActiveRecord::Base
   has_many :accountings, :dependent => :destroy
   has_many :milestones, :dependent => :destroy
 
+  PROBABILITIES = (0..10).map { |n| n.to_f/10 }
+
   accepts_nested_attributes_for :tasks, :project_state, :reject_if => lambda { |task| task[:name].blank? }
 
   validates_presence_of :shortname, :description, :start, :end, :project_state
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
-  validates_each :probability do |record, attr, value|
-    if (value < 0.0 or value > 1.0)
-      record.errors.add attr, "#{value} is not a valid probability."
-    end
-  end
+  validates_inclusion_of :probability, :in => Project::PROBABILITIES, 
+    :message => "%{value*100}% is not a valid probability"
 
   attr_accessible :shortname, :description, :start, :end, :inactive,
     :state, :task_ids, :tasks_attributes, :project_state_id,
