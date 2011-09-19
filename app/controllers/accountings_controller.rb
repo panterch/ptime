@@ -4,6 +4,7 @@ class AccountingsController < ApplicationController
   def index
     @search = @project.accountings.search(params[:search])
     @accountings = @search.all
+    @sum = @accountings.inject(0) { |sum,position| sum += position.amount }
   end
 
   def create

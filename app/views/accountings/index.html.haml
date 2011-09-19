@@ -1,5 +1,7 @@
 %h1 Accounting positions
 
+%h2= "Total: #{@sum}"
+
 = form_for @search, :url => project_accountings_path(@project.id), :html => {:method => :get} do |f|
   .filters
     %div show only

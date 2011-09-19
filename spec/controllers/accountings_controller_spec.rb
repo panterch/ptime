@@ -206,6 +206,29 @@ describe AccountingsController do
         get :index, :search => { filter => '1' }, :project_id => @project.id
       end
     end
+
+    context 'summing up amounts' do
+      it 'sums amounts of accounting positions of the current project' do
+        another_project = Factory(:project)
+        Factory(:accounting, :amount => 1100, :project_id => @project.id)
+        Factory(:accounting, :amount => -500, :project_id => @project.id)
+        Factory(:accounting, :amount => 100, :project_id => another_project.id)
+        get :index, :project_id => @project.id
+        assigns(:sum).should eq(3899)
+      end
+
+      it 'sums amounts of the filtered accounting positions' do
+        Factory(:accounting, :amount => 1100, :sent => true, 
+                :project_id => @project.id)
+        Factory(:accounting, :amount => -500, :sent => true, 
+                :project_id => @project.id)
+        Factory(:accounting, :amount => 100, :sent => false, 
+                :project_id => @project.id)
+        get :index, :search => { :sent_is_true => '1' }, 
+          :project_id => @project.id
+        assigns(:sum).should eq(600)
+      end
+    end
   end
 end
 
