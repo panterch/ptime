@@ -66,3 +66,10 @@ project_id = Project.first.id
   p.link = "http://link.to.position.#{num}"
   p.save!
 end
+
+# Milestone Types
+['offer submission', 'offer presentation', 'sales debriefing', 'project kick-off', 'production start', 'final project report', 'project review', 'project end'].each do |milestone|
+  m = MilestoneType.new
+  m.name = milestone
+  m.save!
+end
