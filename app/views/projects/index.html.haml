@@ -10,7 +10,7 @@
     = f.label :inactive_is_false, 'active projects'
     %br
     = f.label :project_state_id_equals, 'state'
-    = f.select :project_state_id_equals, @project_states.collect {|p| [p.name, p.id]}
+    = f.select :project_state_id_equals, @project_states.collect {|p| [p.name, p.id]}, :include_blank => true
     %br
   = f.submit 'filter'
 
