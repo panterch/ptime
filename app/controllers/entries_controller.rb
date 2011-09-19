@@ -30,8 +30,7 @@ class EntriesController < ApplicationController
     last_entry = current_user.entries.order('updated_at DESC').first
     if last_entry
       @entry.project = last_entry.project
-      @last_project = last_entry.project_id
-      @last_task = last_entry.task_id
+      @entry.task = last_entry.task
     end
 
     load_entries_for_user
