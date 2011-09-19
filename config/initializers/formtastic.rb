@@ -17,8 +17,7 @@ module Formtastic
  
     # Generate html input options for the datepicker_input
     def datepicker_options(format, value = nil)
-      datepicker_options = {:value => value.try(:strftime, format), 
-        :input_html => {:class => 'ui-datepicker'}}
+      datepicker_options = {:input_html => {:class => 'ui-datepicker',:value => value.try(:strftime, format)}}
     end
   end
 
