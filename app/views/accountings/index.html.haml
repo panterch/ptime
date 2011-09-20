@@ -18,15 +18,21 @@
   = f.submit 'filter'
 
 %table.gradient-table
-  %tr
-    %th Description
-    %th= sort_link @search, :amount
-    %th= sort_link @search, :valuta
-    %th Project
-    %th= sort_link @search, :sent
-    %th= sort_link @search, :payed
-    %th Link
-    %th Edit
+  %thead
+    %tr
+      %th Description
+      %th= sort_link @search, :amount
+      %th= sort_link @search, :valuta
+      %th Project
+      %th= sort_link @search, :sent
+      %th= sort_link @search, :payed
+      %th Link
+      %th Edit
+  %tfoot
+    %tr
+      %td
+        %strong Project Return
+      %td= @project_return
 
   - @accountings.each do |accounting|
     %tr
@@ -38,6 +44,3 @@
       %td= accounting.payed
       %td= accounting.link
       %td= link_to (image_tag 'edit.png'), edit_project_accounting_path(@project, accounting)
-
-%h2= "Project return: #{@sum}"
-
