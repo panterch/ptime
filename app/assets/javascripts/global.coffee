@@ -61,3 +61,18 @@ $(document).ready ->
     for i, item of tasks_from_projects[project_id]
       $('#entry_task_id').append(
         $('<option></option>').val(item.id).html(item.name)) 
+
+# Add time input method radio button logic
+toggle_time_input_method = ->
+  if $('input[name=time_capture_method]:checked').val() == 'duration'
+    $('#entry_start').attr('disabled', true)
+    $('#entry_end').attr('disabled', true)
+    $('#entry_duration_hours').removeAttr('disabled')
+  else
+    $('#entry_duration_hours').attr('disabled', true)
+    $('#entry_start').removeAttr('disabled')
+    $('#entry_end').removeAttr('disabled')
+
+$(document).ready ->
+  $('input[name=time_capture_method]').click(toggle_time_input_method)
+  toggle_time_input_method()

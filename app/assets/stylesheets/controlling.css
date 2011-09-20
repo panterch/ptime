@@ -64,7 +64,6 @@ form[id*="edit_entry_"] li label,
 
 /* IV Float projects and tasks to the left, project details to the right */
 #project {
-  margin-top: 3em;
   margin-bottom: 1em;
 }
 
@@ -81,6 +80,11 @@ form[id*="edit_entry_"] li label,
   display: block;
 }
 
+#project input[type="radio"] {
+  float: left;
+  display: inline;
+}
+
 /* V Style project details elements */
 input#entry_end.ui-timepicker,
 input#entry_start.ui-timepicker  {
@@ -93,6 +97,15 @@ input#entry_duration_hours {
 
 input#entry_description {
   width: 16em;
+}
+
+/* VI Style time input methods */
+#new_entry fieldset.inputs ol li {
+  margin-bottom: 0.5em;
+}
+
+#new_entry .time_capture_method.project_item {
+  margin: 0 1em;
 }
 
 /* Show only project shortname, not description */

@@ -13,12 +13,12 @@
   -# shown very quickly, then.
   %input#tasks_collection_storage{ :value => get_tasks_by_projects }
 
-  = f.inputs do
-    #project
-
+  #project
+    = f.inputs do
       %input#entry_day_input{ :name => "entry[day]", 
         :value => @entry.day.strftime("%m/%d/%Y") }
 
+    = f.inputs do
       .project_item
         Projects
         = projects_select(f, @active_projects)
@@ -29,18 +29,31 @@
       .project_item
         Description
         = f.input :description
-      #project_duration.project_item
-        Duration (hh:mm)
-        = f.input :duration_hours
-      #project_start.project_item
-        Start
-        = f.input :start, :as => :timepicker
-      #project_end.project_item
-        End
-        = f.input :end, :as => :timepicker
       .project_item
         Billable
         = f.check_box :billable
+
+    .time_capture_method_start_end
+      = f.inputs do
+        .time_capture_method.project_item
+          %br
+          = radio_button_tag 'time_capture_method', 'start_end', true
+        #project_start.project_item
+          Start
+          = f.input :start, :as => :timepicker
+        #project_end.project_item
+          End
+          = f.input :end, :as => :timepicker
+
+    .time_capture_method_duration
+      = f.inputs do
+        .time_capture_method.project_item
+          %br
+          = radio_button_tag 'time_capture_method', 'duration', false
+        #project_duration.project_item
+          Duration (hh:mm)
+          = f.input :duration_hours
+
   = f.buttons do
     = f.commit_button :button_html => { :class => 'main_link' }
 
