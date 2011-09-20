@@ -8,29 +8,30 @@ add_fields = (link, association, content) ->
   $(link).before(content.replace(regexp, new_id))
 
 # jQuery Datepicker helper
-$ ->
+$(document).ready ->
   $('input.ui-datepicker').datepicker()
 
 # Reload entry form for chosen date
-$ ->
-  $('#entry-ui-datepicker').datepicker ->
-    onSelect = (dateText, inst) -> 
-      date = new Date(dateText)
-      day = $.datepicker.formatDate('dd-mm-yy', date)
-      window.location.href = '/entries/new/' + '?day=' + day
+$(document).ready ->
+  $('#entry-ui-datepicker').datepicker({
+    onSelect: (dateText, inst) ->
+      date = new Date(dateText);
+      day = $.datepicker.formatDate("dd-mm-yy", date);
+      window.location.href = '/entries/new/' + '?day=' + day;
+  })
 
 # Change date on entry datepicker. It will be set by new and edit actions
-$ ->
+$(document).ready ->
   day = $('input#entry_day_input').val()
   $('#entry-ui-datepicker').datepicker('setDate', new Date(day))
 
 # jQuery Timepicker helper
-$ ->
+$(document).ready ->
   $('input.ui-timepicker').timepicker ->
     showPeriod: true
 
 /* Calculate entry duration from start:end */
-$ ->
+$(document).ready ->
   $('#entry_end').change ->
     start_time = $('#entry_start').val()
     end_time = $('#entry_end').val()
@@ -46,13 +47,13 @@ $ ->
       $('#entry_duration_hours').val('')
 
 # Discard entry start:end if duration is edited manually
-$ ->
+$(document).ready ->
   $('#entry_duration_hours').change ->
     $('#entry_start').val('')
     $('#entry_end').val('')
 
 # Fetch associated tasks for a given project in entry form
-$ ->
+$(document).ready ->
   $('#entry_project_id').change ->
     $('#entry_task_id').find('option').remove()
     project_id = $('select#entry_project_id :selected').val()
