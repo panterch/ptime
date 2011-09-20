@@ -214,7 +214,7 @@ describe AccountingsController do
         Factory(:accounting, :amount => -500, :project_id => @project.id)
         Factory(:accounting, :amount => 100, :project_id => another_project.id)
         get :index, :project_id => @project.id
-        assigns(:sum).should eq(3899)
+        assigns(:project_return).should eq(3899)
       end
 
       it 'sums amounts of the filtered accounting positions' do
@@ -226,7 +226,7 @@ describe AccountingsController do
                 :project_id => @project.id)
         get :index, :search => { :sent_is_true => '1' }, 
           :project_id => @project.id
-        assigns(:sum).should eq(600)
+        assigns(:project_return).should eq(600)
       end
     end
   end

@@ -74,4 +74,7 @@ feature "New entry form", %q{
     find('#entry_task_id').click
     page.evaluate_script('document.activeElement.id').should eq('entry_description')
   end
+
+  it 'focuses the description field after selecting a day in the calendar'
+  it 'focuses the project or task field after selecting a day in the calendar'
 end
