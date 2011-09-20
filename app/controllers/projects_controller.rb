@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_filter :prepare_project_states, :only => [:new, :edit, :index]
+  before_filter :prepare_project_states, :only => [:new, :edit, :index, :update]
+  before_filter :prepare_project_probabilities, :only => [:new, :edit, :update]
 
   def index
     @search = Project.search(params[:search])
@@ -39,5 +40,10 @@ class ProjectsController < ApplicationController
 
   def prepare_project_states
     @project_states = ProjectState.all
+  end
+
+  def prepare_project_probabilities
+    @project_probabilities =
+      Project::PROBABILITIES.map {|n| ["#{(n*100).to_i}%", n ]}
   end
 end
