@@ -3,3 +3,9 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      accounting: 'accounting position'
+    attributes:
+      milestone:
+        reached: 'Reached last milestone?'

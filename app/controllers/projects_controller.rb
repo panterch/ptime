@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
   end
 
   def prepare_project_probabilities
-    @project_probabilities = ActiveSupport::OrderedHash[(0..10).map {|n| ["#{n*10}%","#{n*10}"] }]
+    @project_probabilities =
+      Project::PROBABILITIES.map {|n| ["#{(n*100).to_i}%", n ]}
   end
 end
