@@ -17,7 +17,7 @@ $(document).ready ->
     onSelect: (dateText, inst) ->
       date = new Date(dateText);
       day = $.datepicker.formatDate("dd-mm-yy", date);
-      window.location.href = '/entries/new/' + '?day=' + day;
+      $('#entry_day_input').val(day)
   })
 
 # Change date on entry datepicker. It will be set by new and edit actions
@@ -27,8 +27,7 @@ $(document).ready ->
 
 # jQuery Timepicker helper
 $(document).ready ->
-  $('input.ui-timepicker').timepicker ->
-    showPeriod: true
+  $('input.ui-timepicker').timepicker({ showPeriod: true; })
 
 /* Calculate entry duration from start:end */
 $(document).ready ->
@@ -82,3 +81,10 @@ $(document).ready ->
   $('#entry_task_id').click ->
     $('#entry_description').focus()
 
+# Focus next empty field on load
+$(document).ready ->
+  $('#entry-ui-datepicker').click ->
+    if $('#entry_project_id option:selected').val() == ''
+      $('#entry_project_id').focus()
+    else
+      $('#entry_description').focus()

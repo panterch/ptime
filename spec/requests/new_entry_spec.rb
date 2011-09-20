@@ -75,6 +75,16 @@ feature "New entry form", %q{
     page.evaluate_script('document.activeElement.id').should eq('entry_description')
   end
 
-  it 'focuses the description field after selecting a day in the calendar'
-  it 'focuses the project or task field after selecting a day in the calendar'
+  it 'focuses the description field after selecting a day in the calendar', :js => true do
+    task = Factory(:task, :project_id => @project.id)
+    select 'First task', :from => 'entry_task_id'
+    choose_9th_of_the_month
+    page.evaluate_script('document.activeElement.id').should eq('entry_description')
+  end
+
+  it 'focuses the project or task field after selecting a day in the calendar', :js => true do
+    select '', :from => 'entry_project_id' 
+    choose_9th_of_the_month
+    page.evaluate_script('document.activeElement.id').should eq('entry_project_id')
+  end
 end
