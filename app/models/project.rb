@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   has_many :accountings, :dependent => :destroy
   has_many :milestones, :dependent => :destroy
 
-  PROBABILITIES = (0..10).map { |n| n.to_f/10 }
+  PROBABILITIES = (0..10).map { |n| n.to_f/10 }.freeze
 
   accepts_nested_attributes_for :tasks, :project_state, :reject_if => lambda { |task| task[:name].blank? }
 
