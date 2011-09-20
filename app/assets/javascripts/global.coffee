@@ -76,3 +76,9 @@ toggle_time_input_method = ->
 $(document).ready ->
   $('input[name=time_capture_method]').click(toggle_time_input_method)
   toggle_time_input_method()
+
+# Focus next field on input
+$(document).ready ->
+  $('#entry_task_id').click ->
+    $('#entry_description').focus()
+
