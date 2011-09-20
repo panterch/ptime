@@ -12,8 +12,7 @@ class Project < ActiveRecord::Base
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
-  validates_inclusion_of :probability, :in => Project::PROBABILITIES, 
-    :message => "%{value*100}% is not a valid probability"
+  validates_inclusion_of :probability, :in => Project::PROBABILITIES
 
   attr_accessible :shortname, :description, :start, :end, :inactive,
     :state, :task_ids, :tasks_attributes, :project_state_id,
