@@ -1,6 +1,6 @@
 class AddPositiveToAccountings < ActiveRecord::Migration
   def self.up
-    add_column :accountings, :positive, :boolean, :null => false
+    add_column :accountings, :positive, :boolean, :null => false, :default => true
 
     Accounting.all.each do |accounting|
       accounting.positive = accounting.amount >= 0 ? true : false
