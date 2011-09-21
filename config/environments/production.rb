@@ -50,8 +50,7 @@ PanterControlling::Application.configure do
   config.assets.compile = true
 
   # Generate digests for assets URLs
-  # TODO scf: should be true, but breaks deployment on dreamhost
-  config.assets.digest = false
+  config.assets.digest = true
 
   # Compress both stylesheets and JavaScripts
   config.assets.js_compressor  = :uglifier
