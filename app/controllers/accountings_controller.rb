@@ -5,6 +5,14 @@ class AccountingsController < ApplicationController
     @search = @project.accountings.search(params[:search])
     @accountings = @search.all
     @project_return = @search.sum(:amount)
+
+    # Calculate project profitability
+    # 1. sum of cash in/out's
+    # 2. costs until now (entries in minutes * hourly wage)
+    costs = @project.entries.where(:billable => true).sum(:duration) / 60 * @project.wage
+    # 3. planned costs (rpl * wage)
+    planned_costs = (@project.rpl || 0) * @project.wage
+    @project_profitability = @project_return - costs - planned_costs
   end
 
   def create

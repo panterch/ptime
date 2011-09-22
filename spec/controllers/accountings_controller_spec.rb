@@ -213,6 +213,7 @@ describe AccountingsController do
         Factory(:accounting, :amount => 1100, :project_id => @project.id)
         Factory(:accounting, :amount => -500, :project_id => @project.id)
         Factory(:accounting, :amount => 100, :project_id => another_project.id)
+        # Default accounting amount: 3299
         get :index, :project_id => @project.id
         assigns(:project_return).should eq(3899)
       end
@@ -224,9 +225,37 @@ describe AccountingsController do
                 :project_id => @project.id)
         Factory(:accounting, :amount => 100, :sent => false, 
                 :project_id => @project.id)
+        # Default accounting amount: 3299
         get :index, :search => { :sent_is_true => '1' }, 
           :project_id => @project.id
         assigns(:project_return).should eq(600)
+      end
+    end
+
+    context 'profitability' do
+      before(:each) do
+        @project = Factory(:project, :wage => '100', :rpl => '50')
+        Factory(:accounting, :amount => 40000, :sent => true,
+                :project_id => @project.id)
+        Factory(:accounting, :amount => -2500, :sent => true,
+                :project_id => @project.id)
+        # Duration in minutes (20*60)
+        Factory(:entry, :project_id => @project.id, :duration => '1200',
+                :billable => true)
+      end
+
+      it 'calculates the current profitability of a project' do
+        # Profitability = sum(cash ins/outs) - billable hours*wage - rpl*wage
+        # Profitability = (40000-2500) - 20*100 - 50*100 = 30500
+        get :index, :project_id => @project.id
+        assigns(:project_profitability).should eq(30500)
+      end
+
+      it 'only counts billable time entries' do
+        Factory(:entry, :project_id => @project.id, :duration => '1200',
+                :billable => false)
+        get :index, :project_id => @project.id
+        assigns(:project_profitability).should eq(30500)
       end
     end
   end

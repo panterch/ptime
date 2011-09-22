@@ -27,6 +27,7 @@ Factory.define :project do |f|
   f.tasks { |task| [task.association(:task)] }
   f.start Date.parse('2011-01-01')
   f.end Date.parse('2011-01-03')
+  f.wage 90
 end
 
 Factory.define :project_inactive, :parent => :project do |f|

@@ -23,6 +23,12 @@ describe Project do
     project.errors[:project_state].should be_present
   end
 
+  it 'should require an hourly wage' do
+    project = Factory.build(:project, :wage => nil)
+    project.should_not be_valid
+    project.errors[:wage].should be_present
+  end
+
   context "Format validation" do
     it "should discard non-conforming shortnames" do
       project = Factory.build(:project, :shortname => "gross_and_wrong_name")
