@@ -32,4 +32,22 @@ describe Milestone do
       milestone.errors[:project].should be_present
     end
   end
+
+  context 'Deleting a milestone' do
+    before(:each) do
+      @milestone = Factory(:milestone)
+      @milestone.save
+      Milestone.all.should have(1).record
+      @milestone.deleted_at.should be_nil
+      @milestone.mark_as_deleted
+    end
+
+    it 'should deactivate the milestone instead of deleting it' do
+      @milestone.deleted_at.should_not be_nil
+    end
+
+    it 'should not be selected' do
+      Milestone.all.should have(:no).records
+    end
+  end
 end

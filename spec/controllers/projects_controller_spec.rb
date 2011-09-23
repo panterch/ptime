@@ -124,4 +124,18 @@ describe ProjectsController do
     end
   end
 
+  describe '#destroy' do
+    before(:each) do
+      @project = Factory(:project)
+      delete :destroy, :id => @project.id
+    end
+
+    it 'destroys the project' do
+      request.flash.try(:notice).should eq "Successfully destroyed project."
+    end
+
+    it 'redirects to the projects index' do
+      response.should redirect_to(projects_path)
+    end
+  end
 end

@@ -20,11 +20,34 @@ class Project < ActiveRecord::Base
     :state, :task_ids, :tasks_attributes, :project_state_id,
     :project_state_attributes, :probability, :wage, :rpl
 
+  default_scope where(:deleted_at => nil)
+
   scope :active, where(:inactive => false)
 
   def set_default_tasks
     APP_CONFIG['default_tasks'].each do |task_name|
       self.tasks.build(:name => task_name)
+    end
+  end
+
+  # Mark record and related collections as deleted
+  def mark_as_deleted
+    Project.transaction do
+      self.deleted_at = Time.now
+      self.save
+
+      self.entries.each do |entry|
+        entry.mark_as_deleted
+      end
+      self.tasks.each do |task|
+        task.mark_as_deleted
+      end
+      self.milestones.each do |milestone|
+        milestone.mark_as_deleted
+      end
+      self.accountings.each do |accounting|
+        accounting.mark_as_deleted
+      end
     end
   end
 end

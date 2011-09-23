@@ -45,7 +45,7 @@ describe EntriesController do
     end
     it "redirects to the new entry form with the entry's :day parameter" do
       delete :destroy, :id => @entry.id
-      response.should redirect_to(new_entry_path + "?day=" + \
+      response.should redirect_to(new_entry_url + "?day=" + \
                                   @entry.day.strftime("%Y-%m-%d"))
     end
   end

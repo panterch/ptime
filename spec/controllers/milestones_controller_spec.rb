@@ -85,4 +85,19 @@ describe MilestonesController do
       end
     end
   end
+
+  describe '#destroy' do
+    before(:each) do
+      @milestone = Factory(:milestone, :project_id => @project.id)
+      delete :destroy, :id => @milestone.id, :project_id => @project.id
+    end
+
+    it 'destroys the milestone' do
+      request.flash.try(:notice).should eq "Successfully destroyed milestone."
+    end
+
+    it 'redirects to the milestones index' do
+      response.should redirect_to(project_milestones_url(@project))
+    end
+  end
 end

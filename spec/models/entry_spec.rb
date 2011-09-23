@@ -41,4 +41,22 @@ describe Entry do
       :project_id => 1)
     entry.should_not be_valid
   end
+
+  context 'Deleting an entry' do
+    before(:each) do
+      @entry = Factory(:entry)
+      @entry.save
+      Entry.all.should have(1).record
+      @entry.deleted_at.should be_nil
+      @entry.mark_as_deleted
+    end
+
+    it 'should deactivate the entry instead of deleting it' do
+      @entry.deleted_at.should_not be_nil
+    end
+
+    it 'should not be selected' do
+      Entry.all.should have(:no).records
+    end
+  end
 end

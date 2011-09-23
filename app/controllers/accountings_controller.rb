@@ -43,6 +43,13 @@ class AccountingsController < ApplicationController
     end
   end
 
+  def destroy
+    accounting = Accounting.find(params[:id])
+    accounting.mark_as_deleted
+    flash[:notice] = 'Successfully destroyed accounting.'
+    redirect_to project_accountings_url(@project)
+  end
+
   protected
 
   def prepare_parent
