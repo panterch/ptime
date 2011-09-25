@@ -2,8 +2,13 @@ class Entry < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
   belongs_to :project
+  before_save :save_duration
 
-  validates_presence_of :day, :project, :duration_hours, :task
+  validates_presence_of :day, :project, :task
+  validates_presence_of :duration_hours, 
+    :if => lambda { |entry| entry.start.nil? and entry.end.nil? }
+  validates_presence_of :start, :end,
+    :if => lambda { |entry| entry.duration_hours.nil? }
 
   accepts_nested_attributes_for :task, :project, :user
   attr_accessible :day, :description, :start, :end, :task_id, :project_id,
@@ -29,5 +34,9 @@ class Entry < ActiveRecord::Base
   def mark_as_deleted
     self.deleted_at = Time.now
     self.save
+  end
+
+  def save_duration
+    self.duration = (self.end - self.start) / 60 if self.duration.nil?
   end
 end
