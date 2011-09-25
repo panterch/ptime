@@ -27,7 +27,7 @@ describe EntriesController do
   context 'PUT update with invalid attributes' do
     it "doesn't update the entry's attributes" do
       @entry_attributes = Factory.attributes_for(:entry)
-      @entry_attributes[:duration_hours] = ""
+      @entry_attributes[:day] = ''
       @entry = Factory(:entry, :user => @user)
       put :update, :id => @entry.id, :entry => @entry_attributes
       assigns(:entry).errors.should_not be_empty
@@ -127,6 +127,8 @@ describe EntriesController do
       Entry.first.should be_nil
     end
     it 'does not create a new entry without associated duration' do
+      @entry.delete(:start)
+      @entry.delete(:end)
       @entry.delete(:duration_hours)
       post :create, :entry => @entry.merge( { :task_id => @task.id, 
                                            :project_id => @project.id } )

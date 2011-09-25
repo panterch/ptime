@@ -39,4 +39,22 @@ class Entry < ActiveRecord::Base
   def save_duration
     self.duration = (self.end - self.start) / 60 if self.duration.nil?
   end
+
+  # Generates CSV
+  def self.csv(search_params = nil)
+    csv = "User name, Day, Duration (hours), Task name, Description, Billable\n"
+    Entry.search(search_params).all.each do |e|
+      csv << e.to_csv
+    end
+    csv
+  end
+
+  def to_csv
+    result = ''
+    CSV::Writer.generate(result, ',') do |csv|
+      csv << [self.project.shortname, self.user.username, self.day,
+        self.duration_hours, self.task.name, self.description, self.billable]
+    end
+    result
+  end
 end

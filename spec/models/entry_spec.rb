@@ -59,4 +59,26 @@ describe Entry do
       Entry.all.should have(:no).records
     end
   end
+
+  context 'CSV export' do
+    it 'generates comma separated values' do
+      entry = Factory(:entry)
+      csv = entry.to_csv
+      csv.count(',').should eq(6)
+      csv.should include(entry.project.shortname)
+      csv.should include(entry.user.username)
+      csv.should include(entry.day.to_s)
+      csv.should include(entry.duration_hours)
+      csv.should include(entry.task.name)
+      csv.should include(entry.description)
+      csv.should include(entry.billable.to_s)
+    end
+
+    it 'handles commas correctly' do
+      entry = Factory(:entry, :description => 'a,b')
+      csv = entry.to_csv
+      csv.count(',').should eq(7)
+      csv.should include("\"#{entry.description}\"")
+    end
+  end
 end
