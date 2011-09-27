@@ -13,6 +13,8 @@ class EntriesController < ApplicationController
       else
         format.html do
           load_entries_for_user
+          @duration_hours = params[:entry][:duration_hours]
+          @time_capture_method = params[:time_capture_method]
           render :action => "new", :locals => { :day => get_day }
         end
       end

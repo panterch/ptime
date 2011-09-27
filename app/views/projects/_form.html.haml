@@ -9,8 +9,8 @@
   = form.inputs do 
     = form.input :shortname
     = form.input :description
-    = form.input :start, :as => :datepicker
-    = form.input :end, :as => :datepicker
+    = form.input :start, :as => :date_picker
+    = form.input :end, :as => :date_picker
     = form.input :project_state_id, :as => :select, :collection => @project_states 
     = form.input :probability, :as => :select, :collection => @project_probabilities, :include_blank => false
     = form.input :inactive

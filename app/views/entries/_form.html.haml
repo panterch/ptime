@@ -23,36 +23,37 @@
         Projects
         = projects_select(f, @active_projects)
       .project_item
-        Tasks
+        Task
         = f.input :task_id, :as => :select, 
-          :collection => tasks_collection
+          :collection => tasks_collection, :label => false
       .project_item
         Description
-        = f.input :description
+        = f.input :description, :label => false
       .project_item
         Billable
-        = f.check_box :billable
+        = f.check_box :billable, :label => false
 
-    .time_capture_method_start_end
-      = f.inputs do
-        .time_capture_method.project_item
-          %br
-          = radio_button_tag 'time_capture_method', 'start_end', true
-        #project_start.project_item
-          Start
-          = f.input :start, :as => :timepicker
-        #project_end.project_item
-          End
-          = f.input :end, :as => :timepicker
+    = f.inputs :id => 'time_capture_method_start_end' do
+      .time_capture_method.project_item
+        %br
+        = radio_button_tag 'time_capture_method', 'start_end',
+          time_capture_method_state(@time_capture_method)
+      #project_start.project_item
+        Start
+        = f.input :start, :as => :time_picker, :label => false
+      #project_end.project_item
+        End
+        = f.input :end, :as => :time_picker, :label => false
 
-    .time_capture_method_duration
-      = f.inputs do
-        .time_capture_method.project_item
-          %br
-          = radio_button_tag 'time_capture_method', 'duration', false
-        #project_duration.project_item
-          Duration (hh:mm)
-          = f.input :duration_hours
+    = f.inputs :id => 'time_capture_method_duration' do
+      .time_capture_method.project_item
+        %br
+        = radio_button_tag 'time_capture_method', 'duration',
+          !time_capture_method_state(@time_capture_method)
+      #project_duration.project_item
+        Duration (hh:mm)
+        = f.input :duration_hours, :input_html => { :value => @duration_hours},
+          :label => false
 
   = f.buttons do
     = f.commit_button :button_html => { :class => 'main_link' }

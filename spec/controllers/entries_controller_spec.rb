@@ -126,8 +126,9 @@ describe EntriesController do
       post :create, :entry => @entry.merge( { :project_id => @project.id } )
       Entry.first.should be_nil
     end
-    it 'does not create a new entry without associated duration' do
+    it 'does not create a new entry without a duration and start/end' do
       @entry.delete(:duration_hours)
+      @entry.delete(:start)
       post :create, :entry => @entry.merge( { :task_id => @task.id, 
                                            :project_id => @project.id } )
       Entry.first.should be_nil

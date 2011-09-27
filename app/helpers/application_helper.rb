@@ -10,7 +10,7 @@ module ApplicationHelper
                           :child_index => "new_#{association}") do |builder|
       render(association.to_s.singularize + "_fields", :f => builder)  
     end  
-    link_to_function(name, "add_fields(this, \"#{association}\", 
+    link_to_function(name, "addFields(this, \"#{association}\", 
                      \"#{escape_javascript(fields)}\")",
                     :class => "main_link" )
   end  

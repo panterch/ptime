@@ -61,11 +61,11 @@ feature "New entry form", %q{
   end
 
   it 'allows only one time entry method at a time', :js => true do
-    choose('time_capture_method_start_end')
-    find('#entry_duration_hours')['disabled'].should == 'true'
     choose('time_capture_method_duration')
     find('#entry_start')['disabled'].should == 'true'
     find('#entry_end')['disabled'].should == 'true'
+    choose('time_capture_method_start_end')
+    find('#entry_duration_hours')['disabled'].should == 'true'
   end
 
   it 'focuses the description field if task has been selected', :js => true do
@@ -86,5 +86,14 @@ feature "New entry form", %q{
     select '', :from => 'entry_project_id' 
     choose_9th_of_the_month
     page.evaluate_script('document.activeElement.id').should eq('entry_project_id')
+  end
+
+  context 'invalid entry' do
+    it 'fills duration input field with its submitted value' do
+      choose 'time_capture_method_duration'
+      fill_in "entry_duration_hours", :with => 'abc'
+      click_button 'Create Entry'
+      find_field('entry_duration_hours').value.should eq('abc')
+    end
   end
 end
