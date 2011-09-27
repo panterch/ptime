@@ -100,11 +100,11 @@ input#entry_description {
 }
 
 /* VI Style time input methods */
-#new_entry fieldset.inputs ol li {
+fieldset.inputs ol li {
   margin-bottom: 0.5em;
 }
 
-#new_entry .time_capture_method.project_item {
+.time_capture_method.project_item {
   margin: 0 1em;
 }
 
