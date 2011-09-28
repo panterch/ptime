@@ -1,20 +1,19 @@
 module ApplicationHelper
 
   # Generic helper for adding fields of a nested model to a form
-  # [name] link’s text 
-  # [f] the form builder object 
+  # [name] link’s text
+  # [f] the form builder object
   # [association] name of the ressource in question
-  def link_to_add_fields(name, f, association)  
+  def link_to_add_fields(name, f, association, anchor='this')
     new_object = f.object.class.reflect_on_association(association).klass.new
-    fields = f.fields_for(association, new_object, 
+    fields = f.fields_for(association, new_object,
                           :child_index => "new_#{association}") do |builder|
-      render(association.to_s.singularize + "_fields", :f => builder)  
-    end  
-    link_to_function(name, "addFields(this, \"#{association}\", 
+      render(association.to_s.singularize + "_fields", :f => builder)
+    end
+    link_to_function(name, "addFields(#{anchor}, \"#{association}\",
                      \"#{escape_javascript(fields)}\")",
                     :class => "main_link" )
-  end  
-
+  end
 
   # Highlight link for current action
   def section_link(name, options)

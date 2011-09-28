@@ -1,24 +1,39 @@
 = link_to 'Add accounting position', new_project_accounting_path(@project), :class => 'main_link' if @project.persisted?
 = link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link' if @project.persisted?
 %br
-= link_to 'Add milestone', new_project_milestone_path(@project), :class => 'main_link' if @project.persisted?
-= link_to 'View milestones', project_milestones_path(@project), :class => 'main_link' if @project.persisted?
 
 = semantic_form_for @project do |form|
   %h3 Project
-  = form.inputs do 
+  = form.inputs do
     = form.input :shortname
     = form.input :description
     = form.input :start, :as => :date_picker
     = form.input :end, :as => :date_picker
-    = form.input :project_state_id, :as => :select, :collection => @project_states 
+    = form.input :project_state_id, :as => :select, :collection => @project_states
     = form.input :probability, :as => :select, :collection => @project_probabilities, :include_blank => false
     = form.input :inactive
 
+  %h3 Milestones
+  %table.gradient-table#milestones
+    %thead
+      %tr
+        %th Milestone
+        %th Start date
+        %th Reached
+    - @project.milestones.each do |milestone|
+      %tr
+        = form.fields_for :milestones, milestone do |milestone_form|
+          = render 'milestone_fields', {:milestone_form => milestone_form, :milestone => milestone}
+
   %h3 Tasks
-  #tasks
+  %table.gradient-table#tasks
+    %thead
+      %tr
+        %th Task
+        %th Inactive
     = form.inputs :for => :tasks do |task|
       = render 'task_fields', :f => task
-    = link_to_add_fields "Add task", form, :tasks
+  = link_to_add_fields "Add task", form, :tasks, "$('#tasks tr:last')"
+
   = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }

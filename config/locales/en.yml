@@ -8,4 +8,4 @@ en:
       accounting: 'accounting position'
     attributes:
       milestone:
-        reached: 'Reached last milestone?'
+        reached: 'Milestone reached?'
