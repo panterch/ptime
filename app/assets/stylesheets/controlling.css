@@ -44,48 +44,7 @@ input#entry_day_input {
   width: 1px;
 }
 
-/* Show entry inputs in one line */
-/* I Don't display labels on 'new' and 'edit' actions */
-form[id*="edit_entry_"] li label,
-#new_entry li label {
-  display: none;
-}
-
-/* II Set list layout to 'none' */
-#new_entry fieldset.inputs ol li,
-#new_entry fieldset.inputs ol {
-  list-style: none;
-}
-
-/* III No blocking inputs */
-.project_item fieldset.inputs {
-  display: inline;
-}
-
-/* IV Float projects and tasks to the left, project details to the right */
-#project {
-  margin-bottom: 1em;
-}
-
-#entry_task_id {
-  width: 10em;
-}
-
-.project_item {
-  float: left;
-  display: inline;
-}
-
-.project_item input[type="checkbox"] {
-  display: block;
-}
-
-#project input[type="radio"] {
-  float: left;
-  display: inline;
-}
-
-/* V Style project details elements */
+/* II Style project details elements */
 input#entry_end.ui-timepicker,
 input#entry_start.ui-timepicker  {
   width: 8em;
@@ -99,13 +58,26 @@ input#entry_description {
   width: 16em;
 }
 
-/* VI Style time input methods */
-#new_entry fieldset.inputs ol li {
-  margin-bottom: 0.5em;
+/* III Style entry input elements */
+.entry_item label {
+  display: block;
 }
 
-#new_entry .time_capture_method.project_item {
-  margin: 0 1em;
+.entry_item {
+  float: left;
+  padding: 0 0.3em 0.5em 0;
+}
+
+.entry_group {
+  clear: left;
+}
+
+.entry_item input[name="time_capture_method"] {
+  margin-left: 1em;
+}
+
+#entry_task_id {
+  width: 10em;
 }
 
 /* Show only project shortname, not description */
@@ -291,11 +263,6 @@ h1 {
 #sub_nav a {
   border-bottom: 1px dotted white;
   text-decoration: none;
-}
-
-/* Hide formtastic alerts on entry */
-#new_entry .inline-errors {
-  display: none;
 }
 
 #flash_alert {

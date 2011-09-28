@@ -30,6 +30,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @project.set_default_tasks
+    @project.set_default_milestones
   end
 
   def edit

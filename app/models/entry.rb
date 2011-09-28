@@ -5,10 +5,10 @@ class Entry < ActiveRecord::Base
   before_save :save_duration
 
   validates_presence_of :day, :project, :task
-  validates_presence_of :duration_hours, 
-    :if => lambda { |entry| entry.start.nil? and entry.end.nil? }
-  validates_presence_of :start, :end,
-    :if => lambda { |entry| entry.duration_hours.nil? }
+
+  validate :duration_start_end_combination_must_be_valid
+  validate :negative_time_spans_are_not_allowed
+  validate :duration_hours_format
 
   accepts_nested_attributes_for :task, :project, :user
   attr_accessible :day, :description, :start, :end, :task_id, :project_id,
@@ -22,7 +22,7 @@ class Entry < ActiveRecord::Base
       hours, minutes = duration_hours.split(":")
       self.duration = hours.to_i * 60 + minutes.to_i
     else
-      self.duration = nil
+      @duration_hours_invalid = true
     end
   end
 
@@ -36,8 +36,47 @@ class Entry < ActiveRecord::Base
     self.save
   end
 
+  def to_csv
+    result = ''
+    CSV::Writer.generate(result, ',') do |csv|
+      csv << [self.project.shortname, self.user.username, self.day,
+        self.duration_hours, self.task.name, self.description, self.billable]
+    end
+    result
+  end
+
+
+  private
+
   def save_duration
     self.duration = (self.end - self.start) / 60 if self.duration.nil?
+    true
+  end
+
+  # Validates combination of duration and start/end values
+  def duration_start_end_combination_must_be_valid
+    if start.nil? and self.end.nil? and duration_hours.nil?
+      errors.add(:base,
+                 'Either a duration or a start -and end time are required.')
+    elsif duration_hours.nil?
+      if start.nil? and not self.end.nil?
+        errors.add(:start, 'time is required.')
+      elsif self.end.nil? and not start.nil?
+        errors.add(:end, 'time is required.')
+      end
+    end
+  end
+
+  def negative_time_spans_are_not_allowed
+    if (not start.nil? and not self.end.nil?) and start > self.end
+      errors.add(:start, 'time cannot be after end time.')
+    end
+  end
+
+  def duration_hours_format
+    if @duration_hours_invalid
+      errors.add(:duration_hours, 'format invalid.')
+    end
   end
 
   # Generates CSV
@@ -47,14 +86,5 @@ class Entry < ActiveRecord::Base
       csv << e.to_csv
     end
     csv
-  end
-
-  def to_csv
-    result = ''
-    CSV::Writer.generate(result, ',') do |csv|
-      csv << [self.project.shortname, self.user.username, self.day,
-        self.duration_hours, self.task.name, self.description, self.billable]
-    end
-    result
   end
 end

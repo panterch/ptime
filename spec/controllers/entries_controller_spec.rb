@@ -81,14 +81,14 @@ describe EntriesController do
       assigns(:total_time).should eq(entry.duration_hours)
     end
   end
-  
+
   context 'POST on create with entry with associations' do
-    before(:each) do 
+    before(:each) do
       @user = Factory(:user)
       @project = Factory(:project)
       @task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
     end
     it('responds with a redirect') { response.code.should eq('302') }
@@ -126,23 +126,22 @@ describe EntriesController do
       post :create, :entry => @entry.merge( { :project_id => @project.id } )
       Entry.first.should be_nil
     end
-    it 'does not create a new entry without associated duration' do
-      @entry.delete(:start)
-      @entry.delete(:end)
+    it 'does not create a new entry without a duration and start/end' do
       @entry.delete(:duration_hours)
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      @entry.delete(:start)
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end
     it 'does not create a new entry without associated day' do
       @entry.delete(:day)
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end
     it 'does not create a new entry with invalid day format' do
       @entry[:day] = "a:2"
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end

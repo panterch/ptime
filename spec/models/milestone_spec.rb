@@ -25,12 +25,6 @@ describe Milestone do
       milestone.should_not be_valid
       milestone.errors[:milestone_type].should be_present
     end
-
-    it 'should not be valid without an associated project' do
-      milestone = Factory.build(:milestone, :project_id => nil)
-      milestone.should_not be_valid
-      milestone.errors[:project].should be_present
-    end
   end
 
   context 'Deleting a milestone' do
