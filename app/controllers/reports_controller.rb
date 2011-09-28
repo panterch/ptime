@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
 
       format.csv do
         send_data(Entry.csv(params[:search]),
-                  :type => 'text/csv; charset=iso-8859-1; header=present',
+                  :type => 'text/csv; charset=utf-8; header=present',
                   :filename => "report_#{Date.today}.csv")
       end
     end
