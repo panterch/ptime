@@ -14,4 +14,14 @@ module ProjectsHelper
       image_tag "none.png"
     end
   end
+
+  # Localizes a date attribute's value
+  def localized_date(f, attr)
+    date = f.object.read_attribute(attr)
+    begin
+      (date.nil?? '':(l date))
+    rescue
+      ''
+    end
+  end
 end

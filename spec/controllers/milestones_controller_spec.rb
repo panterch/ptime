@@ -69,14 +69,14 @@ describe MilestonesController do
             :project_id => @project.id)
         end
 
-        it 'to the most recently saved record' do
+        it 'not to the most recently saved record' do
           do_post
-          Milestone.find(@past_milestone.id).reached.should be_true
+          Milestone.find(@past_milestone.id).reached.should be_false
         end
 
-        it 'not to the current record' do
+        it 'to the current record' do
           do_post
-          Milestone.where("id != ?", @past_milestone.id).first.reached.should be_false
+          Milestone.where("id != ?", @past_milestone.id).first.reached.should be_true
         end
       end
 
