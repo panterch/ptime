@@ -10,7 +10,7 @@ feature "New entry form", %q{
   before(:each) do
     @project = Factory(:project)
     log_in
-    select @project.shortname, :from => 'entry_project_id' 
+    select @project.shortname, :from => 'entry_project_id'
   end
 
   after(:each) do
@@ -21,15 +21,15 @@ feature "New entry form", %q{
   # selenium.
   it "calculates the duration when given start and end time", :js => true do
     pending("it's working in the app, but not in this test")
-    fill_in "entry_start", :with => "06:05 AM" 
-    fill_in "entry_end", :with => "10:15 PM" 
+    fill_in "entry_start", :with => "06:05 AM"
+    fill_in "entry_end", :with => "10:15 PM"
     #page.execute_script("$('#entry_end').trigger('onchange');")
     page.find_by_id('entry_duration_hours').value.should match "16:10"
   end
 
   it "deletes start and end time if duration gets modified", :js => true do
-    fill_in "entry_start", :with => "06:05 AM" 
-    fill_in "entry_end", :with => "10:15 PM" 
+    fill_in "entry_start", :with => "06:05 AM"
+    fill_in "entry_end", :with => "10:15 PM"
     choose('time_capture_method_duration')
     fill_in "entry_duration_hours", :with => "1:0"
     page.find_by_id('entry_start').value.should match ""
@@ -39,11 +39,11 @@ feature "New entry form", %q{
   it "loads tasks for a project", :js => true do
     page.find('#entry_task_id option').has_select?("First task")
   end
-  
+
   context 'displays entries from the associated day' do
     before(:each) do
       choose_9th_of_the_month
-      select @project.shortname, :from => 'entry_project_id' 
+      select @project.shortname, :from => 'entry_project_id'
       choose('time_capture_method_duration')
       @entry_duration = "3:0"
       create_new_entry(duration = @entry_duration)
@@ -83,7 +83,7 @@ feature "New entry form", %q{
   end
 
   it 'focuses the project or task field after selecting a day in the calendar', :js => true do
-    select '', :from => 'entry_project_id' 
+    select '', :from => 'entry_project_id'
     choose_9th_of_the_month
     page.evaluate_script('document.activeElement.id').should eq('entry_project_id')
   end
