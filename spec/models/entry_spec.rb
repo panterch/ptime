@@ -59,4 +59,32 @@ describe Entry do
       Entry.all.should have(:no).records
     end
   end
+
+  context 'invalidity' do
+    it 'rejects submission if duration and start are missing' do
+      entry = Factory.build(:entry, :duration_hours => nil, :start => nil)
+      entry.should_not be_valid
+      entry.errors[:start].should be_present
+    end
+
+    it 'rejects submission if duration and end are missing' do
+      entry = Factory.build(:entry, :duration_hours => nil, :end => nil)
+      entry.should_not be_valid
+      entry.errors[:end].should be_present
+    end
+
+    it 'rejects negative time spans' do
+      entry = Factory.build(:entry, :duration_hours => nil, :end => Time.now,
+                            :start => Time.now + 1000)
+      entry.should_not be_valid
+      entry.errors[:start].should be_present
+    end
+
+    it 'rejects invalid duration hours format' do
+      entry = Factory.build(:entry, :duration_hours => 'abc',
+                            :start => nil, :end => nil)
+      entry.should_not be_valid
+      entry.errors[:duration_hours].should be_present
+    end
+  end
 end

@@ -1,4 +1,4 @@
-= semantic_form_for @entry do |f|
+= form_for @entry do |f|
   - unless @entry.errors.empty?
     %ul#flash_alert
       - @entry.errors.full_messages.each do |msg|
@@ -7,54 +7,53 @@
   -# Show input field for :day(%input#entry_day_input) as hidden text field.
   -# This field is populated via jQuery and a datepicker.
   #entry-ui-datepicker.center
-  
+
   -# Prefetch all tasks for projects. Store them in this hidden input field
   -# as JSON. When the user selects a project, the related tasks can be
   -# shown very quickly, then.
   %input#tasks_collection_storage{ :value => get_tasks_by_projects }
 
-  #project
-    = f.inputs do
-      %input#entry_day_input{ :name => "entry[day]", 
-        :value => @entry.day.strftime("%m/%d/%Y") }
+  %input#entry_day_input{ :name => "entry[day]",
+    :value => @entry.day.strftime("%m/%d/%Y") }
 
-    = f.inputs do
-      .project_item
-        Projects
-        = projects_select(f, @active_projects)
-      .project_item
-        Tasks
-        = f.input :task_id, :as => :select, 
-          :collection => tasks_collection
-      .project_item
-        Description
-        = f.input :description
-      .project_item
-        Billable
-        = f.check_box :billable
+  .entry_group
+    .entry_item
+      = f.label :project_id
+      = f.select :project_id, to_form_select(@active_projects), :include_blank => true
+    .entry_item
+      = f.label :task_id
+      = f.select :task_id, tasks_collection, :include_blank => true
+    .entry_item
+      = f.label :description
+      = f.text_field :description
+    .entry_item
+      = f.label :billable
+      = f.check_box :billable
 
-    .time_capture_method_start_end
-      = f.inputs do
-        .time_capture_method.project_item
-          %br
-          = radio_button_tag 'time_capture_method', 'start_end', true
-        #project_start.project_item
-          Start
-          = f.input :start, :as => :timepicker
-        #project_end.project_item
-          End
-          = f.input :end, :as => :timepicker
+  .entry_group
+    .entry_item
+      %br
+      = radio_button_tag 'time_capture_method', 'start_end',
+        time_capture_method_state(@time_capture_method)
+    #project_start.entry_item
+      = f.label :start
+      = f.text_field :start, :class => 'ui-timepicker',
+        :value => localized_date(f, :start)
+    #project_end.entry_item
+      = f.label :end
+      = f.text_field :end, :class => 'ui-timepicker',
+        :value => localized_date(f, :end)
 
-    .time_capture_method_duration
-      = f.inputs do
-        .time_capture_method.project_item
-          %br
-          = radio_button_tag 'time_capture_method', 'duration', false
-        #project_duration.project_item
-          Duration (hh:mm)
-          = f.input :duration_hours
+  .entry_group
+    .entry_item
+      %br
+      = radio_button_tag 'time_capture_method', 'duration',
+        !time_capture_method_state(@time_capture_method)
+    #project_duration.entry_item
+      = f.label :duration
+      = f.text_field :duration_hours, :value => @duration_hours
 
-  = f.buttons do
-    = f.commit_button :button_html => { :class => 'main_link' }
+  .entry_group
+    = f.submit 'Create Entry', :class => 'main_link'
 
 = render 'entries'

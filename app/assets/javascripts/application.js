@@ -7,4 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.format
+//= require jquery.ui.timepicker
+//= require global
 //= require_tree .

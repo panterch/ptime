@@ -21,12 +21,6 @@ module EntriesHelper
       {:include_blank => ''}
   end
 
-  # Helper method for new/edit
-  def projects_select(form, projects)
-    form.input :project_id, :as => :select, 
-      :collection => to_form_select(projects)
-  end
-
   # Extract information a form select method
   def to_form_select(projects)
     projects.collect do |p|
@@ -41,4 +35,7 @@ module EntriesHelper
     end
   end
 
+  def time_capture_method_state(method)
+    (method.nil? or method == 'start_end') ? true : false
+  end
 end
