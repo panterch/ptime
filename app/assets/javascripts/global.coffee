@@ -1,4 +1,4 @@
-root = exports ? this
+root = this
 
 # Adds fields dynamically (such as tasks in a project)
 root.addFields = (link, association, content) ->
