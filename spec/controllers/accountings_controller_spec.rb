@@ -219,14 +219,14 @@ describe AccountingsController do
       end
 
       it 'sums amounts of the filtered accounting positions' do
-        Factory(:accounting, :amount => 1100, :sent => true, 
+        Factory(:accounting, :amount => 1100, :sent => true,
                 :project_id => @project.id)
-        Factory(:accounting, :amount => -500, :sent => true, 
+        Factory(:accounting, :amount => -500, :sent => true,
                 :project_id => @project.id)
-        Factory(:accounting, :amount => 100, :sent => false, 
+        Factory(:accounting, :amount => 100, :sent => false,
                 :project_id => @project.id)
         # Default accounting amount: 3299
-        get :index, :search => { :sent_is_true => '1' }, 
+        get :index, :search => { :sent_is_true => '1' },
           :project_id => @project.id
         assigns(:project_return).should eq(600)
       end
@@ -244,18 +244,28 @@ describe AccountingsController do
                 :billable => true)
       end
 
+      it 'calculates past work correctly' do
+        get :index, :project_id => @project.id
+        assigns(:past_work).should eq(2000)
+      end
+
+      it 'calculates expected work correctly' do
+        get :index, :project_id => @project.id
+        assigns(:expected_work).should eq(5000)
+      end
+
       it 'calculates the current profitability of a project' do
-        # Profitability = sum(cash ins/outs) - billable hours*wage - rpl*wage
+        # Profitability = sum(cash ins/outs) - hours*wage - rpl*wage
         # Profitability = (40000-2500) - 20*100 - 50*100 = 30500
         get :index, :project_id => @project.id
         assigns(:project_profitability).should eq(30500)
       end
 
-      it 'only counts billable time entries' do
+      it 'counts all time entries, billable or not' do
         Factory(:entry, :project_id => @project.id, :duration => '1200',
                 :billable => false)
         get :index, :project_id => @project.id
-        assigns(:project_profitability).should eq(30500)
+        assigns(:project_profitability).should eq(28500)
       end
     end
   end

@@ -9,10 +9,10 @@ class AccountingsController < ApplicationController
     # Calculate project profitability
     # 1. sum of cash in/out's
     # 2. costs until now (entries in minutes * hourly wage)
-    costs = @project.entries.where(:billable => true).sum(:duration) / 60 * @project.wage
+    @past_work = @project.entries.sum(:duration) / 60 * @project.wage
     # 3. planned costs (rpl * wage)
-    planned_costs = (@project.rpl || 0) * @project.wage
-    @project_profitability = @project_return - costs - planned_costs
+    @expected_work = (@project.rpl || 0) * @project.wage
+    @project_profitability = @project_return - @past_work - @expected_work
   end
 
   def create
