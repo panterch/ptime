@@ -5,13 +5,15 @@ en:
   hello: "Hello world"
   time:
     formats:
-      default: "%d %b %Y %H:%M"
+      default: "%H:%M"
   date:
     formats:
-      default: "%d %b %Y"
+      default: '%d %b %Y'
   activerecord:
     models:
       accounting: 'accounting position'
     attributes:
       milestone:
         reached: 'Milestone reached?'
+      project:
+        duration: 'Duration (hh:mm)'

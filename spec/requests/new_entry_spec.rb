@@ -21,15 +21,15 @@ feature "New entry form", %q{
   # selenium.
   it "calculates the duration when given start and end time", :js => true do
     pending("it's working in the app, but not in this test")
-    fill_in "entry_start", :with => "06:05 AM"
-    fill_in "entry_end", :with => "10:15 PM"
+    fill_in "entry_start", :with => "06:05"
+    fill_in "entry_end", :with => "22:15"
     #page.execute_script("$('#entry_end').trigger('onchange');")
     page.find_by_id('entry_duration_hours').value.should match "16:10"
   end
 
   it "deletes start and end time if duration gets modified", :js => true do
-    fill_in "entry_start", :with => "06:05 AM"
-    fill_in "entry_end", :with => "10:15 PM"
+    fill_in "entry_start", :with => "06:05"
+    fill_in "entry_end", :with => "22:15"
     choose('time_capture_method_duration')
     fill_in "entry_duration_hours", :with => "1:0"
     page.find_by_id('entry_start').value.should match ""

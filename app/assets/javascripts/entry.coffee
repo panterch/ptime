@@ -2,7 +2,7 @@
 # picker logic
 
 $ ->
-  window.entry = entry = $('.formtastic.entry')
+  window.entry = entry = $('#entry-ui-datepicker')
   return unless entry.length
 
   # Add time input method radio button logic

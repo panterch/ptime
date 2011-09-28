@@ -7,4 +7,4 @@ $ ->
   $('input.ui-datepicker').datepicker()
 
   # jQuery Timepicker helper
-  $('input.ui-timepicker').timepicker({ showPeriod: true })
+  $('input.ui-timepicker').timepicker()

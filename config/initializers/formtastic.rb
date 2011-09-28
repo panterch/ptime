@@ -45,7 +45,7 @@ module Formtastic::Inputs
   class TimePickerInput < Formtastic::Inputs::DatePickerInput
 
     def format
-      input_options[:format] || '%I:%M %p'
+      input_options[:format] || '%H:%M'
     end
 
     def css_class
