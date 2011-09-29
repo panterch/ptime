@@ -3,6 +3,7 @@ class Entry < ActiveRecord::Base
   belongs_to :task
   belongs_to :project
   before_save :save_duration
+  require 'csv'
 
   validates_presence_of :day, :project, :task
 
