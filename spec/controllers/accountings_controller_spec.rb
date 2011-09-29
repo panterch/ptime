@@ -13,7 +13,7 @@ describe AccountingsController do
       @accounting = Factory.attributes_for(:accounting)
     end
 
-    context 'with mising parameters' do
+    context 'with missing parameters' do
       it 'does not create an entry without a description' do
         post_with_invalid_position :description
         Accounting.first.should be_nil
@@ -78,6 +78,15 @@ describe AccountingsController do
           Accounting.first.should_not be_nil
           Accounting.first.payed.should be_true
           Accounting.first.sent.should be_false
+      end
+    end
+
+    context 'uploading a file' do
+      it 'uploads a file if asked to' do
+        pending "how to stub a document?"
+        post :create, :accounting => @accoutning.merge( { :document => nil }),
+          :project_id => @project.id
+        Accounting.first.should_have_attached_file stub_name
       end
     end
   end
@@ -285,5 +294,3 @@ describe AccountingsController do
     end
   end
 end
-
-

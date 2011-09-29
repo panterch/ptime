@@ -10,20 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110927145042) do
+ActiveRecord::Schema.define(:version => 20110929183601) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
     t.integer  "amount"
     t.datetime "valuta"
-    t.integer  "project_id",  :null => false
+    t.integer  "project_id",            :null => false
     t.boolean  "sent"
     t.boolean  "payed"
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "positive",    :null => false
+    t.boolean  "positive",              :null => false
     t.datetime "deleted_at"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
   add_index "accountings", ["project_id"], :name => "index_accountings_on_project_id"

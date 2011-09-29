@@ -19,7 +19,7 @@ module ProjectsHelper
   def localized_date(f, attr)
     date = f.object.read_attribute(attr)
     begin
-      (date.nil?? '':(l date))
+      (date.nil?? '':(l date, :format => :short))
     rescue
       ''
     end

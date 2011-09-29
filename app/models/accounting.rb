@@ -2,8 +2,10 @@ class Accounting < ActiveRecord::Base
   belongs_to :project
   before_save :save_sign
 
+  has_attached_file :document
+
   validates_presence_of :description, :amount, :valuta, :project
-  attr_accessible :description, :amount, :valuta, :sent, :payed, :link
+  attr_accessible :description, :amount, :valuta, :sent, :payed, :link, :document
 
   default_scope where(:deleted_at => nil)
 
