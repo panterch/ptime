@@ -23,8 +23,16 @@ $ ->
   entry.toggleDisable($('#entry_duration_hours'))
 
   # If the previous time capture method was 'duration', toggle again
-  if $('input[name=time_capture_method]:checked').val() == 'duration'
+  if $('input[name=time_capture_method]:checked').val() is 'duration'
     entry.toggleTimeInputMethod()
+
+  # If the duration field contains values and start/end don't, activate it
+  if $('#entry_duration_hours').val() isnt '' and
+    $('input[name=time_capture_method]:checked').val() is 'start_end' and
+    $('#entry_start').val() is '' and
+    $('#entry_end').val() is ''
+      entry.toggleTimeInputMethod()
+      $('#time_capture_method_duration').attr('checked', true)
 
   # Toggle between date or time entry method by either disabling
   #  * the duration field
@@ -78,7 +86,7 @@ $ ->
 
   # Focus next empty field on load
   $('#entry-ui-datepicker').click ->
-    if $('#entry_project_id option:selected').val() == ''
+    if $('#entry_project_id option:selected').val() is ''
       $('#entry_project_id').focus()
     else
       $('#entry_description').focus()
