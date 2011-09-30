@@ -3,6 +3,7 @@ class Entry < ActiveRecord::Base
   belongs_to :task
   belongs_to :project
   before_save :save_duration
+  require 'csv'
 
   validates_presence_of :day, :project, :task
 
@@ -34,6 +35,15 @@ class Entry < ActiveRecord::Base
   def mark_as_deleted
     self.deleted_at = Time.now
     self.save
+  end
+
+  def to_csv
+    result = ''
+    CSV::Writer.generate(result, ',') do |csv|
+      csv << [self.project.shortname, self.user.username, self.day,
+        self.duration_hours, self.task.name, self.description, self.billable]
+    end
+    result
   end
 
 
@@ -68,5 +78,14 @@ class Entry < ActiveRecord::Base
     if @duration_hours_invalid
       errors.add(:duration_hours, 'format invalid.')
     end
+  end
+
+  # Generates CSV
+  def self.csv(search_params = nil)
+    csv = "User name, Day, Duration (hours), Task name, Description, Billable\n"
+    Entry.search(search_params).all.each do |e|
+      csv << e.to_csv
+    end
+    csv
   end
 end

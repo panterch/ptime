@@ -1,12 +1,12 @@
 class ReportsController < ApplicationController
 
   def show
-    # Initialize meta_search's collection
-    @report = Entry.search(params[:search])
-    @users = User.all
-    @active_projects = Project.active
     respond_to do |format|
       format.html do
+        # Initialize meta_search's collection
+        @report = Entry.search(params[:search])
+        @users = User.all
+        @active_projects = Project.active
         @entries = @report.paginate(:per_page => 15,
                                         :page => params[:page])
         duration = @report.all.sum(&:duration)
@@ -14,7 +14,9 @@ class ReportsController < ApplicationController
       end
 
       format.csv do
-        export_to_csv(@report.all)
+        send_data(Entry.csv(params[:search]),
+                  :type => 'text/csv; charset=utf-8; header=present',
+                  :filename => "report_#{Date.today}.csv")
       end
     end
   end
