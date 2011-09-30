@@ -23,6 +23,7 @@
     %th= sort_link @search, :project_state_id
     %th= sort_link @search, :inactive
     %th Edit
+    %th Delete
 
   - @projects.each do |project|
     %tr
@@ -33,3 +34,4 @@
       %td= get_project_state(project)
       %td= bool_to_img(!project.inactive)
       %td= link_to (image_tag 'edit.png'), edit_project_path(project)
+      %td= link_to (image_tag 'delete.png'), project_path(project), :method => :delete

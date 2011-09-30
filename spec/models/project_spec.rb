@@ -74,4 +74,47 @@ describe Project do
     end
   end
 
+  context 'Deleting a project' do
+    before(:each) do
+      @project = Factory(:project)
+      Factory(:entry, :project_id => @project.id)
+      Factory(:task, :project_id => @project.id)
+      @project.save
+      Project.all.should have(1).record
+      @project.deleted_at.should be_nil
+      @project.mark_as_deleted
+    end
+
+    it 'should deactivate the project instead of deleting it' do
+      @project.deleted_at.should_not be_nil
+    end
+
+    it 'should not be selected' do
+      Project.all.should have(:no).records
+    end
+
+    it 'should also deactivate related entries' do
+      @project.entries.each do |entry|
+        entry.deleted_at.should_not be_nil
+      end
+    end
+
+    it 'should also deactivate related tasks' do
+      @project.tasks.each do |task|
+        task.deleted_at.should_not be_nil
+      end
+    end
+
+    it 'should also deactivate related milestones' do
+      @project.milestones.each do |milestone|
+        milestone.deleted_at.should_not be_nil
+      end
+    end
+
+    it 'should also deactivate related accountings' do
+      @project.accountings.each do |accounting|
+        accounting.deleted_at.should_not be_nil
+      end
+    end
+  end
 end

@@ -17,3 +17,6 @@ en:
         reached: 'Milestone reached?'
       project:
         duration: 'Duration (hh:mm)'
+        wage: 'internal hourly rate'
+        rpl: 'expected remaining work'
+

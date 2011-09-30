@@ -19,6 +19,13 @@ class MilestonesController < ApplicationController
     @milestone = @project.milestones.build
   end
 
+  def destroy
+    milestone = Milestone.find(params[:id])
+    milestone.mark_as_deleted
+    flash[:notice] = 'Successfully destroyed milestone.'
+    redirect_to project_milestones_url(@project)
+  end
+
   protected
 
   def prepare_parent

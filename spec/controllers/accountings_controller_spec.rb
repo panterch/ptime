@@ -269,6 +269,21 @@ describe AccountingsController do
       end
     end
   end
+
+  describe '#destroy' do
+    before(:each) do
+      @accounting = Factory(:accounting, :project_id => @project.id)
+      delete :destroy, :id => @accounting.id, :project_id => @project.id
+    end
+
+    it 'destroys the accounting' do
+      request.flash.try(:notice).should eq "Successfully destroyed accounting."
+    end
+
+    it 'redirects to the accountings index' do
+      response.should redirect_to(project_accountings_url(@accounting))
+    end
+  end
 end
 
 

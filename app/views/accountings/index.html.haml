@@ -28,6 +28,7 @@
       %th= sort_link @search, :payed
       %th Link
       %th Edit
+      %th Delete
   %tfoot
     %tr
       %td
@@ -56,3 +57,4 @@
       %td= accounting.payed
       %td= accounting.link
       %td= link_to (image_tag 'edit.png'), edit_project_accounting_path(@project, accounting)
+      %td= link_to (image_tag 'delete.png'), project_accounting_path(@project, accounting), :method => :delete

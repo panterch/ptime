@@ -23,6 +23,8 @@ class Project < ActiveRecord::Base
     :project_state_attributes, :probability, :wage, :rpl,
     :milestone_ids, :milestones_attributes
 
+  default_scope where(:deleted_at => nil)
+
   scope :active, where(:inactive => false)
 
   def set_default_tasks
@@ -34,6 +36,27 @@ class Project < ActiveRecord::Base
   def set_default_milestones
     MilestoneType.all.each do |milestone_type|
       self.milestones.build(:milestone_type_id => milestone_type.id)
+    end
+  end
+
+  # Mark record and related collections as deleted
+  def mark_as_deleted
+    Project.transaction do
+      self.deleted_at = Time.now
+      self.save
+
+      self.entries.each do |entry|
+        entry.mark_as_deleted
+      end
+      self.tasks.each do |task|
+        task.mark_as_deleted
+      end
+      self.milestones.each do |milestone|
+        milestone.mark_as_deleted
+      end
+      self.accountings.each do |accounting|
+        accounting.mark_as_deleted
+      end
     end
   end
 end

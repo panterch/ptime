@@ -56,4 +56,22 @@ describe Accounting do
       accounting.errors[:valuta].should be_present
     end
   end
+
+  context 'Deleting an accounting' do
+    before(:each) do
+      @accounting = Factory(:accounting)
+      @accounting.save
+      Accounting.all.should have(1).record
+      @accounting.deleted_at.should be_nil
+      @accounting.mark_as_deleted
+    end
+
+    it 'should deactivate the accounting instead of deleting it' do
+      @accounting.deleted_at.should_not be_nil
+    end
+
+    it 'should not be selected' do
+      Accounting.all.should have(:no).records
+    end
+  end
 end

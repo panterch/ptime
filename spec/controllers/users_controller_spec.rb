@@ -120,4 +120,28 @@ describe UsersController do
     end
   end
 
+  describe '#destroy' do
+    before(:each) do
+      @user = Factory.create(:user, :admin=>true)
+      sign_in @user
+      @user_to_delete = Factory.create(:user)
+      @user.id.should_not eq(@user_to_delete.id)
+    end
+
+    it 'destroys the user' do
+      delete :destroy, :id => @user_to_delete.id
+      request.flash.try(:notice).should eq 'Successfully destroyed user.'
+    end
+
+    it 'redirects to the users index' do
+      delete :destroy, :id => @user_to_delete.id
+      response.should redirect_to(users_path)
+    end
+
+    it 'does not destroy the current user' do
+      delete :destroy, :id => @user.id
+      flash[:error].should eq('Cannot delete current user.')
+      response.should redirect_to(users_path)
+    end
+  end
 end
