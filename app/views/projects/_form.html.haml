@@ -15,6 +15,9 @@
     = form.input :rpl, :input_html => { :size => 5 }
     = form.input :inactive
 
+  -# The Milestone partial requires a form_for instead of semantic_form_for
+  -# in order to access the value (without the input) of it's type which is
+  -# referred from MilestoneTypes
   %h3 Milestones
   %table.gradient-table#milestones
     %thead
