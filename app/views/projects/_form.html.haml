@@ -3,6 +3,11 @@
 %br
 
 = semantic_form_for @project do |form|
+  - unless @project.errors.empty?
+    %ul#flash_alert
+      - @project.errors.full_messages.each do |msg|
+        %li= msg
+
   %h3 Project
   = form.inputs do
     = form.input :shortname, :input_html => { :size => 10 }
@@ -14,6 +19,17 @@
     = form.input :wage, :input_html => { :size => 5 }
     = form.input :rpl, :input_html => { :size => 5 }
     = form.input :inactive
+
+  %h3 Responsibilities
+  %table.gradient-table#responsibilities
+    %thead
+      %tr
+        %th Responsibility
+        %th User
+    - @project.responsibilities.each do |responsibility|
+      %tr
+        = form.fields_for :responsibilities, responsibility do |responsibility_form|
+          = render 'responsibility_fields', {:responsibility_form => responsibility_form, :responsibility => responsibility}
 
   -# The Milestone partial requires a form_for instead of semantic_form_for
   -# in order to access the value (without the input) of it's type which is

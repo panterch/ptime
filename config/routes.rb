@@ -11,6 +11,7 @@ PanterControlling::Application.routes.draw do
   resources :projects do
     resources :accountings
     resources :milestones
+    resources :responsibilities
   end
 
   devise_for :users do

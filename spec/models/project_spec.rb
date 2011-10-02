@@ -6,11 +6,6 @@ describe Project do
     Project.new.should_not be_nil
   end
 
-  it "has a valid factory" do
-    project = Factory.build(:project)
-    project.should be_valid
-  end
-
   it "should allow mass assignement for title and body" do
     project = Project.new(:shortname => 'title', :description => 'body')
     project.shortname.should be_present
@@ -27,6 +22,12 @@ describe Project do
     project = Factory.build(:project, :wage => nil)
     project.should_not be_valid
     project.errors[:wage].should be_present
+  end
+
+  it 'should require a scrum master and product owner' do
+    project = Factory.build(:project, :responsibilities => [])
+    project.should_not be_valid
+    project.errors[:base].should be_present
   end
 
   context "Format validation" do
@@ -114,6 +115,12 @@ describe Project do
     it 'should also deactivate related accountings' do
       @project.accountings.each do |accounting|
         accounting.deleted_at.should_not be_nil
+      end
+    end
+
+    it 'should also deactivate related responsibilities' do
+      @project.responsibilities.each do |responsibility|
+        responsibility.deleted_at.should_not be_nil
       end
     end
   end

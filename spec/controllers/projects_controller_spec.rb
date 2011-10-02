@@ -20,23 +20,28 @@ describe ProjectsController do
     end
 
   end
-  
+
   context 'POST on create' do
     before(:each) do
-       project_attributes = Factory.attributes_for(:project)
-       project_state_attributes = Factory.attributes_for(:project_state)
-       post :create, :project => project_attributes.merge(
-        { :project_state_attributes => project_state_attributes })
+      user = Factory(:user)
+      # Creates a project factory with required responsibilities
+      project_attributes = Factory.attributes_for(:project).merge(
+          { :responsibilities_attributes => [Factory.attributes_for(:responsibility, :user_id => user.id, :responsibility_type_id => Factory(:scrum_master_responsibility_type).id), Factory.attributes_for(:responsibility, :user_id => user.id, :responsibility_type_id => Factory(:product_owner_responsibility_type).id)], :project_state_attributes => { :name => "Test state" }})
+
+      post :create, :project => project_attributes
     end
+    it('does not have errors') { assigns(:project).errors.should be_empty }
     it('responds with a redirect') { response.code.should eq('302') }
     it('creates a new project') { assigns(:project).should_not be_a_new_record }
   end
 
   context 'POST on create with project with associated task' do
     before(:each) do
+      user = Factory(:user)
+      # Creates a project factory with required responsibilities
       @project = Factory.attributes_for(:project).merge(
           { :tasks_attributes => [{:name => "First task", :inactive => false }],
-            :project_state_attributes => { :name => "Test state" }})
+            :project_state_attributes => { :name => "Test state" }, :responsibilities_attributes => [Factory.attributes_for(:responsibility, :user_id => user.id, :responsibility_type_id => Factory(:scrum_master_responsibility_type).id), Factory.attributes_for(:responsibility, :user_id => user.id, :responsibility_type_id => Factory(:product_owner_responsibility_type).id)]})
       post :create, :project => @project
     end
     it('responds with a redirect') { response.code.should eq('302') }

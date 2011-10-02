@@ -73,3 +73,10 @@ end
   m.name = milestone
   m.save!
 end
+
+# Project Responsibilities
+['sales', 'scrum master', 'product owner', 'techlead', 'coder', 'tester', 'qa'].each do |responsibility|
+  r = ResponsibilityType.new
+  r.name = responsibility
+  r.save!
+end

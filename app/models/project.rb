@@ -4,12 +4,14 @@ class Project < ActiveRecord::Base
   has_many :accountings, :dependent => :destroy
   has_many :entries
   has_many :milestones, :dependent => :destroy, :order => :milestone_type_id
+  has_many :responsibilities, :dependent => :destroy, :order => :responsibility_type_id
 
   PROBABILITIES = (0..10).map { |n| n.to_f/10 }.freeze
 
   accepts_nested_attributes_for :tasks, :reject_if => lambda { |task| task[:name].blank? }
   accepts_nested_attributes_for :project_state
   accepts_nested_attributes_for :milestones
+  accepts_nested_attributes_for :responsibilities
 
   validates_presence_of :shortname, :description, :start, :end,
     :project_state, :wage
@@ -18,10 +20,13 @@ class Project < ActiveRecord::Base
 
   validates_inclusion_of :probability, :in => Project::PROBABILITIES
 
+  validate :needs_scrum_master_and_product_owner
+
   attr_accessible :shortname, :description, :start, :end, :inactive,
     :state, :task_ids, :tasks_attributes, :project_state_id,
     :project_state_attributes, :probability, :wage, :rpl,
-    :milestone_ids, :milestones_attributes
+    :milestone_ids, :milestones_attributes,
+    :responsibility_ids, :responsibilities_attributes
 
   default_scope where(:deleted_at => nil)
 
@@ -36,6 +41,12 @@ class Project < ActiveRecord::Base
   def set_default_milestones
     MilestoneType.all.each do |milestone_type|
       self.milestones.build(:milestone_type_id => milestone_type.id)
+    end
+  end
+
+  def set_default_responsibilities
+    ResponsibilityType.all.each do |responsibility_type|
+      self.responsibilities.build(:responsibility_type_id => responsibility_type.id)
     end
   end
 
@@ -57,6 +68,25 @@ class Project < ActiveRecord::Base
       self.accountings.each do |accounting|
         accounting.mark_as_deleted
       end
+      self.responsibilities.each do |responsibility|
+        responsibility.mark_as_deleted
+      end
+    end
+  end
+
+
+  private
+
+  def needs_scrum_master_and_product_owner
+    responsibility_names = {}
+    responsibilities.each do |r|
+      if not r.user.nil?
+        responsibility_names[r.responsibility_type.name] = r.user_id
+      end
+    end
+    if not responsibility_names.has_key?('scrum master') or
+       not responsibility_names.has_key?('product owner')
+      errors.add(:base, 'needs a scrum master and a product owner.')
     end
   end
 end
