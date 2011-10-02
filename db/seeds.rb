@@ -20,8 +20,16 @@ project_states.each do |project_state|
   p.save!
 end
 
+# Project Responsibility Types
+['sales', 'scrum master', 'product owner', 'techlead', 'coder', 'tester', 'qa'].each do |responsibility|
+  r = ResponsibilityType.new
+  r.name = responsibility
+  r.save!
+end
 
-# Import demo projects
+# Import demo projects including default responsibilities
+scrum_master = ResponsibilityType.find_by_name('scrum master')
+product_owner = ResponsibilityType.find_by_name('product owner')
 project_states_count = ProjectState.all.count
 (1..10).each do |num|
   rnd_project_state = ProjectState.all[rand(project_states_count)]
@@ -29,8 +37,13 @@ project_states_count = ProjectState.all.count
                   :description => "description #{num}",
                   :inactive => [true,false].shuffle.shift,
                   :project_state_id => rnd_project_state.id,
-                  :start => Date.today, 
-                  :end => Date.today) do |project|
+                  :start => Date.today,
+                  :end => Date.today,
+                  :responsibilities_attributes =>
+                  [{:user_id => User.first.id,
+                    :responsibility_type_id => scrum_master.id},
+                   {:user_id => User.first.id,
+                    :responsibility_type_id => product_owner.id}]) do |project|
     (1..10).each do |project_id|
       Task.create!(:name => "task_#{num}", :project_id => project_id)
     end
@@ -72,11 +85,4 @@ end
   m = MilestoneType.new
   m.name = milestone
   m.save!
-end
-
-# Project Responsibilities
-['sales', 'scrum master', 'product owner', 'techlead', 'coder', 'tester', 'qa'].each do |responsibility|
-  r = ResponsibilityType.new
-  r.name = responsibility
-  r.save!
 end
