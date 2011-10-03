@@ -28,7 +28,8 @@ Factory.define :project do |f|
   f.start Date.parse('2011-01-01')
   f.end Date.parse('2011-01-03')
   f.wage 90
-  f.responsibilities { [Factory(:scrum_master_responsibility), Factory(:product_owner_responsibility)] }
+  f.responsibilities { |res| [res.association(:scrum_master_responsibility),
+    res.association(:product_owner_responsibility)] }
 end
 
 Factory.define :project_inactive, :parent => :project do |f|
