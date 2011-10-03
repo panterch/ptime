@@ -4,15 +4,15 @@ class AccountingsController < ApplicationController
   def index
     @search = @project.accountings.search(params[:search])
     @accountings = @search.all
-    @project_return = @search.sum(:amount)
 
-    # Calculate project profitability
-    # 1. sum of cash in/out's
-    # 2. costs until now (entries in minutes * hourly wage)
-    @past_work = @project.entries.sum(:duration) / 60 * @project.wage
-    # 3. planned costs (rpl * wage)
-    @expected_work = (@project.rpl || 0) * @project.wage
-    @project_profitability = @project_return - @past_work - @expected_work
+    @past_work = - @project.entries.sum(:duration) / 60.0 * @project.wage
+    @expected_work = - (@project.rpl || 0) * @project.wage
+
+    # Project Return = cash-in - cash-out - past work - expected work
+    @project_return = @search.sum(:amount) + @past_work + @expected_work
+
+    # Profitability = (project return) / (cash-in) * 100
+    @project_profitability = 100.0 * @project_return / @search.where(:positive => true).sum(:amount)
   end
 
   def create
