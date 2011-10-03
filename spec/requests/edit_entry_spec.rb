@@ -30,6 +30,44 @@ feature "Edit a entry", %q{
     page.find_by_id('entry_duration_hours').value.should match '16:10'
   end
 
+  it 'saves the duration if start/end values change', :js => true do
+    select @project.shortname, :from => 'entry_project_id'
+    select 'First task', :from => 'entry_task_id'
+    fill_in 'entry_start', :with => '01:00'
+    fill_in 'entry_end', :with => '01:55'
+    fill_in 'entry_description', :with => 'my entry for today'
+    click_button 'Create Entry'
+
+    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find_by_id('entry_start').value.should match '01:00'
+    page.find_by_id('entry_end').value.should match '01:55'
+    fill_in 'entry_end', :with => '02:00'
+    page.execute_script("$('#entry_end').trigger('change');")
+    click_button 'Create Entry'
+
+    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find_by_id('entry_duration_hours').value.should match '1:00'
+  end
+
+  it 'removes start/end values if duration was edited', :js => true do
+    entry = Factory(:entry, :start => Time.parse('2011-01-01 01:00'),
+                    :end => Time.parse('2011-01-01 01:55'),
+                    :duration => 55,
+                    :user_id => User.first.id,
+                    :project_id => Project.first.id,
+                    :task_id => Project.first.tasks.first.id)
+    visit "/entries/#{entry.id}/edit"
+    fill_in 'entry_duration_hours', :with => '04:30'
+    page.execute_script("$('#entry_duration_hours').trigger('change');")
+    page.find_by_id('entry_start').value.should be_empty
+    click_button 'Create Entry'
+
+    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find_by_id('entry_duration_hours').value.should match '4:30'
+    page.find_by_id('entry_start').value.should be_empty
+    page.find_by_id('entry_end').value.should be_empty
+  end
+
   context 'start and end field have not been specified' do
     it 'activates duration field if it contains a value', :js => true do
       select @project.shortname, :from => 'entry_project_id'

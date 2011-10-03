@@ -21,7 +21,7 @@ class MilestonesController < ApplicationController
 
   def destroy
     milestone = Milestone.find(params[:id])
-    milestone.mark_as_deleted
+    milestone.destroy
     flash[:notice] = 'Successfully destroyed milestone.'
     redirect_to project_milestones_url(@project)
   end

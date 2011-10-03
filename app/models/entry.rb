@@ -22,6 +22,8 @@ class Entry < ActiveRecord::Base
     if duration_hours =~ /(^\d{1,3}:\d{1,2}$)|(^\d{1,3}$)/
       hours, minutes = duration_hours.split(":")
       self.duration = hours.to_i * 60 + minutes.to_i
+      self.start = nil
+      self.end = nil
     else
       @duration_hours_invalid = true
     end
@@ -32,10 +34,12 @@ class Entry < ActiveRecord::Base
     (duration / 60).to_s + ":" + "%02i" % (duration % 60).to_s if duration
   end
 
-  def mark_as_deleted
+  def destroy_with_mark
     self.deleted_at = Time.now
     self.save
   end
+
+  alias_method_chain :destroy, :mark
 
   def to_csv
     result = ''
@@ -50,7 +54,9 @@ class Entry < ActiveRecord::Base
   private
 
   def save_duration
-    self.duration = (self.end - self.start) / 60 if self.duration.nil?
+    if not self.start.nil? and not self.end.nil?
+      self.duration = (self.end - self.start) / 60
+    end
     true
   end
 

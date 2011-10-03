@@ -7,7 +7,7 @@ describe User do
       @user.save
       User.all.should have(1).record
       @user.deleted_at.should be_nil
-      @user.mark_as_deleted
+      @user.destroy
     end
 
     it 'should deactivate the user instead of deleting it' do

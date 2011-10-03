@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     project = Project.find(params[:id])
-    project.mark_as_deleted
+    project.destroy
     flash[:notice] = 'Successfully destroyed project.'
     redirect_to projects_path
   end

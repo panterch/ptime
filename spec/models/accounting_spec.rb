@@ -63,7 +63,7 @@ describe Accounting do
       @accounting.save
       Accounting.all.should have(1).record
       @accounting.deleted_at.should be_nil
-      @accounting.mark_as_deleted
+      @accounting.destroy
     end
 
     it 'should deactivate the accounting instead of deleting it' do

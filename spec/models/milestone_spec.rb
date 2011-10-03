@@ -33,7 +33,7 @@ describe Milestone do
       @milestone.save
       Milestone.all.should have(1).record
       @milestone.deleted_at.should be_nil
-      @milestone.mark_as_deleted
+      @milestone.destroy
     end
 
     it 'should deactivate the milestone instead of deleting it' do

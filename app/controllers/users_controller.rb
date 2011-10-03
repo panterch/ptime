@@ -37,7 +37,7 @@ class UsersController < InheritedResources::Base
     if user.id == current_user.id
       flash[:error] = 'Cannot delete current user.'
     else
-      user.mark_as_deleted
+      user.destroy
       flash[:notice] = 'Successfully destroyed user.'
     end
     redirect_to users_url

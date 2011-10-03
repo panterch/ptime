@@ -51,22 +51,22 @@ class Project < ActiveRecord::Base
   end
 
   # Mark record and related collections as deleted
-  def mark_as_deleted
+  def destroy_with_mark
     Project.transaction do
       self.deleted_at = Time.now
       self.save
 
       self.entries.each do |entry|
-        entry.mark_as_deleted
+        entry.destroy
       end
       self.tasks.each do |task|
-        task.mark_as_deleted
+        task.destroy
       end
       self.milestones.each do |milestone|
-        milestone.mark_as_deleted
+        milestone.destroy
       end
       self.accountings.each do |accounting|
-        accounting.mark_as_deleted
+        accounting.destroy
       end
       self.responsibilities.each do |responsibility|
         responsibility.mark_as_deleted
@@ -89,4 +89,6 @@ class Project < ActiveRecord::Base
       errors.add(:base, 'needs a scrum master and a product owner.')
     end
   end
+
+  alias_method_chain :destroy, :mark
 end

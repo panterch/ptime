@@ -37,8 +37,8 @@ end
 
 Factory.define :entry do |f|
   f.day Date.parse('2011-01-01')
-  f.start Date.parse('2011-01-01 01:00')
-  f.end Date.parse('2011-01-01 02:00')
+  f.start Time.parse('2011-01-01 01:00')
+  f.end Time.parse('2011-01-01 02:00')
   f.duration_hours "01:00"
   f.association :user, :factory => :user
   f.association :project, :factory => :project

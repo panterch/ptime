@@ -83,7 +83,7 @@ describe Project do
       @project.save
       Project.all.should have(1).record
       @project.deleted_at.should be_nil
-      @project.mark_as_deleted
+      @project.destroy
     end
 
     it 'should deactivate the project instead of deleting it' do

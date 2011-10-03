@@ -63,7 +63,7 @@ class EntriesController < ApplicationController
 
   def destroy
     day = @entry.day
-    @entry.mark_as_deleted
+    @entry.destroy
     flash[:notice] = "Successfully destroyed entry."
     redirect_to new_entry_url(:day => day)
   end
