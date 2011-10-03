@@ -45,7 +45,7 @@ $ ->
     onSelect: (dateText, inst) ->
       date = new Date(dateText)
       day = $.datepicker.formatDate("dd-mm-yy", date)
-      $('#entry_day_input').val(day)
+      window.location.href = '/entries/new/' + '?day=' + day;
   })
 
   # Change date on entry datepicker. It will be set by new and edit actions
@@ -55,10 +55,9 @@ $ ->
   $('#entry_end').change ->
     start_time = $('#entry_start').val()
     end_time = $('#entry_end').val()
-    day = $('input#entry_day_input').val()
     if start_time
-      start_date = new Date(day + ' ' + start_time)
-    end_date = new Date(day + ' ' + end_time)
+      start_date = new Date('1/1/70 ' + start_time)
+    end_date = new Date('1/1/70 ' + end_time)
     if end_date > start_date
       diff = new Date()
       diff.setTime(end_date - start_date)
@@ -83,10 +82,3 @@ $ ->
   # Focus next field on input after choosing a task
   $('#entry_task_id').click ->
     $('#entry_description').focus()
-
-  # Focus next empty field on load
-  $('#entry-ui-datepicker').click ->
-    if $('#entry_project_id option:selected').val() is ''
-      $('#entry_project_id').focus()
-    else
-      $('#entry_description').focus()
