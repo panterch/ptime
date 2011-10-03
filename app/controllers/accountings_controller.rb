@@ -12,7 +12,11 @@ class AccountingsController < ApplicationController
     @project_return = @search.sum(:amount) + @past_work + @expected_work
 
     # Profitability = (project return) / (cash-in) * 100
-    @project_profitability = 100.0 * @project_return / @search.where(:positive => true).sum(:amount)
+    cash_in = @search.where(:positive => true).sum(:amount)
+    @project_profitability = 0.0
+    if cash_in > 0
+      @project_profitability = 100.0 * @project_return / @search.where(:positive => true).sum(:amount)
+    end
   end
 
   def create

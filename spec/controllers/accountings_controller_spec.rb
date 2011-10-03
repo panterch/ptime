@@ -288,6 +288,15 @@ describe AccountingsController do
         assigns(:project_profitability).should eq 71.25
       end
     end
+
+    context 'profitability edge cases' do
+      it 'handles zero cash-in correctly' do
+        @project = Factory(:project, :wage => '100', :rpl => '50')
+        get :index, :project_id => @project.id
+        assigns(:project_return).should eq -5000
+        assigns(:project_profitability).should eq 0
+      end
+    end
   end
 
   describe '#destroy' do
