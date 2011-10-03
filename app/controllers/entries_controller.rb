@@ -1,7 +1,10 @@
 class EntriesController < ApplicationController
+
   before_filter :load_active_projects_and_tasks_by_project, :only => [:new, 
     :edit, :create]
   before_filter :load_entry, :only => [:edit, :update, :destroy]
+
+  load_and_authorize_resource
 
   def create
     @entry = current_user.entries.new(params[:entry])

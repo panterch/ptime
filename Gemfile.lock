@@ -50,6 +50,7 @@ GEM
     arel (2.0.9)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
+    cancan (1.6.6)
     capistrano (2.5.21)
       highline
       net-scp (>= 1.0.0)
@@ -195,6 +196,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cancan
   capistrano
   capybara!
   comma!

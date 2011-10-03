@@ -1,9 +1,18 @@
 class ReportsController < ApplicationController
+  load_and_authorize_resource
 
   def show
+
     # Initialize meta_search's collection
     @report = Entry.search(params[:search])
-    @users = User.all
+
+    # Non-admin users can only see their own timesheet
+    if current_user.admin
+      @users = User.all
+    else
+      @users = [current_user]
+    end
+
     @active_projects = Project.active
     respond_to do |format|
       format.html do

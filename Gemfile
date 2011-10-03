@@ -13,6 +13,7 @@ gem 'inherited_resources', '1.2.1'
 gem 'meta_search'
 gem 'mysql'
 gem 'will_paginate', '3.0.pre2'
+gem 'cancan'
 
 
 # Bundle gems for the local environment. Make sure to

@@ -4,9 +4,10 @@ Factory.define :post do |f|
 end
 
 Factory.define :user do |f|
-  f.username 'admin'
-  f.sequence(:email) { |n| "admin_#{n}@example.com" }
+  f.username 'user'
+  f.sequence(:email) { |n| "user_#{n}@example.com" }
   f.password 'good_password'
+  f.admin false
 end
 
 Factory.define :project_state do |f|
