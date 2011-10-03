@@ -207,15 +207,24 @@ describe AccountingsController do
       end
     end
 
-    context 'summing up amounts' do
-      it 'sums amounts of accounting positions of the current project' do
+    context 'project return' do
+      it 'calculates the return of the current project' do
+        @project.rpl = 12
+        @project.save
+        # 20 hours = 1200 minutes
+        Factory(:entry, :project_id => @project.id, :duration => '1200',
+                :billable => true)
         another_project = Factory(:project)
         Factory(:accounting, :amount => 1100, :project_id => @project.id)
         Factory(:accounting, :amount => -500, :project_id => @project.id)
         Factory(:accounting, :amount => 100, :project_id => another_project.id)
         # Default accounting amount: 3299
+        # past work = entry hours * wage
+        # expected work = project rpl * wage
+        # Project Return = cash-in - cash-out - past work - expected work
+        # Project Return = 4399 - 500 - 20*90 - 12*90
         get :index, :project_id => @project.id
-        assigns(:project_return).should eq(3899)
+        assigns(:project_return).should eq(1019)
       end
 
       it 'sums amounts of the filtered accounting positions' do
@@ -246,26 +255,37 @@ describe AccountingsController do
 
       it 'calculates past work correctly' do
         get :index, :project_id => @project.id
-        assigns(:past_work).should eq(2000)
+        assigns(:past_work).should eq -2000
       end
 
       it 'calculates expected work correctly' do
         get :index, :project_id => @project.id
-        assigns(:expected_work).should eq(5000)
+        assigns(:expected_work).should eq -5000
+      end
+
+      it 'calculates project return correctly.' do
+        # Project Return = cash-in - cash-out - past work - expected work
+        # Project Return = 40000 - 2500 - 20*100 - 50*100
+        get :index, :project_id => @project.id
+        assigns(:project_return).should eq 30500
       end
 
       it 'calculates the current profitability of a project' do
-        # Profitability = sum(cash ins/outs) - hours*wage - rpl*wage
-        # Profitability = (40000-2500) - 20*100 - 50*100 = 30500
+        # Profitability = (project return) / (cash-in) * 100
+        # Profitability = 30500 / 40000 * 100
         get :index, :project_id => @project.id
-        assigns(:project_profitability).should eq(30500)
+        assigns(:project_profitability).should eq 76.25
       end
 
       it 'counts all time entries, billable or not' do
+        # Project Return = cash-in - cash-out - past work - expected work
+        # Project Return = 40000 - 2500 - 40*100 - 50*100
+        # Profitability = (project return) / (cash-in) * 100
+        # Profitability = 28500 / 40000 * 100
         Factory(:entry, :project_id => @project.id, :duration => '1200',
                 :billable => false)
         get :index, :project_id => @project.id
-        assigns(:project_profitability).should eq(28500)
+        assigns(:project_profitability).should eq 71.25
       end
     end
   end

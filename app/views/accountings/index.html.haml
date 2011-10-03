@@ -32,11 +32,11 @@
   %tfoot
     %tr
       %td
-        %strong Past Work
+        %strong Burned
       %td= @past_work
     %tr
       %td
-        %strong Expected Work
+        %strong To burn
       %td= @expected_work
     %tr
       %td
@@ -45,7 +45,7 @@
     %tr
       %td
         %strong Profitability
-      %td= @project_profitability
+      %td= "#{@project_profitability.round(2)} %"
 
   - @accountings.each do |accounting|
     %tr
