@@ -12,14 +12,16 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :username
 
-  def mark_as_deleted
+  def destroy_with_mark
     User.transaction do
       self.deleted_at = Time.now
       self.save
 
       self.entries.each do |entry|
-        entry.mark_as_deleted
+        entry.destroy
       end
     end
   end
+
+  alias_method_chain :destroy, :mark
 end

@@ -32,10 +32,12 @@ class Entry < ActiveRecord::Base
     (duration / 60).to_s + ":" + "%02i" % (duration % 60).to_s if duration
   end
 
-  def mark_as_deleted
+  def destroy_with_mark
     self.deleted_at = Time.now
     self.save
   end
+
+  alias_method_chain :destroy, :mark
 
   def to_csv
     result = ''

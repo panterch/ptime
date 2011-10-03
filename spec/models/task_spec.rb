@@ -7,7 +7,7 @@ describe Task do
       @task.save
       Task.all.should have(1).record
       @task.deleted_at.should be_nil
-      @task.mark_as_deleted
+      @task.destroy
     end
 
     it 'should deactivate the task instead of deleting it' do

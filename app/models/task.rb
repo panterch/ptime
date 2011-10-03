@@ -13,8 +13,10 @@ class Task < ActiveRecord::Base
 
   scope :with_project_id, lambda { |id| where(:project_id => id) }
 
-  def mark_as_deleted
+  def destroy_with_mark
     self.deleted_at = Time.now
     self.save
   end
+
+  alias_method_chain :destroy, :mark
 end

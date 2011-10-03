@@ -48,7 +48,7 @@ describe Entry do
       @entry.save
       Entry.all.should have(1).record
       @entry.deleted_at.should be_nil
-      @entry.mark_as_deleted
+      @entry.destroy
     end
 
     it 'should deactivate the entry instead of deleting it' do
