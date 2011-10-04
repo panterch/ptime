@@ -1,0 +1,13 @@
+%h1 Responsibilities
+
+%table.gradient-table
+  %tr
+    %th Date
+    %th Name
+    %th Reached
+
+  - @responsibilities.each do |responsibility|
+    %tr
+      %td= responsibility.created_at
+      %td= responsibility.responsibility_type.name
+      %td= responsibility.reached

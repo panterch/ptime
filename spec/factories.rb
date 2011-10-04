@@ -29,6 +29,8 @@ Factory.define :project do |f|
   f.start Date.parse('2011-01-01')
   f.end Date.parse('2011-01-03')
   f.wage 90
+  f.responsibilities { |res| [res.association(:scrum_master_responsibility),
+    res.association(:product_owner_responsibility)] }
 end
 
 Factory.define :project_inactive, :parent => :project do |f|
@@ -59,6 +61,33 @@ Factory.define :milestone do |f|
   f.association :project, :factory => :project
 end
 
+Factory.define :responsibility do |f|
+  f.association :responsibility_type, :factory => :responsibility_type
+  f.association :project, :factory => :project
+end
+
 Factory.define :milestone_type do |f|
   f.name 'project kick-off'
+end
+
+Factory.define :responsibility_type do |f|
+  f.name 'techlead'
+end
+
+Factory.define :scrum_master_responsibility_type, :class => ResponsibilityType do |f|
+  f.name 'scrum master'
+end
+
+Factory.define :product_owner_responsibility_type, :class => ResponsibilityType do |f|
+  f.name 'product owner'
+end
+
+Factory.define :scrum_master_responsibility, :class => Responsibility do |f|
+  f.association :responsibility_type, :factory => :scrum_master_responsibility_type
+  f.association :user, :factory => :user
+end
+
+Factory.define :product_owner_responsibility, :class => Responsibility do |f|
+  f.association :responsibility_type, :factory => :product_owner_responsibility_type
+  f.association :user, :factory => :user
 end

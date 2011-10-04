@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_filter :prepare_project_states, :only => [:new, :edit, :index, :update]
-  before_filter :prepare_project_probabilities, :only => [:new, :edit, :update]
+  before_filter :prepare_project_states, :only => [:new, :edit, :index, :update, :create]
+  before_filter :prepare_project_probabilities, :only => [:new, :edit, :update, :create]
 
   load_and_authorize_resource
 
@@ -33,6 +33,7 @@ class ProjectsController < ApplicationController
     @project = Project.new
     @project.set_default_tasks
     @project.set_default_milestones
+    @project.set_default_responsibilities
   end
 
   def edit

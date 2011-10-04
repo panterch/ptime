@@ -4,7 +4,6 @@ describe User do
   context 'Deleting a user' do
     before(:each) do
       @user = Factory(:user)
-      Factory(:entry, :user_id => @user.id)
       @user.save
       User.all.should have(1).record
       @user.deleted_at.should be_nil

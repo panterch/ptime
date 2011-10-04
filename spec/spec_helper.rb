@@ -2,7 +2,7 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'spork'
 require 'views/inherited_resource_helpers'
-
+require 'controllers/support/controller_specs_helpers'
 
 ENV["RAILS_ENV"] ||= 'test'
 

@@ -13,7 +13,7 @@ describe AccountingsController do
       @accounting = Factory.attributes_for(:accounting)
     end
 
-    context 'with mising parameters' do
+    context 'with missing parameters' do
       it 'does not create an entry without a description' do
         post_with_invalid_position :description
         Accounting.first.should be_nil
