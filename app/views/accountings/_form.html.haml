@@ -7,5 +7,8 @@
     = form.input :sent
     = form.input :payed
     = form.input :link
+    %li.string.input.optional.stringish
+      %label.label{ :for => 'accounting_document' } Document
+      = form.file_field :document
   = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }

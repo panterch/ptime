@@ -5,7 +5,8 @@ en:
   hello: "Hello world"
   time:
     formats:
-      default: "%H:%M"
+      default: '%d %b %Y'
+      short: '%H:%M'
   date:
     formats:
       default: '%d %b %Y'

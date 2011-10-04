@@ -80,6 +80,15 @@ describe AccountingsController do
           Accounting.first.sent.should be_false
       end
     end
+
+    context 'uploading a file' do
+      it 'uploads a file if asked to' do
+        pending "how to stub a document?"
+        post :create, :accounting => @accoutning.merge( { :document => nil }),
+          :project_id => @project.id
+        Accounting.first.should_have_attached_file stub_name
+      end
+    end
   end
 
   describe '#update' do
@@ -314,5 +323,3 @@ describe AccountingsController do
     end
   end
 end
-
-
