@@ -42,6 +42,10 @@ class AccountingsController < ApplicationController
   def update
     @accounting = @project.accountings.find(params[:id])
     if @accounting.update_attributes(params[:accounting])
+      if params[:accounting][:delete_document]
+        @accounting.document = nil
+        @accounting.save
+      end
       flash[:notice] = 'Successfully updated accounting position.'
       redirect_to project_accountings_url(@project)
     else

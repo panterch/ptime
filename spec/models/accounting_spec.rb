@@ -74,4 +74,30 @@ describe Accounting do
       Accounting.all.should have(:no).records
     end
   end
+
+  context 'Uploading a file' do
+    before(:each) do
+      @accounting = Factory(:accounting)
+      test_file = File.new(File.join(Rails.root, 'public/robots.txt'), 'r')
+      fake_upload = ActionDispatch::Http::UploadedFile.new({
+        :filename => 'robots.txt',
+        :tempfile => test_file})
+      @accounting.update_attributes(:document => fake_upload)
+      test_file.close
+    end
+
+    it 'uploads a file when asked to' do
+      @accounting.should have_attached_file(:document)
+      @accounting.document_file_name.should eq 'robots.txt'
+      File.exists?(@accounting.document.path).should be_true
+    end
+
+    it 'deletes an uploaded file when asked to' do
+      previous_path = @accounting.document.path
+      @accounting.document = nil
+      @accounting.save
+      @accounting.document_file_name.should_not be_present
+      File.exists?(previous_path).should_not be_true
+    end
+  end
 end

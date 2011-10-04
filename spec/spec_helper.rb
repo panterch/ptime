@@ -3,6 +3,7 @@ require 'capybara/rspec'
 require 'spork'
 require 'views/inherited_resource_helpers'
 require 'controllers/support/controller_specs_helpers'
+require 'paperclip/matchers'
 
 ENV["RAILS_ENV"] ||= 'test'
 
@@ -56,4 +57,7 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # Include Paperclip matchers
+  config.include Paperclip::Shoulda::Matchers
 end
