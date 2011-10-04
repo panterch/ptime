@@ -12,16 +12,20 @@
   %body
     %nav
       %ul
-        %li= section_link('Entry', :controller => 'entries', :action => 'new')
-        %li= section_link('Report', :controller => 'reports', :action => 'show')
+        - if can? :create, Entry
+          %li= section_link('Entry', :controller => 'entries', :action => 'new')
+        - if can? :show, Report
+          %li= section_link('Report', :controller => 'reports', :action => 'show')
+        - if can? :show, Project
+          %li= section_link('Projects', :controller => 'projects', :action => 'index')
         - if current_user.try(:admin?)
           %li= section_link('Admin', :controller => 'admin', :action => 'index')
-      
+
     #container
       = render :partial => 'layouts/submenu'
       #user_nav
         - if user_signed_in?
-          Welcome, 
+          Welcome,
           = link_to current_user.username, user_path(current_user),
             :id=>'edit_current_user'
           = link_to "Log out", destroy_user_session_path

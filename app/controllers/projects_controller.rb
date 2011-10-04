@@ -2,6 +2,8 @@ class ProjectsController < ApplicationController
   before_filter :prepare_project_states, :only => [:new, :edit, :index, :update]
   before_filter :prepare_project_probabilities, :only => [:new, :edit, :update]
 
+  load_and_authorize_resource
+
   def index
     @search = Project.search(params[:search])
     @projects = @search.all

@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 
 # gems in alphabetic order
+gem 'cancan'
 gem 'devise'
 gem 'exception_notification_rails3', '1.2.0', :require => 'exception_notifier'
 gem 'fastercsv'
@@ -11,10 +12,9 @@ gem 'haml', '3.1.2'
 gem 'inherited_resources', '1.3.0'
 gem 'meta_search'
 gem 'mysql'
-gem 'will_paginate', '3.0.pre2'
-gem 'therubyracer', '0.9.4'
 gem 'rake', '0.8.7'
-gem 'rack', '1.3.2'
+gem 'therubyracer', '0.9.4'
+gem 'will_paginate', '3.0.pre2'
 
 group :assets do
   gem 'sass-rails', '3.1.0'

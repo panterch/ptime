@@ -5,7 +5,7 @@ describe ReportsController do
 
   before (:each) do
     task = Factory(:task)
-    @user = Factory(:user)
+    @user = Factory(:user, :admin => false)
     project = Factory(:project)
     @entry = Factory(:entry, :duration_hours => "2:00")
     sign_in @user
@@ -13,6 +13,21 @@ describe ReportsController do
   end
 
   after (:each) { Timecop.return }
+
+  context 'POST on show with allowed and forbidden user time entries' do
+    before(:each) do
+      user_2 = Factory(:user, :username => "test_user2")
+      @entry_2 = Factory(:entry, :user => user_2)
+    end
+    it 'renders entries when only searching for own time entries' do
+      post :show, :search => { :user_id_equals => (@entry.user.id).to_s }
+      assigns(:report).relation.should_not be_empty 
+    end
+    pending 'does returns 403 when asking for other peoples time entries' do
+      post :show, :search => { :user_id_equals => (@entry_2.user.id).to_s }
+      response.response_code.should == 403
+    end
+  end
 
   context 'POST on show to sort the reports table' do
     before(:each) do

@@ -3,6 +3,8 @@ class EntriesController < ApplicationController
     :only => [:new, :edit, :create]
   before_filter :load_entry, :only => [:edit, :update, :destroy]
 
+  load_and_authorize_resource
+
   def create
     @entry = current_user.entries.new(params[:entry])
     respond_to do |format|
