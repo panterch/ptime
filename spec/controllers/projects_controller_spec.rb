@@ -20,7 +20,7 @@ describe ProjectsController do
     end
 
   end
-  
+
   context 'POST on create' do
     before(:each) do
        project_attributes = Factory.attributes_for(:project)
@@ -75,7 +75,7 @@ describe ProjectsController do
           assigns(:projects).first.shortname.should eq(@project.shortname)
         end
         it 'sorts by shortname desc when asked to' do
-          project_2 = Factory(:project, :shortname => "zyx-555", 
+          project_2 = Factory(:project, :shortname => "zyx-555",
                              :description => "project_2")
           get :index, { :search => { 'meta_sort' => 'shortname.desc' } }
           assigns(:projects).first.shortname.should eq(project_2.shortname)
@@ -85,7 +85,7 @@ describe ProjectsController do
           assigns(:projects).first.description.should eq(@project.description)
         end
         it 'sorts by description desc when asked to' do
-          project_2 = Factory(:project, :shortname => "dfb-123", 
+          project_2 = Factory(:project, :shortname => "dfb-123",
                              :description => "project_2")
           get :index, { :search => { 'meta_sort' => 'description.desc' } }
           assigns(:projects).first.description.should eq(project_2.description)
@@ -94,14 +94,14 @@ describe ProjectsController do
 
       describe 'filter projects table' do
         it 'filters by inactive state when asked to' do
-          second_project = Factory(:project, :inactive => true) 
+          second_project = Factory(:project, :inactive => true)
           do_get :inactive_is_true
           assigns(:projects).first.id.should eq(second_project.id)
           assigns(:projects).count.should eq(1)
         end
 
         it 'filters by active state when asked to' do
-          second_project = Factory(:project, :inactive => true) 
+          second_project = Factory(:project, :inactive => true)
           do_get :inactive_is_false
           assigns(:projects).first.id.should eq(@project.id)
           assigns(:projects).count.should eq(1)
@@ -111,7 +111,7 @@ describe ProjectsController do
           project_state = Factory(:project_state, :name => 'won')
           project_state.id.should_not eq(@project.project_state_id)
           second_project = Factory(:project, :inactive => true,
-                                   :project_state_id => project_state.id) 
+                                   :project_state_id => project_state.id)
           get :index, :search => { :project_state_id_equals => @project.project_state_id }
           assigns(:projects).first.id.should eq(@project.id)
           assigns(:projects).count.should eq(1)

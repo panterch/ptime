@@ -22,16 +22,6 @@ describe "FactoryGirl" do
     assert_equal 1, Project.count
   end
 
-  it "should not influence other post tests #1" do
-    Factory(:post)
-    assert_equal 1, Post.count
-  end
-
-  it "should not influence other post tests #2" do
-    Factory(:post)
-    assert_equal 1, Post.count
-  end
-
   it "should not influence other entry tests #1" do
     Factory(:entry)
     assert_equal 1, Entry.count
