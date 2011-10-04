@@ -1,4 +1,6 @@
 class MilestoneTypesController < ApplicationController
+  authorize_resource
+
   def index
     @milestone_types = MilestoneType.all
   end

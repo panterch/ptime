@@ -5,8 +5,8 @@ feature 'Edit a project', %q{
 } do
 
   before(:each) do
-    @project = Factory(:project)
     log_in :admin=>true
+    @project = Factory(:project)
     visit "/projects/#{@project.id}/edit"
   end
 

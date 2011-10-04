@@ -1,6 +1,8 @@
 class UsersController < InheritedResources::Base
   prepend_before_filter :only_admin, :only =>[:create, :new, :index, :destroy]
 
+  authorize_resource
+
   def show
     redirect_to :action=>:edit
   end

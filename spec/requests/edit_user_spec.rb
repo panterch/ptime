@@ -6,6 +6,7 @@ feature "Edit user as admin and as user", %q{
     my password as confirmation.
 } do
 
+  scenario 'edit another user as admin'
 
   scenario "edit email-address as admin without enter any password" do
     log_in :admin=>true
@@ -79,6 +80,4 @@ feature "Edit user as admin and as user", %q{
     click_button 'Update User'
     page.should have_css '.inline-errors'
   end
-  #Factory.create(:user, :username=>'nobody', :email=>'nobody1@example.com')
-
 end

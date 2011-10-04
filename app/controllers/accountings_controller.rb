@@ -1,6 +1,8 @@
 class AccountingsController < ApplicationController
   before_filter :prepare_parent
 
+  authorize_resource
+
   def index
     @search = @project.accountings.search(params[:search])
     @accountings = @search.all

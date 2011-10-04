@@ -17,6 +17,6 @@ def create_new_entry(duration = "1:0")
 end
 
 def choose_9th_of_the_month
-  find(:xpath, 
+  find(:xpath,
        "/html/body/div/form/div[2]/div/table/tbody/tr[2]/td[4]/a").click()
 end

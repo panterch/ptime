@@ -17,7 +17,7 @@
     = users_id_equals_select(f)
   #entries_search_button
     = f.submit "Search", :class => 'main_link'
-    = link_to "Download CSV", 
+    = link_to "Download CSV",
       report_path( { :search => params[:search] }.merge(:format => "csv")),
       :class => 'main_link'
 

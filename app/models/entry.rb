@@ -87,9 +87,9 @@ class Entry < ActiveRecord::Base
   end
 
   # Generates CSV
-  def self.csv(search_params = nil)
+  def self.csv(user_ids, search_params = nil)
     csv = "User name, Day, Duration (hours), Task name, Description, Billable\n"
-    Entry.search(search_params).all.each do |e|
+    Entry.where(:user_id => user_ids).search(search_params).all.each do |e|
       csv << e.to_csv
     end
     csv

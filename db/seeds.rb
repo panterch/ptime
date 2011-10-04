@@ -1,17 +1,17 @@
 # Import users
 (1..10).each do |num|
-  User.create!(:username => "admin_#{num}", 
-               :password => 'admin_goodness', 
+  User.create!(:username => "admin_#{num}",
+               :password => 'admin_goodness',
                :email => "admin_mail_#{num}@example.com") do |user|
     user.admin=true
   end
-  User.create!(:username => "user#{num}", :password => 'let_me_in', 
+  User.create!(:username => "user#{num}", :password => 'let_me_in',
                :email => "mail_#{num}@example.com")
 end
 
 
 # Import project states
-project_states = ["offered", "won", "running", "closed", "lost", 
+project_states = ["offered", "won", "running", "closed", "lost",
   "closing", "permanent"]
 
 project_states.each do |project_state|

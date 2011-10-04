@@ -1,19 +1,20 @@
 class ReportsController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
 
   def show
-    @active_projects = Project.active
+    # Non-admin users can only see their own timesheet
+    if current_user.admin
+      @users = User.all
+    else
+      @users = [current_user]
+    end
+
     respond_to do |format|
       format.html do
-        # Initialize meta_search's collection
-        @report = Entry.search(params[:search])
 
-        # Non-admin users can only see their own timesheet
-        if current_user.admin
-          @users = User.all
-        else
-          @users = [current_user]
-        end
+        # Initialize meta_search's collection
+        #@report = Entry.where(:user_id => user_ids).search(params[:search])
+        @report = Entry.search(params[:search])
 
         @active_projects = Project.active
         @entries = @report.paginate(:per_page => 15,
@@ -23,11 +24,11 @@ class ReportsController < ApplicationController
       end
 
       format.csv do
-        send_data(Entry.csv(params[:search]),
+        user_ids = @users.collect { |u| u.id }
+        send_data(Entry.csv(user_ids, params[:search]),
                   :type => 'text/csv; charset=utf-8; header=present',
                   :filename => "report_#{Date.today}.csv")
       end
     end
   end
-
 end

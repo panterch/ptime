@@ -3,23 +3,18 @@ class EntriesController < ApplicationController
     :only => [:new, :edit, :create]
   before_filter :load_entry, :only => [:edit, :update, :destroy]
 
-  load_and_authorize_resource
+  authorize_resource
 
   def create
     @entry = current_user.entries.new(params[:entry])
-    respond_to do |format|
-      if @entry.save
-        format.html do
-          redirect_to new_entry_path(:day => get_day), :notice => 'Entry was created.'
-        end
-      else
-        format.html do
-          load_entries_for_user
-          load_duration_hours
-          @time_capture_method = params[:time_capture_method]
-          render :action => "new", :locals => { :day => get_day }
-        end
-      end
+    if @entry.save
+      redirect_to new_entry_path(:day => get_day),
+        :notice => 'Entry was created.'
+    else
+      load_entries_for_user
+      load_duration_hours
+      @time_capture_method = params[:time_capture_method]
+      render :action => "new", :locals => { :day => get_day }
     end
   end
 
@@ -41,20 +36,14 @@ class EntriesController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @entry.update_attributes(params[:entry])
-        format.html do
-          redirect_to new_entry_path(:day => get_day),
-            :notice => "Successfully updated entry."
-        end
-      else
-        format.html do
-          load_entries_for_user
-          load_duration_hours
-          load_active_projects_and_tasks_by_project
-          render :action => "new", :locals => { :day => get_day }
-        end
-      end
+    if @entry.update_attributes(params[:entry])
+      redirect_to new_entry_path(:day => get_day),
+        :notice => "Successfully updated entry."
+    else
+      load_entries_for_user
+      load_duration_hours
+      load_active_projects_and_tasks_by_project
+      render :action => "new", :locals => { :day => get_day }
     end
   end
 

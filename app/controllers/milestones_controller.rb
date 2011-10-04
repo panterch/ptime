@@ -1,6 +1,8 @@
 class MilestonesController < ApplicationController
   before_filter :prepare_parent
 
+  authorize_resource
+
   def index
     @milestones = @project.milestones.all
   end

@@ -5,8 +5,8 @@ feature 'Listing accounting positions as authenticated user', %q{
 } do
 
   scenario 'show accounting positions as authenticated user' do
-    project = Factory(:project)
     log_in :admin=>true
+    project = Factory(:project)
 
     accounting_one = Factory(:accounting, :description => 'accounting position 1', :project_id => project.id)
     accounting_two = Factory(:accounting, :description => 'accounting position 2', :project_id => project.id)

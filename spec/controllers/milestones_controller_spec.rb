@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MilestonesController do
   include Devise::TestHelpers
   before (:each) do
-    @user = Factory.create(:user)
+    @user = Factory.create(:user, :admin => true)
     @project = Factory.create(:project)
     sign_in @user
   end
