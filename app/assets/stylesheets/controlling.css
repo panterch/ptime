@@ -272,12 +272,12 @@ h1 {
 }
 
 /* Style project form */
-.responsibilities label {
-  display: block;
+dt.responsibilities {
   float: left;
   width: 25%;
+  margin-left: 1em;
 }
 
-.responsibilities li.responsibilities {
-  padding: 0.5em;
+dd.responsibilities {
+  margin: 0.5em;
 }

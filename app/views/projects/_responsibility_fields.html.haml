@@ -1,5 +1,6 @@
-%li.responsibilities
-  %label= responsibility.responsibility_type.name
-  = responsibility_form.collection_select :user_id, User.all, :id, :username, :include_blank => true
+%dt.responsibilities= responsibility.responsibility_type.name
+%dd.responsibilities
+  = responsibility_form.collection_select :user_id, User.all, :id,
+    :username, :include_blank => true
   = responsibility_form.hidden_field :responsibility_type_id,
     :value => responsibility.responsibility_type.id
