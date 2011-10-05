@@ -38,11 +38,11 @@
     #project_start.entry_item
       = f.label :start
       = f.text_field :start, :class => 'ui-timepicker',
-        :value => localized_date(f, :start)
+        :value => localized_time(f, :start)
     #project_end.entry_item
       = f.label :end
       = f.text_field :end, :class => 'ui-timepicker',
-        :value => localized_date(f, :end)
+        :value => localized_time(f, :end)
 
   %fieldset.entry_group
     .entry_item

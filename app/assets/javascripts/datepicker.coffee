@@ -4,7 +4,7 @@
 #   TimePicker for class 'ui-timepicker'
 $ ->
   # jQuery Datepicker helper
-  $('input.ui-datepicker').datepicker()
+  $('input.ui-datepicker').datepicker({ dateFormat: 'dd M yy' })
 
   # jQuery Timepicker helper
-  $('input.ui-timepicker').timepicker()
+  $('input.ui-timepicker').timepicker({ dateFormat: 'hh:mm' })

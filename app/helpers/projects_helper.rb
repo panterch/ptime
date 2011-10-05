@@ -15,11 +15,21 @@ module ProjectsHelper
     end
   end
 
+  # Localizes a time attribute's value
+  def localized_time(f, attr)
+    date = f.object.read_attribute(attr)
+    begin
+      (date.nil?? '':(l date, :format => :short))
+    rescue
+      ''
+    end
+  end
+
   # Localizes a date attribute's value
   def localized_date(f, attr)
     date = f.object.read_attribute(attr)
     begin
-      (date.nil?? '':(l date, :format => :short))
+      (date.nil?? '':(l date))
     rescue
       ''
     end
