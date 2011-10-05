@@ -61,7 +61,7 @@ $ ->
     if end_date > start_date
       diff = new Date()
       diff.setTime(end_date - start_date)
-      $('#entry_duration_hours').val(diff.getHours()+':'+ $.format('%02d', [diff.getMinutes()]))
+      $('#entry_duration_hours').val(diff.getUTCHours()+':'+ $.format('%02d', [diff.getUTCMinutes()]))
     else
       $('#entry_duration_hours').val('')
 
