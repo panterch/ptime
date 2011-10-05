@@ -30,7 +30,7 @@
           = link_to "Log in", new_user_session_path
 
       %nav.grid_12
-        = render_navigation
+        = render_navigation(:expand_all => true)
 
       #container.grid_12
         = render :partial => 'layouts/submenu'

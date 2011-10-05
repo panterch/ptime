@@ -16,13 +16,13 @@ ActiveRecord::Schema.define(:version => 20111005135620) do
     t.string   "description"
     t.integer  "amount"
     t.datetime "valuta"
-    t.integer  "project_id",            :null => false
+    t.integer  "project_id",                              :null => false
     t.boolean  "sent"
     t.boolean  "payed"
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "positive",              :null => false
+    t.boolean  "positive",              :default => true, :null => false
     t.datetime "deleted_at"
     t.string   "document_file_name"
     t.string   "document_content_type"
@@ -119,12 +119,12 @@ ActiveRecord::Schema.define(:version => 20111005135620) do
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",    :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
-    t.string   "remember_token"
+    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(:version => 20111005135620) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.boolean  "admin",                               :default => false
+    t.boolean  "admin",                                 :default => false
     t.datetime "deleted_at"
   end
 
