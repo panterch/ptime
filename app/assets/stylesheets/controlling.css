@@ -70,6 +70,8 @@ input#entry_description {
 
 .entry_group {
   clear: left;
+  border: 0;
+  padding: 0;
 }
 
 .entry_item input[name="time_capture_method"] {
@@ -157,13 +159,13 @@ nav ul li .active {
 
 
 /* Style reports and entries table */
-.gradient-table { 
+.gradient-table {
   width: 100%;
   margin: 0 40px 0 40px;
   margin-left: auto;
   margin-right: auto;
-  border-collapse: collapse; 
-  border: 1px solid #333; 
+  border-collapse: collapse;
+  border: 1px solid #333;
   text-align: center;
   margin-top: 1em;
   /* background gradient */
@@ -173,9 +175,9 @@ nav ul li .active {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F5F5F5', endColorstr='#ffffff',GradientType=0 ); /* ie */
 }
 
-.gradient-table th, 
-.gradient-table td { 
-  padding: 0.5em; 
+.gradient-table th,
+.gradient-table td {
+  padding: 0.5em;
   border: 1px dotted #666;
 }
 
@@ -267,4 +269,15 @@ h1 {
 
 #flash_alert {
   list-style: disc !important;
+}
+
+/* Style project form */
+.responsibilities label {
+  display: block;
+  float: left;
+  width: 25%;
+}
+
+.responsibilities li.responsibilities {
+  padding: 0.5em;
 }

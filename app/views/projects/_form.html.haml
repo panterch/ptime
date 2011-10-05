@@ -10,26 +10,29 @@
 
   %h3 Project
   = form.inputs do
-    = form.input :shortname, :input_html => { :size => 10 }
+    = form.input :shortname, :input_html => { :size => 7, :maxlength => 7 }
     = form.input :description
-    = form.input :start, :as => :date_picker
-    = form.input :end, :as => :date_picker
-    = form.input :project_state_id, :as => :select, :collection => @project_states
-    = form.input :probability, :as => :select, :collection => @project_probabilities, :include_blank => false
+    = form.input :start, :as => :date_picker,
+      :input_html => { :size => 12, :maxlength => 12 }
+    = form.input :end, :as => :date_picker,
+      :input_html => { :size => 12, :maxlength => 12 }
+    = form.input :project_state_id, :as => :select,
+      :collection => @project_states
+    = form.input :probability, :as => :select,
+      :collection => @project_probabilities, :include_blank => false
     = form.input :wage, :input_html => { :size => 5 }
     = form.input :rpl, :input_html => { :size => 5 }
     = form.input :inactive
 
   %h3 Responsibilities
-  %table.gradient-table#responsibilities
-    %thead
-      %tr
-        %th Responsibility
-        %th User
-    - @project.responsibilities.each do |responsibility|
-      %tr
-        = form.fields_for :responsibilities, responsibility do |responsibility_form|
-          = render 'responsibility_fields', {:responsibility_form => responsibility_form, :responsibility => responsibility}
+  .responsibilities
+    %ul
+      - @project.responsibilities.each do |responsibility|
+        = form.fields_for :responsibilities,
+          responsibility do |responsibility_form|
+          = render 'responsibility_fields',
+            {:responsibility_form => responsibility_form,
+            :responsibility => responsibility}
 
   -# The Milestone partial requires a form_for instead of semantic_form_for
   -# in order to access the value (without the input) of it's type which is

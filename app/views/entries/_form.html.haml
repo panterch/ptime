@@ -16,7 +16,7 @@
   %input#entry_day_input{ :name => "entry[day]",
     :value => @entry.day.strftime("%m/%d/%Y") }
 
-  .entry_group
+  %fieldset.entry_group
     .entry_item
       = f.label :project_id
       = f.select :project_id, to_form_select(@active_projects), :include_blank => true
@@ -30,7 +30,7 @@
       = f.label :billable
       = f.check_box :billable
 
-  .entry_group
+  %fieldset.entry_group
     .entry_item
       %br
       = radio_button_tag 'time_capture_method', 'start_end',
@@ -44,7 +44,7 @@
       = f.text_field :end, :class => 'ui-timepicker',
         :value => localized_date(f, :end)
 
-  .entry_group
+  %fieldset.entry_group
     .entry_item
       %br
       = radio_button_tag 'time_capture_method', 'duration',
