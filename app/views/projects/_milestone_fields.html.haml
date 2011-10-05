@@ -1,9 +1,9 @@
-%td
+%dt.milestones= milestone.milestone_type.name
+%dd.milestones
+  = milestone_form.text_field :start, :class => 'ui-datepicker',
+    :size => 12, :maxlength => 12,
+    :value => localized_date(milestone_form, :start)
+  = milestone_form.check_box :reached
+  reached
   = milestone_form.hidden_field :milestone_type_id,
     :value => milestone.milestone_type.id
-  = milestone.milestone_type.name
-%td= milestone_form.text_field :start, :class => 'ui-datepicker',
-  :size => 12, :maxlength => 12,
-  :value => localized_date(milestone_form, :start)
-
-%td= milestone_form.check_box :reached

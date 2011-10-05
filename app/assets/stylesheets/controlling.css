@@ -272,12 +272,14 @@ h1 {
 }
 
 /* Style project form */
-dt.responsibilities {
+dt.responsibilities,
+dt.milestones {
   float: left;
   width: 25%;
   margin-left: 1em;
 }
 
-dd.responsibilities {
+dd.responsibilities,
+dd.milestones {
   margin: 0.5em;
 }

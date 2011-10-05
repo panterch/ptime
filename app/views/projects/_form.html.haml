@@ -25,7 +25,7 @@
     = form.input :inactive
 
   %h3 Responsibilities
-  %dl.responsibilities
+  %dl
     - @project.responsibilities.each do |responsibility|
       = form.fields_for :responsibilities,
         responsibility do |responsibility_form|
@@ -37,16 +37,11 @@
   -# in order to access the value (without the input) of it's type which is
   -# referred from MilestoneTypes
   %h3 Milestones
-  %table.gradient-table#milestones
-    %thead
-      %tr
-        %th Milestone
-        %th Start date
-        %th Reached
+  %dl
     - @project.milestones.each do |milestone|
-      %tr
-        = form.fields_for :milestones, milestone do |milestone_form|
-          = render 'milestone_fields', {:milestone_form => milestone_form, :milestone => milestone}
+      = form.fields_for :milestones, milestone do |milestone_form|
+        = render 'milestone_fields',
+          {:milestone_form => milestone_form, :milestone => milestone}
 
   %h3 Tasks
   %table.gradient-table#tasks
