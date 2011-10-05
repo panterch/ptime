@@ -3,7 +3,7 @@ class ChangeProjectsProbabilityToFloat < ActiveRecord::Migration
     change_column :projects, :probability, :decimal,
       :precision => 2, :scale => 1, :default => 0
 
-    Project.all.each do |project|
+    Project.unscoped.all.each do |project|
       project.probability = project.probability.to_f / 100
       project.save!
     end

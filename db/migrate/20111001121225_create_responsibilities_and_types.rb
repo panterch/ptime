@@ -1,4 +1,4 @@
-class Responsibility < ActiveRecord::Migration
+class CreateResponsibilitiesAndTypes < ActiveRecord::Migration
   def up
     create_table :responsibilities do |t|
       t.integer :responsibility_type_id
