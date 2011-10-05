@@ -310,7 +310,7 @@ describe AccountingsController do
     end
 
     it 'redirects to the accountings index' do
-      response.should redirect_to(project_accountings_url(@accounting))
+      response.should redirect_to(project_accountings_url(@project))
     end
   end
 end
