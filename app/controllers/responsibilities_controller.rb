@@ -1,5 +1,6 @@
 class ResponsibilitiesController < ApplicationController
   before_filter :prepare_parent
+  authorize_resource
 
   def index
     @responsibilities = @search.all

@@ -11,8 +11,7 @@
     %li.input.file
       %label.label
       - unless @accounting.document_file_name.nil?
-        = content_tag :a, @accounting.document_file_name,
-          :href => @accounting.document.url
+        = link_to @accounting.document_file_name, @accounting.document.url
         %span= "(#{@accounting.document.size} Bytes)"
         = check_box_tag 'accounting[delete_document]'
         %span delete

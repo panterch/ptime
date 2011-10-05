@@ -59,6 +59,6 @@
         - if not accounting.link.nil? and not accounting.link.empty?
           = link_to (image_tag 'link.png'), accounting.link
         - unless accounting.document_file_name.nil?
-          = link_to (image_tag 'document.png'), accounting.document.path
+          = link_to (image_tag 'document.png'), accounting.document.url
       %td= link_to (image_tag 'edit.png'), edit_project_accounting_path(@project, accounting)
       %td= link_to (image_tag 'delete.png'), project_accounting_path(@project, accounting), :method => :delete

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  check_authorization :unless => :devise_controller?
   before_filter :authenticate_user!
   helper_method :sort_direction, :sort_column, :export_to_csv
 
