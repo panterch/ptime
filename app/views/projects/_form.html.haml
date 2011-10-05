@@ -44,14 +44,9 @@
           {:milestone_form => milestone_form, :milestone => milestone}
 
   %h3 Tasks
-  %table.gradient-table#tasks
-    %thead
-      %tr
-        %th Task
-        %th Inactive
-    = form.inputs :for => :tasks do |task|
-      = render 'task_fields', :f => task
-  = link_to_add_fields "Add task", form, :tasks, "$('#tasks tr:last')"
+  = form.inputs :for => :tasks do |task|
+    = render 'task_fields', :f => task
+  = link_to_add_fields "Add task", form, :tasks, "$('li.tasks:last')"
 
   = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }

@@ -283,3 +283,11 @@ dd.responsibilities,
 dd.milestones {
   margin: 0.5em;
 }
+
+li.tasks input {
+  margin: 0.5em;
+}
+
+fieldset.inputs ol li.tasks {
+  margin-left: 1em;
+}
