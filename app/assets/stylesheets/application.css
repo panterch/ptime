@@ -3,7 +3,11 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
- *= require formtastic
- *= require formtastic_changes
+ *= require jquery-ui-timepicker
+ *= require jquery-ui-1.8.10.custom
+ *= require 960
+ *= require reset
+ *= require text
+ *= require superfish
+ *= require controlling
 */

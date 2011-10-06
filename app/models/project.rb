@@ -26,7 +26,8 @@ class Project < ActiveRecord::Base
     :state, :task_ids, :tasks_attributes, :project_state_id,
     :project_state_attributes, :probability, :wage, :rpl,
     :milestone_ids, :milestones_attributes,
-    :responsibility_ids, :responsibilities_attributes
+    :responsibility_ids, :responsibilities_attributes,
+    :external
 
   default_scope where(:deleted_at => nil)
 

@@ -15,6 +15,7 @@ gem 'mysql'
 gem 'paperclip'
 gem 'rack', '1.3.2'
 gem 'rake', '0.8.7'
+gem 'simple-navigation'
 gem 'therubyracer', '0.9.4'
 gem 'will_paginate', '3.0.pre2'
 

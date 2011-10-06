@@ -10,30 +10,27 @@
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
 
   %body
-    %nav
-      %ul
-        - if can? :create, Entry
-          %li= section_link('Entry', :controller => 'entries', :action => 'new')
-        - if can? :show, Report
-          %li= section_link('Report', :controller => 'reports', :action => 'show')
-        - if can? :show, Project
-          %li= section_link('Projects', :controller => 'projects', :action => 'index')
-        - if current_user.try(:admin?)
-          %li= section_link('Admin', :controller => 'admin', :action => 'index')
+    .container_12
+      .grid_5
+        %h1 Panter Time & Controlling
 
-    #container
-      = render :partial => 'layouts/submenu'
-      #user_nav
+      .grid_4
+        -# Empty div shouldn't collapse
+        &nbsp;
+        - flash.each do |name, msg|
+          = content_tag :div, msg, :id => "flash_#{name}"
+
+      #user_nav.grid_3
         - if user_signed_in?
           Welcome,
           = link_to current_user.username, user_path(current_user),
             :id=>'edit_current_user'
-          = link_to "Log out", destroy_user_session_path
+          = link_to '(logout)', destroy_user_session_path
         - else
-          = link_to "Log in", new_user_session_path
+          = link_to 'login', new_user_session_path
 
+      %nav.grid_12
+        = render_navigation(:expand_all => true)
 
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
-
-      = yield
+      #container
+        = yield
