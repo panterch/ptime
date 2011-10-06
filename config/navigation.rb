@@ -4,13 +4,14 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |primary|
     primary.item :entry, 'Entry', new_entry_path,
       :if => Proc.new { can? :create, Entry }
-    primary.item :report, 'Report', report_path,
-      :if => Proc.new { can? :show, Report }
 
     primary.item :projects, 'Projects', projects_path do |project|
       project.item :new_project, 'New project',
         new_project_path if Proc.new { can? :create, Project }
     end
+
+    primary.item :report, 'Report', report_path,
+      :if => Proc.new { can? :show, Report }
 
     primary.item :admin, 'Admin', admin_path do |admin|
       admin.item :users, 'Users', users_path if Proc.new { can? :show, User }

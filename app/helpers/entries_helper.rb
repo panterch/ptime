@@ -38,4 +38,9 @@ module EntriesHelper
   def time_capture_method_state(method)
     (method.nil? or method == 'start_end') ? true : false
   end
+
+  def entry_description(entry)
+    entry.project.shortname + " - " + entry.project.description
+  end
+
 end

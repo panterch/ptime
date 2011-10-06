@@ -11,8 +11,8 @@
 
   %body
     .container_12
-      .grid_4
-        %h2 Panter Time & Controlling
+      .grid_5
+        %h1 Panter Time & Controlling
 
       .grid_4
         -# Empty div shouldn't collapse
@@ -20,7 +20,7 @@
         - flash.each do |name, msg|
           = content_tag :div, msg, :id => "flash_#{name}"
 
-      #user_nav.grid_4
+      #user_nav.grid_3
         - if user_signed_in?
           Welcome,
           = link_to current_user.username, user_path(current_user),
