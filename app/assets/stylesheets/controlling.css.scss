@@ -31,6 +31,7 @@ input#entry_day_input {
 /* Show input field groups in one line */
 .entry_item {
   float: left;
+  margin: 0.5em;
 }
 
 /* Grow size of empty task selector */
@@ -68,7 +69,7 @@ legend {
 table {
   width:100%;
   border:1px solid #bbb;
-  margin-bottom:10px;
+  margin-bottom:0px;
   display:inline-table !important;
 }
 th, td {
@@ -96,10 +97,44 @@ tfoot td {
   font-weight: bold;
 }
 /* Last three columns in entries table are shorter */
-table.entries  {
+table.entries,
+table.projects {
   th:nth-last-child(-n+3),
   td:nth-last-child(-n+3) {
     width: 3em;
     text-align: center;
   }
+}
+
+/* boxes */
+
+.box {
+   background:#ddd;
+}
+.box h2 {
+   font-size:1em;
+   font-weight:normal;
+   text-transform:uppercase;
+   color:#fff;
+   background:#333;
+   padding:6px 12px;
+   margin: 0px;
+}
+.box h2 a {
+   color:#fff;
+   background:#333 image-url("switch_minus.gif") 98% 50% no-repeat;
+   display:block;
+   border:none;
+}
+.box h2 a.hidden {
+   background-image: image-url("switch_plus.gif");
+}
+
+/* filter bar */
+.filter {
+  margin-bottom: 0.3em;
+}
+
+.filter input {
+  float: right;
 }

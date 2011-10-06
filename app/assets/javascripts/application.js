@@ -10,5 +10,6 @@
 //= require jquery.format
 //= require jquery.ui.timepicker
 //= require superfish
+//= require toggle_box
 //= require global
 //= require_tree .

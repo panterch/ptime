@@ -1,37 +1,47 @@
-%h1 Projects
+%h1.grid_12 Projects
 
-= form_for @search, :url => projects_path, :html => {:method => :get} do |f|
-  .filters
-    %div show only
+= form_for @search, :url => projects_path,
+  :html => {:method => :get, :class => 'grid_12 filter'} do |f|
+  .grid_2.alpha
     = f.check_box :inactive_is_true
     = f.label :inactive_is_true, 'inactive projects'
-    %br
+  .grid_2
     = f.check_box :inactive_is_false
     = f.label :inactive_is_false, 'active projects'
-    %br
+  .grid_2.alpha
+    = f.check_box :inactive_is_true
+    = f.label :inactive_is_true, 'external projects'
+  .grid_2
+    = f.check_box :inactive_is_false
+    = f.label :inactive_is_false, 'internal projects'
+  .grid_2
+    = f.select :project_state_id_equals,
+      @project_states.collect {|p| [p.name, p.id]}, :include_blank => true
     = f.label :project_state_id_equals, 'state'
-    = f.select :project_state_id_equals, @project_states.collect {|p| [p.name, p.id]}, :include_blank => true
-    %br
-  = f.submit 'filter'
+  .grid_2.omega= f.submit 'filter'
 
-%table.gradient-table
-  %tr
-    %th= sort_link @search, :shortname
-    %th= sort_link @search, :description
-    %th= sort_link @search, :start
-    %th= sort_link @search, :end
-    %th= sort_link @search, :project_state_id
-    %th= sort_link @search, :inactive
-    %th Edit
-    %th Delete
+.box.grid_12
+  %h2=link_to 'Project Overview', '#', :class => "toggle-box"
+  %div
+    %table.projects
+      %thead
+        %tr
+          %th= sort_link @search, :shortname
+          %th= sort_link @search, :description
+          %th= sort_link @search, :start
+          %th= sort_link @search, :end
+          %th= sort_link @search, :project_state_id
+          %th= sort_link @search, :inactive
+          %th Edit
+          %th Delete
 
-  - @projects.each do |project|
-    %tr
-      %td= link_to project.shortname, edit_project_path(project)
-      %td= project.description
-      %td= project.start
-      %td= project.end
-      %td= get_project_state(project)
-      %td= bool_to_img(!project.inactive)
-      %td= link_to (image_tag 'edit.png'), edit_project_path(project)
-      %td= link_to (image_tag 'delete.png'), project_path(project), :method => :delete
+      - @projects.each do |project|
+        %tr
+          %td= link_to project.shortname, edit_project_path(project)
+          %td= project.description
+          %td= project.start
+          %td= project.end
+          %td= get_project_state(project)
+          %td= bool_to_img(!project.inactive)
+          %td= link_to (image_tag 'edit.png'), edit_project_path(project)
+          %td= link_to (image_tag 'delete.png'), project_path(project), :method => :delete
