@@ -1,3 +1,9 @@
+a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 /* Header user info */
 #user_nav {
   text-align: right;
@@ -96,18 +102,28 @@ tfoot td {
   background:#eee;
   font-weight: bold;
 }
+
 /* Last three columns in entries table are shorter */
-table.entries,
-table.projects {
+table.entries {
   th:nth-last-child(-n+3),
   td:nth-last-child(-n+3) {
     width: 3em;
+    white-space:nowrap;
+    text-align: center;
+  }
+}
+
+/* Last four columns in projects table are shorter */
+table.projects {
+  th:nth-last-child(-n+4),
+  td:nth-last-child(-n+4) {
+    width: 3em;
+    white-space:nowrap;
     text-align: center;
   }
 }
 
 /* boxes */
-
 .box {
    background:#ddd;
 }
@@ -135,6 +151,6 @@ table.projects {
   margin-bottom: 0.3em;
 }
 
-.filter input {
+.filter input:last-child {
   float: right;
 }

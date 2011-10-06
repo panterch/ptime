@@ -4,16 +4,16 @@
   :html => {:method => :get, :class => 'grid_12 filter'} do |f|
   .grid_2.alpha
     = f.check_box :inactive_is_true
-    = f.label :inactive_is_true, 'inactive projects'
+    = f.label :inactive_is_true, 'inactive'
   .grid_2
     = f.check_box :inactive_is_false
-    = f.label :inactive_is_false, 'active projects'
-  .grid_2.alpha
-    = f.check_box :inactive_is_true
-    = f.label :inactive_is_true, 'external projects'
+    = f.label :inactive_is_false, 'active'
   .grid_2
-    = f.check_box :inactive_is_false
-    = f.label :inactive_is_false, 'internal projects'
+    = f.check_box :external_is_true
+    = f.label :external_is_true, 'external'
+  .grid_2
+    = f.check_box :external_is_false
+    = f.label :external_is_false, 'internal'
   .grid_2
     = f.select :project_state_id_equals,
       @project_states.collect {|p| [p.name, p.id]}, :include_blank => true
@@ -26,22 +26,22 @@
     %table.projects
       %thead
         %tr
-          %th= sort_link @search, :shortname
-          %th= sort_link @search, :description
+          %th= sort_link @search, :shortname, 'Name'
           %th= sort_link @search, :start
           %th= sort_link @search, :end
           %th= sort_link @search, :project_state_id
-          %th= sort_link @search, :inactive
+          %th= sort_link @search, :inactive, 'Active'
+          %th= sort_link @search, :external, 'External'
           %th Edit
           %th Delete
 
       - @projects.each do |project|
         %tr
-          %td= link_to project.shortname, edit_project_path(project)
-          %td= project.description
+          %td= link_to project_description(project), edit_project_path(project)
           %td= project.start
           %td= project.end
           %td= get_project_state(project)
           %td= bool_to_img(!project.inactive)
+          %td= bool_to_img(project.external)
           %td= link_to (image_tag 'edit.png'), edit_project_path(project)
           %td= link_to (image_tag 'delete.png'), project_path(project), :method => :delete

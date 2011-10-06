@@ -52,7 +52,7 @@ feature "New entry form", %q{
 
     it 'of the previously updated entry', :js => true do
       # Click edit link
-      find(:xpath, "/html/body/div/table/tbody/tr[2]/td[5]/a").click()
+      find(:xpath, "//table[@class='entries']/tbody/tr[1]/td[5]/a").click()
       page.should have_content @entry_duration
     end
   end

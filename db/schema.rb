@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005135620) do
+ActiveRecord::Schema.define(:version => 20111006134213) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -86,9 +86,10 @@ ActiveRecord::Schema.define(:version => 20111005135620) do
     t.datetime "updated_at"
     t.integer  "project_state_id"
     t.decimal  "probability",      :precision => 2, :scale => 1, :default => 0.0
-    t.integer  "wage",                                           :default => 90,  :null => false
+    t.integer  "wage",                                           :default => 90,   :null => false
     t.integer  "rpl"
     t.datetime "deleted_at"
+    t.boolean  "external",                                       :default => true
   end
 
   create_table "responsibilities", :force => true do |t|

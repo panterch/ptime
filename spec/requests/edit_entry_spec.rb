@@ -24,7 +24,7 @@ feature "Edit a entry", %q{
     fill_in 'entry_description', :with => 'my entry for today'
     click_button 'Create Entry'
 
-    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find(:css, 'table.entries > tbody > tr > td > a > img').click
     page.find_by_id('entry_start').value.should match '06:05'
     page.find_by_id('entry_end').value.should match '22:15'
     page.find_by_id('entry_duration_hours').value.should match '16:10'
@@ -38,14 +38,14 @@ feature "Edit a entry", %q{
     fill_in 'entry_description', :with => 'my entry for today'
     click_button 'Create Entry'
 
-    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find(:css, 'table.entries > tbody > tr > td > a > img').click
     page.find_by_id('entry_start').value.should match '01:00'
     page.find_by_id('entry_end').value.should match '01:55'
     fill_in 'entry_end', :with => '02:00'
     page.execute_script("$('#entry_end').trigger('change');")
     click_button 'Create Entry'
 
-    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find(:css, 'table.entries > tbody > tr > td > a > img').click
     page.find_by_id('entry_duration_hours').value.should match '1:00'
   end
 
@@ -62,7 +62,7 @@ feature "Edit a entry", %q{
     page.find_by_id('entry_start').value.should be_empty
     click_button 'Create Entry'
 
-    page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+    page.find(:css, 'table.entries > tbody > tr > td > a > img').click
     page.find_by_id('entry_duration_hours').value.should match '4:30'
     page.find_by_id('entry_start').value.should be_empty
     page.find_by_id('entry_end').value.should be_empty
@@ -77,7 +77,7 @@ feature "Edit a entry", %q{
       fill_in 'entry_description', :with => 'my entry for today'
       click_button 'Create Entry'
 
-      page.find(:css, 'table.gradient-table > tbody > tr > td > a > img').click
+      page.find(:css, 'table.entries > tbody > tr > td > a > img').click
       page.find_by_id('entry_start').value.should be_empty
       page.find_by_id('entry_end').value.should be_empty
       page.find_by_id('entry_duration_hours').value.should match '4:30'

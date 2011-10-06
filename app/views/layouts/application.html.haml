@@ -25,9 +25,9 @@
           Welcome,
           = link_to current_user.username, user_path(current_user),
             :id=>'edit_current_user'
-          = link_to "Log out", destroy_user_session_path
+          = link_to '(logout)', destroy_user_session_path
         - else
-          = link_to "Log in", new_user_session_path
+          = link_to 'login', new_user_session_path
 
       %nav.grid_12
         = render_navigation(:expand_all => true)

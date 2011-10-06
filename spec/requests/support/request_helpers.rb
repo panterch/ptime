@@ -8,7 +8,7 @@ end
 
 def log_out
   visit "/"
-  click_link "Log out"
+  click_link "(logout)"
 end
 
 def create_new_entry(duration = "1:0")
@@ -17,6 +17,5 @@ def create_new_entry(duration = "1:0")
 end
 
 def choose_9th_of_the_month
-  find(:xpath,
-       "/html/body/div/form/div[2]/div/table/tbody/tr[2]/td[4]/a").click()
+  find(:xpath, "(//td/a[@class='ui-state-default'])[9]").click()
 end

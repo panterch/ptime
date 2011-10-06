@@ -17,21 +17,21 @@ module EntriesHelper
 
   # Helper method for index (entries report)
   def projects_select_id_equals(form, projects)
-    form.select :project_id_equals, to_form_select(projects), 
+    form.select :project_id_equals, to_form_select(projects),
       {:include_blank => ''}
   end
 
   # Extract information a form select method
   def to_form_select(projects)
     projects.collect do |p|
-      [[p.shortname, p.description].join(" - "), p.id] 
+      [[p.shortname, p.description].join(" - "), p.id]
     end
   end
 
   # Display an edit link if the entry belongs to the logged in user
   def display_edit_link(entry)
     if entry.user == current_user
-      link_to (image_tag 'edit.png'), edit_entry_path(entry) 
+      link_to (image_tag 'edit.png'), edit_entry_path(entry)
     end
   end
 
@@ -39,7 +39,7 @@ module EntriesHelper
     (method.nil? or method == 'start_end') ? true : false
   end
 
-  def entry_description(entry)
+  def entry_project_description(entry)
     entry.project.shortname + " - " + entry.project.description
   end
 

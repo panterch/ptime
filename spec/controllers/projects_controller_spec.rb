@@ -98,6 +98,13 @@ describe ProjectsController do
           assigns(:projects).count.should eq(1)
         end
 
+        it 'filters by external flag when asked to' do
+          second_project = Factory(:project, :external => false)
+          do_get :external_is_false
+          assigns(:projects).first.id.should eq(second_project.id)
+          assigns(:projects).count.should eq(1)
+        end
+
         it 'filters by active state when asked to' do
           second_project = Factory(:project, :inactive => true)
           do_get :inactive_is_false
@@ -110,7 +117,8 @@ describe ProjectsController do
           project_state.id.should_not eq(@project.project_state_id)
           second_project = Factory(:project, :inactive => true,
                                    :project_state_id => project_state.id)
-          get :index, :search => { :project_state_id_equals => @project.project_state_id }
+          get :index,
+            :search => { :project_state_id_equals => @project.project_state_id }
           assigns(:projects).first.id.should eq(@project.id)
           assigns(:projects).count.should eq(1)
         end
