@@ -36,7 +36,7 @@ module ProjectsHelper
   end
 
   def project_description(project)
-    project.shortname + " - " + project.description
+    truncate(project.shortname + ' - ' + project.description, :length => 40)
   end
 
   def expected_profitability
