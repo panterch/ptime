@@ -40,6 +40,11 @@ input#entry_day_input {
   margin: 0.5em;
 }
 
+/* Enlarge project field to make place for project description */
+#entry_project_id {
+  width: 14em;
+}
+
 /* Grow size of empty task selector */
 #entry_task_id {
   width: 10em;

@@ -24,7 +24,7 @@ module EntriesHelper
   # Extract information a form select method
   def to_form_select(projects)
     projects.collect do |p|
-      [[p.shortname, p.description].join(" - "), p.id]
+      [truncate([p.shortname, p.description].join(" - "), :length => 26), p.id]
     end
   end
 
