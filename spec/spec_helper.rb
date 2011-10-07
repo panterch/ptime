@@ -2,7 +2,8 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'spork'
 require 'views/inherited_resource_helpers'
-
+require 'controllers/support/controller_specs_helpers'
+require 'paperclip/matchers'
 
 ENV["RAILS_ENV"] ||= 'test'
 
@@ -21,9 +22,6 @@ Spork.prefork do
   # Devise preloads the User model. Avoid this by delaying route loading.
   require "rails/application"
   Spork.trap_method(Rails::Application, :reload_routes!)
-  
-  require File.dirname(__FILE__) + "/../config/environment.rb"
-
 end
 
 Spork.each_run do
@@ -31,10 +29,9 @@ Spork.each_run do
 end
 
 Spork.each_run do
-  Factory.factories.clear
+  FactoryGirl.factories.clear
   load 'spec/factories.rb'
 end
-
 
 RSpec.configure do |config|
   # == Mock Framework
@@ -60,4 +57,7 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # Include Paperclip matchers
+  config.include Paperclip::Shoulda::Matchers
 end

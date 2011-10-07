@@ -10,16 +10,6 @@ describe Entry do
     entry.should be_valid
   end
 
-  it "should not influence other tests #1" do
-    Factory(:entry)
-    assert_equal 1, Entry.count
-  end
-
-  it "should not influence other tests #2" do
-    Factory(:entry)
-    assert_equal 1, Entry.count
-  end
-
   context "associations" do
     before(:each) do
       @entry = Factory.build(:entry)
@@ -50,5 +40,73 @@ describe Entry do
       :user_id => 1,
       :project_id => 1)
     entry.should_not be_valid
+  end
+
+  context 'Deleting an entry' do
+    before(:each) do
+      @entry = Factory(:entry)
+      @entry.save
+      Entry.all.should have(1).record
+      @entry.deleted_at.should be_nil
+      @entry.destroy
+    end
+
+    it 'should deactivate the entry instead of deleting it' do
+      @entry.deleted_at.should_not be_nil
+    end
+
+    it 'should not be selected' do
+      Entry.all.should have(:no).records
+    end
+  end
+
+  context 'CSV export' do
+    it 'generates comma separated values' do
+      entry = Factory(:entry)
+      csv = entry.to_csv
+      csv.count(',').should eq(6)
+      csv.should include(entry.project.shortname)
+      csv.should include(entry.user.username)
+      csv.should include(entry.day.to_s)
+      csv.should include(entry.duration_hours)
+      csv.should include(entry.task.name)
+      csv.should include(entry.description)
+      csv.should include(entry.billable.to_s)
+    end
+
+    it 'handles commas correctly' do
+      entry = Factory(:entry, :description => 'a,b')
+      csv = entry.to_csv
+      csv.count(',').should eq(7)
+      csv.should include("\"#{entry.description}\"")
+    end
+  end
+
+  context 'invalidity' do
+    it 'rejects submission if duration and start are missing' do
+      entry = Factory.build(:entry, :duration_hours => nil, :start => nil)
+      entry.should_not be_valid
+      entry.errors[:start].should be_present
+    end
+
+    it 'rejects submission if duration and end are missing' do
+      entry = Factory.build(:entry, :duration_hours => nil, :end => nil)
+      entry.should_not be_valid
+      entry.errors[:end].should be_present
+    end
+
+    it 'rejects negative time spans' do
+      entry = Factory.build(:entry, :duration_hours => nil, :end => Time.now,
+                            :start => Time.now + 1000)
+      entry.should_not be_valid
+      entry.errors[:start].should be_present
+    end
+
+    it 'rejects invalid duration hours format' do
+      entry = Factory.build(:entry, :duration_hours => 'abc',
+                            :start => nil, :end => nil)
+      entry.should_not be_valid
+      entry.errors[:duration_hours].should be_present
+    end
   end
 end

@@ -1,30 +1,60 @@
-class ProjectsController < InheritedResources::Base
-  before_filter :set_project_states, :only => [:new, :edit]
-  before_filter :load_projects
+class ProjectsController < ApplicationController
+  before_filter :prepare_project_states, :only => [:new, :edit, :index, :update, :create]
+  before_filter :prepare_project_probabilities, :only => [:new, :edit, :update, :create]
 
-  load_and_authorize_resource
+  authorize_resource
+
+  def index
+    @search = Project.search(params[:search])
+    @projects = @search.all
+  end
 
   def create
-    create!{ projects_path }
+    @project = Project.new(params[:project])
+
+    if @project.save
+      redirect_to projects_url, :notice => 'Project successfully created.'
+    else
+      render :action => 'new'
+    end
   end
 
   def update
-    update!{ projects_path }
+    @project = Project.find(params[:id])
+    if @project.update_attributes(params[:project])
+      flash[:notice] = 'Successfully updated project.'
+      redirect_to projects_url
+    else
+      render :action => 'edit'
+    end
   end
 
   def new
-    new! { resource.set_default_tasks }
+    @project = Project.new
+    @project.set_default_tasks
+    @project.set_default_milestones
+    @project.set_default_responsibilities
+  end
+
+  def edit
+    @project = Project.find(params[:id])
+  end
+
+  def destroy
+    project = Project.find(params[:id])
+    project.destroy
+    flash[:notice] = 'Successfully destroyed project.'
+    redirect_to projects_path
   end
 
   protected
 
-  def set_project_states
+  def prepare_project_states
     @project_states = ProjectState.all
   end
 
-  # cannot use IR method 'collection', because load_and_authorize_resource
-  # would prefetch the resource and overwrite the here defined sort order.
-  def load_projects
-    @projects ||= end_of_association_chain.order(sort_column + " " + sort_direction)
+  def prepare_project_probabilities
+    @project_probabilities =
+      Project::PROBABILITIES.map {|n| ["#{(n*100).to_i}%", n ]}
   end
 end

@@ -1,0 +1,11 @@
+/* Override padding of 25% for create and update actions */
+form.formtastic fieldset.buttons {
+  padding-left: 0;
+}
+
+/* Remove spacing in table rows */
+form.formtastic tr .input {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}

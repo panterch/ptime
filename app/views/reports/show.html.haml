@@ -17,14 +17,14 @@
     = users_id_equals_select(f)
   #entries_search_button
     = f.submit "Search", :class => 'main_link'
-    = link_to "Download CSV", 
+    = link_to "Download CSV",
       report_path( { :search => params[:search] }.merge(:format => "csv")),
       :class => 'main_link'
 
 #pagination.center
   = will_paginate @entries
 
-%table#gradient-table
+%table.gradient-table
   %tr
     %th= sort_link @report, :day
     %th= sort_link @report, :duration, "Hours"
@@ -46,6 +46,5 @@
       %td= display_edit_link(entry)
 
 %p
-  - one_line do
-    Total time(h:m)
-    %strong= @total_time 
+  Total time(h:m)
+  %strong= @total_time 

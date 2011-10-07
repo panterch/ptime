@@ -1,8 +1,5 @@
-= f.hidden_field :_destroy
-.task
-  .task_name
-    = f.label :name, "New task"
-    = f.text_field :name
-  .task_inactive
-    = f.label :inactive
-    = f.check_box :inactive
+%li.tasks
+  = f.text_field :name
+  = f.check_box :inactive
+  inactive
+  = f.hidden_field :_destroy

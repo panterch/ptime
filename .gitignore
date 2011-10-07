@@ -9,7 +9,7 @@ tmp/**/*
 config/database.yml
 config/database.mysql.yml
 config/database.ptime.yml
-config/deploy.rb
+config/deploy.rb*
 coverage/
 db/*.sqlite3
 db/*.sqlite3-journal

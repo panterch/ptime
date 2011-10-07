@@ -1,5 +1,7 @@
 class UsersController < InheritedResources::Base
-  prepend_before_filter :only_admin, :only =>[:create, :new, :index]
+  prepend_before_filter :only_admin, :only =>[:create, :new, :index, :destroy]
+
+  authorize_resource
 
   def show
     redirect_to :action=>:edit
@@ -30,6 +32,17 @@ class UsersController < InheritedResources::Base
       render :edit
     end
     #update!
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    if user.id == current_user.id
+      flash[:error] = 'Cannot delete current user.'
+    else
+      user.destroy
+      flash[:notice] = 'Successfully destroyed user.'
+    end
+    redirect_to users_url
   end
 
   protected

@@ -39,6 +39,6 @@ describe "reports/show.html.haml" do
 
   it "renders the entries' summed up hours" do
     render
-    rendered.should match(/Total time.*\d{1,2}:\d{1,2}/)
+    rendered.should match(/Total time.*\n.*\d{1,2}:\d{1,2}/)
   end
 end

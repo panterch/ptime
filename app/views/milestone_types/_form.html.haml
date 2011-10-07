@@ -1,0 +1,6 @@
+= semantic_form_for @milestone_type do |form|
+  %h3 Milestone type
+  = form.inputs do
+    = form.input :name
+  = form.buttons do
+    = form.commit_button :button_html => { :class => 'main_link' }
