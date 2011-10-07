@@ -11,6 +11,25 @@ nav {
   height: 32px;
 }
 
+body {
+  background: #EEE;
+  border-top: 5px solid black;
+  color: #333;
+  font-size: 11px;
+  padding: 0 0 40px;
+}
+
+.container_12 {
+  background: white;
+}
+
+#container h2 {
+  padding: .5em;
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #CCC;
+  font-weight: normal;
+}
+
 a {
   color: black;
   font-weight: bold;
