@@ -77,13 +77,34 @@ class Project < ActiveRecord::Base
 
   alias_method_chain :destroy, :mark
 
-  # Cumulated time of all entries
-  def duration_hours
-    duration = entries.sum :duration
-    (duration / 60).to_s + ":" + "%02i" % (duration % 60).to_s
+  # Cumulated time of all entries(minutes) and expected_remaining_work(hours)
+  def total_time
+    minutes_to_human_readable_time((entries.sum :duration) + rpl_or_zero*60)
+  end
+
+  # Cumulated time of all billable entries
+  def time_billable
+    minutes_to_human_readable_time(entries.where(
+      :billable => true).sum(:duration))
+  end
+
+  def burned_time
+    minutes_to_human_readable_time(entries.sum :duration)
+  end
+
+  def expected_remaining_work
+    rpl ? rpl.to_s + "h" : "0h"
   end
 
   private
+
+  def rpl_or_zero
+    rpl ? rpl : 0
+  end
+
+  def minutes_to_human_readable_time(minutes)
+    (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
+  end
 
   def validates_required_responsibilities
     self.responsibilities.each do |r|
