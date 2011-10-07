@@ -1,0 +1,13 @@
+%table
+  %tr
+    %td Last time record
+    %td= @project.entries && l(@project.entries.last.updated_at)
+
+%table
+  %thead
+    %tr
+      %th{:colspan => 2} Applied responsibilities
+  - @project.responsibilities.each do |responsibility|
+    %tr
+      %td= responsibility.responsibility_type.name
+      %td= responsibility.user.username

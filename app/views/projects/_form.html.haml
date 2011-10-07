@@ -2,23 +2,23 @@
 = link_to 'View accounting positions', project_accountings_path(@project), :class => 'main_link' if @project.persisted?
 %br
 
-.box.grid_3
+.box.stats_table.grid_3
   %h2
     Time
   = render :partial => 'time_table'
 
-.box.grid_3
+.box.stats_table.grid_3
   %h2
     Finance
   = render :partial => 'finance_table'
-.box.grid_3
+.box.stats_table.grid_3
   %h2
     Status
   = render :partial => 'status_table'
-.box.grid_3
+.box.stats_table.grid_3
   %h2
     Project Organization
-  Foo
+  = render :partial => 'organization_table'
 
 .grid_12
   = semantic_form_for @project do |form|
