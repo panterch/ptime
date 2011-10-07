@@ -1,0 +1,15 @@
+%table
+  %thead
+    %tr
+      %th Milestone
+      %th Date
+  %tr
+    %td Project start
+    %td= @project.start && l(@project.start)
+  - @project.milestones.each do |milestone|
+    %tr
+      %td= milestone.milestone_type.name
+      %td= milestone.start && l(milestone.start)
+  %tr
+    %td Project end
+    %td= @project.end && l(@project.end)

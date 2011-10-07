@@ -115,7 +115,12 @@ class Project < ActiveRecord::Base
   end
 
   def expected_profitability
-    100.0 * expected_return / accountings(:positive => true).sum(:amount)
+    cash_in = accountings(:positive => true).sum(:amount)
+    if cash_in != 0
+      100.0 * expected_return / cash_in
+    else
+      0.0
+    end
   end
 
 
