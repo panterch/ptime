@@ -12,8 +12,7 @@ feature 'Listing accounting positions as authenticated user', %q{
     accounting_two = Factory(:accounting, :description => 'accounting position 2', :project_id => project.id)
     accounting_three = Factory(:accounting, :description => 'accounting position 3', :project_id => project.id)
 
-    visit '/admin'
-    click_link 'Project Maintenance'
+    visit projects_path
     click_link 'abc-123'
     click_link 'View accounting positions'
     page.should have_content 'Accounting positions'
