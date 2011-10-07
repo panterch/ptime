@@ -5,6 +5,9 @@ $ ->
   window.entry = entry = $('#entry-ui-datepicker')
   return unless entry.length
 
+  # Add chosen
+  $('.chzn-select').chosen()
+
   # Add time input method radio button logic
   entry.toggleTimeInputMethod = ->
     entry.toggleDisable($('#entry_start'))

@@ -9,6 +9,7 @@
  *= require reset
  *= require text
  *= require superfish
+ *= require chosen
  *= require formtastic_changes
  *= require controlling
 */

@@ -23,10 +23,12 @@
       .entry_group
         .entry_item
           = f.label :project_id
-          = f.select :project_id, to_form_select(@active_projects), :include_blank => true
+          = f.select :project_id, to_form_select(@active_projects),
+            { :include_blank => true}, { :class => 'chzn-select' }
         .entry_item
           = f.label :task_id
-          = f.select :task_id, tasks_collection, :include_blank => true
+          = f.select :task_id, tasks_collection,
+            { :include_blank => true }, {:class => 'chzn-select'}
 
       .entry_group
         .entry_item
