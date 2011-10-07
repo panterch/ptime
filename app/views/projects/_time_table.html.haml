@@ -2,10 +2,13 @@
   %tfoot
     %tr
       %td Total time
-      %td= @project.duration_hours
+      %td= @project.total_time
     %tr
-      %td Total billable
-      %td 1234
+      %td Time billable
+      %td= @project.time_billable
   %tr
-    %td= "Burned time: 1234"
-    %td= "Expected remaining work: 1234"
+    %td= "Burned time"
+    %td= @project.burned_time
+  %tr
+    %td= "Expected remaining work"
+    %td= @project.expected_remaining_work

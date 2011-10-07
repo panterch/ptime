@@ -1,0 +1,31 @@
+%table
+  %thead
+    %tr
+      %td Key data
+      %td About money
+  %tfoot
+    %tr
+      %td Expected return
+      %td= @project.expected_return
+    %tr
+      %td Expected profitability
+      %td= expected_profitability
+  %tr
+    %td Internal h-rate
+    %td{:title => "foobar"}= @project.wage
+  :css
+    .red {
+      color: orange;
+      }
+  %tr
+    %td Current internal cost
+    %td= @project.current_internal_cost
+  %tr
+    %td Expected internal cost
+    %td.red to be defined
+  %tr
+    %td External cost
+    %td= @project.external_cost
+  %tr
+    %td Budget
+    %td= @project.budget

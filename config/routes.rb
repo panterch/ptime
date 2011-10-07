@@ -1,7 +1,5 @@
 PanterControlling::Application.routes.draw do
 
-  match '/admin' => "admin#index"
-
   resource :report
 
   resources :project_states
@@ -27,4 +25,9 @@ PanterControlling::Application.routes.draw do
   root :to => 'entries#new'
 
   match '/exception_test' => 'exception_test#error'
+
+  # Unknown routes
+  match '/errors/403' => 'errors#render_403', :as => :render_403
+  match '/errors/404' => 'errors#render_404', :as => :render_404
+  match '*a', :to => 'errors#render_404'
 end

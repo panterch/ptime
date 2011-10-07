@@ -39,4 +39,8 @@ module ProjectsHelper
     project.shortname + " - " + project.description
   end
 
+  def expected_profitability
+    @project.expected_profitability.round(2).to_s + "%"
+  end
+
 end

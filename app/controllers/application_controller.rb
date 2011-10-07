@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   helper_method :sort_direction, :sort_column, :export_to_csv
 
   rescue_from CanCan::AccessDenied do
-    render_403
+    redirect_to render_403_url
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to render_404_url
   end
 
   # Helper methods for sorting tables
@@ -26,11 +30,5 @@ class ApplicationController < ActionController::Base
   def convert_minutes_to_hh_mm(minutes)
     (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
   end
-
-  protected
-
-    def render_403
-      render :file => "#{Rails.root}/public/403.html", :status => 403
-    end
 
 end
