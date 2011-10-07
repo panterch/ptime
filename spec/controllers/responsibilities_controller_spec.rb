@@ -20,8 +20,10 @@ describe ResponsibilitiesController do
       end
 
       it 'does not create an entry without a responsibility type' do
-        # It only contains the default project responsibilities
-        Responsibility.count.should eq 2
+        # It only contains the required project responsibilities
+        Responsibility.all.each do |res|
+          res.responsibility_type.required.should be_true
+        end
       end
 
       it 'renders new responsibility form afterwards' do
@@ -42,7 +44,7 @@ describe ResponsibilitiesController do
 
       it 'twice creates two new responsibilties' do
         do_post
-        expect { do_post }.to change{ Responsibility.count }.from(3).to(4)
+        expect { do_post }.to change{ Responsibility.count }.by 1
       end
 
       it 'redirects to responsibility index' do

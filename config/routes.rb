@@ -22,6 +22,8 @@ PanterControlling::Application.routes.draw do
 
   resources :milestone_types
 
+  resources :responsibility_types
+
   root :to => 'entries#new'
 
   match '/exception_test' => 'exception_test#error'

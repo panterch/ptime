@@ -1,0 +1,18 @@
+%h2.grid_12 Responsibility types
+
+.box.grid_12
+  %h2=link_to 'Responsibility Management', '#', :class => 'toggle-box'
+  %div
+    %table.responsibility_types
+      %thead
+        %tr
+          %th Name
+          %th Required
+          %th Edit
+
+      - @responsibility_types.each do |responsibility_type|
+        %tr
+          %td= responsibility_type.name
+          %td= bool_to_img responsibility_type.required
+          %td= link_to (image_tag 'edit.png'),
+            edit_responsibility_type_path(responsibility_type)

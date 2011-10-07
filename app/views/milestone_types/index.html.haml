@@ -8,4 +8,5 @@
   - @milestone_types.each do |milestone_type|
     %tr
       %td= milestone_type.name
-      %td= link_to (image_tag 'edit.png'), edit_milestone_type_path(milestone_type)
+      %td= link_to (image_tag 'edit.png'),
+        edit_milestone_type_path(milestone_type)

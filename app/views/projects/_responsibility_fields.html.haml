@@ -1,4 +1,6 @@
-%dt.responsibilities= responsibility.responsibility_type.name
+%dt.responsibilities
+  = responsibility.responsibility_type.name
+  = "*" if responsibility.responsibility_type.required
 %dd.responsibilities
   = responsibility_form.collection_select :user_id, User.all, :id,
     :username, :include_blank => true

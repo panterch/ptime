@@ -21,15 +21,19 @@ project_states.each do |project_state|
 end
 
 # Project Responsibility Types
-['sales', 'scrum master', 'product owner', 'techlead', 'coder', 'tester', 'qa'].each do |responsibility|
+{'project leader' => true, 'sales' => false, 'scrum master' => false,
+  'product owner' => false, 'techlead' => false, 'coder' => false,
+  'tester' => false, 'qa' => false}.map do |responsibility|
   r = ResponsibilityType.new
-  r.name = responsibility
+  r.name = responsibility[0]
+  r.required = responsibility[1]
   r.save!
 end
 
-# Import demo projects including default responsibilities
-scrum_master = ResponsibilityType.find_by_name('scrum master')
-product_owner = ResponsibilityType.find_by_name('product owner')
+# Import demo projects including all responsibilities
+product_leader = ResponsibilityType.find_by_name('product leader')
+responsibilities = ResponsibilityType.all.map { |r|
+  {:responsibility_type_id => r.id, :user_id => User.find(r.id).id }}
 project_states_count = ProjectState.all.count
 (1..10).each do |num|
   rnd_project_state = ProjectState.all[rand(project_states_count)]
@@ -39,11 +43,7 @@ project_states_count = ProjectState.all.count
                   :project_state_id => rnd_project_state.id,
                   :start => Date.today,
                   :end => Date.today,
-                  :responsibilities_attributes =>
-                  [{:user_id => User.first.id,
-                    :responsibility_type_id => scrum_master.id},
-                   {:user_id => User.first.id,
-                    :responsibility_type_id => product_owner.id}]) do |project|
+                  :responsibilities_attributes => responsibilities) do
     (1..10).each do |project_id|
       Task.create!(:name => "task_#{num}", :project_id => project_id)
     end
@@ -81,7 +81,9 @@ project_id = Project.first.id
 end
 
 # Milestone Types
-['offer submission', 'offer presentation', 'sales debriefing', 'project kick-off', 'production start', 'final project report', 'project review', 'project end'].each do |milestone|
+['offer submission', 'offer presentation', 'sales debriefing',
+  'project kick-off', 'production start', 'final project report',
+  'project review', 'project end'].each do |milestone|
   m = MilestoneType.new
   m.name = milestone
   m.save!
