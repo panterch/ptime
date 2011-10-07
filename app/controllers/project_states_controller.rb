@@ -4,4 +4,8 @@ class ProjectStatesController < InheritedResources::Base
   def create
     create! { project_states_url }
   end
+
+  def update
+    create! { project_states_url }
+  end
 end
