@@ -103,33 +103,42 @@ tfoot td {
   font-weight: bold;
 }
 
-/* Last three columns in entries table are shorter */
-table.entries {
-  th:nth-last-child(-n+3),
-  td:nth-last-child(-n+3) {
-    width: 3em;
-    white-space:nowrap;
-    text-align: center;
-  }
+/* Mixin to handle narrow columns in a table */
+@mixin static-column {
+  width: 3em;
+  white-space:nowrap;
+  text-align: center;
 }
 
-/* Last four columns in projects table are shorter */
+/* Last four columns in projects table */
 table.projects {
   th:nth-last-child(-n+4),
   td:nth-last-child(-n+4) {
-    width: 3em;
-    white-space:nowrap;
-    text-align: center;
+    @include static-column;
   }
 }
 
-/* Last two columns in responsibility types table are shorter */
+/* Last three columns in entries table */
+table.entries {
+  th:nth-last-child(-n+3),
+  td:nth-last-child(-n+3) {
+    @include static-column;
+  }
+}
+
+/* Last two columns in responsibility types table */
 table.responsibility_types {
   th:nth-last-child(-n+2),
   td:nth-last-child(-n+2) {
-    width: 3em;
-    white-space:nowrap;
-    text-align: center;
+    @include static-column;
+  }
+}
+
+/* Last column in milestone types table */
+table.milestone_types {
+  th:nth-last-child(-n+1),
+  td:nth-last-child(-n+1) {
+    @include static-column;
   }
 }
 
