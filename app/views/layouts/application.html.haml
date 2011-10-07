@@ -11,23 +11,24 @@
 
   %body
     .container_12
-      .grid_5
-        %h1 Panter Time & Controlling
+      #header.grid_12
+        .grid_5.alpha
+          %h1 Panter Time & Controlling
 
-      .grid_4
-        -# Empty div shouldn't collapse
-        &nbsp;
-        - flash.each do |name, msg|
-          = content_tag :div, msg, :id => "flash_#{name}"
+        .grid_4
+          -# Empty div shouldn't collapse
+          &nbsp;
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => "flash_#{name}"
 
-      #user_nav.grid_3
-        - if user_signed_in?
-          Welcome,
-          = link_to current_user.username, user_path(current_user),
-            :id=>'edit_current_user'
-          = link_to '(logout)', destroy_user_session_path
-        - else
-          = link_to 'login', new_user_session_path
+        #user_nav.grid_3.omega
+          - if user_signed_in?
+            Welcome,
+            = link_to current_user.username, user_path(current_user),
+              :id=>'edit_current_user'
+            = link_to '(logout)', destroy_user_session_path
+          - else
+            = link_to 'login', new_user_session_path
 
       %nav.grid_12
         = render_navigation(:expand_all => true)
