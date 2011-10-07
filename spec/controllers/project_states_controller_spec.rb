@@ -84,16 +84,5 @@ describe ProjectStatesController do
           :id => @project_state.id
       end
     end
-
-    context 'without required parameters' do
-      it 'does not update the record' do
-        state_attributes = Factory.attributes_for(:project_state,
-                                                  :name => '')
-        put :update, :project_state => state_attributes,
-          :id => @project_state.id
-        assigns(:project_state).errors.should_not be_empty
-        ProjectState.first.name.should_not eq('')
-      end
-    end
   end
 end
