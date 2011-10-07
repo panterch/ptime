@@ -48,4 +48,5 @@ group :development, :test do
   # Generating haml-Files for devise
   gem 'hpricot'
   gem 'ruby_parser'
+  gem 'pry-rails'
 end
