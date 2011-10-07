@@ -164,3 +164,19 @@ table.responsibility_types {
 .filter input:last-child {
   float: right;
 }
+
+/* login */
+form#user_new {
+  label.label {
+    display: block;
+  }
+  li.input {
+    float: left;
+  }
+  li.button {
+    clear: left;
+  }
+  li.option {
+    float: left;
+  }
+}

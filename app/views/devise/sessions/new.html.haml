@@ -1,13 +1,16 @@
-%h2 Log in
+%h2.grid_12 Log in
 
-= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |form|
+= semantic_form_for resource, :as => resource_name,
+  :url => session_path(resource_name),
+  :html => {:class => 'grid_6'} do |form|
   = form.inputs do
-    = form.input :username 
+    = form.input :username
     = form.input :password
-  = form.buttons do
-    = form.commit_button :label => 'Sign in', :button_html => { :class => "main_link" }
-  - if devise_mapping.rememberable?
-    = form.check_box :remember_me
-    = form.label :remember_me
+    = form.commit_button :label => 'Sign in',
+      :button_html => { :class => "main_link" }
+    - if devise_mapping.rememberable?
+      %li.option
+        = form.check_box :remember_me
+        = form.label :remember_me
+    = render :partial => "devise/shared/links"
 
-= render :partial => "devise/shared/links"
