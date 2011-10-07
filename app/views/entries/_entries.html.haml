@@ -21,7 +21,7 @@
 
       - @entries.each do |entry|
         %tr
-          %td= link_to entry_project_description(entry), entry.project
+          %td= link_to entry_project_description(entry), edit_project_path(entry.project)
           %td= entry.task.name if entry.task
           %td= entry.description
           %td= entry.duration_hours
