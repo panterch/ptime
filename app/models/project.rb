@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
 
   validates_inclusion_of :probability, :in => Project::PROBABILITIES
 
-  validate :validates_scrum_master_and_product_owner
+  validate :validates_required_responsibilities
 
   attr_accessible :shortname, :description, :start, :end, :inactive,
     :state, :task_ids, :tasks_attributes, :project_state_id,
@@ -80,16 +80,12 @@ class Project < ActiveRecord::Base
 
   private
 
-  def validates_scrum_master_and_product_owner
-    responsibility_names = {}
-    responsibilities.each do |r|
-      unless r.user.nil?
-        responsibility_names[r.responsibility_type.name] = r.user_id
+  def validates_required_responsibilities
+    self.responsibilities.each do |r|
+      if r.user.nil? and r.responsibility_type.required
+        errors.add(:base,
+                   "Needs a #{r.responsibility_type.name} responsibility")
       end
-    end
-    if not responsibility_names.has_key?('scrum master') or
-       not responsibility_names.has_key?('product owner')
-      errors.add(:base, 'needs a scrum master and a product owner.')
     end
   end
 end

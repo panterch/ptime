@@ -21,7 +21,7 @@ describe "FactoryGirl" do
 
   it 'has a valid project factory' do
     project = Factory.build(:project)
-    project.responsibilities.count.should eq 2
+    project.responsibilities.first.responsibility_type.required.should be_true
     project.should be_valid
   end
 

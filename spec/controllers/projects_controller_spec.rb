@@ -78,16 +78,6 @@ describe ProjectsController do
           get :index, { :search => { 'meta_sort' => 'shortname.desc' } }
           assigns(:projects).first.shortname.should eq(project_2.shortname)
         end
-        it 'sorts by description asc when asked to' do
-          get :index, { :direction => 'asc', :sort => 'description' }
-          assigns(:projects).first.description.should eq(@project.description)
-        end
-        it 'sorts by description desc when asked to' do
-          project_2 = Factory(:project, :shortname => "dfb-123",
-                             :description => "project_2")
-          get :index, { :search => { 'meta_sort' => 'description.desc' } }
-          assigns(:projects).first.description.should eq(project_2.description)
-        end
       end
 
       describe 'filter projects table' do

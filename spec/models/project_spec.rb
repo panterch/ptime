@@ -24,8 +24,11 @@ describe Project do
     project.errors[:wage].should be_present
   end
 
-  it 'should require a scrum master and product owner' do
-    project = Factory.build(:project, :responsibilities => [])
+  it 'should require a required responsibility' do
+    res = Factory.create(:required_responsibility_type)
+    project = Factory.build(:project, :responsibilities =>
+                            [Factory.build(:required_responsibility,
+                                           :user_id => nil)])
     project.should_not be_valid
     project.errors[:base].should be_present
   end

@@ -35,9 +35,9 @@ describe Responsibility do
     before(:each) do
       @responsibility = Factory(:responsibility)
       @responsibility.save
-      # The associated project implies the two default responsibilities, thus
-      # there should be three in total here
-      Responsibility.all.should have(3).record
+      # The associated project implies the one default responsibility, thus
+      # there should be two in total here
+      Responsibility.all.should have(2).records
       @responsibility.deleted_at.should be_nil
       @responsibility.mark_as_deleted
     end
@@ -47,7 +47,7 @@ describe Responsibility do
     end
 
     it 'should not be selected' do
-      Responsibility.all.should have(2).records
+      Responsibility.all.should have(1).records
     end
   end
 end
