@@ -21,11 +21,18 @@ describe ReportsController do
     end
     it 'renders entries when only searching for own time entries' do
       post :show, :search => { :user_id_equals => (@entry.user.id).to_s }
-      assigns(:report).relation.should_not be_empty 
+      assigns(:report).relation.should_not be_empty
     end
-    pending 'does returns 403 when asking for other peoples time entries' do
+    it 'does returns 403 when asking for other peoples time entries' do
+      pending 'needs to be refactored first'
       post :show, :search => { :user_id_equals => (@entry_2.user.id).to_s }
       response.response_code.should == 403
+    end
+    it 'does not produce CSV with forbidden user data' do
+      pending 'needs to be refactored first'
+      @request.env["HTTP_ACCEPT"] = "text/csv"
+      post :show, :search => { :user_id_equals => (@entry_2.user.id).to_s }
+      response.body.should_not match /test_user2/
     end
   end
 
@@ -71,15 +78,15 @@ describe ReportsController do
     render_views
 
     it 'renders entries that are in the constraining timeframe' do
-      post :show, :search => { 
+      post :show, :search => {
         "day_gte(1i)" => (@entry.day - 1.year).to_s,
         "day_lte(1i)" => (@entry.day + 1.year).to_s
       }
       response.body.should =~ /#{@entry.task.name}/m
     end
     it 'does not render entries for unrelated projects' do
-      post :show, :search => { 
-        :project_id_equals => (@entry.project.id + 1).to_s 
+      post :show, :search => {
+        :project_id_equals => (@entry.project.id + 1).to_s
       }
       response.body.should_not =~ /#{@entry.task.name}/m
     end

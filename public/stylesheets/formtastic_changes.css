@@ -1,4 +1,0 @@
-/* Override padding of 25% for create and update actions */
-form.formtastic fieldset.buttons {
-  padding-left: 0;
-}

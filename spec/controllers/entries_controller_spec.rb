@@ -27,7 +27,7 @@ describe EntriesController do
   context 'PUT update with invalid attributes' do
     it "doesn't update the entry's attributes" do
       @entry_attributes = Factory.attributes_for(:entry)
-      @entry_attributes[:duration_hours] = ""
+      @entry_attributes[:day] = ''
       @entry = Factory(:entry, :user => @user)
       put :update, :id => @entry.id, :entry => @entry_attributes
       assigns(:entry).errors.should_not be_empty
@@ -45,7 +45,7 @@ describe EntriesController do
     end
     it "redirects to the new entry form with the entry's :day parameter" do
       delete :destroy, :id => @entry.id
-      response.should redirect_to(new_entry_path + "?day=" + \
+      response.should redirect_to(new_entry_url + "?day=" + \
                                   @entry.day.strftime("%Y-%m-%d"))
     end
   end
@@ -81,14 +81,14 @@ describe EntriesController do
       assigns(:total_time).should eq(entry.duration_hours)
     end
   end
-  
+
   context 'POST on create with entry with associations' do
-    before(:each) do 
+    before(:each) do
       @user = Factory(:user)
       @project = Factory(:project)
       @task = Factory(:task)
       @entry = Factory.attributes_for(:entry)
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
     end
     it('responds with a redirect') { response.code.should eq('302') }
@@ -126,21 +126,22 @@ describe EntriesController do
       post :create, :entry => @entry.merge( { :project_id => @project.id } )
       Entry.first.should be_nil
     end
-    it 'does not create a new entry without associated duration' do
+    it 'does not create a new entry without a duration and start/end' do
       @entry.delete(:duration_hours)
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      @entry.delete(:start)
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end
     it 'does not create a new entry without associated day' do
       @entry.delete(:day)
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end
     it 'does not create a new entry with invalid day format' do
       @entry[:day] = "a:2"
-      post :create, :entry => @entry.merge( { :task_id => @task.id, 
+      post :create, :entry => @entry.merge( { :task_id => @task.id,
                                            :project_id => @project.id } )
       Entry.first.should be_nil
     end

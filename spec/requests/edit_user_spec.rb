@@ -6,6 +6,7 @@ feature "Edit user as admin and as user", %q{
     my password as confirmation.
 } do
 
+  scenario 'edit another user as admin'
 
   scenario "edit email-address as admin without enter any password" do
     log_in :admin=>true
@@ -13,7 +14,7 @@ feature "Edit user as admin and as user", %q{
     click_link 'edit_current_user'
     page.should have_css 'form.user'
     fill_in 'user[email]', :with=>'nobody2@example.com'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should_not have_css '.inline-errors'
   end
   scenario "edit password as admin with correct current_password" do
@@ -23,7 +24,7 @@ feature "Edit user as admin and as user", %q{
     page.should have_css 'form.user'
     fill_in 'user[password]', :with=>'goodbye'
     fill_in 'user[current_password]', :with=>'good_password'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should_not have_css '.inline-errors'
   end
   scenario "edit password as admin with wrong current_password" do
@@ -33,7 +34,7 @@ feature "Edit user as admin and as user", %q{
     page.should have_css 'form.user'
     fill_in 'user[password]', :with=>'goodbye'
     fill_in 'user[current_password]', :with=>'not_good_password'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should have_css '.inline-errors'
   end
 
@@ -43,7 +44,7 @@ feature "Edit user as admin and as user", %q{
     click_link 'edit_current_user'
     page.should have_css 'form.user'
     fill_in 'user[email]', :with=>'nobody2@example.com'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should_not have_css '.inline-errors'
   end
   scenario "edit password as normal user with success" do
@@ -54,7 +55,7 @@ feature "Edit user as admin and as user", %q{
     fill_in 'user[password]', :with=>'goodbye'
     fill_in 'user[password_confirmation]', :with=>'goodbye'
     fill_in 'user[current_password]', :with=>'good_password'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should_not have_css '.inline-errors'
   end
   scenario "edit password as normal user with wrong current password" do
@@ -65,7 +66,7 @@ feature "Edit user as admin and as user", %q{
     fill_in 'user[password]', :with=>'goodbye'
     fill_in 'user[password_confirmation]', :with=>'goodbye'
     fill_in 'user[current_password]', :with=>'Not_good_password'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should have_css '.inline-errors'
   end
   scenario "edit password as normal user with wrong confirmation" do
@@ -76,9 +77,7 @@ feature "Edit user as admin and as user", %q{
     fill_in 'user[password]', :with=>'goodbye1'
     fill_in 'user[password_confirmation]', :with=>'goodbye2'
     fill_in 'user[current_password]', :with=>'good_password'
-    click_button 'user_submit'
+    click_button 'Update User'
     page.should have_css '.inline-errors'
   end
-  #Factory.create(:user, :username=>'nobody', :email=>'nobody1@example.com')
-
 end

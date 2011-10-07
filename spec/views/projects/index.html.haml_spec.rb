@@ -1,12 +1,13 @@
 require 'spec_helper'
-include InheritedResourceHelpers
 
 describe "projects/index.html.haml" do
   before(:each) do
     @project = Factory(:project)
-    mock_inherited_resource(@project)
-    view.stub(:sort_column).and_return("shortname")
-    view.stub(:sort_direction).and_return("asc")
+    @project_states = Factory(:project_state)
+    assign(:search, Project.search({}))
+    assign(:projects, [@project])
+    assign(:project_states, [@project_states] )
+    view.stub(:search).and_return( { "meta_sort" => "shortname.asc" } )
     render
   end
 

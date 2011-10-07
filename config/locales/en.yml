@@ -1,5 +1,23 @@
 # Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
   hello: "Hello world"
+  time:
+    formats:
+      default: '%d %b %Y'
+      short: '%H:%M'
+  date:
+    formats:
+      default: '%d %b %Y'
+  activerecord:
+    models:
+      accounting: 'accounting position'
+    attributes:
+      milestone:
+        reached: 'Milestone reached?'
+      project:
+        duration: 'Duration (hh:mm)'
+        wage: 'internal hourly rate'
+        rpl: 'expected remaining work'
+
