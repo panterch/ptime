@@ -1,7 +1,7 @@
 %table
   %tr
     %td Last time record
-    %td= @project.entries && l(@project.entries.last.updated_at)
+    %td= !@project.entries.empty? && l(@project.entries.last.updated_at)
 
 %table
   %thead
@@ -10,4 +10,4 @@
   - @project.responsibilities.each do |responsibility|
     %tr
       %td= responsibility.responsibility_type.name
-      %td= responsibility.user.username
+      %td= responsibility.try(:user).try(:username)
