@@ -1,5 +1,16 @@
-%h1 Project states
+%h2.grid_12 Project states
 
-- @project_states.each do |project_state|
-  %ul
-    %li= project_state.name
+.box.grid_12
+  %h2=link_to 'Project State Management', '#', :class => 'toggle-box'
+  %div
+    %table.project_states
+      %thead
+        %tr
+          %th Name
+          %th Edit
+
+      - @project_states.each do |project_state|
+        %tr
+          %td= project_state.name
+          %td= link_to (image_tag 'edit.png'),
+            edit_project_state_path(project_state)

@@ -1,4 +1,5 @@
-= semantic_form_for [@project, @accounting] do |form|
+= semantic_form_for [@project, @accounting],
+  :html => { :class => 'grid_6' } do |form|
   %h3 Position for project "#{@project.description}"
   = form.inputs do
     = form.input :description

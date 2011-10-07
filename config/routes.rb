@@ -2,7 +2,7 @@ PanterControlling::Application.routes.draw do
 
   resource :report
 
-  resources :project_states, :only => [:new, :create, :index]
+  resources :project_states
 
   resources :entries
 

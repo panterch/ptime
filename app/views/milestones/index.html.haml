@@ -1,13 +1,17 @@
-%h1 Milestones
+%h2.grid_12 Milestones
 
-%table.gradient-table
-  %tr
-    %th Date
-    %th Name
-    %th Reached
+.box.grid_12
+  %h2=link_to 'Milestones', '#', :class => 'toggle-box'
+  %div
+    %table.milestones
+      %thead
+        %tr
+          %th Date
+          %th Name
+          %th Reached
 
-  - @milestones.each do |milestone|
-    %tr
-      %td= milestone.created_at
-      %td= milestone.milestone_type.name
-      %td= milestone.reached
+      - @milestones.each do |milestone|
+        %tr
+          %td= milestone.created_at
+          %td= milestone.milestone_type.name
+          %td= milestone.reached

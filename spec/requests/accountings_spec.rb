@@ -20,8 +20,8 @@ feature 'Listing accounting positions as authenticated user', %q{
     page.should have_content 'accounting position 1'
     page.should have_content 'accounting position 2'
     page.should have_content 'accounting position 3'
-    page.all(:css, 'table.gradient-table > tr').count.should eq(3)
-    page.should have_css('table.gradient-table > tr + tr > td')
+    page.all(:css, 'table.accountings > tr').count.should eq(3)
+    page.should have_css('table.accountings > tr + tr > td')
 
     log_out
   end

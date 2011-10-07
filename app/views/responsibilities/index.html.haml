@@ -1,13 +1,17 @@
-%h1 Responsibilities
+%h2.grid_12 Responsibilities
 
-%table.gradient-table
-  %tr
-    %th Date
-    %th Name
-    %th Reached
+.box.grid_12
+  %h2=link_to 'Responsibilities', '#', :class => 'toggle-box'
+  %div
+    %table.responsibilities
+      %thead
+        %tr
+          %th Date
+          %th Name
+          %th Reached
 
-  - @responsibilities.each do |responsibility|
-    %tr
-      %td= responsibility.created_at
-      %td= responsibility.responsibility_type.name
-      %td= responsibility.reached
+      - @responsibilities.each do |responsibility|
+        %tr
+          %td= responsibility.created_at
+          %td= responsibility.responsibility_type.name
+          %td= responsibility.reached

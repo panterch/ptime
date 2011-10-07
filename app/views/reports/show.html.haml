@@ -1,8 +1,8 @@
-%h1 Report
+%h2.grid_12 Report
 
 = form_for(@report, :as => :search, :url => report_path,
   :html => { :method => :get, :id => "entry_search",
-  :class => "entry_search" }) do |f|
+  :class => "entry_search grid_12" }) do |f|
   .entries_report_item
     = f.label :day_gte, "Begin"
     = f.date_select :day_gte
@@ -24,27 +24,32 @@
 #pagination.center
   = will_paginate @entries
 
-%table.gradient-table
-  %tr
-    %th= sort_link @report, :day
-    %th= sort_link @report, :duration, "Hours"
-    %th= sort_link @report, :user_id
-    %th= sort_link @report, :project_id
-    %th= sort_link @report, :task_id
-    %th= sort_link @report, :description
-    %th= sort_link @report, :billable, "Bill"
-    %th Edit
-  - @entries.each do |entry|
-    %tr
-      %td= entry.day
-      %td= entry.duration_hours
-      %td= entry.user.username
-      %td= entry.project.shortname
-      %td= entry.task.name
-      %td= entry.description
-      %td= bool_to_img(entry.billable)
-      %td= display_edit_link(entry)
+.box.grid_12
+  %h2=link_to 'Report', '#', :class => 'toggle-box'
+  %div
+    %table.reports
+      %thead
+        %tr
+          %th= sort_link @report, :day
+          %th= sort_link @report, :duration, "Hours"
+          %th= sort_link @report, :user_id
+          %th= sort_link @report, :project_id
+          %th= sort_link @report, :task_id
+          %th= sort_link @report, :description
+          %th= sort_link @report, :billable, "Bill"
+          %th Edit
+      %tfoot
+        %tr
+          %td Total
+          %td= @total_time
 
-%p
-  Total time(h:m)
-  %strong= @total_time 
+      - @entries.each do |entry|
+        %tr
+          %td= entry.day
+          %td= entry.duration_hours
+          %td= entry.user.username
+          %td= entry.project.shortname
+          %td= entry.task.name
+          %td= entry.description
+          %td= bool_to_img(entry.billable)
+          %td= display_edit_link(entry)
