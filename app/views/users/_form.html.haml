@@ -1,11 +1,11 @@
-= semantic_form_for(@user) do |form|
+= semantic_form_for @user, :html => { :class => 'grid_6' } do |form|
   = #devise_error_messages!
   = form.inputs do
     = form.input :username if current_user.admin?
     = form.input :email
     = form.input :password
     = form.input :password_confirmation unless current_user.admin?
-    = form.input :current_password unless current_user.admin? && @user.id!=current_user.id
+    - unless current_user.admin? && @user.id!=current_user.id
+      = form.input :current_password
     = form.input :admin if current_user.admin?
-  = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }

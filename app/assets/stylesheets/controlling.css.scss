@@ -110,6 +110,15 @@ tfoot td {
   text-align: center;
 }
 
+/* Last five columns in accountings table */
+table.accountings {
+  th:nth-last-child(-n+5),
+  td:nth-last-child(-n+5) {
+    white-space:nowrap;
+    text-align: center;
+  }
+}
+
 /* Last four columns in projects table */
 table.projects {
   th:nth-last-child(-n+4),
@@ -126,16 +135,18 @@ table.entries {
   }
 }
 
-/* Last two columns in responsibility types table */
-table.responsibility_types {
+/* Last two columns in responsibility types and users table */
+table.responsibility_types,
+table.users {
   th:nth-last-child(-n+2),
   td:nth-last-child(-n+2) {
     @include static-column;
   }
 }
 
-/* Last column in milestone types table */
-table.milestone_types {
+/* Last column in milestone types and project states table */
+table.milestone_types,
+table.project_states {
   th:nth-last-child(-n+1),
   td:nth-last-child(-n+1) {
     @include static-column;

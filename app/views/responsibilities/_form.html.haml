@@ -1,8 +1,8 @@
-= semantic_form_for [@project, @responsibility] do |form|
+= semantic_form_for [@project, @responsibility],
+  :html => { :class => 'grid_6' } do |form|
   %h3 Responsibility for project #{@project.description}
   = form.inputs do
     = form.input :description
     = form.inputs :for => :user do |user|
       user.object.name
-  = form.buttons do
     = form.commit_button :button_html => { :class => 'main_link' }
