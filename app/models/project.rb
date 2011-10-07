@@ -88,6 +88,7 @@ class Project < ActiveRecord::Base
       :billable => true).sum(:duration))
   end
 
+  # Cumulated time of all entries
   def burned_time
     minutes_to_human_readable_time(entries.sum :duration)
   end
@@ -96,7 +97,33 @@ class Project < ActiveRecord::Base
     rpl ? rpl.to_s + "h" : "0h"
   end
 
+  # Sum all positive accounting positions
+  def budget
+    accountings.where(:positive => true).sum :amount
+  end
+
+  def expected_return
+    accountings.sum(:amount) + past_work + (rpl || 0) * wage
+  end
+
+  def current_internal_cost
+    entries.sum(:duration) * wage
+  end
+
+  def external_cost
+    accountings.where(:positive => false).sum :amount
+  end
+
+  def expected_profitability
+    100.0 * expected_return / accountings(:positive => true).sum(:amount)
+  end
+
+
   private
+
+  def past_work
+    - entries.sum(:duration) / 60.0 * wage
+  end
 
   def rpl_or_zero
     rpl ? rpl : 0
