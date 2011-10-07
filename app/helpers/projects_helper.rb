@@ -38,4 +38,5 @@ module ProjectsHelper
   def project_description(project)
     project.shortname + " - " + project.description
   end
+
 end

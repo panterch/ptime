@@ -77,6 +77,11 @@ class Project < ActiveRecord::Base
 
   alias_method_chain :destroy, :mark
 
+  # Cumulated time of all entries
+  def duration_hours
+    duration = entries.sum :duration
+    (duration / 60).to_s + ":" + "%02i" % (duration % 60).to_s
+  end
 
   private
 
@@ -92,4 +97,5 @@ class Project < ActiveRecord::Base
       errors.add(:base, 'needs a scrum master and a product owner.')
     end
   end
+
 end

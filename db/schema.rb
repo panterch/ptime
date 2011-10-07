@@ -85,11 +85,11 @@ ActiveRecord::Schema.define(:version => 20111006134213) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_state_id"
-    t.decimal  "probability",      :precision => 2, :scale => 1, :default => 0.0
-    t.integer  "wage",                                           :default => 90,   :null => false
+    t.decimal  "probability",      :default => 0.0
+    t.integer  "wage",             :default => 90,   :null => false
     t.integer  "rpl"
     t.datetime "deleted_at"
-    t.boolean  "external",                                       :default => true
+    t.boolean  "external",         :default => true
   end
 
   create_table "responsibilities", :force => true do |t|
