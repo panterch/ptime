@@ -6,7 +6,7 @@ $ ->
   return unless entry.length
 
   # Add chosen
-  $('.chzn-select').chosen()
+  # $('.chzn-select').chosen()
 
   # Add time input method radio button logic
   entry.toggleTimeInputMethod = ->
