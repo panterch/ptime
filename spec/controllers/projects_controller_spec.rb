@@ -53,8 +53,108 @@ describe ProjectsController do
     end
 
     context 'GET on edit' do
-      before(:each) { get :edit, :id => @project.id }
-      it('responds with success') { response.code.should eq('200') }
+      it('responds with success') do
+        get :edit, :id => @project.id
+        response.code.should eq('200')
+      end
+
+      before(:each) do
+        @accounting = Factory(:accounting, :payed => false, :sent => false,
+                              :project_id => @project.id)
+      end
+
+      describe 'sorting accounting positions' do
+        it 'by valuta' do
+          second_accounting = Factory(:accounting,
+                                      :valuta => '2010-07-01 02:00',
+                                      :project_id => @project.id)
+          third_accounting = Factory(:accounting,
+                                     :valuta => '2011-11-01 02:00',
+                                     :project_id => @project.id)
+          do_get 'valuta'
+          assigns(:accountings).first.id.should eq(third_accounting.id)
+        end
+
+        it 'by payed flag' do
+          second_accounting = Factory(:accounting, :payed => true,
+                                      :project_id => @project.id)
+          do_get 'payed'
+          assigns(:accountings).first.id.should eq(second_accounting.id)
+        end
+
+        it 'by sent flag' do
+          second_accounting = Factory(:accounting, :sent => true,
+                                      :project_id => @project.id)
+          do_get 'sent'
+          assigns(:accountings).first.id.should eq(second_accounting.id)
+        end
+
+        it 'by amount' do
+          second_accounting = Factory(:accounting, :amount => '0',
+                                      :project_id => @project.id)
+          third_accounting = Factory(:accounting, :amount => '9999',
+                                     :project_id => @project.id)
+          do_get 'amount'
+          assigns(:accountings).first.id.should eq(third_accounting.id)
+        end
+
+        def do_get(column)
+          get :edit, :search => { :meta_sort => "#{column}.desc" },
+            :id => @project.id
+        end
+      end
+
+      describe 'filtering accounting positions' do
+        it 'filters positive amounts (cash in)' do
+          second_accounting = Factory(:accounting,
+                                      :amount => -2,
+                                      :project_id => @project.id)
+          third_accounting = Factory(:accounting,
+                                     :amount => -5,
+                                     :project_id => @project.id)
+          do_get :positive_is_true
+          assigns(:accountings).first.id.should eq(@accounting.id)
+          assigns(:accountings).count.should eq(1)
+        end
+
+        it 'filters negative amounts (cash out)' do
+          second_accounting = Factory(:accounting,
+                                      :amount => 2, :project_id => @project.id)
+          third_accounting = Factory(:accounting,
+                                     :amount => -5, :project_id => @project.id)
+          do_get :positive_is_false
+          assigns(:accountings).first.id.should eq(third_accounting.id)
+          assigns(:accountings).count.should eq(1)
+        end
+
+        it 'filters payed flag' do
+          second_accounting = Factory(:accounting,
+                                      :payed => true,
+                                      :project_id => @project.id)
+          third_accounting = Factory(:accounting,
+                                     :payed => false,
+                                     :project_id => @project.id)
+          do_get :payed_is_true
+          assigns(:accountings).first.id.should eq(second_accounting.id)
+          assigns(:accountings).count.should eq(1)
+        end
+
+        it 'filters sent flag' do
+          second_accounting = Factory(:accounting,
+                                      :sent => true,
+                                      :project_id => @project.id)
+          third_accounting = Factory(:accounting,
+                                     :sent => false,
+                                     :project_id => @project.id)
+          do_get :sent_is_true
+          assigns(:accountings).first.id.should eq(second_accounting.id)
+          assigns(:accountings).count.should eq(1)
+        end
+
+        def do_get(filter)
+          get :edit, :search => { filter => '1' }, :id => @project.id
+        end
+      end
     end
 
     context 'GET on index' do

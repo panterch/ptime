@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
-  before_filter :prepare_project_states, :only => [:new, :edit, :index, :update, :create]
-  before_filter :prepare_project_probabilities, :only => [:new, :edit, :update, :create]
+  before_filter :prepare_project_states,
+    :only => [:new, :edit, :index, :update, :create]
+  before_filter :prepare_project_probabilities,
+    :only => [:new, :edit, :update, :create]
 
   authorize_resource
 
@@ -22,8 +24,7 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     if @project.update_attributes(params[:project])
-      flash[:notice] = 'Successfully updated project.'
-      redirect_to projects_url
+      redirect_to projects_url, :notice => 'Successfully updated project.'
     else
       render :action => 'edit'
     end
@@ -38,6 +39,10 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+
+    @accountings_search = @project.accountings.search(params[:search])
+    @accountings = @accountings_search.all
+    @accountings_sum = @accountings_search.sum(:amount)
   end
 
   def destroy

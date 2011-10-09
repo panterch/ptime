@@ -1,3 +1,27 @@
-%h2 Editing project
+%h2.grid_12
+  Project
+  = project_description(@project)
+
+.box.stats_table.grid_3
+  %h2
+    Time
+  = render :partial => 'time_table'
+
+.box.stats_table.grid_3
+  %h2
+    Finance
+  = render :partial => 'finance_table'
+.box.stats_table.grid_3
+  %h2
+    Status
+  = render :partial => 'status_table'
+.box.stats_table.grid_3
+  %h2
+    Project Organization
+  = render :partial => 'organization_table'
+
+%h2.grid_12
+- unless @accountings.nil?
+  = render :partial => 'accounting_positions'
 
 = render 'form'

@@ -10,6 +10,7 @@
  *= require text
  *= require superfish
  *= require chosen
+ *= require facebox
  *= require formtastic_changes
  *= require controlling
 */

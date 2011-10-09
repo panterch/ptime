@@ -159,8 +159,10 @@ tfoot td {
   text-align: center;
 }
 
-/* Last five columns in accountings table */
-table.accountings {
+/* Last five columns in accountings table. Don't style the footer, though,
+   because it's only two columns wide */
+table.accountings thead,
+table.accountings tbody {
   th:nth-last-child(-n+5),
   td:nth-last-child(-n+5) {
     white-space:nowrap;
@@ -248,4 +250,15 @@ form#user_new {
   li.option {
     float: left;
   }
+}
+
+/* add-entry-link in the project view */
+div.box.grid_12 div div.button_link {
+  float: right;
+  padding: .3em;
+  margin: .5em;
+  border: 1px solid gray;
+  background: silver;
+  color: black;
+  border-radius: 5px;
 }

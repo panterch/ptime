@@ -1,0 +1,22 @@
+= form_for @accountings_search, :url => edit_project_path(@project.id),
+  :html => {:method => :get, :class => 'grid_12 filter'} do |f|
+  .grid_2.alpha
+    = f.check_box :sent_is_true
+    = f.label :sent_is_true, 'sent entries'
+  .grid_2
+    = f.check_box :payed_is_true
+    = f.label :payed_is_true, 'payed entries'
+  .grid_2
+    = f.check_box :positive_is_true
+    = f.label :positive_is_true, 'cash-in entries'
+  .grid_2
+    = f.check_box :positive_is_false
+    = f.label :positive_is_false, 'cash-out entries'
+  .grid_4.omega= f.submit 'filter'
+
+.box.grid_12
+  %h2=link_to 'Accounting Positions', '#', :class => 'toggle-box'
+  %div.accountings
+    = render 'accounting_positions_table'
+    .button_link= link_to 'Add new entry',
+      new_project_accounting_path(@project), { :rel => 'facebox' }

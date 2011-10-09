@@ -107,7 +107,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_internal_cost
-    entries.sum(:duration) * wage
+    entries.sum(:duration) / 60.0 * wage
   end
 
   def external_cost
@@ -115,7 +115,7 @@ class Project < ActiveRecord::Base
   end
 
   def expected_profitability
-    cash_in = accountings(:positive => true).sum(:amount)
+    cash_in = accountings.where(:positive => true).sum(:amount)
     if cash_in != 0
       100.0 * expected_return / cash_in
     else

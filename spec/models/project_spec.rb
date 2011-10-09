@@ -127,4 +127,91 @@ describe Project do
       end
     end
   end
+
+  context 'controlling calculations' do
+    before(:each) do
+      @project = Factory(:project, :rpl => 1, :wage => 100)
+    end
+
+    it 'calculates the total time' do
+      entry_one = Factory(:entry, :duration => 120, :project_id => @project.id)
+      entry_two = Factory(:entry, :duration => 30, :project_id => @project.id)
+      @project.total_time.should eq minutes_to_human_readable_time(210)
+    end
+
+    it 'calculates the billable time' do
+      entry_one = Factory(:entry, :duration => 120, :billable => true,
+                          :project_id => @project.id)
+      entry_two = Factory(:entry, :duration => 30, :billable => false,
+                          :project_id => @project.id)
+      @project.time_billable.should eq minutes_to_human_readable_time(120)
+    end
+
+    it 'calculates the burned time' do
+      entry_one = Factory(:entry, :duration => 120, :billable => true,
+                          :project_id => @project.id)
+      entry_two = Factory(:entry, :duration => 30, :billable => false,
+                          :project_id => @project.id)
+      @project.burned_time.should eq minutes_to_human_readable_time(150)
+    end
+
+    it 'calculates the budget' do
+      accounting_one = Factory(:accounting, :amount => 400,
+                               :project_id => @project.id)
+      accounting_two = Factory(:accounting, :amount => -200,
+                               :project_id => @project.id)
+      @project.budget.should eq 400
+    end
+
+    it 'calculates the expected return' do
+      # sums to 200
+      accounting_one = Factory(:accounting, :amount => 400,
+                               :project_id => @project.id)
+      accounting_two = Factory(:accounting, :amount => -200,
+                               :project_id => @project.id)
+      # paste_work should now be -200
+      entry_one = Factory(:entry, :duration => 90, :project_id => @project.id)
+      entry_two = Factory(:entry, :duration => 30, :project_id => @project.id)
+      # rpl * wage = 1 * 100 = 100
+      @project.expected_return.should eq 100
+    end
+
+    it 'calculates the current internal cost' do
+      entry_one = Factory(:entry, :duration => 90, :project_id => @project.id)
+      entry_two = Factory(:entry, :duration => 30, :project_id => @project.id)
+      @project.current_internal_cost.should eq 200
+    end
+
+    it 'calculates the external cost' do
+      accounting_one = Factory(:accounting, :amount => 400,
+                               :project_id => @project.id)
+      accounting_two = Factory(:accounting, :amount => -200,
+                               :project_id => @project.id)
+      @project.external_cost.should eq -200
+    end
+
+    describe 'expected profitability' do
+      before(:each) do
+        entry_one = Factory(:entry, :duration => 90, :project_id => @project.id)
+        entry_two = Factory(:entry, :duration => 30, :project_id => @project.id)
+      end
+
+      it 'calculates' do
+        accounting_one = Factory(:accounting, :amount => 400,
+                                 :project_id => @project.id)
+        accounting_two = Factory(:accounting, :amount => -200,
+                                 :project_id => @project.id)
+        # 100/400 * (200 - (120/60 * 100) + 1*100)
+        @project.expected_profitability.should eq 25.0
+      end
+
+      it 'calculates without cash in' do
+        @project.expected_profitability.should eq 0.0
+      end
+    end
+
+    def minutes_to_human_readable_time(minutes)
+      (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
+    end
+  end
 end

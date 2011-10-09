@@ -1,0 +1,36 @@
+%table.accountings
+  %thead
+    %tr
+      %th Description
+      %th= sort_link @accountings_search, :amount
+      %th= sort_link @accountings_search, :valuta
+      %th Project
+      %th= sort_link @accountings_search, :sent
+      %th= sort_link @accountings_search, :payed
+      %th Attachments
+      %th Edit
+      %th Delete
+  %tfoot
+    %tr
+      %td
+        %strong Subtotal
+      %td= @accountings_sum
+
+  - @accountings.each do |accounting|
+    %tr
+      %td= accounting.description
+      %td= accounting.amount
+      %td= l accounting.valuta
+      %td= link_to accounting.project.shortname, edit_project_path(@project)
+      %td= bool_to_img(accounting.sent)
+      %td= bool_to_img(accounting.payed)
+      %td
+        - if not accounting.link.nil? and not accounting.link.empty?
+          = link_to (image_tag 'link.png'), accounting.link
+        - unless accounting.document_file_name.nil?
+          = link_to (image_tag 'document.png'), accounting.document.url
+      %td= link_to (image_tag 'edit.png'),
+        edit_project_accounting_path(@project, accounting),
+        :rel => 'facebox'
+      %td= link_to (image_tag 'delete.png'),
+        project_accounting_path(@project, accounting), :method => :delete
