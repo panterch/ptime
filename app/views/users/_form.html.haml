@@ -1,6 +1,6 @@
 = semantic_form_for @user, :html => { :class => 'grid_6' } do |form|
   = #devise_error_messages!
-  = form.inputs do
+  = form.inputs :name => 'User' do
     = form.input :username if current_user.admin?
     = form.input :email
     = form.input :password
