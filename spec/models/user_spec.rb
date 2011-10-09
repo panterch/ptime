@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe User do
+  context 'Creating a user' do
+
+    it 'should create the user' do
+      Factory(:user)
+      User.all.should have(1).record
+    end
+    it 'should have an admin flag' do
+      Factory(:user, :admin => true)
+      User.all.first.admin.should be_true
+    end
+  end
+
   context 'Deleting a user' do
     before(:each) do
       @user = Factory(:user)
