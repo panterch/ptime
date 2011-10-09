@@ -23,7 +23,8 @@
       .entry_group
         .entry_item
           = f.label :project_id
-          = f.select :project_id, to_form_select(@active_projects),
+          = f.select :project_id,
+            grouped_project_select(@active_projects, current_user.id),
             { :include_blank => true}, { :class => 'chzn-select' }
         .entry_item
           = f.label :task_id
