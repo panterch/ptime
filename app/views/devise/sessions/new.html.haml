@@ -4,8 +4,8 @@
   :url => session_path(resource_name),
   :html => {:class => 'grid_6'} do |form|
   = form.inputs do
-    = form.input :username
-    = form.input :password
+    = form.input :username, :placeholder => "Username", :as => :string, :label => false
+    = form.input :password, :placeholder => "Password", :label => false
     = form.commit_button :label => 'Sign in'
     - if devise_mapping.rememberable?
       %li.option

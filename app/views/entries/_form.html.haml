@@ -24,12 +24,12 @@
         .entry_item
           = f.label :project_id
           = f.select :project_id,
-            grouped_project_select(@active_projects, current_user.id, f),
+            grouped_project_select(@active_projects, f),
             { :include_blank => true}, { :class => 'chzn-select' }
         .entry_item
           = f.label :task_id
           = f.select :task_id, tasks_collection,
-            { :include_blank => true }, {:class => 'chzn-select'}
+            { :include_blank => true }, { :class => 'chzn-select' }
 
       .entry_group
         .entry_item
@@ -63,5 +63,6 @@
 
       .entry_group
         .entry_item= f.submit 'Create Entry'
+
 
 = render 'entries'

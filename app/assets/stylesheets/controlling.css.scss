@@ -176,10 +176,10 @@ table.accountings tbody {
   }
 }
 
-/* Last four columns in projects table */
+/* Last five columns in projects table */
 table.projects {
-  th:nth-last-child(-n+4),
-  td:nth-last-child(-n+4) {
+  th:nth-last-child(-n+5),
+  td:nth-last-child(-n+5) {
     @include static-column;
   }
 }
