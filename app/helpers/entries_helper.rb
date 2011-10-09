@@ -29,15 +29,16 @@ module EntriesHelper
   end
 
   # Extract projects grouped by past usage
-  def grouped_project_select(projects, current_user)
+  def grouped_project_select(projects, current_user, f)
     recent_projects =
       User.find(current_user).entries. \
       order('created_at DESC').limit(5).collect \
       { |e| [project_identifier(e.project), e.project.id] }
-    group = [['recent projects',recent_projects],
-      ['all projects',to_form_select(projects)]]
     unless recent_projects.empty?
-      return grouped_options_for_select(group)
+      value = f.object.read_attribute(:project_id)
+      group = [['recent projects',recent_projects],
+        ['all projects',to_form_select(projects)]]
+      return grouped_options_for_select(group, value)
     else
       return to_form_select(projects)
     end

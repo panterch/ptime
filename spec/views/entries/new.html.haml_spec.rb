@@ -1,19 +1,19 @@
 require 'spec_helper'
-include InheritedResourceHelpers
+include Devise::TestHelpers
 
 describe "entries/new.html.haml" do
   before(:each) do
-    @entry = Factory(:entry)
+    @user = Factory(:user)
+    @entry = Factory(:entry, :day => Time.now)
     @entries = [@entry]
-    @project = Factory(:project)
+    @project = Factory(:project, :shortname => 'act-000')
     @active_projects = [@project]
-    @project_inactive = Factory(:project_inactive)
-    @entries_for_today = @entry
-    mock_inherited_resource(@entry)
+    @project_inactive = Factory(:project_inactive, :shortname => 'ina-000')
+    sign_in @user
+    render
   end
 
   it "should show active projects" do
-    render
     rendered.should match(/#{@project.shortname}/)
   end
 

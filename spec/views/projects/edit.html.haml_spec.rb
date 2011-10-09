@@ -1,11 +1,9 @@
 require 'spec_helper'
-include InheritedResourceHelpers
 
 describe "projects/edit.html.haml" do
   before(:each) do
     @project = Factory(:project)
     @project.tasks << Factory(:task)
-    mock_inherited_resource(@project)
     render
   end
 
