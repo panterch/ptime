@@ -123,6 +123,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def has_unpaid_invoice?
+    accountings.where("valuta <= ?", Time.now).where(:payed => false).empty?
+  end
+
 
   private
 

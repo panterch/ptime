@@ -29,6 +29,7 @@
           %th= sort_link @search, :shortname, 'Name'
           %th= sort_link @search, :start
           %th= sort_link @search, :end
+          %th  Unpaid inv
           %th= sort_link @search, :project_state_id
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
@@ -40,6 +41,7 @@
           %td= link_to project_description(project), edit_project_path(project)
           %td= project.start
           %td= project.end
+          %td= bool_to_img(project.has_unpaid_invoice?)
           %td= get_project_state(project)
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)
