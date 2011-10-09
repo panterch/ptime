@@ -44,6 +44,7 @@ feature "New entry form", %q{
   context 'displays entries from the associated day' do
     before(:each) do
       choose_9th_of_the_month
+      page.execute_script("$('#entry_project_id, #entry_task_id').removeAttr('style');")
       select @project.shortname, :from => 'entry_project_id'
       choose('time_capture_method_duration')
       @entry_duration = "3:0"
@@ -77,7 +78,7 @@ feature "New entry form", %q{
   end
 
   context 'invalid entry' do
-    it 'fills duration input field with its submitted value' do
+    it 'fills duration input field with its submitted value', :js => true do
       choose 'time_capture_method_duration'
       fill_in "entry_duration_hours", :with => 'abc'
       click_button 'Create Entry'
