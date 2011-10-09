@@ -4,28 +4,28 @@
       %th Key data
       %th About money
   %tfoot
-    %tr
+    %tr{ :title => "accountings.sum(:amount) + (rpl)*wage - (entries.sum(:duration) / 60.0 * wage) " }
       %td Expected return
       %td= @project.expected_return
-    %tr
+    %tr{ :title => "100.0 * expected_return / accountings.where(:positive => true).sum(:amount)" }
       %td Expected profitability
       %td= expected_profitability
   %tr
-    %td Internal h-rate
+    %td Internal hourly rate
     %td{:title => "foobar"}= @project.wage
   :css
     .red {
       color: orange;
       }
-  %tr
+  %tr{ :title => "(entries.sum(:duration) / 60.0) * wage" }
     %td Current internal cost
     %td= @project.current_internal_cost
-  %tr
+  %tr{ :title => "" }
     %td Expected internal cost
     %td.red to be defined
-  %tr
+  %tr{ :title => "accountings.where(:positive => false).sum :amount" }
     %td External cost
     %td= @project.external_cost
-  %tr
+  %tr{ :title => "accountings.where(:positive => true).sum :amount" }
     %td Budget
     %td= @project.budget

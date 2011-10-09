@@ -107,7 +107,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_internal_cost
-    entries.sum(:duration) / 60.0 * wage
+    (entries.sum(:duration) / 60.0) * wage
   end
 
   def external_cost
