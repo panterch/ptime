@@ -1,14 +1,15 @@
 %table
   %tfoot
-    %tr
+    %tr{ :title => "entries.sum(:duration) + rpl" }
       %td Total time
-      %td= @project.total_time
-    %tr
+      %td
+        = @project.total_time
+    %tr{ :title => "entries.where(:billable => true).sum(:duration)" }
       %td Time billable
       %td= @project.time_billable
-  %tr
+  %tr{ :title => "entries.sum :duration" }
     %td= "Burned time"
     %td= @project.burned_time
-  %tr
+  %tr{ :title => "rpl" }
     %td= "Expected remaining work"
     %td= @project.expected_remaining_work
