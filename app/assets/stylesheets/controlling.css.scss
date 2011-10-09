@@ -253,7 +253,7 @@ form#user_new {
 }
 
 /* add-entry-link in the project view */
-div.box.grid_12 div div.button_link {
+div.button_link {
   float: right;
   padding: .3em;
   margin: .5em;
@@ -261,4 +261,52 @@ div.box.grid_12 div div.button_link {
   background: silver;
   color: black;
   border-radius: 5px;
+}
+
+/* Formtastic */
+.formtastic .input .label {
+  display: block;
+  width: 25%;
+  float: left;
+  padding-top: .2em;
+}
+
+/* grid960 6 column field needs more place for the labels */
+.formtastic .grid_6 .input .label {
+  width: 40%;
+}
+
+.formtastic .buttons ol {
+  list-style-type: none;
+}
+
+
+/* Project settings */
+dt.responsibilities,
+dt.milestones {
+  float: left;
+  width: 25%;
+  margin-left: 1em;
+}
+
+dt.tasks {
+  float: left;
+  width: 65%;
+  margin-left: 1em;
+}
+
+dd.responsibilities,
+dd.milestones,
+dd.tasks {
+  margin: 0.5em;
+}
+
+/* submit button */
+form.project fieldset.buttons {
+  ol {
+    margin-bottom: 0;
+  }
+  li {
+    margin-left: 0;
+  }
 }
