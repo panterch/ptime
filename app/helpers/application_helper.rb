@@ -11,8 +11,7 @@ module ApplicationHelper
       render(association.to_s.singularize + "_fields", :f => builder)
     end
     link_to_function(name, "addFields(#{anchor}, \"#{association}\",
-                     \"#{escape_javascript(fields)}\")",
-                    :class => "main_link" )
+                     \"#{escape_javascript(fields)}\")")
   end
 
   # Highlight link for current action

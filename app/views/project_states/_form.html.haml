@@ -1,4 +1,4 @@
 = semantic_form_for @project_state, :html => { :class => 'grid_6' } do |f|
-  = f.inputs do
+  = f.inputs :name => 'Project State' do
     = f.input :name
-    = f.commit_button :button_html => { :class => "main_link" }
+    = f.commit_button

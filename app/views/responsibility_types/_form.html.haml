@@ -1,7 +1,6 @@
 = semantic_form_for @responsibility_type,
   :html => { :class => 'grid_6' } do |form|
-  %h3 Responsibility type
-  = form.inputs do
+  = form.inputs :name => 'Responsibility Type' do
     = form.input :name
     = form.input :required
-    = form.commit_button :button_html => { :class => 'main_link' }
+    = form.commit_button

@@ -6,8 +6,7 @@
   = form.inputs do
     = form.input :username
     = form.input :password
-    = form.commit_button :label => 'Sign in',
-      :button_html => { :class => "main_link" }
+    = form.commit_button :label => 'Sign in'
     - if devise_mapping.rememberable?
       %li.option
         = form.check_box :remember_me
