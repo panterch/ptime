@@ -12,7 +12,7 @@ feature "New entry form", %q{
     log_in
 
     # Remove chosen JS to be able to fill in values
-    #page.execute_script("$('#entry_project_id, #entry_task_id').removeAttr('style');")
+    page.execute_script("$('#entry_project_id, #entry_task_id').removeAttr('style');")
 
     select @project.shortname, :from => 'entry_project_id'
   end

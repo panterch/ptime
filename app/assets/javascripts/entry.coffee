@@ -6,7 +6,7 @@ $ ->
   return unless entry.length
 
   # Add chosen
-  # $('.chzn-select').chosen()
+  $('.chzn-select').chosen()
 
   # Add time input method radio button logic
   entry.toggleTimeInputMethod = ->
@@ -73,14 +73,24 @@ $ ->
     $('#entry_start').val('')
     $('#entry_end').val('')
 
+
   # Fetch associated tasks for a given project in entry form
-  $('#entry_project_id').change ->
+  entry.fetchAssociatedTasks = ->
     $('#entry_task_id').find('option').remove()
     project_id = $('select#entry_project_id :selected').val()
     tasks_from_projects = $.parseJSON($('#tasks_collection_storage').val())
     for i, item of tasks_from_projects[project_id]
       $('#entry_task_id').append(
         $('<option></option>').val(item.id).html(item.name))
+
+  # Update project's tasks, normal version
+  $('#entry_project_id').change ->
+    entry.fetchAssociatedTasks()
+
+  # Update project's tasks, chosen version
+  $('#entry_project_id.chzn-select').chosen().change ->
+    entry.fetchAssociatedTasks()
+    $('#entry_task_id.chzn-select').trigger('liszt:updated')
 
   # Focus next field on input after choosing a task
   $('#entry_task_id').click ->
