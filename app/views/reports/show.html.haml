@@ -2,23 +2,23 @@
 
 = form_for(@report, :as => :search, :url => report_path,
   :html => { :method => :get, :id => "entry_search",
-  :class => "entry_search grid_12" }) do |f|
-  .entries_report_item
-    = f.label :day_gte, "Begin"
-    = f.date_select :day_gte
-  .entries_report_item
-    = f.label :day_lte, "End"
-    = f.date_select :day_lte
-  .entries_report_item
-    = f.label :project_id_equals, "Project"
+  :class => "grid_12 filter" }) do |f|
+  .grid_2.alpha
+    = f.label :day_gte, 'begin'
+    = f.text_field :day_gte, :class => 'ui-datepicker',
+      :value => localized_search_date(f, :day_gte)
+  .grid_2
+    = f.label :day_lte, 'end'
+    = f.text_field :day_lte, :class => 'ui-datepicker',
+      :value => localized_search_date(f, :day_lte)
+  .grid_3
+    = f.label :project_id_equals, 'project'
     = projects_select_id_equals(f,  @active_projects)
-  .entries_report_item
-    = f.label :user_id_equals, "User"
+  .grid_2
+    = f.label :user_id_equals, 'user'
     = users_id_equals_select(f)
-  #entries_search_button
-    = f.submit "Search"
-    = link_to "Download CSV",
-      report_path( { :search => params[:search] }.merge(:format => "csv"))
+  .grid_3.omega
+    = f.submit 'search'
 
 #pagination.center
   = will_paginate @entries
@@ -44,7 +44,7 @@
 
       - @entries.each do |entry|
         %tr
-          %td= entry.day
+          %td= l entry.day
           %td= entry.duration_hours
           %td= entry.user.username
           %td= entry.project.shortname
@@ -52,3 +52,7 @@
           %td= entry.description
           %td= bool_to_img(entry.billable)
           %td= display_edit_link(entry)
+
+  .button_link
+    = link_to 'download CSV',
+      report_path( { :search => params[:search] }.merge(:format => "csv"))

@@ -39,4 +39,33 @@ module ApplicationHelper
     link_to title, :sort => column, :direction => direction
   end
 
+  # Localizes a time attribute's value
+  def localized_time(f, attr)
+    date = f.object.read_attribute(attr)
+    begin
+      (date.nil?? '':(l date, :format => :short))
+    rescue
+      ''
+    end
+  end
+
+  # Localizes a date attribute's value
+  def localized_date(f, attr)
+    date = f.object.read_attribute(attr)
+    begin
+      (date.nil?? '':(l date))
+    rescue
+      ''
+    end
+  end
+
+  # Localizes a MetaSearch date attribute
+  def localized_search_date(f, attr)
+    date = f.object.send(attr)
+    begin
+      (date.nil?? '':(l date))
+    rescue
+      ''
+    end
+  end
 end

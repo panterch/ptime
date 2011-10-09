@@ -38,8 +38,8 @@
       - @projects.each do |project|
         %tr
           %td= link_to project_description(project), edit_project_path(project)
-          %td= project.start
-          %td= project.end
+          %td= l project.start
+          %td= l project.end
           %td= get_project_state(project)
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)

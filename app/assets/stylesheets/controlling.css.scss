@@ -98,11 +98,17 @@ input#entry_day_input {
   clear: left;
 }
 
-/* Adjust size of time entry field */
+/* Adjust size of time entry fields */
 #entry_start,
 #entry_end,
 #entry_duration_hours {
   width: 4em;
+}
+
+/* Adjust size of date entry fields */
+#search_day_lte,
+#search_day_gte {
+  width: 6em;
 }
 
 /* field set with labels */
@@ -232,7 +238,8 @@ table.project_states {
   margin-bottom: 0.3em;
 }
 
-.filter input:last-child {
+/* float the filter button to the right */
+.filter div:last-child input {
   float: right;
 }
 
