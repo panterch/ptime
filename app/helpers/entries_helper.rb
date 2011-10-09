@@ -22,7 +22,16 @@ module EntriesHelper
   end
 
   # Extract information a form select method
-  def to_form_select(projects)
+  def to_form_select(last_projects, all_projects)
+    lp = prepare_projects_for_form_select(last_projects)
+    ap = prepare_projects_for_form_select(all_projects)
+
+    # "Group" the projects. Pretty ugly hack, I know.
+    # Formtastic doesn't support grouping on custom collections.
+    return lp + ["------", nil] + ap
+  end
+
+  def prepare_projects_for_form_select(projects)
     projects.collect do |p|
       [truncate([p.shortname, p.description].join(" - "), :length => 26), p.id]
     end
