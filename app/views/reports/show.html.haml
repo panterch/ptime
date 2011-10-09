@@ -16,10 +16,9 @@
     = f.label :user_id_equals, "User"
     = users_id_equals_select(f)
   #entries_search_button
-    = f.submit "Search", :class => 'main_link'
+    = f.submit "Search"
     = link_to "Download CSV",
-      report_path( { :search => params[:search] }.merge(:format => "csv")),
-      :class => 'main_link'
+      report_path( { :search => params[:search] }.merge(:format => "csv"))
 
 #pagination.center
   = will_paginate @entries
