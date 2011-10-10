@@ -47,7 +47,7 @@ feature "Edit a entry", %q{
       page.find_by_id('entry_end').value.should match '01:55'
       fill_in 'entry_end', :with => '02:00'
       page.execute_script("$('#entry_end').trigger('change');")
-      click_button 'Create Entry'
+      click_button 'Save Entry'
 
       page.find(:css, 'table.entries > tbody > tr > td > a > img').click
       page.find_by_id('entry_duration_hours').value.should match '1:00'
@@ -65,7 +65,7 @@ feature "Edit a entry", %q{
     fill_in 'entry_duration_hours', :with => '04:30'
     page.execute_script("$('#entry_duration_hours').trigger('change');")
     page.find_by_id('entry_start').value.should be_empty
-    click_button 'Create Entry'
+    click_button 'Save Entry'
 
     page.find(:css, 'table.entries > tbody > tr > td > a > img').click
     page.find_by_id('entry_duration_hours').value.should match '4:30'

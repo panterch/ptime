@@ -172,8 +172,8 @@ describe Project do
       # paste_work should now be -200
       entry_one = Factory(:entry, :duration => 90, :project_id => @project.id)
       entry_two = Factory(:entry, :duration => 30, :project_id => @project.id)
-      # rpl * wage = 1 * 100 = 100
-      @project.expected_return.should eq 100
+      # - rpl * wage = 1 * 100 = 100
+      @project.expected_return.should eq -100
     end
 
     it 'calculates the current internal cost' do
@@ -201,8 +201,8 @@ describe Project do
                                  :project_id => @project.id)
         accounting_two = Factory(:accounting, :amount => -200,
                                  :project_id => @project.id)
-        # 100/400 * (200 - (120/60 * 100) + 1*100)
-        @project.expected_profitability.should eq 25.0
+        # - 100/400 * (200 - (120/60 * 100) + 1*100)
+        @project.expected_profitability.should eq -25.0
       end
 
       it 'calculates without cash in' do

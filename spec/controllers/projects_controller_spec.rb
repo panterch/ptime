@@ -72,7 +72,8 @@ describe ProjectsController do
                                      :valuta => '2011-11-01 02:00',
                                      :project_id => @project.id)
           do_get 'valuta'
-          assigns(:accountings).first.id.should eq(third_accounting.id)
+          # accountings are sorted by valuta by default
+          assigns(:accountings).last.id.should eq(third_accounting.id)
         end
 
         it 'by payed flag' do
