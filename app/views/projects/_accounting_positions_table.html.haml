@@ -4,7 +4,7 @@
       %th Description
       %th= sort_link @accountings_search, :amount
       %th= sort_link @accountings_search, :valuta
-      %th Project
+      %th= sort_link @accountings_search, :updated_at
       %th= sort_link @accountings_search, :sent
       %th= sort_link @accountings_search, :payed
       %th Attachments
@@ -21,7 +21,7 @@
       %td= accounting.description
       %td= accounting.amount
       %td= l accounting.valuta
-      %td= link_to accounting.project.shortname, edit_project_path(@project)
+      %td= l accounting.updated_at
       %td= bool_to_img(accounting.sent)
       %td= bool_to_img(accounting.payed)
       %td

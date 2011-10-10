@@ -27,10 +27,11 @@
       %thead
         %tr
           %th= sort_link @search, :shortname, 'Name'
+          %th= sort_link @search, :expected_profitability
           %th= sort_link @search, :start
           %th= sort_link @search, :end
           %th= sort_link @search, :project_state_id
-          %th  Unpaid inv
+          %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"} Overdue amount
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
           %th Edit
@@ -39,10 +40,11 @@
       - @projects.each do |project|
         %tr
           %td= link_to project_description(project), edit_project_path(project)
+          %td= expected_profitability(project)
           %td= l project.start
           %td= l project.end
           %td= get_project_state(project)
-          %td= bool_to_img(project.has_unpaid_invoice?)
+          %td= project.overdue_amount
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)
           %td= link_to (image_tag 'edit.png'), edit_project_path(project)

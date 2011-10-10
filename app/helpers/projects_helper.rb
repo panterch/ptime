@@ -19,8 +19,8 @@ module ProjectsHelper
     truncate(project.shortname + ' - ' + project.description, :length => 40)
   end
 
-  def expected_profitability
-    @project.expected_profitability.round(2).to_s + "%"
+  def expected_profitability(project)
+    project.expected_profitability.round(2).to_s + "%"
   end
 
 end

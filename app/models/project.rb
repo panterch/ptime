@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
     :responsibility_ids, :responsibilities_attributes,
     :external
 
-  default_scope where(:deleted_at => nil)
+  default_scope where(:deleted_at => nil).order("updated_at desc")
 
   scope :active, where(:inactive => false)
 
@@ -103,7 +103,7 @@ class Project < ActiveRecord::Base
   end
 
   def expected_return
-    accountings.sum(:amount) + past_work + (rpl || 0) * wage
+    budget - past_work + external_cost - expected_work
   end
 
   def current_internal_cost
@@ -114,24 +114,29 @@ class Project < ActiveRecord::Base
     accountings.where(:positive => false).sum :amount
   end
 
+  def expected_work
+    (rpl || 0) * wage
+  end
+
+
   def expected_profitability
-    cash_in = accountings.where(:positive => true).sum(:amount)
-    if cash_in != 0
-      100.0 * expected_return / cash_in
+    if budget != 0
+      100.0 * expected_return / budget
     else
       0.0
     end
   end
 
-  def has_unpaid_invoice?
-    accountings.where("valuta <= ?", Time.now).where(:payed => false).empty?
+  def overdue_amount
+    accountings.where("valuta <= ?", Time.now).
+      where(:payed => false, :sent => true, :positive => true).sum :amount
   end
 
 
   private
 
   def past_work
-    - entries.sum(:duration) / 60.0 * wage
+    entries.sum(:duration) / 60.0 * wage
   end
 
   def rpl_or_zero

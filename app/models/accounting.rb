@@ -7,7 +7,7 @@ class Accounting < ActiveRecord::Base
   validates_presence_of :description, :amount, :valuta, :project
   attr_accessible :description, :amount, :valuta, :sent, :payed, :link, :document
 
-  default_scope where(:deleted_at => nil)
+  default_scope where(:deleted_at => nil).order(:valuta)
 
   def save_sign
     self.positive = ( self.amount >= 0 ) ? true : false
