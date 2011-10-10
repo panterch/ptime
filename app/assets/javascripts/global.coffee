@@ -8,4 +8,5 @@ root.addFields = (link, association, content) ->
 
 # Flash notice
 $ ->
-  $('#flash_notice').hide().delay(400).fadeIn(3000)
+  $('#flash_notice').hide().delay(400).fadeIn 3000, () =>
+    $('#flash_notice').delay(1000).fadeOut(300)
