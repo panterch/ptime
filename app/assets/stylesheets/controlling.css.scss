@@ -99,15 +99,13 @@ input#entry_day_input {
 }
 
 /* Adjust size of time entry fields */
-#entry_start,
-#entry_end,
+input.hasTimepicker,
 #entry_duration_hours {
   width: 4em;
 }
 
 /* Adjust size of date entry fields */
-#search_day_lte,
-#search_day_gte {
+input.hasDatepicker {
   width: 6em;
 }
 
