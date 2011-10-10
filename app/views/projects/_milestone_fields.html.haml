@@ -4,6 +4,6 @@
     :size => 12, :maxlength => 12,
     :value => localized_date(milestone_form, :start)
   = milestone_form.check_box :reached
-  reached
+  = milestone_form.label :reached
   = milestone_form.hidden_field :milestone_type_id,
     :value => milestone.milestone_type.id
