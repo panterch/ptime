@@ -3,6 +3,10 @@ class UsersController < InheritedResources::Base
 
   authorize_resource
 
+  def create
+    create! { users_path }
+  end
+
   def show
     redirect_to :action=>:edit
   end
