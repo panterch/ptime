@@ -62,7 +62,6 @@
           = f.check_box :billable
 
       .entry_group
-        .entry_item= f.submit 'Create Entry'
-
+        .entry_item= f.submit @entry.new_record?? 'Create Entry':'Save Entry'
 
 = render 'entries'
