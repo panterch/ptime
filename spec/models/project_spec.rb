@@ -210,6 +210,20 @@ describe Project do
       end
     end
 
+    it 'calculates the overdue amount' do
+      accounting_one = Factory(:accounting, :amount => 400,
+                               :valuta => Time.now.prev_month,
+                               :payed => false,
+                               :sent => true,
+                               :project_id => @project.id)
+      accounting_two = Factory(:accounting, :amount => -200,
+                               :valuta => Time.now.prev_month,
+                               :payed => false,
+                               :sent => true,
+                               :project_id => @project.id)
+      @project.overdue_amount.should eq 400
+    end
+
     def minutes_to_human_readable_time(minutes)
       (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
     end
