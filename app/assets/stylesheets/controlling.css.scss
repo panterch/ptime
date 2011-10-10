@@ -321,3 +321,14 @@ form.project fieldset.buttons {
     margin-left: 0;
   }
 }
+
+
+/* Flash message */
+#flash_notice,
+#flash_alert {
+  background: #333;
+  border: 1px solid black;
+  padding: .5em;
+  color: white;
+  font-weight: bold;
+}
