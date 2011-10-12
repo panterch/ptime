@@ -4,7 +4,6 @@ describe ReportsController do
   include Devise::TestHelpers
 
   before (:each) do
-    Project.delete_all
     task = Factory(:task)
     @user = Factory(:user, :admin => false)
     project = Factory(:project)
