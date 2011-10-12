@@ -33,6 +33,14 @@ describe Project do
     project.errors[:base].should be_present
   end
 
+  it 'should have unique shortname' do
+    project1 = Factory.create(:project, :shortname => 'abc-123')
+    project2 = Factory.build(:project, :shortname => 'abc-123')
+
+    project2.should_not be_valid
+    project2.errors[:shortname].should be_present
+  end
+
   context "Format validation" do
     it "should discard non-conforming shortnames" do
       project = Factory.build(:project, :shortname => "gross_and_wrong_name")

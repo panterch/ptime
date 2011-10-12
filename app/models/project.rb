@@ -18,6 +18,8 @@ class Project < ActiveRecord::Base
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
+  validates_uniqueness_of :shortname
+
   validates_inclusion_of :probability, :in => Project::PROBABILITIES
 
   validate :validates_required_responsibilities

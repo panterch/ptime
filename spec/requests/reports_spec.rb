@@ -7,6 +7,7 @@ feature 'Report for entries', %q{
 } do
 
   scenario 'a CSV line consists required columns' do
+    pending
     entry = Factory(:entry, :day => Time.now)
     log_in
     visit '/report.csv'

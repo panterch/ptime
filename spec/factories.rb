@@ -16,7 +16,7 @@ Factory.define :task do |f|
 end
 
 Factory.define :project do |f|
-  f.shortname 'abc-123'
+  f.sequence(:shortname, 100) { |n| "abc-#{n}" }
   f.description 'An awesome project'
   f.inactive false
   f.association :project_state, :factory => :project_state
