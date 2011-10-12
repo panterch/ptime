@@ -11,8 +11,7 @@ end
 
 
 # Import project states
-project_states = ["offered", "won", "running", "closed", "lost",
-  "closing", "permanent"]
+project_states = ["lead", "offered", "won", "lost", "running", "closing", "closed", "permanent"]
 
 project_states.each do |project_state|
   p = ProjectState.new
