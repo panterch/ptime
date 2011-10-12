@@ -24,12 +24,16 @@ class Project < ActiveRecord::Base
 
   validate :validates_required_responsibilities
 
-  attr_accessible :shortname, :description, :start, :end, :inactive,
+  attr_accessible :shortname, :description, :start, :end, :inactive, :active,
     :state, :task_ids, :tasks_attributes, :project_state_id,
     :project_state_attributes, :probability, :wage, :rpl,
     :milestone_ids, :milestones_attributes,
     :responsibility_ids, :responsibilities_attributes,
     :external
+
+  attr_accessor :active # Virtual field which will update the value of inactive
+
+  before_save :update_inactive
 
   default_scope where(:deleted_at => nil).order("updated_at desc")
 
@@ -134,6 +138,13 @@ class Project < ActiveRecord::Base
       where(:payed => false, :sent => true, :positive => true).sum :amount
   end
 
+  def active
+    @active = !inactive
+  end
+
+  def active=(value)
+    value == "1" ? @active = true : @active = false
+  end
 
   private
 
@@ -157,5 +168,16 @@ class Project < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+  # Used for cases where the checkbox needs to be titled active
+  def update_inactive
+    unless @active.nil?
+      self.inactive = !@active
+      logger.debug("Is model valid: #{valid?}")
+    end
+  end
+
 
 end
