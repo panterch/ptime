@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
   belongs_to :project, :autosave => true
 
-  attr_accessible :name, :estimate, :inactive, :project_id
+  attr_accessible :name, :estimate, :inactive, :project_id, :billable_by_default
 
   # :active scope with optional boolean argument
   scope :active, lambda {

@@ -1,5 +1,7 @@
 %dd.tasks
-  = f.text_field :name
+  = f.text_field :name, :size => 25
   = f.check_box :inactive
   = f.label :inactive
+  = f.check_box :billable_by_default
+  = f.label :billable_by_default
   = f.hidden_field :_destroy

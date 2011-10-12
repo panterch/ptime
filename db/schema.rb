@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012151406) do
+ActiveRecord::Schema.define(:version => 20111012160534) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20111012151406) do
     t.datetime "updated_at"
     t.boolean  "inactive"
     t.datetime "deleted_at"
+    t.boolean  "billable_by_default"
   end
 
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
