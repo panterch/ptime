@@ -8,7 +8,7 @@
     = form.inputs :name => 'Project Properties' do
       = form.input :shortname,
         :input_html => { :size => 7, :maxlength => 7 }
-      = form.input :description
+      = form.input :description, :as => :text, :input_html => { :size => "30x5"}
       = form.input :start, :as => :date_picker,
         :input_html => { :size => 12, :maxlength => 12 }
       = form.input :end, :as => :date_picker,
