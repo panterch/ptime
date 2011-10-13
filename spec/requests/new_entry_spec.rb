@@ -77,6 +77,15 @@ feature "New entry form", %q{
     page.evaluate_script('document.activeElement.id').should eq('entry_description')
   end
 
+  it 'marks the billable checkbox if the task is billable by default', :js => true do
+    pending 'the state of the entry_billable checkbox is not detected properly'
+    task = Factory(:task, :project_id => @project.id, :billable_by_default => true)
+    select @project.shortname, :from => 'entry_project_id'
+    select 'First task', :from => 'entry_task_id'
+    page.execute_script("$('#entry_task_id').trigger('change');")
+    find('#entry_billable')['checked'].should be_true
+  end
+
   context 'invalid entry' do
     it 'fills duration input field with its submitted value', :js => true do
       choose 'time_capture_method_duration'

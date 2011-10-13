@@ -11,5 +11,6 @@
 //= require jquery.ui.timepicker
 //= require superfish
 //= require toggle_box
+//= require tasks
 //= require global
 //= require_tree .
