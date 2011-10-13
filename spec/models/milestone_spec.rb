@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Milestone do
-  it 'initlialized correctly' do
+  it 'initialized correctly' do
     Milestone.new.should_not be_nil
   end
 
