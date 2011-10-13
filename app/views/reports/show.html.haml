@@ -21,7 +21,6 @@
     = f.submit 'search'
 
 #pagination.center
-  // = will_paginate @entries
 
 .box.grid_12
   %h2=link_to 'Report', '#', :class => 'toggle-box'
@@ -42,7 +41,7 @@
           %td Total
           %td= @total_time
 
-      - @entries.each do |entry|
+      - @report.each do |entry|
         %tr
           %td= l entry.day
           %td= entry.duration_hours
