@@ -19,8 +19,8 @@ class ReportsController < ApplicationController
         @report = Entry.where(:user_id => user_ids).search(search_params)
 
         @active_projects = Project.active
-        @entries = @report.paginate(:per_page => 15,
-                                    :page => params[:page])
+        @entries = @report #.paginate(:per_page => 15, :page => params[:page])
+
         duration = @report.all.sum(&:duration)
         @total_time = convert_minutes_to_hh_mm(duration)
       end
