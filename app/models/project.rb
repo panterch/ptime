@@ -24,6 +24,8 @@ class Project < ActiveRecord::Base
 
   validate :validates_required_responsibilities
 
+  validate :validates_probability_constraints
+
   attr_accessible :shortname, :description, :start, :end, :inactive, :active,
     :state, :task_ids, :tasks_attributes, :project_state_id,
     :project_state_attributes, :probability, :wage, :rpl,
@@ -167,6 +169,45 @@ class Project < ActiveRecord::Base
                    "Needs a #{r.responsibility_type.name} responsibility")
       end
     end
+  end
+
+  # TODO: This needs to be refactored
+  def validates_probability_constraints
+    if (project_state.name == 'lead') && (probability >= 1)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
+    if (project_state.name == 'offered') && (probability >= 1)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
+    if (project_state.name == 'won') && (probability < 1)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
+    if (project_state.name == 'running') && (probability < 1)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
+    if (project_state.name == 'lost') && (probability > 0)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
+    if (project_state.name == 'closing') && (probability < 1)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
+    if (project_state.name == 'lead') && (probability < 1)
+      errors.add(:base,
+                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+    end
+
   end
 
   private

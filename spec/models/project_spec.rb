@@ -236,4 +236,30 @@ describe Project do
       (minutes / 60).to_s + ":" + "%02i" % (minutes % 60).to_s
     end
   end
+
+  context "probability constraints" do
+    before(:each) do
+      @project = Factory.build(:project)
+    end
+
+    context "for the lead state" do
+      before(:each) do
+        @project.project_state = Factory.create(:project_state, :name => 'lead')
+      end
+
+      it 'should allow probability less than 100%' do
+        @project.probability = 0.6
+
+        @project.should be_valid
+      end
+
+      it "should not allow probability equal to 100%" do
+        @project.probability = 1
+
+        @project.should_not be_valid
+        @project.errors[:base].should be_present
+      end
+    end
+  end
+
 end
