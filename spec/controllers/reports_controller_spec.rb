@@ -157,10 +157,6 @@ describe ReportsController do
       assigns(:report).relation.should_not be_empty
     end
 
-    it 'assigns paginated entries' do
-      assigns(:entries).class.should eq(WillPaginate::Collection)
-    end
-
     it 'assigns a total_time for entries of 2:00 hours' do
       assigns(:total_time).should eq("2:00")
     end
