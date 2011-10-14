@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   default_scope where(:deleted_at => nil)
 
+  scope :ordered, order('username')
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :username, :admin

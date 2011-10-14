@@ -30,7 +30,7 @@ class UsersController < InheritedResources::Base
     @user=User.find(params[:id])
     method = params[:user][:password] ? :update_with_password : :update_attributes
     if @user.send(method, params[:user])
-      redirect_to users_url, :notice => 'User ' + @user.username + 
+      redirect_to users_url, :notice => 'User ' + @user.username +
         ' updated successfully'
     else
       render :edit
@@ -75,6 +75,6 @@ class UsersController < InheritedResources::Base
   end
 
   def collection
-    @users ||= end_of_association_chain.order(sort_column + " " + sort_direction)
+    @users ||= end_of_association_chain.unscoped.order(sort_column + " " + sort_direction)
   end
 end
