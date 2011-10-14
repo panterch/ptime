@@ -38,6 +38,28 @@ feature "Edit user as admin and as user", %q{
     page.should have_css '.inline-errors'
   end
 
+  scenario "edit external flag as admin" do
+    # Given
+    user = Factory.create(:user, :username => 'freelancer')
+    log_in :admin => true
+
+    # When
+    visit '/'
+    click_link 'Users'
+    within "#user_#{user.id}" do
+      click_link "Edit"
+    end
+    check 'External'
+    click_button "Update User"
+
+    within "#user_#{user.id}" do
+      click_link "Edit"
+    end
+
+    # Then
+    find('#user_external')["checked"].should == true
+  end
+
   scenario "edit email-address as normal user" do
     log_in
     visit '/'
