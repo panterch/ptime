@@ -54,13 +54,18 @@ ActiveRecord::Schema.define(:version => 20111014120720) do
   end
 
   create_table "milestones", :force => true do |t|
-    t.integer  "project_id",                           :null => false
-    t.integer  "milestone_type_id",                    :null => false
-    t.boolean  "reached",           :default => false
+    t.integer  "project_id",                               :null => false
+    t.integer  "milestone_type_id",                        :null => false
+    t.boolean  "reached",               :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.datetime "start"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.string   "document_file_size"
+    t.string   "document_updated_at"
+    t.string   "url"
   end
 
   create_table "posts", :force => true do |t|

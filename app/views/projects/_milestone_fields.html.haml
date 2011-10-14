@@ -7,3 +7,16 @@
   = milestone_form.label :reached
   = milestone_form.hidden_field :milestone_type_id,
     :value => milestone.milestone_type.id
+%dd
+  = milestone_form.label :url
+  = milestone_form.text_field :url
+
+%dd
+  = milestone_form.label :document
+  - if milestone.document.present?
+    = link_to milestone.document.url, milestone.document.url
+    = link_to "remove", '#'
+  - else
+    = milestone_form.file_field :document
+
+
