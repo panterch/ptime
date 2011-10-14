@@ -207,6 +207,7 @@ describe ProjectsController do
           project_state = Factory(:project_state, :name => 'won')
           project_state.id.should_not eq(@project.project_state_id)
           second_project = Factory(:project, :inactive => true,
+                                   :probability => 1,
                                    :project_state_id => project_state.id)
           get :index,
             :search => { :project_state_id_equals => @project.project_state_id }

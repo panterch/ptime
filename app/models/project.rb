@@ -173,41 +173,42 @@ class Project < ActiveRecord::Base
 
   # TODO: This needs to be refactored
   def validates_probability_constraints
-    if (project_state.name == 'lead') && (probability >= 1)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
-    end
+    if project_state
+      if (project_state.name == 'lead') && (probability >= 1.0)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
 
-    if (project_state.name == 'offered') && (probability >= 1)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
-    end
+      if (project_state.name == 'offered') && (probability >= 1)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
 
-    if (project_state.name == 'won') && (probability < 1)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
-    end
+      if (project_state.name == 'won') && (probability < 1)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
 
-    if (project_state.name == 'running') && (probability < 1)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
-    end
+      if (project_state.name == 'running') && (probability < 1)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
 
-    if (project_state.name == 'lost') && (probability > 0)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
-    end
+      if (project_state.name == 'lost') && (probability > 0)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
 
-    if (project_state.name == 'closing') && (probability < 1)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
-    end
+      if (project_state.name == 'closing') && (probability < 1)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
 
-    if (project_state.name == 'lead') && (probability < 1)
-      errors.add(:base,
-                 "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      if (project_state.name == 'permanent') && (probability < 1)
+        errors.add(:base,
+                   "Probability of #{probability} is not allowed for the project state #{project_state.name}")
+      end
     end
-
   end
 
   private
