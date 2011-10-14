@@ -21,13 +21,20 @@ $ ->
     else
       field.attr('disabled', true)
 
-  # Initialize the time input method by disabling the duration field by
-  # default
-  entry.toggleDisable($('#entry_duration_hours'))
+  # Save the chosen method in a cookie
+  entry.saveInputTimeMethod = (field) ->
+    $.cookie('savedMethod' : field.val())
 
-  # If the previous time capture method was 'duration', toggle again
-  if $('input[name=time_capture_method]:checked').val() is 'duration'
-    entry.toggleTimeInputMethod()
+  # Initialize by checking if cookie for entry method is present
+  # otherwise just disable the duration field by default
+  savedMethod = $.cookie('savedMethod')
+  if savedMethod == 'duration'
+    $('#entry_start').attr('disabled', true)
+    $('#entry_end').attr('disabled', true)
+    $('input[name=time_capture_method]').attr('checked', true)
+  else
+    entry.toggleDisable($('#entry_duration_hours'))
+
 
   # If the duration field contains values and start/end don't, activate it
   if $('#entry_duration_hours').val() isnt '' and
@@ -41,6 +48,7 @@ $ ->
   #  * the duration field
   #  * the start -and end time picker fields
   $('input[name=time_capture_method]').click ->
+    entry.saveInputTimeMethod($(this))
     entry.toggleTimeInputMethod()
 
   # Reload entry form for chosen date
@@ -72,7 +80,6 @@ $ ->
   $('#entry_duration_hours').change ->
     $('#entry_start').val('')
     $('#entry_end').val('')
-
 
   # Fetch associated tasks for a given project in entry form
   entry.fetchAssociatedTasks = ->
