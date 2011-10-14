@@ -1,0 +1,4 @@
+.grid_12.box.entries
+  %h2= link_to "Entries", '#', :class => 'toggle-box'
+  %div
+    = render 'entries/entries_table', :entries => @project.entries

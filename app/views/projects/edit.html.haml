@@ -21,6 +21,10 @@
   = render :partial => 'organization_table'
 
 %h2.grid_12
+- if @project.entries.present?
+  = render 'entries'
+
+%h2.grid_12
 - unless @accountings.nil?
   = render :partial => 'accounting_positions'
 
