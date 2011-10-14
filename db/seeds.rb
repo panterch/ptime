@@ -36,12 +36,20 @@ responsibilities = ResponsibilityType.all.map { |r|
 project_states_count = ProjectState.all.count
 (1..10).each do |num|
   rnd_project_state = ProjectState.all[rand(project_states_count)]
+
+  # Set different probability to respect probability constraints
+  probability = 0
+  if ["won", "running", "closing", "permanent"].include? rnd_project_state.name
+    probability = 1
+  end
+
   Project.create!(:shortname => "prj-%03d" % num,
                   :description => "description #{num}",
                   :inactive => [true,false].shuffle.shift,
                   :project_state_id => rnd_project_state.id,
                   :start => Date.today,
                   :end => Date.today,
+                  :probability => probability,
                   :responsibilities_attributes => responsibilities) do
     (1..10).each do |project_id|
       Task.create!(:name => "task_#{num}", :project_id => project_id)
