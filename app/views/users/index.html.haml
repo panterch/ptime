@@ -8,6 +8,7 @@
         %tr
           %th=sortable "username"
           %th=sortable "email"
+          %th External
           %th Active
           %th Edit
           %th Delete
@@ -16,6 +17,7 @@
         %tr{ :id => "user_#{user.id}"}
           %td= link_to user.username, edit_resource_path(user)
           %td= user.email
+          %td= bool_to_img(user.external)
           %td= bool_to_img(user.active)
           %td= link_to (image_tag 'edit.png'), edit_user_path(user)
           %td= link_to (image_tag 'delete.png'),
