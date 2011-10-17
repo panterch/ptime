@@ -31,7 +31,7 @@ class Project < ActiveRecord::Base
     :project_state_attributes, :probability, :wage, :rpl,
     :milestone_ids, :milestones_attributes,
     :responsibility_ids, :responsibilities_attributes,
-    :external
+    :external, :note
 
   attr_accessor :active # Virtual field which will update the value of inactive
 
