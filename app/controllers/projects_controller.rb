@@ -8,6 +8,11 @@ class ProjectsController < ApplicationController
 
   def index
     @search = Project.search(params[:search])
+
+    # Preset inactive and external by default
+    @search.inactive_is_false = true unless params[:search]
+    @search.external_is_true = true unless params[:search]
+
     @projects = @search.all
   end
 
