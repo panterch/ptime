@@ -8,6 +8,7 @@
     - unless current_user.admin? && @user.id!=current_user.id
       = form.input :current_password
     - if current_user.admin?
+      = form.input :active
       = form.input :external
       = form.input :admin
     = form.commit_button
