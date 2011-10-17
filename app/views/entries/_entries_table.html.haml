@@ -1,7 +1,7 @@
 %table.entries
   %thead
     %tr
-      %th Project
+      %th Entry date
       %th Task
       %th Description
       %th Duration
@@ -18,7 +18,7 @@
 
   - entries.each do |entry|
     %tr
-      %td= link_to entry_project_description(entry), edit_project_path(entry.project)
+      %td= l entry.created_at
       %td= entry.task.name if entry.task
       %td= entry.description
       %td= entry.duration_hours

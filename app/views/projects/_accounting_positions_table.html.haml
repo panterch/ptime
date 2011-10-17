@@ -8,7 +8,6 @@
       %th= sort_link @accountings_search, :sent
       %th= sort_link @accountings_search, :payed
       %th Attachments
-      %th Edit
       %th Delete
   %tfoot
     %tr
@@ -18,7 +17,9 @@
 
   - @accountings.each do |accounting|
     %tr
-      %td= accounting.description
+      %td= link_to accounting.description,
+        edit_project_accounting_path(@project, accounting),
+        :rel => 'facebox'
       %td= accounting.amount
       %td= l accounting.valuta
       %td= l accounting.updated_at
@@ -29,8 +30,5 @@
           = link_to (image_tag 'link.png'), accounting.link
         - unless accounting.document_file_name.nil?
           = link_to (image_tag 'document.png'), accounting.document.url
-      %td= link_to (image_tag 'edit.png'),
-        edit_project_accounting_path(@project, accounting),
-        :rel => 'facebox'
       %td= link_to (image_tag 'delete.png'),
         project_accounting_path(@project, accounting), :method => :delete

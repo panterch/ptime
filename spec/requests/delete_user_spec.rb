@@ -25,7 +25,7 @@ feature "Delete user as admin", %q{
       click_link "Delete"
     end
 
-    page.should have_content "user2"
+    page.should_not have_content "user2"
   end
 
 end
