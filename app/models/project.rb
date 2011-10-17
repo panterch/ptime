@@ -41,6 +41,10 @@ class Project < ActiveRecord::Base
 
   scope :active, where(:inactive => false)
 
+  # Scopes needed for 'meta_search'
+#  scope :sort_by_overdue_amount_asc, all.sort_by { |p| p.overdue_amount }
+  #scope :sort_by_overdue_amount_desc
+
   def set_default_tasks
     APP_CONFIG['default_tasks'].each do |task_name|
       self.tasks.build(:name => task_name)
@@ -138,6 +142,10 @@ class Project < ActiveRecord::Base
   def overdue_amount
     accountings.where("valuta <= ?", Time.now).
       where(:payed => false, :sent => true, :positive => true).sum :amount
+  end
+
+  def volume
+    accountings.where(:positive => true).sum :amount
   end
 
   def active

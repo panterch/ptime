@@ -31,11 +31,11 @@
           %th= sort_link @search, :start
           %th= sort_link @search, :end
           %th= sort_link @search, :project_state_id
-          %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"} Overdue amount
+          %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"}= sort_link @search, :overdue_amount,  'Overdue amount'
+          %th= sort_link @search, :probability
+          %th= sort_link @search, :volume
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
-          %th Edit
-          %th Delete
 
       - @projects.each do |project|
         %tr
@@ -45,7 +45,7 @@
           %td= l project.end
           %td= get_project_state(project)
           %td= project.overdue_amount
+          %td= "#{project.probability * 100} %"
+          %td= project.volume
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)
-          %td= link_to (image_tag 'edit.png'), edit_project_path(project)
-          %td= link_to (image_tag 'delete.png'), project_path(project), :method => :delete
