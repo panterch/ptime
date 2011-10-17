@@ -48,6 +48,10 @@ class ProjectsController < ApplicationController
     @accountings_search = @project.accountings.search(params[:search])
     @accountings = @accountings_search.all
     @accountings_sum = @accountings_search.sum(:amount)
+
+    # Calculate the total time for entries
+    duration = @project.entries.map(&:duration).sum
+    @total_time = convert_minutes_to_hh_mm(duration)
   end
 
   def destroy
