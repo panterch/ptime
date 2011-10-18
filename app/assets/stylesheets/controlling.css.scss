@@ -316,6 +316,18 @@ dd.tasks {
   margin: 0.5em;
 }
 
+.responsibilities_entry {
+  overflow: hidden
+}
+
+dt.responsibilities {
+  float: left;
+}
+
+dd.responsibilities {
+  float: left;
+}
+
 /* submit button */
 form.project fieldset.buttons {
   ol {
