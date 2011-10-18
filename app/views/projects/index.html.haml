@@ -33,7 +33,7 @@
           %th= sort_link @search, :project_state_id
           %th= sort_link @search, :expected_profitability, "Exp. Profitability"
           %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"}= sort_link @search, :overdue_amount,  'Overdue amount'
-          %th= sort_link @search, :volume, 'Volume'
+          %th= sort_link @search, :volume, 'Revenue'
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
 
