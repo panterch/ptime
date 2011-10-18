@@ -69,7 +69,7 @@ class EntriesController < ApplicationController
     @tasks_by_project = Hash.new
     Project.active.each do |p|
       @tasks_by_project[p.id] = p.tasks.map do |t|
-        { :id => t.id, :name => t.name }
+        { :id => t.id, :name => t.name, :billable => t.billable_by_default }
       end
     end
   end
