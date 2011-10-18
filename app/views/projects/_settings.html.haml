@@ -18,7 +18,7 @@
       = form.input :probability, :as => :select,
         :collection => @project_probabilities, :include_blank => false
       = form.input :wage, :input_html => { :size => 5 }
-      = form.input :rpl, :input_html => { :size => 5 }
+      = form.input :rpl, :label => "To burn" ,:input_html => { :size => 5 }
       = form.input :external
       = form.input :active, :as => :boolean
 

@@ -14,7 +14,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :responsibilities
 
   validates_presence_of :shortname, :description, :start, :end,
-    :project_state, :wage
+    :project_state
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
