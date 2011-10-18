@@ -11,6 +11,8 @@ class Task < ActiveRecord::Base
 
   default_scope where(:deleted_at => nil)
 
+  scope :active, where(:active => true)
+
   scope :with_project_id, lambda { |id| where(:project_id => id) }
 
   def destroy_with_mark

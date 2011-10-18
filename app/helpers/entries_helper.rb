@@ -8,7 +8,7 @@ module EntriesHelper
 
   def tasks_collection
     return []  unless @entry.project
-    @entry.project.tasks.collect { |t| [t.name, t.id] }
+    @entry.project.tasks.active.collect { |t| [t.name, t.id] }
   end
 
   def get_tasks_by_projects

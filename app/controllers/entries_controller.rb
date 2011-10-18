@@ -68,7 +68,7 @@ class EntriesController < ApplicationController
     # Prefetch all tasks and group them by projects
     @tasks_by_project = Hash.new
     Project.active.each do |p|
-      @tasks_by_project[p.id] = p.tasks.map do |t|
+      @tasks_by_project[p.id] = p.tasks.active.map do |t|
         { :id => t.id, :name => t.name, :billable => t.billable_by_default }
       end
     end
