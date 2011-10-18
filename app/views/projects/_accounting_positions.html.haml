@@ -2,16 +2,16 @@
   :html => {:method => :get, :class => 'grid_12 filter'} do |f|
   .grid_2.alpha
     = f.check_box :sent_is_true
-    = f.label :sent_is_true, 'sent entries'
+    = f.label :sent_is_true, 'sent'
   .grid_2
     = f.check_box :payed_is_true
-    = f.label :payed_is_true, 'payed entries'
+    = f.label :payed_is_true, 'payed'
   .grid_2
     = f.check_box :positive_is_true
-    = f.label :positive_is_true, 'cash-in entries'
+    = f.label :positive_is_true, 'cash-in'
   .grid_2
     = f.check_box :positive_is_false
-    = f.label :positive_is_false, 'cash-out entries'
+    = f.label :positive_is_false, 'cash-out'
   .grid_4.omega= f.submit 'filter'
 
 .box.grid_12
