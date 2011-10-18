@@ -48,7 +48,7 @@
           %td= entry.user.username
           %td= entry.project.shortname
           %td= entry.task.name
-          %td= entry.description
+          %td= truncate(entry.description, :length => 60)
           %td= bool_to_img(entry.billable)
           %td= display_edit_link(entry)
 

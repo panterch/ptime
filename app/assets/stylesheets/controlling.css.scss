@@ -1,6 +1,7 @@
 header {
   background: #AAA;
   h1 {
+    font-size: 20px;
     padding: 0.7em 1em;
     margin-bottom: 0;
   }
@@ -83,6 +84,11 @@ input#tasks_collection_storage,
 input#entry_day_input {
   display: none;
   width: 1px;
+}
+
+.chzn-single span {
+  font-weight: normal;
+  font-size: 12px;
 }
 
 /* Show labels above input fields */
