@@ -26,7 +26,7 @@ class EntriesController < ApplicationController
     @entry.day = params[:day] ? Date.parse(params[:day]) : Date.today
 
     # Determine the most recent entry for pre-selection
-    last_entry = current_user.entries.order('updated_at DESC').first
+    last_entry = current_user.entries.order('entries.updated_at DESC').first
     if last_entry
       @entry.project = last_entry.project
       @entry.task = last_entry.task

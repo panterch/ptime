@@ -37,7 +37,7 @@ class Project < ActiveRecord::Base
 
   before_save :update_inactive
 
-  default_scope where(:deleted_at => nil).order("updated_at desc")
+  default_scope where(:deleted_at => nil).order("projects.updated_at desc")
 
   scope :active, where(:inactive => false)
 
