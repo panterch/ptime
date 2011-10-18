@@ -29,25 +29,27 @@
       %thead
         %tr
           %th= sort_link @report, :day
-          %th= sort_link @report, :duration, "Hours"
-          %th= sort_link @report, :user_id
           %th= sort_link @report, :project_id
           %th= sort_link @report, :task_id
+          %th= sort_link @report, :duration, "Hours"
+          %th= sort_link @report, :user_id
           %th= sort_link @report, :description
           %th= sort_link @report, :billable, "Bill"
           %th Edit
       %tfoot
         %tr
+          %td
+          %td
           %td Total
           %td= @total_time
 
       - @report.each do |entry|
         %tr
           %td= l entry.day
-          %td= entry.duration_hours
-          %td= entry.user.username
           %td= entry.project.shortname
           %td= entry.task.name
+          %td= entry.duration_hours
+          %td= entry.user.username
           %td= truncate(entry.description, :length => 60)
           %td= bool_to_img(entry.billable)
           %td= display_edit_link(entry)
