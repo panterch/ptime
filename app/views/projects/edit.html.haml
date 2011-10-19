@@ -21,12 +21,12 @@
   = render :partial => 'organization_table'
 
 %h2.grid_12
-- if @project.entries.present?
-  = render 'entries'
+= render 'form'
 
 %h2.grid_12
 - unless @accountings.nil?
   = render :partial => 'accounting_positions'
 
 %h2.grid_12
-= render 'form_collapsed'
+- if @project.entries.present?
+  = render 'entries'

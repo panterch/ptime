@@ -102,3 +102,36 @@ $ ->
   # Focus next field on input after choosing a task
   $('#entry_task_id').click ->
     $('#entry_description').focus()
+
+  # Method for fetching the billable value of the task by it's ID
+  entry.getBillableFor = (taskID) ->
+    project_id = $('select#entry_project_id :selected').val()
+    tasks_from_projects = $.parseJSON($('#tasks_collection_storage').val())
+    for i, item of tasks_from_projects[project_id]
+      if parseInt(item.id) is parseInt(taskID)
+        return item.billable
+
+  entry.updateBillable = (taskID) ->
+    billable = entry.getBillableFor(taskID)
+    if billable is true
+      $('#entry_billable').attr('checked', true)
+    else
+      $('#entry_billable').attr('checked', false)
+
+  # Update billable checkbox on start
+  taskID = $("#entry_task_id option:selected").val()
+  entry.updateBillable(taskID)
+
+  # Update billable checkbox for chosen task whenever task or project
+  # drop down box value changes
+  $('#entry_task_id, #entry_project_id').live "change", ->
+    taskID = $("#entry_task_id option:selected").val()
+    entry.updateBillable(taskID)
+
+
+
+
+
+
+
+

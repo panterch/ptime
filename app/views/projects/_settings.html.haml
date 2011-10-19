@@ -8,7 +8,7 @@
     = form.inputs :name => 'Project Properties' do
       = form.input :shortname,
         :input_html => { :size => 7, :maxlength => 7 }
-      = form.input :description, :as => :text, :input_html => { :size => "30x5"}
+      = form.input :description, :as => :text, :input_html => { :size => "50x5"}
       = form.input :start, :as => :date_picker,
         :input_html => { :size => 12, :maxlength => 12 }
       = form.input :end, :as => :date_picker,
@@ -17,8 +17,8 @@
         :collection => @project_states
       = form.input :probability, :as => :select,
         :collection => @project_probabilities, :include_blank => false
-      = form.input :wage, :input_html => { :size => 5 }
-      = form.input :rpl, :input_html => { :size => 5 }
+      = form.input :wage, :label => 'Internal hourly rate', :input_html => { :size => 5 }
+      = form.input :rpl, :label => "To burn" ,:input_html => { :size => 5 }
       = form.input :external
       = form.input :active, :as => :boolean
 
@@ -58,6 +58,12 @@
         .button_link
           = link_to_add_fields 'Add task', form,
             :tasks, "$('dd.tasks:last')"
+
+  .grid_12.alpha.omega
+    %fieldset
+      %legend Comments
+      %dl
+        = form.text_area :note, :size => '100x15'
 
   .grid_12.alpha.omega
     = form.buttons do

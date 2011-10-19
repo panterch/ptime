@@ -8,7 +8,7 @@ module EntriesHelper
 
   def tasks_collection
     return []  unless @entry.project
-    @entry.project.tasks.collect { |t| [t.name, t.id] }
+    @entry.project.tasks.active.collect { |t| [t.name, t.id] }
   end
 
   def get_tasks_by_projects
@@ -32,7 +32,7 @@ module EntriesHelper
   def grouped_project_select(projects, f)
 
     # Get the projects from the last month that entries were created for
-    project_ids = current_user.entries.where("updated_at >= ?", 1.month.ago).collect { |e| e.project.id }
+    project_ids = current_user.entries.where("entries.updated_at >= ?", 1.month.ago).collect { |e| e.project.id }
     # Calculate the frequency of each project_id ( i.e. {1=>3, 3=>1} )
     frequency = project_ids.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
     # Get the four most frequently used projects

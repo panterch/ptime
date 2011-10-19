@@ -26,7 +26,7 @@ class EntriesController < ApplicationController
     @entry.day = params[:day] ? Date.parse(params[:day]) : Date.today
 
     # Determine the most recent entry for pre-selection
-    last_entry = current_user.entries.order('updated_at DESC').first
+    last_entry = current_user.entries.order('entries.updated_at DESC').first
     if last_entry
       @entry.project = last_entry.project
       @entry.task = last_entry.task
@@ -68,8 +68,8 @@ class EntriesController < ApplicationController
     # Prefetch all tasks and group them by projects
     @tasks_by_project = Hash.new
     Project.active.each do |p|
-      @tasks_by_project[p.id] = p.tasks.map do |t|
-        { :id => t.id, :name => t.name }
+      @tasks_by_project[p.id] = p.tasks.active.map do |t|
+        { :id => t.id, :name => t.name, :billable => t.billable_by_default }
       end
     end
   end

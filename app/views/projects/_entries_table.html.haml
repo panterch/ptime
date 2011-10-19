@@ -1,0 +1,27 @@
+%table.entries
+  %thead
+    %tr
+      %th Entry date
+      %th Task
+      %th Description
+      %th Duration
+      %th Edit
+      %th Delete
+  %tfoot
+    %tr
+      %td Total time
+      %td
+      %td
+      %td= @total_time
+      %td
+      %td
+
+  - entries.each do |entry|
+    %tr
+      %td= l entry.created_at
+      %td= entry.task.name if entry.task
+      %td= truncate(entry.description, :length => 60)
+      %td= entry.duration_hours
+      %td= link_to (image_tag 'edit.png'), edit_entry_path(entry)
+      %td= link_to (image_tag 'delete.png'), entry_path(entry),
+        :method => :delete

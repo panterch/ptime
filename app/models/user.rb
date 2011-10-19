@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :username, :admin, :external
+                  :username, :admin, :external, :active
 
   def destroy_with_mark
     User.transaction do

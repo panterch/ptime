@@ -75,6 +75,6 @@ class UsersController < InheritedResources::Base
   end
 
   def collection
-    @users ||= end_of_association_chain.unscoped.order(sort_column + " " + sort_direction)
+    @users ||= end_of_association_chain.order(sort_column + " " + sort_direction)
   end
 end

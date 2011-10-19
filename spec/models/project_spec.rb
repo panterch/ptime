@@ -6,62 +6,7 @@ describe Project do
     Project.new.should_not be_nil
   end
 
-  it "should allow mass assignement for title and body" do
-    project = Project.new(:shortname => 'title', :description => 'body')
-    project.shortname.should be_present
-    project.description.should be_present
-  end
-
-  it "should require project_state" do
-    project = Factory.build(:project, :project_state => nil)
-    project.should_not be_valid
-    project.errors[:project_state].should be_present
-  end
-
-  it 'should require an hourly wage' do
-    project = Factory.build(:project, :wage => nil)
-    project.should_not be_valid
-    project.errors[:wage].should be_present
-  end
-
-  it 'should require a required responsibility' do
-    res = Factory.create(:required_responsibility_type)
-    project = Factory.build(:project, :responsibilities =>
-                            [Factory.build(:required_responsibility,
-                                           :user_id => nil)])
-    project.should_not be_valid
-    project.errors[:base].should be_present
-  end
-
-  it 'should have unique shortname' do
-    project1 = Factory.create(:project, :shortname => 'abc-123')
-    project2 = Factory.build(:project, :shortname => 'abc-123')
-
-    project2.should_not be_valid
-    project2.errors[:shortname].should be_present
-  end
-
-  context "Format validation" do
-    it "should discard non-conforming shortnames" do
-      project = Factory.build(:project, :shortname => "gross_and_wrong_name")
-      project.should_not be_valid
-      project.errors[:shortname].should be_present
-    end
-
-    it "should accept conforming shortnames" do
-      project =  Factory.build(:project, :shortname => "abc-123")
-      project.should be_valid
-      project.errors[:shortname].should be_empty
-    end
-
-    it 'should discard non-conforming probability values' do
-      project = Factory.build(:project, :probability => '-15')
-      project.should_not be_valid
-      project.errors[:probability].should be_present
-    end
-  end
-
-  context "Mass assignment" do
+  context "mass assignment" do
     before(:each) do
       @project = Factory(:project)
     end
@@ -83,6 +28,71 @@ describe Project do
       rescue ActiveRecord::RecordNotFound => e
         e.message.should match /Couldn't find Task with id.*/
       end
+    end
+
+    it "should allow mass assignement for title and body" do
+      project = Project.new(:shortname => 'title', :description => 'body')
+      project.shortname.should be_present
+      project.description.should be_present
+    end
+
+    it "should allow mass assignment for project" do
+      project = Project.new(:shortname => 'title', :description => 'body', :note => "note" )
+
+      project.note.should be_present
+    end
+
+  end
+
+  context "validations" do
+    it "should require project_state" do
+      project = Factory.build(:project, :project_state => nil)
+      project.should_not be_valid
+      project.errors[:project_state].should be_present
+    end
+
+    it 'should require an hourly wage' do
+      project = Factory.build(:project, :wage => nil)
+      project.should_not be_valid
+      project.errors[:wage].should be_present
+    end
+
+    it 'should require a required responsibility' do
+      res = Factory.create(:required_responsibility_type)
+      project = Factory.build(:project, :responsibilities =>
+                              [Factory.build(:required_responsibility,
+                                             :user_id => nil)])
+      project.should_not be_valid
+      project.errors[:base].should be_present
+    end
+
+    it 'should have unique shortname' do
+      project1 = Factory.create(:project, :shortname => 'abc-123')
+      project2 = Factory.build(:project, :shortname => 'abc-123')
+
+      project2.should_not be_valid
+      project2.errors[:shortname].should be_present
+    end
+
+  end
+
+  context "Format validation" do
+    it "should discard non-conforming shortnames" do
+      project = Factory.build(:project, :shortname => "gross_and_wrong_name")
+      project.should_not be_valid
+      project.errors[:shortname].should be_present
+    end
+
+    it "should accept conforming shortnames" do
+      project =  Factory.build(:project, :shortname => "abc-123")
+      project.should be_valid
+      project.errors[:shortname].should be_empty
+    end
+
+    it 'should discard non-conforming probability values' do
+      project = Factory.build(:project, :probability => '-15')
+      project.should_not be_valid
+      project.errors[:probability].should be_present
     end
   end
 

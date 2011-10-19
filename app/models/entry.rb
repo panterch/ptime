@@ -15,7 +15,11 @@ class Entry < ActiveRecord::Base
   attr_accessible :day, :description, :start, :end, :task_id, :project_id,
     :user_id, :billable, :duration_hours
 
-  default_scope where(:deleted_at => nil)
+
+  scope :internal, includes('user').where('users.external = ? or users.external IS ?', false, nil)
+
+  default_scope where('entries.deleted_at IS NULL')
+
 
   # Incoming format HH:MM -> Save as minutes
   def duration_hours=(duration_hours)

@@ -1,6 +1,7 @@
 header {
   background: #AAA;
   h1 {
+    font-size: 20px;
     padding: 0.7em 1em;
     margin-bottom: 0;
   }
@@ -67,10 +68,36 @@ a {
   }
 }
 
+.entry_container {
+  width: 740px;
+  margin-right: 5px;
+
+  #entry_description {
+    width: 270px
+  }
+}
+
+.ui-datepicker-title {
+  font-weight: normal
+}
+
+table.ui-datepicker-calendar {
+  th {
+    span {
+      font-weight: normal;
+    }
+  }
+}
+
 input#tasks_collection_storage,
 input#entry_day_input {
   display: none;
   width: 1px;
+}
+
+.chzn-single span {
+  font-weight: normal;
+  font-size: 12px;
 }
 
 /* Show labels above input fields */
@@ -96,6 +123,8 @@ input#entry_day_input {
 
 .entry_group {
   clear: left;
+  margin-bottom: 15px;
+  overflow: hidden
 }
 
 /* Adjust size of time entry fields */
@@ -262,10 +291,10 @@ div.button_link {
   float: right;
   padding: .3em;
   margin: .5em;
-  border: 1px solid gray;
-  background: silver;
-  color: black;
-  border-radius: 5px;
+  // border: 1px solid gray;
+  // background: silver;
+  // color: black;
+  // border-radius: 5px;
 }
 
 /* Formtastic */
@@ -291,6 +320,12 @@ div.button_link {
 
 
 /* Project settings */
+.milestone {
+  border: 1px solid #999;
+  padding: 5px;
+  margin-bottom: 5px
+}
+
 dt.responsibilities,
 dt.milestones {
   width: 25%;
@@ -310,6 +345,18 @@ dd.tasks {
   margin: 0.5em;
 }
 
+.responsibilities_entry {
+  overflow: hidden
+}
+
+dt.responsibilities {
+  float: left;
+}
+
+dd.responsibilities {
+  float: left;
+}
+
 /* submit button */
 form.project fieldset.buttons {
   ol {
@@ -324,9 +371,9 @@ form.project fieldset.buttons {
 /* Flash message */
 #flash_notice,
 #flash_alert {
-  background: #333;
+  background: #ff3333;
   border: 1px solid #E9E9E9;
   padding: .5em;
-  color: #E9E9E9;
+  color: #000;
   font-weight: bold;
 }

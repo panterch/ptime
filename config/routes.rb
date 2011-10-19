@@ -6,8 +6,6 @@ PanterControlling::Application.routes.draw do
 
   resources :entries
 
-  resources :tasks
-
   resources :projects do
     resources :accountings
     resources :milestones

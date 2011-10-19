@@ -60,6 +60,29 @@ feature "Edit user as admin and as user", %q{
     find('#user_external')["checked"].should == true
   end
 
+  scenario "edit active flag as admin" do
+    # Given
+    user = Factory.create(:user, :username => 'john_doe')
+    log_in :admin => true
+
+    # When
+    visit '/'
+    click_link 'Users'
+    within "#user_#{user.id}" do
+      click_link "Edit"
+    end
+    check 'Active'
+    click_button "Update User"
+
+    within "#user_#{user.id}" do
+      click_link "Edit"
+    end
+
+    # Then
+    find('#user_active')["checked"].should == true
+  end
+
+
   scenario "edit email-address as normal user" do
     log_in
     visit '/'

@@ -2,12 +2,12 @@
 
 = form_for @search, :url => projects_path,
   :html => {:method => :get, :class => 'grid_12 filter'} do |f|
-  .grid_2.alpha
-    = f.check_box :inactive_is_true
-    = f.label :inactive_is_true, 'inactive'
   .grid_2
     = f.check_box :inactive_is_false
     = f.label :inactive_is_false, 'active'
+  .grid_2.alpha
+    = f.check_box :inactive_is_true
+    = f.label :inactive_is_true, 'inactive'
   .grid_2
     = f.check_box :external_is_true
     = f.label :external_is_true, 'external'
@@ -27,25 +27,25 @@
       %thead
         %tr
           %th= sort_link @search, :shortname, 'Name'
-          %th= sort_link @search, :expected_profitability
+          %th= sort_link @search, :probability
           %th= sort_link @search, :start
           %th= sort_link @search, :end
           %th= sort_link @search, :project_state_id
-          %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"} Overdue amount
+          %th= sort_link @search, :expected_profitability, "Exp. Profitability"
+          %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"}= sort_link @search, :overdue_amount,  'Overdue amount'
+          %th= sort_link @search, :volume, 'Revenue'
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
-          %th Edit
-          %th Delete
 
       - @projects.each do |project|
         %tr
           %td= link_to project_description(project), edit_project_path(project)
-          %td= expected_profitability(project)
+          %td= "#{project.probability * 100} %"
           %td= l project.start
           %td= l project.end
           %td= get_project_state(project)
+          %td= expected_profitability(project)
           %td= project.overdue_amount
+          %td= project.volume
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)
-          %td= link_to (image_tag 'edit.png'), edit_project_path(project)
-          %td= link_to (image_tag 'delete.png'), project_path(project), :method => :delete

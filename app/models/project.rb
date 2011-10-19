@@ -31,15 +31,19 @@ class Project < ActiveRecord::Base
     :project_state_attributes, :probability, :wage, :rpl,
     :milestone_ids, :milestones_attributes,
     :responsibility_ids, :responsibilities_attributes,
-    :external
+    :external, :note
 
   attr_accessor :active # Virtual field which will update the value of inactive
 
   before_save :update_inactive
 
-  default_scope where(:deleted_at => nil).order("updated_at desc")
+  default_scope where(:deleted_at => nil).order("projects.updated_at desc")
 
   scope :active, where(:inactive => false)
+
+  # Scopes needed for 'meta_search'
+#  scope :sort_by_overdue_amount_asc, all.sort_by { |p| p.overdue_amount }
+  #scope :sort_by_overdue_amount_desc
 
   def set_default_tasks
     APP_CONFIG['default_tasks'].each do |task_name|
@@ -87,18 +91,18 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries(minutes) and expected_remaining_work(hours)
   def total_time
-    minutes_to_human_readable_time((entries.sum :duration) + rpl_or_zero*60)
+    minutes_to_human_readable_time((entries.internal.sum :duration) + rpl_or_zero*60)
   end
 
   # Cumulated time of all billable entries
   def time_billable
-    minutes_to_human_readable_time(entries.where(
+    minutes_to_human_readable_time(entries.internal.where(
       :billable => true).sum(:duration))
   end
 
   # Cumulated time of all entries
   def burned_time
-    minutes_to_human_readable_time(entries.sum :duration)
+    minutes_to_human_readable_time(entries.internal.sum :duration)
   end
 
   def expected_remaining_work
@@ -115,7 +119,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_internal_cost
-    (entries.sum(:duration) / 60.0) * wage
+    (entries.internal.sum(:duration) / 60.0) * wage
   end
 
   def external_cost
@@ -140,6 +144,10 @@ class Project < ActiveRecord::Base
       where(:payed => false, :sent => true, :positive => true).sum :amount
   end
 
+  def volume
+    accountings.where(:positive => true).sum :amount
+  end
+
   def active
     @active = !inactive
   end
@@ -151,7 +159,7 @@ class Project < ActiveRecord::Base
   private
 
   def past_work
-    entries.sum(:duration) / 60.0 * wage
+    entries.internal.sum(:duration) / 60.0 * wage
   end
 
   def rpl_or_zero
