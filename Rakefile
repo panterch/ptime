@@ -5,3 +5,8 @@ require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
 PanterControlling::Application.load_tasks
+
+task 'assets:precompile:nondigest' do
+  #run "nice -19 #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile:nondigest"
+  echo "FOO"
+end
