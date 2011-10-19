@@ -18,7 +18,7 @@ class Entry < ActiveRecord::Base
 
   scope :internal, includes('user').where('users.external = ? or users.external IS ?', false, nil)
 
-  default_scope internal.where('entries.deleted_at IS NULL')
+  default_scope where('entries.deleted_at IS NULL')
 
 
   # Incoming format HH:MM -> Save as minutes

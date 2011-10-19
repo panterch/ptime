@@ -91,18 +91,18 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries(minutes) and expected_remaining_work(hours)
   def total_time
-    minutes_to_human_readable_time((entries.sum :duration) + rpl_or_zero*60)
+    minutes_to_human_readable_time((entries.internal.sum :duration) + rpl_or_zero*60)
   end
 
   # Cumulated time of all billable entries
   def time_billable
-    minutes_to_human_readable_time(entries.where(
+    minutes_to_human_readable_time(entries.internal.where(
       :billable => true).sum(:duration))
   end
 
   # Cumulated time of all entries
   def burned_time
-    minutes_to_human_readable_time(entries.sum :duration)
+    minutes_to_human_readable_time(entries.internal.sum :duration)
   end
 
   def expected_remaining_work
@@ -119,7 +119,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_internal_cost
-    (entries.sum(:duration) / 60.0) * wage
+    (entries.internal.sum(:duration) / 60.0) * wage
   end
 
   def external_cost
@@ -159,7 +159,7 @@ class Project < ActiveRecord::Base
   private
 
   def past_work
-    entries.sum(:duration) / 60.0 * wage
+    entries.internal.sum(:duration) / 60.0 * wage
   end
 
   def rpl_or_zero
