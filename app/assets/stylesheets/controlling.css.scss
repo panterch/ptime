@@ -124,7 +124,6 @@ input#entry_day_input {
 .entry_group {
   clear: left;
   margin-bottom: 15px;
-  overflow: hidden
 }
 
 /* Adjust size of time entry fields */
@@ -346,15 +345,29 @@ dd.tasks {
 }
 
 .responsibilities_entry {
-  overflow: hidden
+  overflow: hidden;
+  float: left;
+  width: 215px
 }
 
 dt.responsibilities {
+  width: 90px;
   float: left;
 }
 
 dd.responsibilities {
   float: left;
+}
+
+.grid_3.properties {
+  width: 200px
+}
+
+.properties {
+  li {
+    margin-left: 0;
+    margin-bottom: 5px
+  }
 }
 
 /* submit button */

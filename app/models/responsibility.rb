@@ -6,7 +6,9 @@ class Responsibility < ActiveRecord::Base
   validates_presence_of :responsibility_type
   attr_accessible :user_id, :responsibility_type_id
 
-  default_scope where(:deleted_at => nil)
+  scope :order_by_responsibility_type, includes('responsibility_type').order('responsibility_types.required DESC')
+
+  default_scope where(:deleted_at => nil).order_by_responsibility_type
 
   def mark_as_deleted
     self.deleted_at = Time.now
