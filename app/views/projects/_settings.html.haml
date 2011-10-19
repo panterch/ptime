@@ -6,21 +6,25 @@
 
   .grid_6.alpha
     = form.inputs :name => 'Project Properties' do
-      = form.input :shortname,
-        :input_html => { :size => 7, :maxlength => 7 }
-      = form.input :description, :as => :text, :input_html => { :size => "50x5"}
-      = form.input :start, :as => :date_picker,
-        :input_html => { :size => 12, :maxlength => 12 }
-      = form.input :end, :as => :date_picker,
-        :input_html => { :size => 12, :maxlength => 12 }
-      = form.input :project_state_id, :as => :select,
+      .grid_3.alpha.properties
+        = form.input :shortname,
+          :input_html => { :size => 7, :maxlength => 7 }
+        = form.input :start, :as => :date_picker,
+          :input_html => { :size => 12, :maxlength => 12 }
+        = form.input :end, :as => :date_picker,
+          :input_html => { :size => 12, :maxlength => 12 }
+        = form.input :external
+
+      .grid_3.omega.properties
+        = form.input :project_state_id, :as => :select,
         :collection => @project_states
-      = form.input :probability, :as => :select,
+        = form.input :probability, :as => :select,
         :collection => @project_probabilities, :include_blank => false
-      = form.input :wage, :label => 'Internal hourly rate', :input_html => { :size => 5 }
-      = form.input :rpl, :label => "To burn" ,:input_html => { :size => 5 }
-      = form.input :external
-      = form.input :active, :as => :boolean
+        = form.input :wage, :label => 'Internal hourly rate', :input_html => { :size => 5 }
+        = form.input :active, :as => :boolean
+
+      .grid_5.alpha.properties
+        = form.input :description, :as => :text, :input_html => { :size => "50x5" }
 
   .grid_6.omega
     %fieldset

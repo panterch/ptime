@@ -360,6 +360,17 @@ dd.responsibilities {
   float: left;
 }
 
+.grid_3.properties {
+  width: 200px
+}
+
+.properties {
+  li {
+    margin-left: 0;
+    margin-bottom: 5px
+  }
+}
+
 /* submit button */
 form.project fieldset.buttons {
   ol {
