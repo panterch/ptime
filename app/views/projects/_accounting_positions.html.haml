@@ -18,5 +18,5 @@
   %h2=link_to 'Accounting Positions', '#', :class => 'toggle-box'
   %div.accountings
     = render 'accounting_positions_table'
-    .button_link= button_to 'Add new entry',
-      new_project_accounting_path(@project), { :rel => 'facebox', :method => :get }
+  .button_link= button_to 'Add new entry',
+    new_project_accounting_path(@project), { :rel => 'facebox', :method => :get }

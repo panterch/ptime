@@ -2,9 +2,9 @@
 
 $ ->
   window.facebox_init = facebox_init = $('a[rel*=facebox]')
-  return unless facebox_init.length
+  # return unless facebox_init.length
 
-  $('input[rel*=facebox]').click ->
+  $('input[rel*=facebox]').live 'click', ->
     # Fetch action
     action = $(this).parent().parent().attr('action')
     $.facebox({ ajax: action })
