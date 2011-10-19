@@ -6,6 +6,8 @@ $ ->
 
   $('input[rel*=facebox]').click ->
     # Fetch action
+    action = $(this).parent().parent().attr('action')
+    $.facebox({ ajax: action })
     return false
 
   $.facebox.settings.closeImage = "<%= asset_path('closelabel.png') %>"
