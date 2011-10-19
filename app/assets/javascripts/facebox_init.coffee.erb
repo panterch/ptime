@@ -4,6 +4,10 @@ $ ->
   window.facebox_init = facebox_init = $('a[rel*=facebox]')
   return unless facebox_init.length
 
+  $('input[rel*=facebox]').click ->
+    # Fetch action
+    return false
+
   $.facebox.settings.closeImage = "<%= asset_path('closelabel.png') %>"
   $.facebox.settings.loadingImage = "<%= asset_path('loading.gif') %>"
   facebox_init.facebox()

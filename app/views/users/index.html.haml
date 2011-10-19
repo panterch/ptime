@@ -23,4 +23,4 @@
           %td= link_to (image_tag 'delete.png'),
             user_path(user), :method => :delete, :title => 'Delete'
 
-  .button_link= link_to 'Add new user', new_user_path
+  .button_link= button_to 'Add new user', new_user_path, :method => :get
