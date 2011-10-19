@@ -346,10 +346,13 @@ dd.tasks {
 }
 
 .responsibilities_entry {
-  overflow: hidden
+  overflow: hidden;
+  float: left;
+  width: 215px
 }
 
 dt.responsibilities {
+  width: 90px;
   float: left;
 }
 
