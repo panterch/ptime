@@ -106,7 +106,9 @@ class Project < ActiveRecord::Base
   end
 
   def expected_remaining_work
-    rpl ? rpl.to_s + "h" : "0h"
+    #rpl ? rpl.to_s + "h" : "0h"
+    to_burn = current_worktime - (entries.internal.sum(:duration) / 60)
+    to_burn ? to_burn.to_s + "h" : "0h"
   end
 
   # Sum all positive accounting positions
@@ -116,6 +118,10 @@ class Project < ActiveRecord::Base
 
   def expected_return
     budget - past_work + external_cost - expected_work
+  end
+
+  def current_expected_return
+    budget - past_work + external_cost - current_expected_work
   end
 
   def current_internal_cost
@@ -130,10 +136,21 @@ class Project < ActiveRecord::Base
     (rpl || 0) * wage
   end
 
+  def current_expected_work
+    (current_worktime || 0) * wage
+  end
 
   def expected_profitability
     if budget != 0
       100.0 * expected_return / budget
+    else
+      0.0
+    end
+  end
+
+  def current_expected_profitability
+    if budget != 0
+      100.0 * current_expected_return / budget
     else
       0.0
     end

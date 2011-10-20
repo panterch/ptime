@@ -44,27 +44,26 @@
             %dt.property= @project.expected_return
           %dl.property
             %dt.property Profitability
-            %dt.property= expected_profitability(@project)
+            %dt.property= @project.expected_profitability
 
     .grid_6.alpha
       %fieldset
         %legend Current
         .grid_3.alpha.properties
-          %dl
-            = form.input :current_worktime, :label => 'Total worktime (h)', :input_html => { :size => 6 }
+          = form.input :current_worktime, :label => 'Total worktime (h)', :input_html => { :size => 6 }
         .grid_3.omega.properties
           %dl.property
             %dt.property Total worktime
-            %dd.property= @project.expected_work
+            %dd.property= @project.current_expected_work
           %dl.property
             %dt.property Revenue
             %dt.property= @project.budget
           %dl.property
             %dt.property Return
-            %dt.property= @project.expected_return
+            %dt.property= @project.current_expected_return
           %dl.property
             %dt.property Profitability
-            %dt.property= expected_profitability(@project)
+            %dt.property= @project.current_expected_profitability
 
 
   .grid_6.omega
