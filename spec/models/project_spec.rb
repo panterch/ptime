@@ -148,13 +148,13 @@ describe Project do
 
   context 'controlling calculations' do
     before(:each) do
-      @project = Factory(:project, :rpl => 1, :wage => 100)
+      @project = Factory(:project, :rpl => 1, :current_worktime => 10, :wage => 100)
     end
 
     it 'calculates the total time' do
       entry_one = Factory(:entry, :duration => 120, :project_id => @project.id)
       entry_two = Factory(:entry, :duration => 30, :project_id => @project.id)
-      @project.total_time.should eq minutes_to_human_readable_time(210)
+      @project.total_time.should eq minutes_to_human_readable_time(630)
     end
 
     it 'calculates the billable time' do

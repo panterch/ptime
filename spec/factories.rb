@@ -24,6 +24,7 @@ Factory.define :project do |f|
   f.start Date.parse('2011-01-01')
   f.end Date.parse('2011-01-03')
   f.wage 90
+  f.current_worktime 200
   f.responsibilities { |res| [res.association(:required_responsibility)] }
 end
 
