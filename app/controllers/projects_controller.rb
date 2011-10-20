@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
     # Preset inactive and external by default
     @search.inactive_is_false = true unless params[:search]
     @search.external_is_true = true unless params[:search]
+    @search.meta_sort = 'updated_at.desc' unless params[:search]
 
     @projects = @search.all
   end
