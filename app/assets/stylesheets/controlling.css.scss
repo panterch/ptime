@@ -351,12 +351,34 @@ dd.tasks {
 }
 
 dt.responsibilities {
-  width: 90px;
+  width: 80px;
   float: left;
 }
 
 dd.responsibilities {
   float: left;
+}
+
+dt.milestones {
+  float: left;
+  font-size: 12px;
+  text-transform: capitalize;
+  margin-top: 0;
+  margin-left: 5px;
+  line-height: 20px;
+  width: 150px;
+}
+
+dd.milestones {
+  overflow: hidden;
+
+  label {
+    display: block;
+    float: left;
+    line-height: 20px;
+    width: 150px;
+  }
+
 }
 
 .grid_3.properties {
