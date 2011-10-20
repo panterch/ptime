@@ -32,7 +32,19 @@
         %legend Offer Data
         .grid_3.alpha.properties
           = form.input :rpl, :label => 'Total worktime (h)', :input_html => { :size => 6 }
-        .grid_3.omega
+        .grid_3.omega.properties
+          %dl.property
+            %dt.property Total worktime
+            %dd.property= @project.expected_work
+          %dl.property
+            %dt.property Revenue
+            %dt.property= @project.budget
+          %dl.property
+            %dt.property Return
+            %dt.property= @project.expected_return
+          %dl.property
+            %dt.property Profitability
+            %dt.property= expected_profitability(@project)
 
     .grid_6.alpha
       %fieldset
@@ -40,7 +52,20 @@
         .grid_3.alpha.properties
           %dl
             = form.input :current_worktime, :label => 'Total worktime (h)', :input_html => { :size => 6 }
-        .grid_3.omega
+        .grid_3.omega.properties
+          %dl.property
+            %dt.property Total worktime
+            %dd.property= @project.expected_work
+          %dl.property
+            %dt.property Revenue
+            %dt.property= @project.budget
+          %dl.property
+            %dt.property Return
+            %dt.property= @project.expected_return
+          %dl.property
+            %dt.property Profitability
+            %dt.property= expected_profitability(@project)
+
 
   .grid_6.omega
     %fieldset

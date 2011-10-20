@@ -393,6 +393,18 @@ dd.milestones {
   }
 }
 
+dl.property {
+  width: 200px;
+  margin-bottom: 10px;
+  overflow: hidden
+}
+
+dt.property, dd.property {
+  float: left;
+  display: block;
+  width: 100px
+}
+
 /* submit button */
 form.project fieldset.buttons {
   ol {
