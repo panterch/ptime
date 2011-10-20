@@ -5,26 +5,42 @@
         %li= msg
 
   .grid_6.alpha
-    = form.inputs :name => 'Project Properties' do
-      .grid_3.alpha.properties
-        = form.input :shortname,
-          :input_html => { :size => 7, :maxlength => 7 }
-        = form.input :start, :as => :date_picker,
-          :input_html => { :size => 12, :maxlength => 12 }
-        = form.input :end, :as => :date_picker,
-          :input_html => { :size => 12, :maxlength => 12 }
-        = form.input :external
+    .grid_6.alpha
+      = form.inputs :name => 'Project Properties' do
+        .grid_3.alpha.properties
+          = form.input :shortname,
+            :input_html => { :size => 7, :maxlength => 7 }
+          = form.input :start, :as => :date_picker,
+            :input_html => { :size => 12, :maxlength => 12 }
+          = form.input :end, :as => :date_picker,
+            :input_html => { :size => 12, :maxlength => 12 }
+          = form.input :external
 
-      .grid_3.omega.properties
-        = form.input :project_state_id, :as => :select,
-        :collection => @project_states
-        = form.input :probability, :as => :select,
-        :collection => @project_probabilities, :include_blank => false
-        = form.input :wage, :label => 'Internal hourly rate', :input_html => { :size => 5 }
-        = form.input :active, :as => :boolean
+        .grid_3.omega.properties
+          = form.input :project_state_id, :as => :select,
+          :collection => @project_states
+          = form.input :probability, :as => :select,
+          :collection => @project_probabilities, :include_blank => false
+          = form.input :wage, :label => 'Internal hourly rate', :input_html => { :size => 5 }
+          = form.input :active, :as => :boolean
 
-      .grid_5.alpha.properties
-        = form.input :description, :as => :text, :input_html => { :size => "50x5" }
+        .grid_5.alpha.properties
+          = form.input :description, :as => :text, :input_html => { :size => "50x5" }
+
+    .grid_6.alpha
+      %fieldset.inputs
+        %legend Offer Data
+        .grid_3.alpha.properties
+          = form.input :rpl, :label => 'Total worktime (h)', :input_html => { :size => 6 }
+        .grid_3.omega
+
+    .grid_6.alpha
+      %fieldset
+        %legend Current
+        .grid_3.alpha.properties
+          %dl
+            = form.input :current_worktime, :label => 'Total worktime (h)', :input_html => { :size => 6 }
+        .grid_3.omega
 
   .grid_6.omega
     %fieldset

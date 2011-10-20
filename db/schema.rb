@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017150210) do
+ActiveRecord::Schema.define(:version => 20111020113221) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20111017150210) do
     t.datetime "deleted_at"
     t.boolean  "external",         :default => true
     t.text     "note"
+    t.integer  "current_worktime"
   end
 
   create_table "responsibilities", :force => true do |t|
