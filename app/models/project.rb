@@ -91,7 +91,7 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries(minutes) and expected_remaining_work(hours)
   def total_time
-    minutes_to_human_readable_time((entries.internal.sum :duration) + rpl_or_zero*60)
+    minutes_to_human_readable_time(entries.internal.sum(:duration) + expected_remaining_work * 60)
   end
 
   # Cumulated time of all billable entries
@@ -108,7 +108,6 @@ class Project < ActiveRecord::Base
   def expected_remaining_work
     #rpl ? rpl.to_s + "h" : "0h"
     to_burn = current_worktime - (entries.internal.sum(:duration) / 60)
-    to_burn ? to_burn.to_s + "h" : "0h"
   end
 
   # Sum all positive accounting positions
