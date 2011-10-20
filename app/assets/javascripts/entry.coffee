@@ -9,10 +9,15 @@ $ ->
   $('.chzn-select').chosen()
 
   # Add time input method radio button logic
-  entry.toggleTimeInputMethod = ->
-    entry.toggleDisable($('#entry_start'))
-    entry.toggleDisable($('#entry_end'))
-    entry.toggleDisable($('#entry_duration_hours'))
+  entry.toggleTimeInputMethod = (field) ->
+    if field.val() is "duration"
+      entry.disableField($('#entry_start'))
+      entry.disableField($('#entry_end'))
+      entry.enableField($('#entry_duration_hours'))
+    else
+      entry.disableField($('#entry_duration_hours'))
+      entry.enableField($('#entry_start'))
+      entry.enableField($('#entry_end'))
 
   # Toggle disabled state of the given field
   entry.toggleDisable = (field) ->
@@ -20,6 +25,14 @@ $ ->
       field.removeAttr('disabled')
     else
       field.attr('disabled', true)
+
+  # Disable state of the given field
+  entry.disableField = (field) ->
+    field.attr('disabled', true)
+
+  # Enable state fo the given field
+  entry.enableField = (field) ->
+    field.removeAttr('disabled')
 
   # Save the chosen method in a cookie
   entry.saveInputTimeMethod = (field) ->
@@ -41,7 +54,7 @@ $ ->
     $('input[name=time_capture_method]:checked').val() is 'start_end' and
     $('#entry_start').val() is '' and
     $('#entry_end').val() is ''
-      entry.toggleTimeInputMethod()
+      entry.toggleTimeInputMethod($(this))
       $('#time_capture_method_duration').attr('checked', true)
 
   # Toggle between date or time entry method by either disabling
@@ -49,7 +62,7 @@ $ ->
   #  * the start -and end time picker fields
   $('input[name=time_capture_method]').click ->
     entry.saveInputTimeMethod($(this))
-    entry.toggleTimeInputMethod()
+    entry.toggleTimeInputMethod($(this))
 
   # Reload entry form for chosen date
   $('#entry-ui-datepicker').datepicker({

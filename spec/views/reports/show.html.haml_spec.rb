@@ -39,6 +39,6 @@ describe "reports/show.html.haml" do
 
   it "renders the entries' summed up hours" do
     render
-    rendered.should match /<td>Total<\/td>\n<td>2:0<\/td>/
+    rendered.should match /<td>2:0<\/td>/
   end
 end

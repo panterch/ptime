@@ -62,6 +62,7 @@ feature "Edit a entry", %q{
                     :project_id => Project.first.id,
                     :task_id => Project.first.tasks.first.id)
     visit "/entries/#{entry.id}/edit"
+    page.execute_script("$('#entry_duration_hours').removeAttr('disabled');")
     fill_in 'entry_duration_hours', :with => '04:30'
     page.execute_script("$('#entry_duration_hours').trigger('change');")
     page.find_by_id('entry_start').value.should be_empty

@@ -11,7 +11,7 @@ feature 'New accounting position form', %q{
     log_in :admin => true
     @project = Factory(:project)
     visit "/projects/#{@project.id}/edit"
-    click_link 'Add new entry'
+    click_button 'Add new entry'
   end
 
   after(:each) do
