@@ -1,3 +1,5 @@
+
+
 %h2.grid_12
   Project
   = project_description(@project)
@@ -24,9 +26,17 @@
 = render 'form'
 
 %h2.grid_12
+.grid_12.box
+  %h2 History
+  %div
+    = high_chart("chart", @chart_data)
+
+%h2.grid_12
 - unless @accountings.nil?
   = render :partial => 'accounting_positions'
 
 %h2.grid_12
 - if @project.entries.present?
   = render 'entries'
+
+
