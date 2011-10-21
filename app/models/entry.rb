@@ -1,4 +1,7 @@
 class Entry < ActiveRecord::Base
+
+  has_paper_trail # versioning
+
   belongs_to :user
   belongs_to :task
   belongs_to :project

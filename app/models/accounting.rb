@@ -1,4 +1,7 @@
 class Accounting < ActiveRecord::Base
+
+  has_project_trail # versioning
+
   belongs_to :project
   before_save :save_sign
 
