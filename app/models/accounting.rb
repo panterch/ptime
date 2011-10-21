@@ -1,6 +1,6 @@
 class Accounting < ActiveRecord::Base
 
-  has_project_trail # versioning
+  has_paper_trail # versioning
 
   belongs_to :project
   before_save :save_sign
