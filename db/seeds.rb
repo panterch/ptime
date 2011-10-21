@@ -93,3 +93,19 @@ end
   m.name = milestone
   m.save!
 end
+
+# Data for simulating historization on a project
+project = Project.first
+project.created_at = 1.year.ago # moving project's creating date back in time
+project.current_worktime = 800
+
+@date_range = (1.year.ago.to_date..Date.today)
+
+# Update data every 10 th day
+@date_range.step(10).each do |day|
+  Timecop.freeze(day) do
+    puts "Updating the project for day: #{day}"
+    project.current_worktime -= 20
+    project.save
+  end
+end
