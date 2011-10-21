@@ -123,7 +123,6 @@ end
     p.payed = [true,false].shuffle.shift
     p.link = "http://link.to.position.#{day}"
     p.save!
-    project.save!
   end
 end
 
