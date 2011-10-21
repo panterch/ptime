@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20111020113221) do
     t.datetime "deleted_at"
     t.boolean  "external",         :default => true
     t.text     "note"
-    t.integer  "current_worktime"
+    t.integer  "current_worktime", :default => 0
   end
 
   create_table "responsibilities", :force => true do |t|
