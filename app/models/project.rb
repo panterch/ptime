@@ -176,6 +176,26 @@ class Project < ActiveRecord::Base
     value == "1" ? @active = true : @active = false
   end
 
+  def gather_worktime_per_day(date_range)
+    result_hash = {}
+    # date_range.step(step).each do |day|
+    date_range.each do |day|
+      project = version_at(day)
+      result_hash.merge!({ day, project.current_worktime }) if project
+    end
+    result_hash
+  end
+
+  def gather_revenue_per_day(date_range)
+    result_hash = {}
+    # date_range.step(step).each do |day|
+    date_range.each do |day|
+      project = version_at(day)
+      result_hash.merge!({ day, project.cached_expected_budget }) if project
+    end
+    result_hash
+  end
+
   private
 
   def past_work
@@ -198,6 +218,7 @@ class Project < ActiveRecord::Base
       end
     end
   end
+
 
   # TODO: This needs to be refactored
   def validates_probability_constraints
@@ -238,8 +259,6 @@ class Project < ActiveRecord::Base
       end
     end
   end
-
-  private
 
   # Used for cases where the checkbox needs to be titled active
   def update_inactive
