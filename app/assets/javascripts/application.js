@@ -12,5 +12,6 @@
 //= require jquery.ui.timepicker
 //= require superfish
 //= require toggle_box
+//= require highcharts
 //= require global
 //= require_tree .
