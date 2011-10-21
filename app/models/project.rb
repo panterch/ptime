@@ -39,6 +39,7 @@ class Project < ActiveRecord::Base
   attr_accessor :active # Virtual field which will update the value of inactive
 
   before_save :update_inactive
+  before_save :cache_calculations
 
   default_scope where(:deleted_at => nil)
 
@@ -246,6 +247,19 @@ class Project < ActiveRecord::Base
       self.inactive = !@active
       logger.debug("Is model valid: #{valid?}")
     end
+  end
+
+  def cache_calculations
+    self.cached_total_time = total_time
+    self.cached_burned_time = burned_time
+    self.cached_expected_remaining_work = expected_remaining_work
+    self.cached_expected_budget = budget
+    self.cached_external_cost = external_cost
+    self.cached_expected_work = current_expected_work
+    self.cached_internal_cost = current_internal_cost
+    self.cached_hourly_rate = wage
+    self.cached_expected_profitability = current_expected_profitability
+    self.cached_expected_return = current_expected_return
   end
 
 
