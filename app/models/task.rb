@@ -1,4 +1,7 @@
 class Task < ActiveRecord::Base
+
+  has_paper_trail # versioning
+
   belongs_to :project, :autosave => true
 
   attr_accessible :name, :estimate, :active, :project_id, :billable_by_default
