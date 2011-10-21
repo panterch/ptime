@@ -1,4 +1,7 @@
 class Project < ActiveRecord::Base
+
+  has_paper_trail # versioning
+
   belongs_to :project_state
   has_many :tasks, :dependent => :destroy
   has_many :accountings, :dependent => :destroy
