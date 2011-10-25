@@ -8,5 +8,5 @@ PanterControlling::Application.load_tasks
 
 task 'assets:precompile:nondigest' do
   #run "nice -19 #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile:nondigest"
-  echo "FOO"
+  # echo "FOO"
 end
