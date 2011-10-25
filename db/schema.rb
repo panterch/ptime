@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020113221) do
+ActiveRecord::Schema.define(:version => 20111021140744) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -91,13 +91,23 @@ ActiveRecord::Schema.define(:version => 20111020113221) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_state_id"
-    t.decimal  "probability",      :default => 0.0
-    t.integer  "wage",             :default => 90,   :null => false
+    t.decimal  "probability",                    :default => 0.0
+    t.integer  "wage",                           :default => 90,   :null => false
     t.integer  "rpl"
     t.datetime "deleted_at"
-    t.boolean  "external",         :default => true
+    t.boolean  "external",                       :default => true
     t.text     "note"
-    t.integer  "current_worktime", :default => 0
+    t.integer  "current_worktime",               :default => 0
+    t.float    "cached_total_time"
+    t.float    "cached_burned_time"
+    t.float    "cached_expected_remaining_work"
+    t.float    "cached_expected_budget"
+    t.float    "cached_external_cost"
+    t.float    "cached_expected_work"
+    t.float    "cached_internal_cost"
+    t.float    "cached_hourly_rate"
+    t.float    "cached_expected_profitability"
+    t.float    "cached_expected_return"
   end
 
   create_table "responsibilities", :force => true do |t|
@@ -151,5 +161,16 @@ ActiveRecord::Schema.define(:version => 20111020113221) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

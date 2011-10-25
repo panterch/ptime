@@ -1,4 +1,7 @@
 class Project < ActiveRecord::Base
+
+  has_paper_trail # versioning
+
   belongs_to :project_state
   has_many :tasks, :dependent => :destroy
   has_many :accountings, :dependent => :destroy
@@ -36,6 +39,7 @@ class Project < ActiveRecord::Base
   attr_accessor :active # Virtual field which will update the value of inactive
 
   before_save :update_inactive
+  before_save :cache_calculations
 
   default_scope where(:deleted_at => nil)
 
@@ -172,6 +176,26 @@ class Project < ActiveRecord::Base
     value == "1" ? @active = true : @active = false
   end
 
+  def gather_worktime_per_day(date_range)
+    result_hash = {}
+    # date_range.step(step).each do |day|
+    date_range.each do |day|
+      project = version_at(day)
+      result_hash.merge!({ day, project.current_worktime }) if project
+    end
+    result_hash
+  end
+
+  def gather_revenue_per_day(date_range)
+    result_hash = {}
+    # date_range.step(step).each do |day|
+    date_range.each do |day|
+      project = version_at(day)
+      result_hash.merge!({ day, project.cached_expected_budget }) if project
+    end
+    result_hash
+  end
+
   private
 
   def past_work
@@ -194,6 +218,7 @@ class Project < ActiveRecord::Base
       end
     end
   end
+
 
   # TODO: This needs to be refactored
   def validates_probability_constraints
@@ -235,14 +260,25 @@ class Project < ActiveRecord::Base
     end
   end
 
-  private
-
   # Used for cases where the checkbox needs to be titled active
   def update_inactive
     unless @active.nil?
       self.inactive = !@active
       logger.debug("Is model valid: #{valid?}")
     end
+  end
+
+  def cache_calculations
+    self.cached_total_time = total_time
+    self.cached_burned_time = burned_time
+    self.cached_expected_remaining_work = expected_remaining_work
+    self.cached_expected_budget = budget
+    self.cached_external_cost = external_cost
+    self.cached_expected_work = current_expected_work
+    self.cached_internal_cost = current_internal_cost
+    self.cached_hourly_rate = wage
+    self.cached_expected_profitability = current_expected_profitability
+    self.cached_expected_return = current_expected_return
   end
 
 

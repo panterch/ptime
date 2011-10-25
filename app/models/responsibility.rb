@@ -1,4 +1,7 @@
 class Responsibility < ActiveRecord::Base
+
+  has_paper_trail # versioning
+
   belongs_to :responsibility_type
   belongs_to :project, :autosave => true
   belongs_to :user

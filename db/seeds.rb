@@ -93,3 +93,36 @@ end
   m.name = milestone
   m.save!
 end
+
+# Data for simulating historization on a project
+project = Project.first
+project.created_at = 1.year.ago # moving project's creating date back in time
+project.current_worktime = 1300
+
+@date_range = (1.year.ago.to_date..Date.today)
+
+# Update work time every 10th day
+@date_range.step(10).each do |day|
+  Timecop.freeze(day) do
+    puts "Updating the project for day: #{day}"
+    project.current_worktime -= (10 * rand(5))
+    project.save
+  end
+end
+
+# Update accounting every 30th day
+@date_range.step(30).each do |day|
+  Timecop.freeze(day) do
+    puts "Creating accounting entry for day: #{day}"
+    p = Accounting.new
+    p.description = "position description #{day}"
+    p.amount = rand(10000)
+    p.valuta = Date.today - rand(20)
+    p.project_id = project.id
+    p.sent = [true,false].shuffle.shift
+    p.payed = [true,false].shuffle.shift
+    p.link = "http://link.to.position.#{day}"
+    p.save!
+  end
+end
+

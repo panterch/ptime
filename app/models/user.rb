@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  has_paper_trail # versioning
+
   has_many :entries
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
