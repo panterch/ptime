@@ -8,7 +8,7 @@ require 'paperclip/matchers'
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However, 
+  # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
   require File.expand_path("../../config/environment", __FILE__)
@@ -43,6 +43,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.use_transactional_examples = false
 
+  # Set webkit as javascript driver
+  # Capybara.javascript_driver = :webkit
 
   # DatabaseCleaner is needed, because use_transactional_fixtures is off. It is
   # off to be able to use Selenium as capybara driver.

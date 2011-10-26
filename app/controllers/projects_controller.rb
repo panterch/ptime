@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_filter :prepare_project_probabilities,
     :only => [:new, :edit, :update, :create]
   before_filter :load_chart_data,
-    :only => [:new, :edit, :update, :create]
+    :only => [:edit, :update]
 
   authorize_resource
 
