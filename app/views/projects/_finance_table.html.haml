@@ -3,22 +3,22 @@
   %tfoot
     %tr{ :title => "accountings.sum(:amount) + (rpl)*wage - (entries.sum(:duration) / 60.0 * wage) " }
       %td Expected return
-      %td= "%.2f" % @project.current_expected_return
+      %td= number_to_currency(@project.current_expected_return, :delimiter => '`', :unit => "")
     %tr{ :title => "budget - past_work + external_cost - expected_work" }
       %td Expected profitability
-      %td= "%.2f" % @project.current_expected_profitability + " %"
+      %td= "%05.2f" % @project.current_expected_profitability + " %"
   %tr
     %td Internal hourly rate
     %td= @project.wage
   %tr{ :title => "(entries.sum(:duration) / 60.0) * wage" }
     %td Burned
-    %td= "%.2f" % @project.current_internal_cost
+    %td= number_to_currency(@project.current_internal_cost, :delimiter => '`', :unit => "")
   %tr{ :title => "(rpl || 0) * wage" }
     %td To burn
     %td= @project.current_expected_work
   %tr{ :title => "accountings.where(:positive => false).sum :amount" }
     %td External costs
-    %td= @project.external_cost
+    %td= number_to_currency(@project.external_cost, :delimiter => '`', :unit => "")
   %tr{ :title => "accountings.where(:positive => true).sum :amount" }
     %td Revenue
-    %td= @project.budget
+    %td= number_to_currency(@project.budget, :delimiter => '`', :unit => "")

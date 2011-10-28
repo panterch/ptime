@@ -23,4 +23,11 @@ module ProjectsHelper
     project.expected_profitability.round(2).to_s + "%"
   end
 
+  # Rails helper number_to_percentage doesn't have fine grained support for number formating
+  # so we are implementing our own
+  def format_percentage(number)
+    percentage = "%05.2f" % (number * 100)
+    "#{percentage} %"
+  end
+
 end

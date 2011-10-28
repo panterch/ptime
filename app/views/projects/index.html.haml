@@ -40,12 +40,12 @@
       - @projects.each do |project|
         %tr
           %td= link_to project_description(project), edit_project_path(project)
-          %td= "#{project.probability * 100} %"
+          %td= format_percentage(project.probability)
           %td= l project.start
           %td= l project.end
           %td= get_project_state(project)
           %td= expected_profitability(project)
-          %td= project.overdue_amount
-          %td= project.volume
+          %td= number_to_currency(project.overdue_amount, :delimiter => '`', :unit => "")
+          %td= number_to_currency(project.volume, :delimiter => '`', :unit => "")
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)

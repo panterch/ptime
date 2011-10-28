@@ -13,14 +13,14 @@
     %tr
       %td
         %strong Subtotal
-      %td= @accountings_sum
+      %td= number_to_currency(@accountings_sum, :delimiter => '`', :unit => "")
 
   - @accountings.each do |accounting|
     %tr
       %td= link_to accounting.description,
         edit_project_accounting_path(@project, accounting),
         :rel => 'facebox'
-      %td= accounting.amount
+      %td= number_to_currency(accounting.amount, :delimiter => '`', :unit => "")
       %td= l accounting.valuta
       %td= l accounting.updated_at
       %td= bool_to_img(accounting.sent)
