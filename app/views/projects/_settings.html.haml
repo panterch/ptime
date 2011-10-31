@@ -35,16 +35,16 @@
         .grid_3.omega.properties
           %dl.property
             %dt.property Total worktime
-            %dd.property= @project.expected_work
+            %dd.property= number_to_currency(@project.expected_work, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Revenue
-            %dt.property= @project.budget
+            %dt.property= number_to_currency(@project.budget, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Return
-            %dt.property= @project.expected_return
+            %dt.property= number_to_currency(@project.expected_return, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Profitability
-            %dt.property= @project.expected_profitability
+            %dt.property= "%05.2f" % @project.expected_profitability
 
     .grid_6.alpha
       %fieldset
@@ -54,16 +54,16 @@
         .grid_3.omega.properties
           %dl.property
             %dt.property Total worktime
-            %dd.property= @project.current_expected_work
+            %dd.property= number_to_currency(@project.current_expected_work, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Revenue
-            %dt.property= @project.budget
+            %dt.property= number_to_currency(@project.budget, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Return
-            %dt.property= @project.current_expected_return
+            %dt.property= number_to_currency(@project.current_expected_return, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Profitability
-            %dt.property= @project.current_expected_profitability
+            %dt.property= "%05.2f" % @project.current_expected_profitability
 
 
   .grid_6.omega

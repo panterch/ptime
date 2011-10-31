@@ -15,7 +15,7 @@
     %td= number_to_currency(@project.current_internal_cost, :delimiter => '`', :unit => "")
   %tr{ :title => "(rpl || 0) * wage" }
     %td To burn
-    %td= @project.current_expected_work
+    %td= number_to_currency(@project.current_expected_work, :delimiter => '`', :unit => "")
   %tr{ :title => "accountings.where(:positive => false).sum :amount" }
     %td External costs
     %td= number_to_currency(@project.external_cost, :delimiter => '`', :unit => "")
