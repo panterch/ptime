@@ -5,6 +5,7 @@
       %th Task
       %th Description
       %th Duration
+      %th Billable
       %th Edit
       %th Delete
   %tfoot
@@ -15,6 +16,7 @@
       %td= @total_time
       %td
       %td
+      %td
 
   - entries.each do |entry|
     %tr
@@ -22,6 +24,7 @@
       %td= entry.task.name if entry.task
       %td= entry.description
       %td= entry.duration_hours
+      %td= bool_to_img(entry.billable)
       %td= link_to (image_tag 'edit.png'), edit_entry_path(entry)
       %td= link_to (image_tag 'delete.png'), entry_path(entry),
         :method => :delete
