@@ -140,7 +140,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_expected_work
-    (current_worktime || 0) * wage
+    (expected_remaining_work || 0) * wage
   end
 
   def expected_profitability
