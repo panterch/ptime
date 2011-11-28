@@ -126,10 +126,10 @@ $ ->
 
   entry.updateBillable = (taskID) ->
     billable = entry.getBillableFor(taskID)
-    if billable is true
-      $('#entry_billable').attr('checked', true)
-    else
-      $('#entry_billable').attr('checked', false)
+    #if billable is true
+    #  $('#entry_billable').attr('checked', true)
+    #else
+    #  $('#entry_billable').attr('checked', false)
 
   # Update billable checkbox on start
   taskID = $("#entry_task_id option:selected").val()
