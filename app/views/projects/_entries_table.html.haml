@@ -18,7 +18,7 @@
 
   - entries.each do |entry|
     %tr
-      %td= l entry.created_at
+      %td= l entry.day
       %td= entry.task.name if entry.task
       %td= truncate(entry.description, :length => 60)
       %td= entry.duration_hours
