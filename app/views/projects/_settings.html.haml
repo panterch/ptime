@@ -41,7 +41,7 @@
             %dt.property= number_to_currency(@project.budget, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Return
-            %dt.property= number_to_currency(@project.expected_return, :delimiter => '`', :unit => "")
+            %dt.property= number_to_currency(@project.budget - @project.expected_work, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Profitability
             %dt.property= "%05.2f" % @project.expected_profitability
@@ -54,7 +54,7 @@
         .grid_3.omega.properties
           %dl.property
             %dt.property Total worktime
-            %dd.property= number_to_currency(@project.current_expected_work, :delimiter => '`', :unit => "")
+            %dd.property= number_to_currency(@project.current_expected_work + @project.current_internal_cost, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Revenue
             %dt.property= number_to_currency(@project.budget, :delimiter => '`', :unit => "")
