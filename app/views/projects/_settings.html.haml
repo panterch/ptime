@@ -44,7 +44,7 @@
             %dt.property= number_to_currency(@project.budget - @project.expected_work, :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Profitability
-            %dt.property= "%05.2f" % @project.expected_profitability
+            %dt.property= "%05.2f" % ((@project.budget - @project.expected_work).to_f / @project.budget * 100)
 
     .grid_6.alpha
       %fieldset

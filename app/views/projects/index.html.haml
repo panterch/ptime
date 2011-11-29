@@ -44,7 +44,7 @@
           %td= l project.start
           %td= l project.end
           %td= get_project_state(project)
-          %td= expected_profitability(project)
+          %td= "%05.2f" % project.current_expected_profitability + " %"
           %td= number_to_currency(project.overdue_amount, :delimiter => '`', :unit => "")
           %td= number_to_currency(project.volume, :delimiter => '`', :unit => "")
           %td= bool_to_img(!project.inactive)
