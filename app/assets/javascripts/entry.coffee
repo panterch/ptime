@@ -126,14 +126,16 @@ $ ->
 
   entry.updateBillable = (taskID) ->
     billable = entry.getBillableFor(taskID)
-    #if billable is true
-    #  $('#entry_billable').attr('checked', true)
-    #else
-    #  $('#entry_billable').attr('checked', false)
+    if billable is true
+      $('#entry_billable').attr('checked', true)
+    else
+      $('#entry_billable').attr('checked', false)
 
-  # Update billable checkbox on start
+  # Update billable checkbox on start but only for the new entries
+  # This assumes that tasks that already have description are not new entries
   taskID = $("#entry_task_id option:selected").val()
-  entry.updateBillable(taskID)
+  if ($('#entry_description').val()) == ""
+    entry.updateBillable(taskID)
 
   # Update billable checkbox for chosen task whenever task or project
   # drop down box value changes
