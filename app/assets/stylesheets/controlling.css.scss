@@ -73,7 +73,7 @@ a {
   margin-right: 5px;
 
   #entry_description {
-    width: 270px
+    width: 520px;
   }
 }
 
@@ -113,12 +113,12 @@ input#entry_day_input {
 
 /* Enlarge project field to make place for project description */
 #entry_project_id {
-  width: 16em;
+  width: 35em;
 }
 
 /* Grow size of empty task selector */
 #entry_task_id {
-  width: 10em;
+  width: 18em;
 }
 
 .entry_group {
