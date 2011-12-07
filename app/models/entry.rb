@@ -24,11 +24,16 @@ class Entry < ActiveRecord::Base
   default_scope where('entries.deleted_at IS NULL')
 
 
-  # Incoming format HH:MM -> Save as minutes
+  # Incoming format HH:MM or decimal HH -> Save as minutes
   def duration_hours=(duration_hours)
     if duration_hours =~ /(^\d{1,3}:\d{1,2}$)|(^\d{1,3}$)/
       hours, minutes = duration_hours.split(":")
       self.duration = hours.to_i * 60 + minutes.to_i
+      self.start = nil
+      self.end = nil
+    elsif
+      duration_hours =~ /^\d*\.?\d*$/
+      self.duration = duration_hours.to_f * 60
       self.start = nil
       self.end = nil
     else
