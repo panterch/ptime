@@ -52,7 +52,7 @@ class Entry < ActiveRecord::Base
     result = ''
     CSV::Writer.generate(result, ',') do |csv|
       csv << [self.project.shortname, self.user.username, self.day,
-        self.duration_hours, self.task.name, self.description, self.billable]
+        self.duration.to_f / 60, self.task.name, self.description, self.billable]
     end
     result
   end
