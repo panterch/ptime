@@ -36,12 +36,14 @@ class ReportsController < ApplicationController
   private
 
   # Limits the default search (e.g. if no parameter is given) to the current
-  # month
+  # month and the current user.
   def limit_default_range(search_params)
     return search_params if search_params
     now = Time.now
     current_month_start = DateTime.new(now.year,now.month,1)
     current_month_end = DateTime.now
-    {'day_gte' => current_month_start, 'day_lte' => current_month_end }
+    { 'day_gte' => current_month_start,
+      'day_lte' => current_month_end,
+      'user_id_eq' => current_user.id }
   end
 end
