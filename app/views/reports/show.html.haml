@@ -29,11 +29,11 @@
       %thead
         %tr
           %th= sort_link @report, :day
-          %th= sort_link @report, :project_id
+          %th= sort_link @report, :project_shortname, "Project"
           %th Project desc.
-          %th= sort_link @report, :task_id
+          %th= sort_link @report, :task_name, "Task"
           %th= sort_link @report, :duration, "Hours"
-          %th= sort_link @report, :user_id
+          %th= sort_link @report, :user_username, "User"
           %th= sort_link @report, :description
           %th= sort_link @report, :billable, "Bill"
           %th Edit
