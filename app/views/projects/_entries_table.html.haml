@@ -1,8 +1,9 @@
 %table.entries
   %thead
     %tr
-      %th Entry date
+      %th= sort_link @entries_search, :day
       %th Task
+      %th User
       %th Description
       %th Duration
       %th Edit
@@ -12,14 +13,16 @@
       %td Burned
       %td
       %td
+      %td
       %td= @total_time
       %td
       %td
 
-  - entries.each do |entry|
+  - @entries.each do |entry|
     %tr
       %td= l entry.day
       %td= entry.task.name if entry.task
+      %td= entry.user.username
       %td= truncate(entry.description, :length => 60)
       %td= entry.duration_hours
       %td= link_to (image_tag 'edit.png'), edit_entry_path(entry)

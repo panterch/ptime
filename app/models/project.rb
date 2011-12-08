@@ -45,6 +45,8 @@ class Project < ActiveRecord::Base
 
   scope :active, where(:inactive => false)
 
+  scope :ordered, order('shortname')
+
   # Scopes needed for 'meta_search'
 #  scope :sort_by_overdue_amount_asc, all.sort_by { |p| p.overdue_amount }
   #scope :sort_by_overdue_amount_desc
@@ -196,6 +198,12 @@ class Project < ActiveRecord::Base
     result_hash
   end
 
+  def user_by_responsibility_type(responsibility_type_name)
+    resp_type = ResponsibilityType.where(:name => responsibility_type_name).first
+    resp = responsibilities.where(:responsibility_type_id => resp_type.id).first
+    resp.try(:user)
+  end
+
   private
 
   def past_work
@@ -267,6 +275,7 @@ class Project < ActiveRecord::Base
       logger.debug("Is model valid: #{valid?}")
     end
   end
+
 
   def cache_calculations
     self.cached_total_time = total_time

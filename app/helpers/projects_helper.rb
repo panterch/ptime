@@ -15,8 +15,9 @@ module ProjectsHelper
     end
   end
 
+  # TODO: This should be probably moved into the model
   def project_description(project)
-    truncate(project.shortname + ' - ' + project.description, :length => 40)
+    "#{project.shortname} - #{project.description}"
   end
 
   def expected_profitability(project)

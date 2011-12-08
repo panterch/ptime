@@ -27,6 +27,7 @@
       %thead
         %tr
           %th= sort_link @search, :shortname, 'Name'
+          %th Project desc.
           %th= sort_link @search, :probability
           %th= sort_link @search, :start
           %th= sort_link @search, :end
@@ -34,12 +35,14 @@
           %th= sort_link @search, :expected_profitability, "Exp. Profitability"
           %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"}= sort_link @search, :overdue_amount,  'Overdue amount'
           %th= sort_link @search, :volume, 'Revenue'
+          %th PL
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
 
       - @projects.each do |project|
         %tr
           %td= link_to project_description(project), edit_project_path(project)
+          %td= truncate(project.description, :length => 60)
           %td= format_percentage(project.probability)
           %td= l project.start
           %td= l project.end
@@ -47,5 +50,6 @@
           %td= "%05.2f" % project.current_expected_profitability + " %"
           %td= number_to_currency(project.overdue_amount, :delimiter => '`', :unit => "")
           %td= number_to_currency(project.volume, :delimiter => '`', :unit => "")
+          %td= project.user_by_responsibility_type('project leader').try(:username)
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)
