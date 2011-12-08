@@ -30,6 +30,7 @@ class UsersController < InheritedResources::Base
     @user=User.find(params[:id])
     method = params[:user][:password] ? :update_with_password : :update_attributes
     if @user.send(method, params[:user])
+      sign_in(@user, :bypass => true)
       redirect_to users_url, :notice => 'User ' + @user.username +
         ' updated successfully'
     else
