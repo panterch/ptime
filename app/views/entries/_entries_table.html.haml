@@ -22,7 +22,7 @@
 
   - entries.each do |entry|
     %tr
-      %td= link_to entry_project_description(entry), edit_project_path(entry.project)
+      %td= link_to entry.project.shortname, edit_project_path(entry.project)
       %td= truncate(entry.project.description, :length => 60)
       %td= entry.task.name if entry.task
       %td= entry.description
