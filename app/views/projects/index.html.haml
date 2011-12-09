@@ -41,7 +41,7 @@
 
       - @projects.each do |project|
         %tr
-          %td= link_to project_description(project), edit_project_path(project)
+          %td= link_to project.shortname, edit_project_path(project)
           %td= truncate(project.description, :length => 60)
           %td= format_percentage(project.probability)
           %td= l project.start
