@@ -10,7 +10,7 @@
   %tr
     %td Internal hourly rate
     %td= @project.wage
-  %tr{ :title => "(entries.sum(:duration) / 60.0) * wage" }
+  %tr{ :title => "(entries.internal.sum(:duration) / 60.0) * wage" }
     %td Burned
     %td= number_to_currency(@project.current_internal_cost, :delimiter => '`', :unit => "")
   %tr{ :title => "(rpl || 0) * wage" }

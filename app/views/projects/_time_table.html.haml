@@ -1,12 +1,17 @@
 %table
   %tfoot
     %tr{ :title => "entries.sum(:duration) + rpl" }
-      %td Total
-      %td
-        = @project.total_time
-  %tr{ :title => "entries.sum :duration" }
-    %td= "Burned"
+      %td Total (int./ext.)
+      %td= @project.total_time_int_ext
+    %tr{ :title => "entries.internal.sum(:duration) + rpl" }
+      %td Total (int.)
+      %td= @project.total_time
+  %tr{ :title => "entries.internal.sum :duration" }
+    %td= "Burned (int.)"
     %td= @project.burned_time
+  %tr{ :title => "entries.external.sum :duration" }
+    %td= "Burned (ext.)"
+    %td= @project.burned_external_time
   %tr{ :title => "rpl" }
-    %td= "To burn"
+    %td= "To burn (int.)"
     %td= @project.expected_remaining_work
