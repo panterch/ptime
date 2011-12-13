@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021140744) do
+ActiveRecord::Schema.define(:version => 20111213142704) do
 
   create_table "accountings", :force => true do |t|
     t.string   "description"
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(:version => 20111021140744) do
     t.float    "cached_hourly_rate"
     t.float    "cached_expected_profitability"
     t.float    "cached_expected_return"
+    t.integer  "rpl_ext",                        :default => 0
+    t.integer  "current_worktime_ext",           :default => 0
   end
 
   create_table "responsibilities", :force => true do |t|

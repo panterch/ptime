@@ -21,24 +21,27 @@
           :collection => @project_states
           = form.input :probability, :as => :select,
           :collection => @project_probabilities, :include_blank => false
-          = form.input :wage, :label => 'Internal hourly rate', :input_html => { :size => 5 }
+          = form.input :wage, :label => 'Internal hourly rate',
+            :input_html => { :size => 5 }
           = form.input :active, :as => :boolean
 
         .grid_5.alpha.properties
-          = form.input :description, :as => :text, :input_html => { :size => "50x5" }
+          = form.input :description, :as => :text,
+            :input_html => { :size => "50x5" }
 
     .grid_6.alpha
       %fieldset.inputs
         %legend Offer Data
         .grid_3.alpha.properties
-          = form.input :rpl, :label => 'Total worktime (h)', :input_html => { :size => 6 }
+          = form.input :rpl, :label => 'Total internal worktime (h)',
+            :input_html => { :size => 6 }
+          = form.input :rpl_ext, :label => 'Total external worktime (h)',
+            :input_html => { :size => 6 }
         .grid_3.omega.properties
           %dl.property
-            %dt.property Total worktime
-            %dd.property= number_to_currency(@project.expected_work, :delimiter => '`', :unit => "")
-          %dl.property
             %dt.property Revenue
-            %dt.property= number_to_currency(@project.budget, :delimiter => '`', :unit => "")
+            %dt.property= number_to_currency(@project.budget,
+              :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Return
             %dt.property= number_to_currency(@project.budget - @project.expected_work, :delimiter => '`', :unit => "")
@@ -50,14 +53,17 @@
       %fieldset
         %legend Current
         .grid_3.alpha.properties
-          = form.input :current_worktime, :label => 'Total worktime (h)', :input_html => { :size => 6 }
+          = form.input :current_worktime,
+            :label => 'Total internal worktime (h)',
+            :input_html => { :size => 6 }
+          = form.input :current_worktime_ext,
+            :label => 'Total external worktime (h)',
+            :input_html => { :size => 6 }
         .grid_3.omega.properties
           %dl.property
-            %dt.property Total worktime
-            %dd.property= number_to_currency(@project.current_expected_work + @project.current_internal_cost, :delimiter => '`', :unit => "")
-          %dl.property
             %dt.property Revenue
-            %dt.property= number_to_currency(@project.budget, :delimiter => '`', :unit => "")
+            %dt.property= number_to_currency(@project.budget,
+              :delimiter => '`', :unit => "")
           %dl.property
             %dt.property Return
             %dt.property= number_to_currency(@project.current_expected_return, :delimiter => '`', :unit => "")
