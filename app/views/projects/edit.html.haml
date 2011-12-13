@@ -28,7 +28,7 @@
 - if @chart_data
   %h2.grid_12
   .grid_12.box
-    %h2 History
+    %h2=link_to 'History', '#', :class => 'toggle-box'
     %div
       = high_chart("chart", @chart_data)
 
