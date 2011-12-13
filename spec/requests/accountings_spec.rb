@@ -19,7 +19,7 @@ feature 'Listing accounting positions as authenticated user', %q{
                                :project_id => project.id)
 
     visit projects_path
-    click_link 'abc-001 - 123'
+    click_link 'abc-001'
     page.should have_content 'Accounting Positions'
     page.should have_content 'accounting position 1'
     page.should have_content 'accounting position 2'

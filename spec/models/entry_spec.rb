@@ -68,7 +68,7 @@ describe Entry do
       csv.should include(entry.project.shortname)
       csv.should include(entry.user.username)
       csv.should include(entry.day.to_s)
-      csv.should include(entry.duration_hours)
+      csv.should include((entry.duration/60.0).to_s)
       csv.should include(entry.task.name)
       csv.should include(entry.description)
       csv.should include(entry.billable.to_s)
