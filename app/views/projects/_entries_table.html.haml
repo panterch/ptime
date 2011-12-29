@@ -5,6 +5,8 @@
       %th Task
       %th User
       %th Description
+      %th Start
+      %th End
       %th Duration
       %th Edit
       %th Delete
@@ -24,6 +26,8 @@
       %td= entry.task.name if entry.task
       %td= entry.user.username
       %td= truncate(entry.description, :length => 60)
+      %td= entry.start.strftime('%H:%M') if entry.start
+      %td= entry.end.strftime('%H:%M') if entry.end
       %td= entry.duration_hours
       %td= link_to (image_tag 'edit.png'), edit_entry_path(entry)
       %td= link_to (image_tag 'delete.png'), entry_path(entry),
