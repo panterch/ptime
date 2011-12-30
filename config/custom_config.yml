@@ -1,6 +1,6 @@
 defaults: &defaults
-  default_tasks: ["Project Management", "Internal Meeting", "Customer Meeting", 
-                  "Design", "Development", "Documentation"]
+  default_tasks: ["Project Management", "Internal Meeting", "Customer Meeting",
+                  "Design", "Development", "Documentation", "Sales"]
 
 development:
   <<: *defaults
