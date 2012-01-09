@@ -35,6 +35,7 @@ gem 'jquery-rails', '1.0.13'
 group :development, :test do
   gem 'capistrano', '2.8.0'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
