@@ -16,8 +16,8 @@
     = projects_select_id_equals(f,  @active_projects,  { :class => 'chzn-select'})
   .grid_2
     = f.label :user_id_equals, 'user'
-    = users_id_equals_select(f,
-      { :class => 'chzn-select' })
+    %br
+    = users_id_equals_select(f, { :class => 'chzn-select' })
   .grid_3.omega
     = f.submit 'search'
 
