@@ -66,9 +66,7 @@ module EntriesHelper
   end
 
   def entry_project_description(entry)
-    truncate(entry.project.shortname +
-             ' - ' + entry.project.description, :length => 45)
-
+    "#{entry.project.shortname} - #{entry.project.description}"
   end
 
 end

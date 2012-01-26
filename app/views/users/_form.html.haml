@@ -3,9 +3,10 @@
   = form.inputs :name => 'User' do
     = form.input :username if current_user.admin?
     = form.input :email
-    = form.input :password
-    = form.input :password_confirmation unless current_user.admin?
+    = form.input :password, :label => "New password"
+    = form.input :password_confirmation, :label => "Re-enter new password"
     - unless current_user.admin? && @user.id!=current_user.id
+      %br
       = form.input :current_password
     - if current_user.admin?
       = form.input :active

@@ -415,7 +415,6 @@ form.project fieldset.buttons {
   }
 }
 
-
 /* Flash message */
 #flash_notice,
 #flash_alert {
@@ -429,4 +428,9 @@ form.project fieldset.buttons {
 #flash_notice {
   background: #333;
   color: white;
+}
+
+.inline-errors {
+  color: red;
+  font-weight: bold;
 }

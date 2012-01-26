@@ -30,6 +30,7 @@
         %tr
           %th= sort_link @report, :day
           %th= sort_link @report, :project_id
+          %th Project desc.
           %th= sort_link @report, :task_id
           %th= sort_link @report, :duration, "Hours"
           %th= sort_link @report, :user_id
@@ -38,6 +39,7 @@
           %th Edit
       %tfoot
         %tr
+          %td
           %td
           %td
           %td
@@ -51,6 +53,7 @@
         %tr
           %td= l entry.day
           %td= entry.project.shortname
+          %td= truncate(entry.project.description, :length => 60)
           %td= entry.task.name
           %td= entry.duration_hours
           %td= entry.user.username

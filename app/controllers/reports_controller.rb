@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   def show
     # Non-admin users can only see their own timesheet
     if current_user.admin
-      @users = User.all
+      @users = User.ordered
     else
       @users = [current_user]
     end
@@ -17,8 +17,9 @@ class ReportsController < ApplicationController
       format.html do
         # Initialize meta_search's collection
         @report = Entry.where(:user_id => user_ids).search(search_params)
+        @report.meta_sort = 'day.asc' unless params[:search]
 
-        @active_projects = Project.active
+        @active_projects = Project.active.ordered
 
         duration = @report.all.sum(&:duration)
         @total_time = convert_minutes_to_hh_mm(duration)

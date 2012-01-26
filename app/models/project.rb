@@ -45,6 +45,8 @@ class Project < ActiveRecord::Base
 
   scope :active, where(:inactive => false)
 
+  scope :ordered, order('shortname')
+
   # Scopes needed for 'meta_search'
 #  scope :sort_by_overdue_amount_asc, all.sort_by { |p| p.overdue_amount }
   #scope :sort_by_overdue_amount_desc
@@ -95,7 +97,7 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries(minutes) and expected_remaining_work(hours)
   def total_time
-    minutes_to_human_readable_time(entries.internal.sum(:duration) + expected_remaining_work * 60)
+    minutes_to_human_readable_time(entries.sum(:duration) + expected_remaining_work * 60)
   end
 
   # Cumulated time of all billable entries
@@ -106,12 +108,12 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries
   def burned_time
-    minutes_to_human_readable_time(entries.internal.sum :duration)
+    minutes_to_human_readable_time(entries.sum :duration)
   end
 
   def expected_remaining_work
     #rpl ? rpl.to_s + "h" : "0h"
-    to_burn = current_worktime - (entries.internal.sum(:duration) / 60)
+    to_burn = current_worktime - (entries.sum(:duration) / 60)
   end
 
   # Sum all positive accounting positions
@@ -128,7 +130,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_internal_cost
-    (entries.internal.sum(:duration) / 60.0) * wage
+    (entries.sum(:duration) / 60.0) * wage
   end
 
   def external_cost
@@ -194,6 +196,12 @@ class Project < ActiveRecord::Base
       result_hash.merge!({ day, project.cached_expected_budget }) if project
     end
     result_hash
+  end
+
+  def user_by_responsibility_type(responsibility_type_name)
+    resp_type = ResponsibilityType.where(:name => responsibility_type_name).first
+    resp = responsibilities.where(:responsibility_type_id => resp_type.id).first
+    resp.try(:user)
   end
 
   private
@@ -267,6 +275,7 @@ class Project < ActiveRecord::Base
       logger.debug("Is model valid: #{valid?}")
     end
   end
+
 
   def cache_calculations
     self.cached_total_time = total_time

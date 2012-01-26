@@ -2,6 +2,7 @@
   %thead
     %tr
       %th Project
+      %th Project desc.
       %th Task
       %th Description
       %th Duration
@@ -10,7 +11,8 @@
       %th Delete
   %tfoot
     %tr
-      %td Total time
+      %td Burned
+      %td
       %td
       %td
       %td= @total_time
@@ -21,6 +23,7 @@
   - entries.each do |entry|
     %tr
       %td= link_to entry_project_description(entry), edit_project_path(entry.project)
+      %td= truncate(entry.project.description, :length => 60)
       %td= entry.task.name if entry.task
       %td= entry.description
       %td= entry.duration_hours

@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     # Preset inactive and external by default
     @search.inactive_is_false = true unless params[:search]
     @search.external_is_true = true unless params[:search]
-    @search.meta_sort = 'updated_at.desc' unless params[:search]
+    @search.meta_sort = 'shortname.asc' unless params[:search]
 
     @projects = @search.all
   end
@@ -51,6 +51,9 @@ class ProjectsController < ApplicationController
     @accountings_search = @project.accountings.search(params[:search])
     @accountings = @accountings_search.all
     @accountings_sum = @accountings_search.sum(:amount)
+
+    @entries_search = @project.entries.search(params[:search])
+    @entries = @entries_search.all
 
     # Calculate the total time for entries
     duration = @project.entries.map(&:duration).sum
