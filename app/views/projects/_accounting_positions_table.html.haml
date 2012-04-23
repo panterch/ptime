@@ -14,6 +14,12 @@
       %td
         %strong Subtotal
       %td= number_to_currency(@accountings_sum, :delimiter => '`', :unit => "")
+      %td
+      %td
+      %td
+      %td
+      %td
+      %td
 
   - @accountings.each do |accounting|
     %tr

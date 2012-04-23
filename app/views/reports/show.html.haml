@@ -13,10 +13,11 @@
       :value => localized_search_date(f, :day_lte)
   .grid_3
     = f.label :project_id_equals, 'project'
-    = projects_select_id_equals(f,  @active_projects)
+    = projects_select_id_equals(f,  @active_projects,  { :class => 'chzn-select'})
   .grid_2
     = f.label :user_id_equals, 'user'
-    = users_id_equals_select(f)
+    %br
+    = users_id_equals_select(f, { :class => 'chzn-select' })
   .grid_3.omega
     = f.submit 'search'
 
@@ -29,11 +30,11 @@
       %thead
         %tr
           %th= sort_link @report, :day
-          %th= sort_link @report, :project_id
+          %th= sort_link @report, :project_shortname, "Project"
           %th Project desc.
-          %th= sort_link @report, :task_id
+          %th= sort_link @report, :task_name, "Task"
           %th= sort_link @report, :duration, "Hours"
-          %th= sort_link @report, :user_id
+          %th= sort_link @report, :user_username, "User"
           %th= sort_link @report, :description
           %th= sort_link @report, :billable, "Bill"
           %th Edit

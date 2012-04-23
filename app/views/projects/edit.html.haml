@@ -28,7 +28,7 @@
 - if @chart_data
   %h2.grid_12
   .grid_12.box
-    %h2 History
+    %h2=link_to 'History', '#', :class => 'toggle-box toggle-box-collapsed'
     %div
       = high_chart("chart", @chart_data)
 
@@ -39,5 +39,3 @@
 %h2.grid_12
 - if @project.entries.present?
   = render 'entries'
-
-

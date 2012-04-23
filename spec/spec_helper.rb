@@ -44,7 +44,7 @@ RSpec.configure do |config|
   config.use_transactional_examples = false
 
   # Set webkit as javascript driver
-  # Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :webkit
 
   # DatabaseCleaner is needed, because use_transactional_fixtures is off. It is
   # off to be able to use Selenium as capybara driver.

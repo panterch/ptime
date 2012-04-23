@@ -1,9 +1,9 @@
 module EntriesHelper
 
   # Build user select for entries report form
-  def users_id_equals_select(form)
+  def users_id_equals_select(form, options = {})
     users = @users.collect { |user| [user.username, user.id] }
-    form.select :user_id_equals, users,  {:include_blank => ''}
+    form.select :user_id_equals, users,  {:include_blank => '', :selected => nil}, options
   end
 
   def tasks_collection
@@ -16,9 +16,9 @@ module EntriesHelper
   end
 
   # Helper method for index (entries report)
-  def projects_select_id_equals(form, projects)
+  def projects_select_id_equals(form, projects, options = {})
     form.select :project_id_equals, to_form_select(projects),
-      {:include_blank => ''}
+      {:include_blank => ''}, options
   end
 
   # Extract information a form select method

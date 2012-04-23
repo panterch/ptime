@@ -65,12 +65,12 @@ $ ->
     entry.toggleTimeInputMethod($(this))
 
   # Reload entry form for chosen date
-  $('#entry-ui-datepicker').datepicker({
+  $('#entry-ui-datepicker').datepicker
     onSelect: (dateText, inst) ->
       date = new Date(dateText)
       day = $.datepicker.formatDate("dd-mm-yy", date)
-      window.location.href = '/entries/new/' + '?day=' + day;
-  })
+      window.location.href = '/entries/new/' + '?day=' + day
+    firstDay: 1
 
   # Change date on entry datepicker. It will be set by new and edit actions
   $('#entry-ui-datepicker').datepicker('setDate', new Date($('input#entry_day_input').val()))

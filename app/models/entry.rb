@@ -20,6 +20,7 @@ class Entry < ActiveRecord::Base
 
 
   scope :internal, includes('user').where('users.external = ? or users.external IS ?', false, nil)
+  scope :external, includes('user').where('users.external = ?', true)
 
   default_scope where('entries.deleted_at IS NULL')
 

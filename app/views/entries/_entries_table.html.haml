@@ -5,6 +5,8 @@
       %th Project desc.
       %th Task
       %th Description
+      %th Start
+      %th End
       %th Duration
       %th Billable
       %th Edit
@@ -15,6 +17,8 @@
       %td
       %td
       %td
+      %td
+      %td
       %td= @total_time
       %td
       %td
@@ -22,10 +26,12 @@
 
   - entries.each do |entry|
     %tr
-      %td= link_to entry_project_description(entry), edit_project_path(entry.project)
+      %td= link_to entry.project.shortname, edit_project_path(entry.project)
       %td= truncate(entry.project.description, :length => 60)
       %td= entry.task.name if entry.task
       %td= entry.description
+      %td= entry.start.strftime('%H:%M') if entry.start
+      %td= entry.end.strftime('%H:%M') if entry.end
       %td= entry.duration_hours
       %td= bool_to_img(entry.billable)
       %td= link_to (image_tag 'edit.png'), edit_entry_path(entry)

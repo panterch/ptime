@@ -31,10 +31,10 @@ class Project < ActiveRecord::Base
 
   attr_accessible :shortname, :description, :start, :end, :inactive, :active,
     :state, :task_ids, :tasks_attributes, :project_state_id,
-    :project_state_attributes, :probability, :wage, :rpl,
+    :project_state_attributes, :probability, :wage, :rpl, :rpl_ext,
     :milestone_ids, :milestones_attributes,
     :responsibility_ids, :responsibilities_attributes,
-    :external, :note, :current_worktime
+    :external, :note, :current_worktime, :current_worktime_ext
 
   attr_accessor :active # Virtual field which will update the value of inactive
 
@@ -97,6 +97,14 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries(minutes) and expected_remaining_work(hours)
   def total_time
+    minutes_to_human_readable_time(entries.internal.sum(:duration) + expected_remaining_work * 60)
+  end
+
+  def total_time_ext
+    minutes_to_human_readable_time(entries.external.sum(:duration) + expected_remaining_external_work * 60)
+  end
+
+  def total_time_int_ext
     minutes_to_human_readable_time(entries.sum(:duration) + expected_remaining_work * 60)
   end
 
@@ -108,12 +116,20 @@ class Project < ActiveRecord::Base
 
   # Cumulated time of all entries
   def burned_time
-    minutes_to_human_readable_time(entries.sum :duration)
+    minutes_to_human_readable_time(entries.internal.sum :duration)
+  end
+
+  def burned_external_time
+    minutes_to_human_readable_time(entries.external.sum :duration)
   end
 
   def expected_remaining_work
     #rpl ? rpl.to_s + "h" : "0h"
-    to_burn = current_worktime - (entries.sum(:duration) / 60)
+    to_burn = current_worktime - (entries.internal.sum(:duration) / 60)
+  end
+
+  def expected_remaining_external_work
+    to_burn = current_worktime_ext - (entries.external.sum(:duration) / 60)
   end
 
   # Sum all positive accounting positions
@@ -130,7 +146,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_internal_cost
-    (entries.sum(:duration) / 60.0) * wage
+    (entries.internal.sum(:duration) / 60.0) * wage
   end
 
   def external_cost

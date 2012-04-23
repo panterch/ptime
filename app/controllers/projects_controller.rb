@@ -52,8 +52,9 @@ class ProjectsController < ApplicationController
     @accountings = @accountings_search.all
     @accountings_sum = @accountings_search.sum(:amount)
 
-    @entries_search = @project.entries.search(params[:search])
-    @entries = @entries_search.all
+    entries_search = @project.entries.search()
+    entries_search.meta_sort = 'shortname.asc'
+    @entries = entries_search.all
 
     # Calculate the total time for entries
     duration = @project.entries.map(&:duration).sum

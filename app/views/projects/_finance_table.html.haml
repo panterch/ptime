@@ -10,12 +10,12 @@
   %tr
     %td Internal hourly rate
     %td= @project.wage
-  %tr{ :title => "(entries.sum(:duration) / 60.0) * wage" }
-    %td Burned
-    %td= number_to_currency(@project.current_internal_cost, :delimiter => '`', :unit => "")
+  %tr{ :title => "(entries.internal.sum(:duration) / 60.0) * wage" }
+    %td Burned (int.)
+    %td= number_to_currency(- @project.current_internal_cost, :delimiter => '`', :unit => "")
   %tr{ :title => "(rpl || 0) * wage" }
-    %td To burn
-    %td= number_to_currency(@project.current_expected_work, :delimiter => '`', :unit => "")
+    %td To burn (int.)
+    %td= number_to_currency(- @project.current_expected_work, :delimiter => '`', :unit => "")
   %tr{ :title => "accountings.where(:positive => false).sum :amount" }
     %td External costs
     %td= number_to_currency(@project.external_cost, :delimiter => '`', :unit => "")

@@ -31,8 +31,9 @@
           = f.select :task_id, tasks_collection,
             { :include_blank => true }, { :class => 'chzn-select' }
 
+      .entry_group
         .entry_item
-          = f.label :description, :length => 30
+          = f.label :description, :length => 50
           = f.text_field :description
 
         .entry_item

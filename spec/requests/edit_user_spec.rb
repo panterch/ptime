@@ -23,6 +23,7 @@ feature "Edit user as admin and as user", %q{
     click_link 'edit_current_user'
     page.should have_css 'form.user'
     fill_in 'user[password]', :with=>'goodbye'
+    fill_in 'user[password_confirmation]', :with=>'goodbye'
     fill_in 'user[current_password]', :with=>'good_password'
     click_button 'Update User'
     page.should_not have_css '.inline-errors'
