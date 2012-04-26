@@ -90,10 +90,10 @@ feature "Edit a entry", %q{
       page.find_by_id('entry_end').value.should be_empty
       page.find_by_id('entry_duration_hours').value.should match '4:30'
 
-      find('#entry_start')['disabled'].should == 'true'
-      find('#entry_end')['disabled'].should == 'true'
-      find('#entry_duration_hours')['disabled'].should == 'false'
-      find('#time_capture_method_duration')['checked'].should == 'true'
+      find('#entry_start')['disabled'].should be_true
+      find('#entry_end')['disabled'].should be_true
+      find('#entry_duration_hours')['disabled'].should be_false
+      find('#time_capture_method_duration')['checked'].should be_true
     end
   end
 end

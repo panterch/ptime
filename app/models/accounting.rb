@@ -3,7 +3,7 @@ class Accounting < ActiveRecord::Base
   has_paper_trail # versioning
 
   belongs_to :project
-  before_save :save_sign
+  before_save :set_sign
 
   has_attached_file :document
 
@@ -12,15 +12,17 @@ class Accounting < ActiveRecord::Base
 
   default_scope where(:deleted_at => nil).order(:valuta)
 
-  def save_sign
-    self.positive = ( self.amount >= 0 ) ? true : false
+  def destroy_with_mark
+    self.deleted_at = Time.now
+    save
+  end
+  alias_method_chain :destroy, :mark
+
+  private
+
+  def set_sign
+    self.positive = (self.amount >= 0)
     true
   end
 
-  def destroy_with_mark
-    self.deleted_at = Time.now
-    self.save
-  end
-
-  alias_method_chain :destroy, :mark
 end
