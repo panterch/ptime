@@ -1,0 +1,84 @@
+#
+# this need the yam and RSQLite R packages as documented in the rack-r readme
+#
+#
+# RackR -- process R on the fly
+# RackR depends on jQuery >= 1.4.4
+#
+# changes to this file will not be picked up
+# without a restart of your app
+#
+enabled:     true
+url_scope:   /rack-r
+public_path: public/system/rack-r
+public_url:  /system/rack-r
+temp:
+  dir:       /tmp
+  prefix:    rr_
+r_file:      script.R
+r_header: |
+  # modify this header in rack-r config file
+  library(yaml)
+  library(DBI)
+  library(RSQLite)
+  root <- '<%= Rails.root %>'
+  dbconf <- yaml.load_file(paste(root, '/config/database.yml', sep=''))
+  dbfile <- paste(root, '/', dbconf$development$database, sep='')
+  drv <- dbDriver("SQLite")
+  con <- dbConnect(drv, dbname=dbfile)
+ajaxer: |
+  <div class='rack_r' id='<%= key %>'>Processing R...</div>
+  <script type='text/javascript'>
+    var url = '<%= config.url_scope %>/<%= key %>';
+    $.ajax(url, { success: function(data) { $('#<%= key %>').html(data); } });
+  </script>
+html:
+  prefix:    <div class='rack_r_out'>
+  suffix:    </div>
+templates:
+  - pattern: .svg$
+    process: |
+      svg = File.read(src)
+    template: |
+      <%= svg %>
+  - pattern: .(jpg|jpeg|png)$
+    process: |
+      # TODO build dst with key, otherwise may lead to undesired results
+      dst = File.join(public_path, file)
+      FileUtils.cp(src, dst)
+      url = "#{config.public_url}/#{file}"
+    template: |
+      <img src='<%= url %>' />
+  - pattern: .csv$
+    process: |
+      table = CSV.read(src)
+      # TODO build dst with key, otherwise may lead to undesired results
+      dst = File.join(public_path, file)
+      FileUtils.cp(src, dst)
+      url = "#{config.public_url}/#{file}"
+    template: |
+      <a href='<%= url %>'><%= file %></a>
+      <table>
+        <% table.each do |row| %>
+          <tr>
+            <% row.each do |col| %>
+              <td><%= col %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+  - pattern: .Rout$
+    process: |
+      rout = File.read(src)
+    template: |
+      <pre><%= rout %></pre>
+node_regex:  <script\s+type=['"]text/r['"]\s*>(.*?)</script>
+#
+# uncomment the following two lines, if your project
+# doesn't use jquery already
+# javascripts:
+#   - http://code.jquery.com/jquery-1.5.1.min.js
+# or this line if you want to ship it yourself
+#   - /javascripts/jquery-1.5.1.min.js
+# uncomment the following line, in case your project uses prototype
+# jquery_noconflict: true

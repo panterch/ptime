@@ -64,10 +64,10 @@ feature "New entry form", %q{
 
   it 'allows only one time entry method at a time', :js => true do
     choose('time_capture_method_duration')
-    find('#entry_start')['disabled'].should == 'true'
-    find('#entry_end')['disabled'].should == 'true'
+    find('#entry_start')['disabled'].should be_true
+    find('#entry_end')['disabled'].should be_true
     choose('time_capture_method_start_end')
-    find('#entry_duration_hours')['disabled'].should == 'true'
+    find('#entry_duration_hours')['disabled'].should be_true
   end
 
   it 'focuses the description field if task has been selected', :js => true do

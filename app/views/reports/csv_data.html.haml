@@ -1,0 +1,18 @@
+%h2.grid_12 CSV Data Report
+
+.grid_12
+  :plain
+    <script type='text/r'>
+      #{table_render_csv("entries")}
+      #{table_render_csv("projects")}
+      #{table_render_csv("accountings")}
+      #{table_render_csv("milestone_types")}
+      #{table_render_csv("milestones")}
+      #{table_render_csv("posts")}
+      #{table_render_csv("project_states")}
+      #{table_render_csv("projects")}
+      #{table_render_csv("responsibilities")}
+      #{table_render_csv("responsibility_types")}
+      #{table_render_csv("tasks")}
+      #{table_render_csv("users")}
+    </script>

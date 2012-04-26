@@ -1,6 +1,13 @@
 PanterControlling::Application.routes.draw do
 
-  resource :report
+  resource :report do
+    collection do
+      get :csv_data
+      get :projects_kpi
+      get :entries_kpi
+    end
+  end
+
 
   resources :project_states
 

@@ -10,6 +10,7 @@ en:
   date:
     formats:
       default: '%d %b %Y'
+      kpi: '%d.%m.%y'
   activerecord:
     models:
       accounting: 'accounting position'

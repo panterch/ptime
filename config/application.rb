@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+#require 'rack_r/railtie' #rack-r In Rails 3.2 you will have to put this somewhere
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line

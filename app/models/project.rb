@@ -149,6 +149,12 @@ class Project < ActiveRecord::Base
     (entries.internal.sum(:duration) / 60.0) * wage
   end
 
+  # NOTE sev: move to public to display in kpi overview for debug info
+  # DUPPLICATE of current_internal_cost
+  def past_work
+    entries.internal.sum(:duration) / 60.0 * wage
+  end
+
   def external_cost
     accountings.where(:positive => false).sum :amount
   end
@@ -221,10 +227,6 @@ class Project < ActiveRecord::Base
   end
 
   private
-
-  def past_work
-    entries.internal.sum(:duration) / 60.0 * wage
-  end
 
   def rpl_or_zero
     rpl ? rpl : 0

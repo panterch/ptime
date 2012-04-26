@@ -1,0 +1,136 @@
+%h2.grid_12 Time Entry KPIs
+
+= form_for(@report, :as => :search, :url => entries_kpi_report_path,
+  :html => { :method => :get, :id => "entry_search",
+  :class => "grid_12 filter" }) do |f|
+  .grid_2.alpha
+    = f.label :day_gte, 'begin'
+    = f.text_field :day_gte, :class => 'ui-datepicker',
+      :value => localized_search_date(f, :day_gte)
+  .grid_2
+    = f.label :day_lte, 'end'
+    = f.text_field :day_lte, :class => 'ui-datepicker',
+      :value => localized_search_date(f, :day_lte)
+  .grid_3
+    = f.label :project_id_equals, 'project'
+    = projects_select_id_equals(f,  @active_projects,  { :class => 'chzn-select'})
+  .grid_2
+    = f.label :user_id_equals, 'user'
+    %br
+    = users_id_equals_select(f, { :class => 'chzn-select' })
+  .grid_3.omega
+    = f.submit 'search'
+
+#pagination.center
+
+.box.grid_12
+  %h2=link_to 'Report', '#', :class => 'toggle-box'
+  %div
+    %table.reports
+      %thead
+        %tr
+          %th= sort_link @report, :day
+          %th= sort_link @report, :project_shortname, "Project"
+          %th Project desc.
+          %th= sort_link @report, :task_name, "Task"
+          %th= sort_link @report, :duration, "Hours"
+          %th= sort_link @report, :user_username, "User"
+          %th= sort_link @report, :description
+          %th= sort_link @report, :billable, "Bill"
+          %th Edit
+      %tfoot
+        %tr
+          %td
+          %td
+          %td
+          %td
+          -#%td= @total_time
+          %td
+          %td
+          %td
+          %td
+
+      - @report.each do |entry|
+        %tr
+          %td= l entry.day
+          %td= entry.project.shortname
+          %td= truncate(entry.project.description, :length => 60)
+          %td= entry.task.name
+          %td= entry.duration_hours
+          %td= entry.user.username
+          %td= truncate(entry.description, :length => 60)
+          %td= bool_to_img(entry.billable)
+          %td= display_edit_link(entry)
+
+
+.box.grid_12
+  %h2=link_to 'Totals by User', '#', :class => 'toggle-box'
+  %div
+    %table.reports
+      %thead
+        %tr
+          %th User
+          %th Hours
+      - @report.group_by(&:user).each do |user,entries|
+        %tr
+          %td= link_to user.username, "#"
+          %td=entries.sum(&:duration) / 60
+        = drill_down_row(entries, "by_project", :show_drilldown => true)
+        = drill_down_row(entries, "by_task", :show_drilldown => true)
+        = drill_down_row(entries, "by_billable", :show_drilldown => true)
+
+
+
+.box.grid_12
+  %h2=link_to 'Totals by Projects', '#', :class => 'toggle-box'
+  %div
+    %table.reports
+      %thead
+        %tr
+          %th Project
+          %th Hours
+      - @report.group_by(&:project).each do |project,entries|
+        %tr
+          %td=project.shortname
+          %td=entries.sum(&:duration) / 60
+        = drill_down_row(entries, "by_user", :show_drilldown => true)
+        = drill_down_row(entries, "by_task", :show_drilldown => true)
+        = drill_down_row(entries, "by_billable", :show_drilldown => true)
+
+.box.grid_12
+  %h2=link_to 'Totals by Tasks', '#', :class => 'toggle-box'
+  %div
+    %table.reports
+      %thead
+        %tr
+          %th Task
+          %th Hours
+      - @report.group_by(&:task).each do |task,entries|
+        %tr
+          %td=task.name
+          %td=entries.sum(&:duration) / 60
+        = drill_down_row(entries, "by_user", :show_drilldown => true)
+        = drill_down_row(entries, "by_project", :show_drilldown => true)
+        = drill_down_row(entries, "by_billable", :show_drilldown => true)
+
+
+.box.grid_12
+  %h2=link_to 'Totals by Billable', '#', :class => 'toggle-box'
+  %div
+    %table.reports
+      %thead
+        %tr
+          %th Billable
+          %th Hours
+      - @report.group_by(&:billable).each do |billable_flag,entries|
+        %tr
+          %td=billable_flag ? "YES" : "NO"
+          %td=entries.sum(&:duration) / 60
+        = drill_down_row(entries, "by_user", :show_drilldown => true)
+        = drill_down_row(entries, "by_project", :show_drilldown => true)
+        = drill_down_row(entries, "by_task", :show_drilldown => true)
+
+
+  -#.button_link
+    = link_to "Download CSV",
+      report_path( { :search => params[:search] }.merge(:format => "csv"))

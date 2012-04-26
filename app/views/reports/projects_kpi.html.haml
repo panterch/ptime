@@ -1,0 +1,312 @@
+%h2.grid_12 Projekt KPI
+
+-# TODO-REVIEW may add a filter form later
+-#= form_for(@report, :as => :search, :url => report_path,
+-#  :html => { :method => :get, :id => "entry_search",
+-#  :class => "grid_12 filter" }) do |f|
+-#  .grid_2.alpha
+-#    = f.label :day_gte, 'begin'
+-#    = f.text_field :day_gte, :class => 'ui-datepicker',
+-#      :value => localized_search_date(f, :day_gte)
+-#  .grid_2
+-#    = f.label :day_lte, 'end'
+-#    = f.text_field :day_lte, :class => 'ui-datepicker',
+-#      :value => localized_search_date(f, :day_lte)
+-#  .grid_3
+-#    = f.label :project_id_equals, 'project'
+-#    = projects_select_id_equals(f,  @active_projects,  { :class => 'chzn-select'})
+-#  .grid_2
+-#    = f.label :user_id_equals, 'user'
+-#    %br
+-#    = users_id_equals_select(f, { :class => 'chzn-select' })
+-#  .grid_3.omega
+-#    = f.submit 'search'
+-##pagination.center
+
+-#.box.grid_12
+  %h2=link_to 'Report', '#', :class => 'toggle-box'
+
+  -#- @report = Project.all
+
+  %table.reports
+    %thead
+      %tr
+        %th Project
+    %tr
+      %td XXX
+
+
+.box.grid_12
+  %h2=link_to 'Report', '#', :class => 'toggle-box'
+
+  - @report = Project.all
+
+  %table.reports
+    %thead
+      %tr
+        %th Project
+        %th Lead
+        %th Status
+        %th Type
+        %th wage
+        %th current_worktime
+        %th current_expected_profitability
+        %th overdue_amount
+        %th current_expected_return
+        %th volume
+        %th total_time
+        %th burned_time
+        %th expected_remaining_work
+        %th
+          budget
+          %br Positive Accountings
+        %th
+          external_cost
+          %br Negative Accountings
+        %th current_expected_work
+        %th current_internal_cost
+        %th current_expected_return
+        %th
+          past_work
+          %i unlcear field
+        %th rpl_ext
+        %th current_worktime_ext
+        %th Start
+        %th End
+        %th Duration [days]
+    %tfoot
+      %tr
+        %td
+        %td
+        %td
+        %td
+        %td db
+        %td db
+        %td
+          %code= "current_expected_profitability = if budget != 0 100.0 * current_expected_return / budget else 0.0 end"
+        %td
+          %code= "overdue_amount =  accountings.where('valuta <= ?', Time.now). where(:payed => false, :sent => true, :positive => true).sum :amount"
+        %td
+          %code= "current_expected_return = budget - past_work + external_cost - current_expected_work"
+        %td
+          %code= "volume =  accountings.where(:positive => true).sum :amount"
+        %td
+          %code= "total_time =  minutes_to_human_readable_time(entries.internal.sum(:duration) + expected_remaining_work * 60)"
+        %td
+          %code= "burned_time =  minutes_to_human_readable_time(entries.internal.sum :duration)"
+        %td
+          %code= "expected_remaining_work = to_burn = current_worktime - (entries.internal.sum(:duration) / 60)"
+        %td
+          %code= "accountings.where(:positive => true).sum :amount"
+        %td
+          %code= "accountings.where(:positive => false).sum :amount"
+        %td
+          %code= "current_expected_work =  (expected_remaining_work || 0) * wage"
+        %td
+          %code= "current_internal_cost = (entries.internal.sum(:duration) / 60.0) * wage"
+        %td
+          %code= "current_expected_return =  budget - past_work + external_cost - current_expected_work"
+        %td
+          %code= "past_work = entries.internal.sum(:duration) / 60.0 * wage"
+        %td db
+        %td db
+        %td db
+        %td db
+        %td
+          %code end - start in days
+
+    - @report.each do |project|
+      %tr
+        - db_field = "this is a DB Column"
+        %td= link_to project.shortname, edit_project_path(project), :title => project.description
+        -#%td= truncate(project.description, :length => 60)
+        %td{:title => "Query to Leader Role"}= project.user_by_responsibility_type('project leader').try(:username)
+        %td{:title => db_field + "from project state table"}= get_project_state(project)
+        %td{:title => db_field}= project.external? ? "EXTERN" : "INTERN"
+        %td{:title => db_field}= project.wage
+        %td{:title => db_field}= project.current_worktime
+
+        %td{:title => "current_expected_profitability = if budget != 0 100.0 * current_expected_return / budget else 0.0 end"}= "%05.2f" % project.current_expected_profitability + " %"
+
+        %td{:title => "overdue_amount =  accountings.where('valuta <= ?', Time.now). where(:payed => false, :sent => true, :positive => true).sum :amount"}= number_to_currency(project.overdue_amount, :delimiter => '`', :unit => "")
+        %td{:title => "current_expected_return = budget - past_work + external_cost - current_expected_work"}= number_to_currency(project.current_expected_return, :delimiter => '`', :unit => "")
+        %td{:title => "volume =  accountings.where(:positive => true).sum :amount"}= number_to_currency(project.volume, :delimiter => '`', :unit => "")
+
+        %td{:title => "total_time =  minutes_to_human_readable_time(entries.internal.sum(:duration) + expected_remaining_work * 60)"}= project.total_time
+        %td{:title => "burned_time =  minutes_to_human_readable_time(entries.internal.sum :duration)"}= project.burned_time
+        %td{:title => "expected_remaining_work = to_burn = current_worktime - (entries.internal.sum(:duration) / 60)"}= project.expected_remaining_work
+        %td{:title => "accountings.where(:positive => true).sum :amount"}= project.budget
+        %td{:title => "accountings.where(:positive => false).sum :amount"}= project.external_cost
+        %td{:title => "current_expected_work =  (expected_remaining_work || 0) * wage"}= project.current_expected_work
+        %td{:title => "current_internal_cost = (entries.internal.sum(:duration) / 60.0) * wage"}= project.current_internal_cost
+        %td{:title => "current_expected_return =  budget - past_work + external_cost - current_expected_work"}= project.current_expected_return
+        %td{:title => "past_work = entries.internal.sum(:duration) / 60.0 * wage"}= project.past_work
+
+        %td{:title => db_field}= project.rpl_ext
+        %td{:title => db_field}= project.current_worktime_ext
+        %td{:title => db_field}= l project.start, :format => :kpi
+        %td{:title => db_field}= l project.end, :format => :kpi
+
+        %td{:title => "end - start in days"}= (project.end - project.start).days
+
+-#
+  BASE LOHNSHEET:
+
+  A) kpi: verrechenbarkeit der letzten 12 monate (resp. sev aufgrund timesheets)
+
+  * Line Chart mit den % verrechenbar pro Monat
+  * Stacked Bar Chart mit Verrechenbaren Stunden nach Arbeiter und Monat
+  * Stacked Bar Chart mit Verrechenbaren Stunden nach projekt und Monat
+
+  B) kpi: durchschnittslohn der letzten 12 monate (resp. sev aufgrund lohnsheets)
+
+  * Line Chart mit dem ° Lohn pro Mitarbeiter (real)
+  * Line Chart mit dem ° Lohn pro Mitarbeiter (bei 100%)
+  * Line Chart mit dem ° Lohn pro Mitarbeiter (in Stundensatz)
+
+  B-optional:
+
+  * stacked aufwand pro monat, nach arbeiter
+
+
+  BASE CONTROLLER SQL:
+  kpi: profitabilitaet (resp. sev aufgrund controllr)
+
+  C) auf projektbasis: kennzahl durchschnittliche projektprofitabilitaet: tbd
+  D) auf kundenbasis: kennzahl kundenprofitabilitaet: tbd new Kunde
+  E) pro geschaeftsfeld: kennzahl profitabilitaet pro geschaeftsfeld: tbd new Business Area
+
+  BASE CONTROLLER SQL:
+
+  F) kpi: interne aufwaende (personalkosten) der letzten 12 monate fuer (resp. sev)
+
+  oss-001: open source projekte
+  pan-006: events
+  pan-010: Business Development
+  pan-014: Panter Technik
+  pan-015: Presales Generell
+  pan-018: Sales Generell (deprecated)
+  pan-021: Panter Administrativ
+  pan-026: controlling
+  pan-029: Ausbildung allgemein
+  pan-011: Marketing Generell
+
+
+-#%table.reports
+  %thead
+    %tr
+      %th= sort_link @report, :day
+      %th= sort_link @report, :project_shortname, "Project"
+      %th Project desc.
+      %th= sort_link @report, :task_name, "Task"
+      %th= sort_link @report, :duration, "Hours"
+      %th= sort_link @report, :user_username, "User"
+      %th= sort_link @report, :description
+      %th= sort_link @report, :billable, "Bill"
+      %th Edit
+  %tfoot
+    %tr
+      %td
+      %td
+      %td
+      %td
+      %td= @total_time
+      %td
+      %td
+      %td
+      %td
+
+  - @report.each do |entry|
+    %tr
+      %td= l entry.day
+      %td= entry.project.shortname
+      %td= truncate(entry.project.description, :length => 60)
+      %td= entry.task.name
+      %td= entry.duration_hours
+      %td= entry.user.username
+      %td= truncate(entry.description, :length => 60)
+      %td= bool_to_img(entry.billable)
+      %td= display_edit_link(entry)
+
+  -#.button_link
+  -#  = link_to "Download CSV",
+  -#    report_path( { :search => params[:search] }.merge(:format => "csv"))
+
+-#.grid_12
+  -# TODO revfctor to dynamic R views
+  :plain
+    <script type='text/r'>
+
+      #{table_render_csv("entries")}
+      #{table_render_csv("projects")}
+      #{table_render_csv("accountings")}
+      #{table_render_csv("milestone_types")}
+      #{table_render_csv("milestones")}
+      #{table_render_csv("posts")}
+      #{table_render_csv("project_states")}
+      #{table_render_csv("projects")}
+      #{table_render_csv("responsibilities")}
+      #{table_render_csv("responsibility_types")}
+      #{table_render_csv("tasks")}
+      #{table_render_csv("users")}
+
+      ## list the tables in the database
+      ## http://cran.r-project.org/doc/manuals/R-data.html
+      # http://zoonek2.free.fr/UNIX/48_R/02.html
+      # http://www.sr.bham.ac.uk/~ajrs/R/r-plot_data.html
+
+      # dbListTables(con)
+
+      ## get the whole table
+      #data = dbReadTable(con, "entries")
+      # table(data)
+
+      ## Select from the loaded table
+      #dbGetQuery(con, paste("select user_id, project_id, duration",
+      #                      "where id > 1"))
+      # png('sinus.png')
+      # demo()
+
+      # cars <- c(1, 3, 6, 4, 9)
+      # plot(cars)
+
+      # png(file="myplot.png", bg="transparent")
+      # plot(1:10)
+      # rect(1, 5, 3, 7, col="white")
+      # dev.off()
+
+      # Define the cars vector with 5 values
+      # cars <- c(1, 3, 6, 4, 9, 55)
+
+      # Create a pie chart with defined heading and
+      # custom colors and labels
+      # pie(cars, main="Booked Hours by User", col=rainbow(length(cars)) ) # , labels=c("Mon","Tue","Wed","Thu","Fri")
+
+      # Graph cars using blue points overlayed by a line
+      # plot(cars, type="o", col="blue")
+
+      # Create a title with a red, bold/italic font
+      # title(main="Autos", col.main="red", font.main=5)
+
+      # png(filename = "Rplot%03d.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white",  res = NA, ...,
+      # type = c("cairo", "cairo-png", "Xlib", "quartz"), antialias)
+      # Define cars vector with 5 values
+      # cars <- c(1, 3, 6, 4, 9)
+      # slices <- c(10, 12, 4, 16, 8)
+
+      # projects <- c(13, 33, 46, 64, 89, 53)
+      # png('hours_by_project.png')
+      # pie(data, main="Booked Hours by Project", col=rainbow(length(data)) ) # , labels=c("Mon","Tue","Wed","Thu","Fri")
+
+      # http://de.wikibooks.org/wiki/GNU_R:_barplot
+      # smoke <- matrix(c(51,43,22,92,28,21,68,22,9),ncol=3,byrow=TRUE)
+      # barplot(smoke, legend= rownames(smoke), main="Booked Hours by User", legend.text = c("Aml","Sev","Tro"))
+
+      # require(utils)
+      # data()                       # list all available data sets
+      # try(data(package = "rpart") )# list the data sets in the rpart package
+      # data(USArrests, "VADeaths")  # load the data sets 'USArrests' and 'VADeaths'
+      #  help(USArrests)              # give information on data set 'USArrests'
+      # help(VADeaths)              # give information on data set 'USArrests'
+
+    </script>

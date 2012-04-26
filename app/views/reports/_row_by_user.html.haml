@@ -1,0 +1,16 @@
+%tr
+  %td{:colspan=>2}
+    %table.reports
+      %thead
+        %tr
+          %th User
+          %th Hours
+      - entries.group_by(&:user).each do |user,sub_entries|
+        %tr
+          %td=user.username
+          %td=sub_entries.sum(&:duration) / 60
+
+        - if local_assigns.has_key?(:show_drilldown) && show_drilldown
+          = drill_down_row(sub_entries, "by_project")
+          = drill_down_row(sub_entries, "by_task")
+          = drill_down_row(sub_entries, "by_billable")

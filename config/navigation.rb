@@ -12,8 +12,16 @@ SimpleNavigation::Configuration.run do |navigation|
         new_project_path, :if => Proc.new {can? :create, Project}
     end
 
-    primary.item :report, 'Report', report_path,
-      :if => Proc.new {can? :show, Report}
+    primary.item :report, 'Reports', "#" do |report|
+
+      report.item :time_entry_report, 'Time Entries', report_path, :if => Proc.new {can? :show, Report}
+
+      # TODO add security check
+      report.item :csv_data_report, 'CSV Data', csv_data_report_path
+      report.item :csv_data_report, 'Projects KPI', projects_kpi_report_path
+      report.item :csv_data_report, 'Entries KPI', entries_kpi_report_path
+
+    end
 
     primary.item :admin, 'Admin', '#',
       :if => Proc.new { current_user && current_user.admin } do |admin|
