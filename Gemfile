@@ -19,7 +19,7 @@ gem 'rack', '1.3.2'
 gem 'rake', '0.9.2', :require => false
 gem 'simple-navigation'
 gem 'therubyracer', '0.9.4'
-gem 'will_paginate', '3.0.pre2'
+gem 'will_paginate', '~> 3.0.2'
 
 group :assets do
   gem 'sass-rails', '3.1.4'
