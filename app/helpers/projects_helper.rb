@@ -9,7 +9,7 @@ module ProjectsHelper
 
   def get_project_state(project)
     if project.project_state
-      project.project_state.try(:name)
+      project.project_state.name
     else
       image_tag "none.png"
     end

@@ -1,7 +1,6 @@
 %h2.grid_12 Projects
 
-= form_for @search, :url => projects_path,
-  :html => {:method => :get, :class => 'grid_12 filter'} do |f|
+= form_for @search, :url => projects_path, :html => {:method => :get, :class => 'grid_12 filter'} do |f|
   .grid_2
     = f.check_box :inactive_is_false
     = f.label :inactive_is_false, 'active'
@@ -31,7 +30,7 @@
           %th= sort_link @search, :probability
           %th= sort_link @search, :start
           %th= sort_link @search, :end
-          %th= sort_link @search, :project_state_id
+          %th= sort_link @search, :project_state_name, 'Project state'
           %th= sort_link @search, :expected_profitability, "Exp. Profitability"
           // %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"}= sort_link @search, :overdue_amount,  'Overdue amount'
           %th{ :title => "accountings.sum(:amount) + (rpl)*wage - (entries.sum(:duration) / 60.0 * wage) " }= sort_link @search, :current_expected_return, "Return"
