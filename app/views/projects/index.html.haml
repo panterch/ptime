@@ -31,11 +31,11 @@
           %th= sort_link @search, :start
           %th= sort_link @search, :end
           %th= sort_link @search, :project_state_name, 'Project state'
-          %th= sort_link @search, :expected_profitability, "Exp. Profitability"
+          %th= msort_link :profitability, "Exp. Profitability"
           // %th{:title => "where('valuta <= ?', Time.now).where(:payed => false, :sent => true, :positive => true).sum :amount"}= sort_link @search, :overdue_amount,  'Overdue amount'
-          %th{ :title => "accountings.sum(:amount) + (rpl)*wage - (entries.sum(:duration) / 60.0 * wage) " }= sort_link @search, :current_expected_return, "Return"
-          %th= sort_link @search, :volume, 'Revenue'
-          %th PL
+          %th{ :title => "accountings.sum(:amount) + (rpl)*wage - (entries.sum(:duration) / 60.0 * wage) " }= msort_link :return, "Return"
+          %th= msort_link :volume, 'Revenue'
+          %th= msort_link :leader, 'PL'
           %th= sort_link @search, :inactive, 'Active'
           %th= sort_link @search, :external, 'External'
 
@@ -51,6 +51,6 @@
           // %td= number_to_currency(project.overdue_amount, :delimiter => '`', :unit => "")
           %td= number_to_currency(project.current_expected_return, :delimiter => '`', :unit => "")
           %td= number_to_currency(project.volume, :delimiter => '`', :unit => "")
-          %td= project.user_by_responsibility_type('project leader').try(:username)
+          %td= project.leader_name
           %td= bool_to_img(!project.inactive)
           %td= bool_to_img(project.external)

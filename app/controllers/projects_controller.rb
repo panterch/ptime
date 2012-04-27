@@ -5,6 +5,12 @@ class ProjectsController < ApplicationController
 
   authorize_resource
 
+  # White list of the method sorting.
+  MSORT_LIST = { :profitability => :current_expected_profitability,
+                 :return        => :current_expected_return,
+                 :volume        => :volume,
+                 :leader        => :leader_name }
+
   def index
     @search = Project.search(params[:search])
 
@@ -15,7 +21,7 @@ class ProjectsController < ApplicationController
       @search.meta_sort = 'shortname.asc'
     end
 
-    @projects = @search.all
+    @projects = msort @search.all
   end
 
   def create
@@ -121,5 +127,18 @@ class ProjectsController < ApplicationController
                #:pointInterval => 24 * 3600 * 1000,
                #:pointStart => @start_at.to_f * 1000)
     end
+  end
+
+  # Sorts the collection by a method name. Use it when you can't add appropriate name scope,
+  # otherwise use 'meta_search' gem.
+  def msort(collection)
+    return collection unless params[:msort]
+
+    name = params[:msort].keys.first
+    order = params[:msort].values.first
+    method = MSORT_LIST[name.to_sym]
+    sorted = collection.sort_by(&method)
+
+    order == 'desc' ? sorted.reverse : sorted
   end
 end

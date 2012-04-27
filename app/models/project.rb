@@ -219,6 +219,10 @@ class Project < ActiveRecord::Base
     resp.try(:user)
   end
 
+  def leader_name
+    user_by_responsibility_type('project leader').try(:username)
+  end
+
   private
 
   def past_work
@@ -291,7 +295,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-
   def cache_calculations
     self.cached_total_time = total_time
     self.cached_burned_time = burned_time
@@ -304,6 +307,5 @@ class Project < ActiveRecord::Base
     self.cached_expected_profitability = current_expected_profitability
     self.cached_expected_return = current_expected_return
   end
-
 
 end

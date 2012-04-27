@@ -68,4 +68,12 @@ module ApplicationHelper
       ''
     end
   end
+
+  # The link to sort by instance methods as 'meta_search' supports only scopes.
+  def msort_link(name, label)
+    order = params[:msort] && params[:msort][name]
+    next_order = [nil, 'desc'].include?(order) ? 'asc' : 'desc'
+    link_to "#{label} #{order_indicator_for(order)}".html_safe, params.merge(:msort => { name => next_order }), :class => "sort_link #{order}"
+  end
+
 end
