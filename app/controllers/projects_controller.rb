@@ -1,10 +1,7 @@
 class ProjectsController < ApplicationController
-  before_filter :prepare_project_states,
-    :only => [:new, :edit, :index, :update, :create]
-  before_filter :prepare_project_probabilities,
-    :only => [:new, :edit, :update, :create]
-  before_filter :load_chart_data,
-    :only => [:edit, :update]
+  before_filter :prepare_project_states,        :only => [:new, :edit, :index, :update, :create]
+  before_filter :prepare_project_probabilities, :only => [:new, :edit, :update, :create]
+  before_filter :load_chart_data,               :only => [:edit, :update]
 
   authorize_resource
 
@@ -12,9 +9,11 @@ class ProjectsController < ApplicationController
     @search = Project.search(params[:search])
 
     # Preset inactive and external by default
-    @search.inactive_is_false = true unless params[:search]
-    @search.external_is_true = true unless params[:search]
-    @search.meta_sort = 'shortname.asc' unless params[:search]
+    if params[:search].blank?
+      @search.inactive_is_false = true
+      @search.external_is_true = true
+      @search.meta_sort = 'shortname.asc'
+    end
 
     @projects = @search.all
   end
