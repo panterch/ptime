@@ -64,8 +64,9 @@ describe Entry do
     it 'generates comma separated values' do
       entry = Factory(:entry)
       csv = entry.to_csv
-      csv.count(',').should eq(6)
+      csv.count(',').should eq(7)
       csv.should include(entry.project.shortname)
+      csv.should include(entry.project.description)
       csv.should include(entry.user.username)
       csv.should include(entry.day.to_s)
       csv.should include((entry.duration/60.0).to_s)
@@ -77,7 +78,7 @@ describe Entry do
     it 'handles commas correctly' do
       entry = Factory(:entry, :description => 'a,b')
       csv = entry.to_csv
-      csv.count(',').should eq(7)
+      csv.count(',').should eq(8)
       csv.should include("\"#{entry.description}\"")
     end
   end
