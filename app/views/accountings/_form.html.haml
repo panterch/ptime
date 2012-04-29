@@ -1,9 +1,8 @@
-= semantic_form_for [@project, @accounting], :remote => true,
-  :html => { :class => 'grid_6' } do |form|
+= semantic_form_for [@project, @accounting], :remote => true, :html => { :class => 'grid_6' } do |form|
   %h3 Position for project #{@project.shortname}
   = form.inputs do
     = form.input :description
-    = form.input :amount
+    = form.input :amount, :input_html => { :size => 12, :maxlength => 12 }
     = form.input :valuta, :as => :date_picker
     = form.input :sent
     = form.input :payed
