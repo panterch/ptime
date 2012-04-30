@@ -57,12 +57,11 @@ class Entry < ActiveRecord::Base
   def to_csv
     result = ''
     CSV::Writer.generate(result, ',') do |csv|
-      csv << [self.project.shortname, self.user.username, self.day,
+      csv << [self.project.shortname, self.project.description, self.user.username, self.day,
         self.duration.to_f / 60, self.task.name, self.description, self.billable]
     end
     result
   end
-
 
   private
 
@@ -101,7 +100,7 @@ class Entry < ActiveRecord::Base
 
   # Generates CSV
   def self.csv(user_ids, search_params = nil)
-    csv = "Project, User name, Day, Duration (hours), Task name, Description, Billable\n"
+    csv = "Project, Description, User name, Day, Duration (hours), Task name, Description, Billable\n"
     Entry.where(:user_id => user_ids).search(search_params).all.each do |e|
       csv << e.to_csv
     end
