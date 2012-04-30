@@ -1,4 +1,6 @@
 .bundle
+bin
+vendor/bundle
 db/*.sqlite3
 db/*.sqlite3.db*
 log/*.log
