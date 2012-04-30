@@ -16,8 +16,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :milestones
   accepts_nested_attributes_for :responsibilities
 
-  validates_presence_of :shortname, :description, :start, :end,
-    :project_state, :wage
+  validates_presence_of :shortname, :description, :start, :end, :project_state, :wage
 
   validates_format_of :shortname, :with => /^\w{3}-\d{3}$/
 
@@ -48,8 +47,8 @@ class Project < ActiveRecord::Base
   scope :ordered, order('shortname')
 
   # Scopes needed for 'meta_search'
-#  scope :sort_by_overdue_amount_asc, all.sort_by { |p| p.overdue_amount }
-  #scope :sort_by_overdue_amount_desc
+  # scope :sort_by_overdue_amount_asc, all.sort_by { |p| p.overdue_amount }
+  # scope :sort_by_overdue_amount_desc
 
   def set_default_tasks
     APP_CONFIG['default_tasks'].each do |task_name|
@@ -220,6 +219,10 @@ class Project < ActiveRecord::Base
     resp.try(:user)
   end
 
+  def leader_name
+    user_by_responsibility_type('project leader').try(:username)
+  end
+
   private
 
   def past_work
@@ -292,7 +295,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-
   def cache_calculations
     self.cached_total_time = total_time
     self.cached_burned_time = burned_time
@@ -305,6 +307,5 @@ class Project < ActiveRecord::Base
     self.cached_expected_profitability = current_expected_profitability
     self.cached_expected_return = current_expected_return
   end
-
 
 end

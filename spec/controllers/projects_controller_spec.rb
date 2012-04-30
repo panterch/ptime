@@ -236,4 +236,5 @@ describe ProjectsController do
       response.should redirect_to(projects_path)
     end
   end
+
 end

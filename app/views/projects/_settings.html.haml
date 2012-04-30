@@ -53,12 +53,8 @@
       %fieldset
         %legend Current
         .grid_3.alpha.properties
-          = form.input :current_worktime,
-            :label => 'Total internal worktime (h)',
-            :input_html => { :size => 6 }
-          = form.input :current_worktime_ext,
-            :label => 'Total external worktime (h)',
-            :input_html => { :size => 6 }
+          = form.input :current_worktime, :label => 'Total internal worktime (h)', :input_html => { :size => 12, :maxlength => 12 }
+          = form.input :current_worktime_ext, :label => 'Total external worktime (h)', :input_html => { :size => 12, :maxlength => 12 }
         .grid_3.omega.properties
           %dl.property
             %dt.property Revenue
