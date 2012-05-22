@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
 
         @projects = @search.all
       end
-      format.json { render :json => load_and_weigh_projects }
+      format.json { render :json => load_and_weigh_projects.to_json }
     end
   end
 
@@ -131,26 +131,35 @@ class ProjectsController < ApplicationController
   end
 
 
-  # this is an api helper method
+  # this is an api helper method. it returns all active controllr projects with
+  # a weight and nested tasks as json
+  # the higher the weight, the more entries have been done in the last month
+  # example output:
+  #   [{"project_id":1,"weight":9,"tasks":
+  #                   [{"name":"task_1","id":1},
+  #                    {"name":"task_2","id":11},
+  #                    {"name":"task_3","id":21}]
+  #   }]
   def load_and_weigh_projects
     # get all projects and include nested entries and tasks
-    projects = Project.find(:all,
-                            :include => [:entries, :tasks],
-                            :conditions => { :inactive => false }).collect do |p|
+    Project.find(:all,
+      :include => [:entries, :tasks],
+      :conditions => {
+        :inactive => false,
+        :tasks => { :active => true } }).collect do |p|
       { :project_id => p.id,
         # calculate weight depending on how many entries have been done on the
         # project. has to be done as a 'collect', not a 'count', so no more db
         # queries are done
         :weight => p.entries.collect do |e|
-          e if e.user_id == current_user.id
+          e if (e.user_id == current_user.id) and \
+               (e.updated_at >= 1.month.ago)
         end.compact.count,
         # nest all tasks into the project
-        :tasks => p.tasks.active.collect do |t|
+        :tasks => p.tasks.collect do |t|
           { :id => t.id, :name => t.name }
         end
       }
     end
-
-    projects.to_json
   end
 end
