@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+
   before_filter :prepare_project_states,
     :only => [:new, :edit, :index, :update, :create]
   before_filter :prepare_project_probabilities,
@@ -9,14 +10,19 @@ class ProjectsController < ApplicationController
   authorize_resource
 
   def index
-    @search = Project.search(params[:search])
+    respond_to do |format|
+      format.html do
+        @search = Project.search(params[:search])
 
-    # Preset inactive and external by default
-    @search.inactive_is_false = true unless params[:search]
-    @search.external_is_true = true unless params[:search]
-    @search.meta_sort = 'shortname.asc' unless params[:search]
+        # Preset inactive and external by default
+        @search.inactive_is_false = true unless params[:search]
+        @search.external_is_true = true unless params[:search]
+        @search.meta_sort = 'shortname.asc' unless params[:search]
 
-    @projects = @search.all
+        @projects = @search.all
+      end
+      format.json { render :json => load_and_weigh_projects }
+    end
   end
 
   def create
@@ -122,5 +128,29 @@ class ProjectsController < ApplicationController
                #:pointInterval => 24 * 3600 * 1000,
                #:pointStart => @start_at.to_f * 1000)
     end
+  end
+
+
+  # this is an api helper method
+  def load_and_weigh_projects
+    # get all projects and include nested entries and tasks
+    projects = Project.find(:all,
+                            :include => [:entries, :tasks],
+                            :conditions => { :inactive => false }).collect do |p|
+      { :project_id => p.id,
+        # calculate weight depending on how many entries have been done on the
+        # project. has to be done as a 'collect', not a 'count', so no more db
+        # queries are done
+        :weight => p.entries.collect do |e|
+          e if e.user_id == current_user.id
+        end.compact.count,
+        # nest all tasks into the project
+        :tasks => p.tasks.active.collect do |t|
+          { :id => t.id, :name => t.name }
+        end
+      }
+    end
+
+    projects.to_json
   end
 end
