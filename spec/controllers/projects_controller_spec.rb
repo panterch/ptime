@@ -168,6 +168,25 @@ describe ProjectsController do
         assigns(:projects).should eq([@project])
       end
 
+      describe 'answers as api with json' do
+        it 'returns projects with weight' do
+          entry = Factory(:entry, :user => @user)
+          get :index, :format => :json
+          res = ActiveSupport::JSON.decode(response.body)
+          project_weight = res.collect do |p|
+            p['weight'] if p['project_id'] == entry.project_id
+          end.compact[0]
+          project_weight.should == 1
+        end
+
+        it 'returns projects with nested tasks' do
+          get :index, :format => :json
+          res = ActiveSupport::JSON.decode(response.body)
+          res[0]["tasks"].should_not be_empty
+        end
+
+      end
+
       describe 'sort projects table' do
         it 'sorts by id asc by default' do
           get :index
