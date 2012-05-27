@@ -60,6 +60,26 @@ class EntriesController < ApplicationController
   end
 
 
+  # returns entries as json of current_user between 'start' and 'end' days. if
+  # no constraints are given, all entries are returned.
+  def index
+    respond_to do |format|
+      format.json do
+        if params[:start] and params[:end]
+          start_date = Date.strptime params[:start], "%d-%m-%Y"
+          end_date   = Date.strptime params[:end], "%d-%m-%Y"
+          entries = current_user.entries.
+            where("day >= ?", start_date).
+            where("day <= ?", end_date)
+        else
+          entries = current_user.entries
+        end
+        render :json => entries.to_json
+      end
+    end
+  end
+
+
   protected
 
   def load_active_projects_and_tasks_by_project

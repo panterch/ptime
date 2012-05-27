@@ -66,6 +66,15 @@ describe EntriesController do
     end
   end
 
+  describe 'GET on index for API access' do
+    it 'returns all entries as json of a user when no parameters are given' do
+      2.times { Factory(:entry, :user => @user) }
+      get :index, :format => :json
+      res = ActiveSupport::JSON.decode(response.body)
+      res.count.should == 2
+    end
+  end
+
   context 'GET on new' do
     it 'assigns a new entry record' do
       get :new
