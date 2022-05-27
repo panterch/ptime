@@ -15,7 +15,7 @@ gem 'meta_search'
 gem 'mysql2'
 gem 'paperclip'
 gem 'paper_trail'
-gem 'rack', '1.3.2'
+gem 'rack', '1.3.10'
 gem 'rake', '0.9.2', :require => false
 gem 'simple-navigation'
 gem 'therubyracer', '0.9.4'
